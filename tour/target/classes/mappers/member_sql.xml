@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+<insert id="insert" parameterType="hashMap">
+ 	INSERT INTO member(id,passwd,name,regist_day)
+ 	values(#{id},#{passwd},#{name},now())
+</insert>
+
+<select id="select_detail" resultType="hashMap" parameterType="hashMap">
+	SELECT * FROM member WHERE id = #{id}
+</select>
+
+<select id="passDetail" resultType="hashMap" parameterType="hashMap">
+	SELECT * FROM member WHERE id = #{id} AND passwd = #{passwd}
+</select>
+<update id="saveUpdate" parameterType="hashMap">
+	UPDATE member
+	SET name=#{name},regist_day= now()
+	WHERE id=#{id}
+</update>
+<delete id="delete" parameterType="hashMap"  >
+	delete from member where trim(id = #{id})
+</delete>
+
+<select id="list" parameterType="hashMap" resultType="hashMap">
+	select * from member
+	<if test="search != null and search != '' ">
+		WHERE name LIKE CONCAT('%',#{search},'%') or id LIKE CONCAT('%',#{search},'%')
+	</if>
+</select>
+
+</mapper>
