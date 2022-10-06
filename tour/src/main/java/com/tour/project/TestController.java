@@ -20,8 +20,6 @@ public class TestController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		System.out.println("test");
-		System.out.println("teeeerrrr12345557441");
 		return "/front/about";
 	}
 }
