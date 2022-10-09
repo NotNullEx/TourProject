@@ -33,7 +33,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		System.out.println("test5");
-		System.out.println("teeeerrrr12345557441");
+		System.out.println("teeeerrrr1234542431");
 		return "/front/about";
 	}
 	@RequestMapping(value = {"/front/blog"})
