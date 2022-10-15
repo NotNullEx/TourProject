@@ -29,6 +29,7 @@
                             <li class="nav-item"><a class="nav-link" href="/front/contact">Contact</a></li>
                             <li class="nav-item"><a class="nav-link" href="/front/pricing">Pricing</a></li>
                             <li class="nav-item"><a class="nav-link" href="/front/faq">FAQ</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/front/test">TEST</a></li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
