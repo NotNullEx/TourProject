@@ -33,7 +33,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		System.out.println("test5");
-		System.out.println("teeeerrrr1234542431");
+		System.out.println("teeeerrrr12345557441");
 		return "/front/about";
 	}
 	@RequestMapping(value = {"/front/blog"})
@@ -60,5 +60,77 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		return "/front/blogpost";
+	}
+	@RequestMapping(value = {"/front/contact"})
+	public String contact(Locale locale, Model model) {
+		LOGGER.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		return "/front/contact";
+	}
+	@RequestMapping(value = {"/front/faq"})
+	public String faq(Locale locale, Model model) {
+		LOGGER.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		return "/front/faq";
+	}
+	@RequestMapping(value = {"/front/index"})
+	public String index(Locale locale, Model model) {
+		LOGGER.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		return "/front/index";
+	}
+	@RequestMapping(value = {"/front/portfolioitem"})
+	public String portfolioitem(Locale locale, Model model) {
+		LOGGER.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		return "/front/portfolioitem";
+	}
+	@RequestMapping(value = {"/front/portfolioOverview"})
+	public String portfolioOverview(Locale locale, Model model) {
+		LOGGER.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		return "/front/portfolioOverview";
+	}
+	@RequestMapping(value = {"/front/pricing"})
+	public String pricing(Locale locale, Model model) {
+		LOGGER.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		return "/front/pricing";
 	}
 }
