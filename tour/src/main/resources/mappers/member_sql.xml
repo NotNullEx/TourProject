@@ -2,9 +2,9 @@
 <!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 
-<insert id="insert" parameterType="hashMap">
- 	INSERT INTO member(id,passwd,name,regist_day)
- 	values(#{id},#{passwd},#{name},now())
+<insert id="create" parameterType="hashMap">
+ 	INSERT INTO member(member_email,member_password,member_name,member_regist_day)
+ 	values(#{email},#{password},#{name},now())
 </insert>
 
 <select id="select_detail" resultType="hashMap" parameterType="hashMap">
