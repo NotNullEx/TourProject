@@ -1,35 +1,34 @@
 package com.tour.project;
 
-import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tour.project.adminservice.CreateAdminService;
+import com.tour.project.adminservice.LoginService;
 
 @Controller
-public class CreateAdminAccount {
+public class AdminLoginController {
+
 	@Autowired
-	private CreateAdminService service;
+	private LoginService service;
 	
-	@RequestMapping(value = "/admin/createaccount", method = RequestMethod.GET)
+	@RequestMapping(value = {"/admin/login"})
 	public ModelAndView create() {
-		return new ModelAndView("admin/createaccount");
+		return new ModelAndView("admin/admin_login");
 	}
 	
-	@RequestMapping(value = "/admin/createaccount", method = RequestMethod.POST)
-	public ModelAndView create(@RequestParam Map<String,Object> map) {
+	@RequestMapping(value = {"/admin/loginOk"})
+	public ModelAndView create(@RequestParam Map<String,Object> map ) {
 		ModelAndView mav = new ModelAndView();
-		boolean isCreated =  service.create(map);
-		if(isCreated) {
+		int isCreated =  service.login(map);
+		if(isCreated == 1) {
 			System.out.println("success");
-			mav.setViewName("redirect:/");
+			mav.addObject("result",isCreated);
 		}
 		else {
 			System.out.println("faile");
