@@ -3,8 +3,8 @@
 <mapper namespace="tour">
 
 <insert id="create" parameterType="hashMap">
- 	INSERT INTO admin(admin_email,admin_password,admin_name,admin_phone_num,admin_regist_day,admin_seq)
- 	values(#{email},#{password},#{name},#{phone_num},now(),#{seq})
+ 	INSERT INTO admin(admin_email,admin_password,admin_name,admin_phone_num,admin_regist_day)
+ 	values(#{email},#{password},#{name},#{phone_num},now())
 </insert>
 <select id="adminLogin" parameterType="hashMap" resultType="int" >
 	SELECT COUNT(*)as count FROM admin WHERE admin_email = #{id} and admin_password = #{password}
