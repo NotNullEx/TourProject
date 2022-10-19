@@ -9,7 +9,7 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://localhost:3306/tour"/>
+		<property name="url" value="jdbc:mysql://192.168.20.31:3306/tour"/>
 		<property name="username" value="tour"/>
 		<property name="password" value="1q2w3e"/>
 	</bean>	
