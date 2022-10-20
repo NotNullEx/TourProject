@@ -7,5 +7,5 @@ import com.tour.project.adminvo.AdminVO;
 
 public interface CreateAdminService {
 	
-	public boolean create(Map<String, Object> map);
+	public int create(Map<String, Object> map);
 }
