@@ -3,8 +3,8 @@
 <mapper namespace="member">
 
 <insert id="create" parameterType="hashMap">
- 	INSERT INTO member(member_email,member_password,member_name,member_regist_day)
- 	values(#{email},#{password},#{name},now())
+ 	INSERT INTO member(mem_email,mem_password,mem_name,mem_phone_num,mem_regist_day,mem_upd_date)
+ 	values(#{email},#{password},#{name},#{phone_num},now(),now())
 </insert>
 
 <select id="select_detail" resultType="hashMap" parameterType="hashMap">
