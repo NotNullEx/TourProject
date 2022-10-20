@@ -11,6 +11,7 @@
 function check_account() {
 	var id = document.getElementById('id').value;
 	var pw = document.getElementById('password').value;
+	
 	if (id == "") {
 		alert("아이디를 입력해주세요.");
 		return false;

@@ -34,7 +34,7 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		System.out.println("test5");
 		System.out.println("teeeerrrr12345557441");
-		return "/front/about";
+		return "/admin/about";
 	}
 	@RequestMapping(value = {"/front/blog"})
 	public String blogHome(Locale locale, Model model) {
@@ -47,7 +47,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "/front/bloghome";
+		return "/admin/bloghome";
 	}
 	@RequestMapping(value = {"/front/blogPost"})
 	public String blogPost(Locale locale, Model model) {
@@ -59,7 +59,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		return "/front/blogpost";
+		return "/admin/blogpost";
 	}
 	@RequestMapping(value = {"/front/contact"})
 	public String contact(Locale locale, Model model) {
@@ -71,7 +71,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		return "/front/contact";
+		return "/admin/contact";
 	}
 	@RequestMapping(value = {"/front/faq"})
 	public String faq(Locale locale, Model model) {
@@ -83,7 +83,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		return "/front/faq";
+		return "/admin/faq";
 	}
 	@RequestMapping(value = {"/front/index"})
 	public String index(Locale locale, Model model) {
@@ -95,7 +95,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		return "/front/index";
+		return "/admin/index";
 	}
 	@RequestMapping(value = {"/front/portfolioitem"})
 	public String portfolioitem(Locale locale, Model model) {
@@ -107,7 +107,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		return "/front/portfolioitem";
+		return "/admin/portfolioitem";
 	}
 	@RequestMapping(value = {"/front/portfolioOverview"})
 	public String portfolioOverview(Locale locale, Model model) {
@@ -119,7 +119,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		return "/front/portfolioOverview";
+		return "/admin/portfolioOverview";
 	}
 	@RequestMapping(value = {"/front/pricing"})
 	public String pricing(Locale locale, Model model) {
@@ -131,6 +131,6 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		return "/front/pricing";
+		return "/admin/pricing";
 	}
 }
