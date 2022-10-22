@@ -1,36 +1,36 @@
-package com.tour.project.admin_controller;
+package com.tour.project.admincontroller;
 
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tour.project.adminservice.LoginService;
+import com.tour.project.adminservice.CreateAdminService;
 import com.tour.project.common.ResultSendToClient;
 
 @Controller
-public class AdminLoginController {
-
+public class CreateAdminAccount {
 	@Autowired
-	private LoginService service;
+	private CreateAdminService service;
 	
-	@RequestMapping(value = {"/admin/login"})
+	@RequestMapping(value = {"/admin/createaccount"})
 	public ModelAndView create() {
-		return new ModelAndView("admin/admin_login");
+		return new ModelAndView("admin/createaccount");
 	}
 	
-	@RequestMapping(value = {"/admin/loginOk"})
-	public void loginOk(@RequestParam Map<String,Object> map,HttpServletResponse response ) {
-		
-		int isCreated =  service.login(map);
-		if(isCreated == 1) {
+	@RequestMapping(value = {"/admin/createaccountOK"})
+	public void create(@RequestParam Map<String,Object> map, HttpServletResponse response) {
+		int isCreated =  service.create(map);
+		if(isCreated ==1) {
 			System.out.println("success");
-			
 			ResultSendToClient.onlyResultTo(response, isCreated);
 		}
 		else {

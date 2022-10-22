@@ -1,4 +1,4 @@
-package com.tour.project.admin_controller;
+package com.tour.project.admincontroller;
 
 
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.tour.project.admin_controller;
+package com.tour.project.admincontroller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,17 +17,17 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class TourApi {
 	
-	@RequestMapping(value = {"/front/test"})
+	@RequestMapping(value = {"/admin/test"})
 	public ModelAndView testView(Locale locale, Model model) {
 		
-		ModelAndView models = new ModelAndView("/front/test");
+		ModelAndView models = new ModelAndView("/admin/test");
 		try {
 			
 			String key = "4f645452506b6a6d38307a53726f48";
 			StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088"); /*URL*/
 			urlBuilder.append("/" +  URLEncoder.encode(key,"UTF-8") ); /*인증키 (sample사용시에는 호출시 제한됩니다.)*/
 			urlBuilder.append("/" +  URLEncoder.encode("json","UTF-8") ); /*요청파일타입 (xml,xmlf,xls,json) */
-			urlBuilder.append("/" + URLEncoder.encode("TbVwEntertainment","UTF-8")); /*서비스명 (대소문자 구분 필수입니다.)*/
+			urlBuilder.append("/" + URLEncoder.encode("SebcKoreanRestaurantsKor","UTF-8")); /*서비스명 (대소문자 구분 필수입니다.)*/
 			
 			// 즉, 페이지라고 생각하면됩니다 1부터 5까지 출력
 			urlBuilder.append("/" + URLEncoder.encode("1","UTF-8")); /*요청시작위치 (sample인증키 사용시 5이내 숫자)*/ 
