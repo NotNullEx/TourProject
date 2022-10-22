@@ -7,6 +7,11 @@
  	values(#{email},#{password},#{name},#{phone_num},now(),now())
 </insert>
 
+<select id="memberLogin" parameterType="hashMap" resultType="int" >
+	SELECT COUNT(*)as count FROM member WHERE mem_email = #{id} and mem_password = #{password}
+</select>
+
+
 <select id="select_detail" resultType="hashMap" parameterType="hashMap">
 	SELECT * FROM member WHERE id = #{id}
 </select>
