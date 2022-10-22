@@ -1,4 +1,4 @@
-package com.tour.project;
+package com.tour.project.admin_controller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class Test01 {
+public class TourApi {
 	
 	@RequestMapping(value = {"/front/test"})
 	public ModelAndView testView(Locale locale, Model model) {
