@@ -15,6 +15,7 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +24,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tour.project.restaurantdao.RestaurantInfoDao;
+import com.tour.project.restaurantservice.CreateRestaurantService;
+import com.tour.project.restaurantservice.RestaurantInfoService;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class AdminController {
-
+	@Autowired
+	private CreateRestaurantService service;
+	private RestaurantInfoService infoService;
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 
 	/**
@@ -95,7 +101,7 @@ public class AdminController {
 		return models;
 	}
 
-	@RequestMapping(value = { "/admin/blog" })
+	@RequestMapping(value = {"/admin/test"})
 	public ModelAndView blogHome(Locale locale, Model model) {
 		ModelAndView models = new ModelAndView("/admin/test");
 		try {
@@ -147,6 +153,7 @@ public class AdminController {
 				System.out.println(node.path("NM_DP"));
 				info = node.path("NM_DP").toString();
 				lists.add(info);
+				service.create(info);
 			}
 			rd.close();
 			conn.disconnect();
@@ -157,95 +164,58 @@ public class AdminController {
 
 		return models;
 	}
-
-	@RequestMapping(value = { "/front/blogPost" })
-	public String blogPost(Locale locale, Model model) {
-		LOGGER.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-		return "/admin/blogpost";
+	
+	@RequestMapping(value = {"/admin/blog"})
+	public ModelAndView blog(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("/admin/bloghome");
+		while () {
+			
+		}
+		
+		mav.addObject("data",)
+		return mav;
 	}
-
-	@RequestMapping(value = { "/front/contact" })
-	public String contact(Locale locale, Model model) {
-		LOGGER.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-		return "/admin/contact";
+	
+	@RequestMapping(value = {"/admin/blogPost"})
+	public ModelAndView blogPost(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("/admin/blogpost");
+		return mav;
 	}
-
-	@RequestMapping(value = { "/front/faq" })
-	public String faq(Locale locale, Model model) {
-		LOGGER.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-		return "/admin/faq";
+	
+	@RequestMapping(value = {"/admin/contact"})
+	public ModelAndView contact(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("/admin/contact");
+		return mav;
 	}
-
-	@RequestMapping(value = { "/front/index" })
-	public String index(Locale locale, Model model) {
-		LOGGER.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-		return "/admin/index";
+	
+	@RequestMapping(value = {"/admin/faq"})
+	public ModelAndView faq(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("/admin/faq");
+		return mav;
 	}
-
-	@RequestMapping(value = { "/front/portfolioitem" })
-	public String portfolioitem(Locale locale, Model model) {
-		LOGGER.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-		return "/admin/portfolioitem";
+	
+	@RequestMapping(value = {"/admin/index"})
+	public ModelAndView index(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("/admin/index");
+		return mav;
 	}
-
-	@RequestMapping(value = { "/front/portfolioOverview" })
-	public String portfolioOverview(Locale locale, Model model) {
-		LOGGER.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-		return "/admin/portfolioOverview";
+	
+	@RequestMapping(value = {"/admin/portfolioitem"})
+	public ModelAndView portfolioitem(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("/admin/portfolioitem");
+		return mav;
 	}
-
-	@RequestMapping(value = { "/front/pricing" })
-	public String pricing(Locale locale, Model model) {
-		LOGGER.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-		return "/admin/pricing";
+	
+	@RequestMapping(value = {"/admin/portfolioOverview"})
+	public ModelAndView portfolioOverview(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("/admin/portfolioOverview");
+		return mav;
 	}
+	
+	@RequestMapping(value = {"/admin/pricing"})
+	public ModelAndView pricing(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("/admin/pricing");
+		return mav;
+	}
+	
 }
