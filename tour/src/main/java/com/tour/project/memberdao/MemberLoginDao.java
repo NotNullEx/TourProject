@@ -14,7 +14,7 @@ public class MemberLoginDao {
 	@Autowired 
 	private SqlSessionTemplate sqltemplate;
 	public int memberLogin(Map<String, Object> map) throws SQLException {
-		int rtnVal = sqltemplate.selectOne("member.memberlogin", map);
+		int rtnVal = sqltemplate.selectOne("member.memberLogin", map);
     	return rtnVal;
 	}
 }

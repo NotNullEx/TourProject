@@ -23,7 +23,7 @@
 		}
 		$.ajax({
 			type : "POST",
-			url : "/front/index",
+			url : "/front/loginOk",
 			data : {
 				"id" : id,
 				"password" : pw

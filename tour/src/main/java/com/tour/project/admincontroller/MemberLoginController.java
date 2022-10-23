@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tour.project.adminservice.LoginService;
 import com.tour.project.common.ResultSendToClient;
 import com.tour.project.memberservice.MemberLoginService;
 
@@ -25,7 +24,7 @@ public class MemberLoginController {
 		return new ModelAndView("front/member_login");
 	}
 
-	@RequestMapping(value = { "/member/loginOk" })
+	@RequestMapping(value = { "/front/loginOk" })
 	public void loginOk(@RequestParam Map<String, Object> map, HttpServletResponse response) {
 
 		int isCreated = service.login(map);
