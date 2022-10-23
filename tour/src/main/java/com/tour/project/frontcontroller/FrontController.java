@@ -1,11 +1,10 @@
-package com.tour.project.admincontroller;
+package com.tour.project.frontcontroller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,37 +12,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.tour.project.restaurantdao.RestaurantInfoDao;
-//import com.tour.project.restaurantservice.CreateRestaurantService;
-//import com.tour.project.restaurantservice.RestaurantInfoService;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
-public class AdminController {
-//	@Autowired
-//	private CreateRestaurantService service;
-//	private RestaurantInfoService infoService;
-	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
-
+public class FrontController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = { "/admin/home" })
+	@RequestMapping(value = { "/" })
 	public ModelAndView publicApi() throws Exception {
-		ModelAndView models = new ModelAndView("/admin/home");
+		ModelAndView models = new ModelAndView("/front/home");
 		try {
 
 			String key = "4f645452506b6a6d38307a53726f48";
@@ -101,9 +85,9 @@ public class AdminController {
 		return models;
 	}
 
-	@RequestMapping(value = { "/admin/tests" })
+	@RequestMapping(value = { "/front/test" })
 	public ModelAndView blogHome(Locale locale, Model model) {
-		ModelAndView models = new ModelAndView("/admin/test");
+		ModelAndView models = new ModelAndView("/front/test");
 		try {
 
 			String key = "4f645452506b6a6d38307a53726f48";
@@ -153,7 +137,6 @@ public class AdminController {
 				System.out.println(node.path("NM_DP"));
 				info = node.path("NM_DP").toString();
 				lists.add(info);
-//				service.create(info);
 			}
 			rd.close();
 			conn.disconnect();
@@ -163,61 +146,6 @@ public class AdminController {
 		}
 
 		return models;
-	}
-
-	@RequestMapping(value = { "/admin/blog" })
-	public ModelAndView blog(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/bloghome");
-		/*
-		 * while () {
-		 * 
-		 * }
-		 * 
-		 * mav.addObject("data",) ;
-		 */
-		return mav;
-	}
-
-	@RequestMapping(value = { "/admin/blogPost" })
-	public ModelAndView blogPost(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/blogpost");
-		return mav;
-	}
-
-	@RequestMapping(value = { "/admin/contact" })
-	public ModelAndView contact(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/contact");
-		return mav;
-	}
-
-	@RequestMapping(value = { "/admin/faq" })
-	public ModelAndView faq(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/faq");
-		return mav;
-	}
-
-	@RequestMapping(value = { "/admin/index" })
-	public ModelAndView index(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/index");
-		return mav;
-	}
-
-	@RequestMapping(value = { "/admin/portfolioitem" })
-	public ModelAndView portfolioitem(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/portfolioitem");
-		return mav;
-	}
-
-	@RequestMapping(value = { "/admin/portfolioOverview" })
-	public ModelAndView portfolioOverview(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/portfolioOverview");
-		return mav;
-	}
-
-	@RequestMapping(value = { "/admin/pricing" })
-	public ModelAndView pricing(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/pricing");
-		return mav;
 	}
 
 }
