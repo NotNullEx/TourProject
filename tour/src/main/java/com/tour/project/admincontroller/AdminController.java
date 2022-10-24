@@ -24,24 +24,29 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.tour.project.restaurantdao.RestaurantInfoDao;
-//import com.tour.project.restaurantservice.CreateRestaurantService;
-//import com.tour.project.restaurantservice.RestaurantInfoService;
+import com.tour.project.restaurantdao.RestaurantInfoDao;
+import com.tour.project.restaurantservice.CreateRestaurantService;
+import com.tour.project.restaurantservice.RestaurantInfoService;
+import com.tour.project.restaurantvo.RestaurantVO;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class AdminController {
-//	@Autowired
-//	private CreateRestaurantService service;
-//	private RestaurantInfoService infoService;
+	
+	@Autowired
+	private CreateRestaurantService service;
+	
+	@Autowired
+	private RestaurantInfoService infoService;
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = { "/admin/home" })
+	@RequestMapping(value = { "/" })
 	public ModelAndView publicApi() throws Exception {
 		ModelAndView models = new ModelAndView("/admin/home");
 		try {
@@ -101,7 +106,7 @@ public class AdminController {
 		return models;
 	}
 
-	@RequestMapping(value = { "/admin/tests" })
+	@RequestMapping(value = {"/admin/test"})
 	public ModelAndView blogHome(Locale locale, Model model) {
 		ModelAndView models = new ModelAndView("/admin/test");
 		try {
@@ -153,7 +158,7 @@ public class AdminController {
 				System.out.println(node.path("NM_DP"));
 				info = node.path("NM_DP").toString();
 				lists.add(info);
-//				service.create(info);
+				service.create(info);
 			}
 			rd.close();
 			conn.disconnect();
@@ -164,60 +169,57 @@ public class AdminController {
 
 		return models;
 	}
-
-	@RequestMapping(value = { "/admin/blog" })
+	
+	@RequestMapping(value = {"/admin/blog"})
 	public ModelAndView blog(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/bloghome");
-		/*
-		 * while () {
-		 * 
-		 * }
-		 * 
-		 * mav.addObject("data",) ;
-		 */
+		ModelAndView mav = new ModelAndView("/admin/bloghome");	
+		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
+		int index = 1;
+		resVO = infoService.list(index);
+		mav.addObject("data",resVO);
 		return mav;
 	}
-
-	@RequestMapping(value = { "/admin/blogPost" })
+	
+	@RequestMapping(value = {"/admin/blogPost"})
 	public ModelAndView blogPost(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/blogpost");
 		return mav;
 	}
-
-	@RequestMapping(value = { "/admin/contact" })
+	
+	@RequestMapping(value = {"/admin/contact"})
 	public ModelAndView contact(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/contact");
 		return mav;
 	}
-
-	@RequestMapping(value = { "/admin/faq" })
+	
+	@RequestMapping(value = {"/admin/faq"})
 	public ModelAndView faq(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/faq");
 		return mav;
 	}
-
-	@RequestMapping(value = { "/admin/index" })
+	
+	@RequestMapping(value = {"/admin/index"})
 	public ModelAndView index(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/index");
 		return mav;
 	}
-
-	@RequestMapping(value = { "/admin/portfolioitem" })
+	
+	@RequestMapping(value = {"/admin/portfolioitem"})
 	public ModelAndView portfolioitem(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/portfolioitem");
 		return mav;
 	}
-
-	@RequestMapping(value = { "/admin/portfolioOverview" })
+	
+	@RequestMapping(value = {"/admin/portfolioOverview"})
 	public ModelAndView portfolioOverview(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/portfolioOverview");
 		return mav;
 	}
-
-	@RequestMapping(value = { "/admin/pricing" })
+	
+	@RequestMapping(value = {"/admin/pricing"})
 	public ModelAndView pricing(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/pricing");
 		return mav;
 	}
-
+	
 }

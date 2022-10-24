@@ -8,5 +8,7 @@
 			type="com.tour.project.membervo.MemberVO" />
 		<typeAlias alias="AdminVO"
 			type="com.tour.project.adminvo.AdminVO" />
+		<typeAlias alias="RestaurantVO"
+			type="com.tour.project.restaurantvo.RestaurantVO" />
 	</typeAliases>
 </configuration>

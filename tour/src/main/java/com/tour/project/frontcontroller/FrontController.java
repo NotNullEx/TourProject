@@ -25,8 +25,8 @@ public class FrontController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = { "/" })
-	public ModelAndView publicApi() throws Exception {
+	@RequestMapping(value = { "/front" })
+	public ModelAndView frontHome() throws Exception {
 		ModelAndView models = new ModelAndView("/front/home");
 		try {
 
