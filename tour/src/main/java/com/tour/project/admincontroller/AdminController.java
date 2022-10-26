@@ -56,7 +56,7 @@ public class AdminController {
 			StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088"); /* URL */
 			urlBuilder.append("/" + URLEncoder.encode(key, "UTF-8")); /* 인증키 (sample사용시에는 호출시 제한됩니다.) */
 			urlBuilder.append("/" + URLEncoder.encode("json", "UTF-8")); /* 요청파일타입 (xml,xmlf,xls,json) */
-			urlBuilder.append("/" + URLEncoder.encode("SebcTourStreetKor", "UTF-8")); /* 서비스명 (대소문자 구분 필수입니다.) */
+			urlBuilder.append("/" + URLEncoder.encode("TbVwAttractions", "UTF-8")); /* 서비스명 (대소문자 구분 필수입니다.) */
 
 			// 즉, 페이지라고 생각하면됩니다 1부터 5까지 출력
 			urlBuilder.append("/" + URLEncoder.encode("1", "UTF-8")); /* 요청시작위치 (sample인증키 사용시 5이내 숫자) */
@@ -88,7 +88,7 @@ public class AdminController {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode rootNode = mapper.readTree(rd);
 			System.out.println(rootNode.toString());
-			Iterator<JsonNode> it = rootNode.path("SebcTourStreetKor").path("row").elements();
+			Iterator<JsonNode> it = rootNode.path("TbVwAttractions").path("row").elements();
 			String info = null;
 			List<String> lists = new ArrayList<String>();
 			TourVO tourInfo = new TourVO();
@@ -97,15 +97,15 @@ public class AdminController {
 				System.out.println("test: " + node.path("NM_DP"));
 				info = node.path("NM_DP").toString();
 				lists.add(info);
-				tourInfo.setADD_KOR(node.path("NAME_KOR").toString());
-				tourInfo.setLAW_SGG(node.path("ADD_KOR").toString());
-				tourInfo.setNAME_KOR(node.path("LAW_SGG").toString());
-				tourInfo.setWGS84_X(node.path("WGS84_X").toString());
-				tourInfo.setWGS84_Y(node.path("WGS84_Y").toString());
+//				tourInfo.setADD_KOR(node.path("NAME_KOR").toString());
+//				tourInfo.setLAW_SGG(node.path("ADD_KOR").toString());
+//				tourInfo.setNAME_KOR(node.path("LAW_SGG").toString());
+//				tourInfo.setWGS84_X(node.path("WGS84_X").toString());
+//				tourInfo.setWGS84_Y(node.path("WGS84_Y").toString());
 				
-				LOGGER.info("input Messege:" + tourInfo.getNAME_KOR() + ","+ tourInfo.getADD_KOR() 
-				+ ","+ tourInfo.getLAW_SGG() + ","+ tourInfo.getWGS84_X()+ ","+
-				tourInfo.getWGS84_Y());
+//				LOGGER.info("input Messege:" + tourInfo.getNAME_KOR() + ","+ tourInfo.getADD_KOR() 
+//				+ ","+ tourInfo.getLAW_SGG() + ","+ tourInfo.getWGS84_X()+ ","+
+//				tourInfo.getWGS84_Y());
 				
 				
 			}
