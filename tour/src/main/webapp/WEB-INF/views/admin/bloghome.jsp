@@ -22,7 +22,7 @@
                                         <div class="badge bg-primary bg-gradient rounded-pill mb-2"><c:out value="${data.res_name}" /></div>
                                         <div class="h2 fw-bolder"><c:out value="${data.res_adress}" /></div>
                                         <p><c:out value="${data.res_desc}" /></p>
-                                            <i class="bi bi-arrow-right"></i>
+                                            <!-- <i class="bi bi-arrow-right"></i> -->
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-xl-7"><div class="bg-featured-blog" style="background-image: ${data.res_image}"></div></div>
