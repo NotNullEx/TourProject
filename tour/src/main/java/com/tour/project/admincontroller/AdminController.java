@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tour.project.adminvo.TourVO;
 import com.tour.project.restaurantdao.RestaurantInfoDao;
 import com.tour.project.restaurantservice.CreateRestaurantService;
 import com.tour.project.restaurantservice.RestaurantInfoService;
@@ -90,12 +91,25 @@ public class AdminController {
 			Iterator<JsonNode> it = rootNode.path("SebcTourStreetKor").path("row").elements();
 			String info = null;
 			List<String> lists = new ArrayList<String>();
+			TourVO tourInfo = new TourVO();
 			while (it.hasNext()) {
 				JsonNode node = it.next();
 				System.out.println("test: " + node.path("NM_DP"));
 				info = node.path("NM_DP").toString();
 				lists.add(info);
+				tourInfo.setADD_KOR(node.path("NAME_KOR").toString());
+				tourInfo.setLAW_SGG(node.path("ADD_KOR").toString());
+				tourInfo.setNAME_KOR(node.path("LAW_SGG").toString());
+				tourInfo.setWGS84_X(node.path("WGS84_X").toString());
+				tourInfo.setWGS84_Y(node.path("WGS84_Y").toString());
+				
+				LOGGER.info("input Messege:" + tourInfo.getNAME_KOR() + ","+ tourInfo.getADD_KOR() 
+				+ ","+ tourInfo.getLAW_SGG() + ","+ tourInfo.getWGS84_X()+ ","+
+				tourInfo.getWGS84_Y());
+				
+				
 			}
+			
 
 			rd.close();
 			conn.disconnect();
@@ -168,6 +182,12 @@ public class AdminController {
 		}
 
 		return models;
+	}
+	
+	@RequestMapping(value = {"/admin/about"})
+	public ModelAndView about(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("/admin/about");
+		return mav;
 	}
 	
 	@RequestMapping(value = {"/admin/blog"})
