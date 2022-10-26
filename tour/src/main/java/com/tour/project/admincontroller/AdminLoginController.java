@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tour.project.adminservice.LoginService;
-import com.tour.project.commons.ResultSendToClient;
+import com.tour.project.common.ResultSendToClient;
 
 @Controller
 public class AdminLoginController {

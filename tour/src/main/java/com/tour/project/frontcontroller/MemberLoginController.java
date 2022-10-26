@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tour.project.commons.ResultSendToClient;
+import com.tour.project.common.ResultSendToClient;
 import com.tour.project.memberservice.MemberLoginService;
 
 @Controller
