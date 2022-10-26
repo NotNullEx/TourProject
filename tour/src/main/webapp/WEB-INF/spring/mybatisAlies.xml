@@ -10,5 +10,7 @@
 			type="com.tour.project.adminvo.AdminVO" />
 		<typeAlias alias="RestaurantVO"
 			type="com.tour.project.restaurantvo.RestaurantVO" />
+		<typeAlias alias="TourVO"
+			type="com.tour.project.adminvo.TourVO" />
 	</typeAliases>
 </configuration>
