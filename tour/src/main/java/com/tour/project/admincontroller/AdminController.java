@@ -94,9 +94,28 @@ public class AdminController {
 			TourVO tourInfo = new TourVO();
 			while (it.hasNext()) {
 				JsonNode node = it.next();
-				System.out.println("test: " + node.path("NM_DP"));
-				info = node.path("NM_DP").toString();
-				lists.add(info);
+				String lan = node.path("LANG_CODE_ID").toString();
+				if(lan.equals("ko")) {
+					System.out.println("test: " + node.path("POST_SJ"));
+					info = node.path("POST_SJ").toString();
+					lists.add(info);
+					
+//					tourInfo.setCMMN_FAX(node.path("CMMN_FAX").toString());
+//					tourInfo.setADDRESS(node.path("ADDRESS").toString());
+//					tourInfo.setNEW_ADDRESS(node.path("NEW_ADDRESS").toString());
+//					tourInfo.setSUBWAY_INFO(node.path("SUBWAY_INFO").toString());
+//					tourInfo.setCMMN_HMPG_URL(node.path("MMN_HMPG_URL").toString());
+//					tourInfo.setCMMN_TELNO(node.path("MMN_TELNO").toString());
+//					tourInfo.setCMMN_BSNDE(node.path("MMN_BSNDE").toString());
+//					tourInfo.setBF_DESC(node.path("BF_DESC").toString());
+//					tourInfo.setCMMN_RSTDE(node.path("CMMN_RSTDE").toString());
+//					tourInfo.setCMMN_USE_TIME(node.path("CMMN_USE_TIME").toString());
+//					tourInfo.setPOST_SJ(node.path("POST_SJ").toString());
+					
+				}
+				for(int i =0; i<lists.size(); i++) {
+					
+				}
 //				tourInfo.setADD_KOR(node.path("NAME_KOR").toString());
 //				tourInfo.setLAW_SGG(node.path("ADD_KOR").toString());
 //				tourInfo.setNAME_KOR(node.path("LAW_SGG").toString());
