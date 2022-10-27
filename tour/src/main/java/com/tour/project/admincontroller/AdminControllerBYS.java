@@ -99,6 +99,7 @@ public class AdminControllerBYS {
 				JsonNode node = it.next();
 				System.out.println(node.path("NM_DP"));
 				info = node.path("NM_DP").toString();
+//				info = info.replaceAll("\\\"", "");
 				lists.add(info);
 				service.create(info);
 			}
@@ -117,8 +118,7 @@ public class AdminControllerBYS {
 	public ModelAndView blog(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/bloghome");	
 		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
-		int index = 1;
-		resVO = infoService.list(index);
+		resVO = infoService.list();
 		mav.addObject("data",resVO);
 		return mav;
 	}

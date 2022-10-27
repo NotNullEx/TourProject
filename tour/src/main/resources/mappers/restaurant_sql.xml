@@ -9,7 +9,7 @@
 <select id="list" parameterType="int" resultType="RestaurantVO" >
 	SELECT res_name,res_adress,res_desc,res_image
 	FROM restaurant
-	WHERE res_code = ${index}
 </select>
+
 
 </mapper>

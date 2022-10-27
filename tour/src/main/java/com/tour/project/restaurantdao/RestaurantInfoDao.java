@@ -14,9 +14,9 @@ public class RestaurantInfoDao {
 	@Autowired 
 	private SqlSessionTemplate sqltemplate;
 	
-	public List<RestaurantVO> list(int index) {
+	public List<RestaurantVO> list() {
 		List<RestaurantVO> result = new ArrayList<RestaurantVO>();
-		result = sqltemplate.selectList("restaurant.list", index);
+		result = sqltemplate.selectList("restaurant.list");
 		return result;
 	}
 }

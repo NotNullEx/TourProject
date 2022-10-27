@@ -6,6 +6,7 @@ import lombok.ToString;
 @Data
 @ToString
 public class RestaurantVO {
+	// 
 	private int res_code;
 	private int tour_seq;
 	private int tour_post_sn;

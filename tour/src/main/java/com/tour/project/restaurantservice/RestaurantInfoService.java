@@ -5,5 +5,5 @@ import java.util.List;
 import com.tour.project.restaurantvo.RestaurantVO;
 
 public interface RestaurantInfoService {
-	public List<RestaurantVO> list(int index);
+	public List<RestaurantVO> list();
 }

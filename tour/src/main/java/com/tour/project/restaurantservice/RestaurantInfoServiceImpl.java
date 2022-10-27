@@ -19,8 +19,8 @@ public class RestaurantInfoServiceImpl implements RestaurantInfoService{
 	private RestaurantInfoDao infoDao;
 
 	@Override
-	public List<RestaurantVO> list(int index) {
-		List<RestaurantVO> result = infoDao.list(index);
+	public List<RestaurantVO> list() {
+		List<RestaurantVO> result = infoDao.list();
 		return result;
 	}
 	
