@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <jsp:include page="../admincommon/admin_header_common.jsp"/>
+        <jsp:include page="../frontcommon/front_header_common.jsp"/>
     </head>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
-           <jsp:include page="../admincommon/admin_header.jsp"/>
+           <jsp:include page="../frontcommon/front_header.jsp"/>
             <!-- Header-->
             <header class="bg-dark py-5">
                 <div class="container px-5">
@@ -144,7 +144,7 @@
             </section>
             
         </main>
-        <jsp:include page="../admincommon/admin_footer.jsp"/>
-		<jsp:include page="../admincommon/admin_footer_common.jsp"/>
+        <jsp:include page="../frontcommon/front_footer.jsp"/>
+		<jsp:include page="../frontcommon/front_footer_common.jsp"/>
     </body>
 </html>
