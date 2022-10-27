@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,15 +12,16 @@
             <!-- Page Content-->
             <section class="py-5">
                 <div class="container px-5">
-                    <h1 class="fw-bolder fs-5 mb-4">Company Blog</h1>
+                    <h1 class="fw-bolder fs-5 mb-4">음식점</h1>
                     <div class="card border-0 shadow rounded-3 overflow-hidden">
                         <div class="card-body p-0">
                             <div class="row gx-0">
                                 <div class="col-lg-6 col-xl-5 py-lg-5">
                                     <div class="p-4 p-md-5">
-                                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                                        <div class="h2 fw-bolder">Article heading goes here</div>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique delectus ab doloremque, qui doloribus ea officiis...</p>
+                                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">#음식</div>
+                                        <div class="h2 fw-bolder">당신의 성향, 취향 분석 완료! 마음에 쏙 들 음식점을 추천해 드릴게요!</div>
+                                        <!-- <p></p> -->
+                                        <%-- <c:out value="${data[0].res_name}" /> --%>
                                         <a class="stretched-link text-decoration-none" href="#!">
                                             Read more
                                             <i class="bi bi-arrow-right"></i>
@@ -32,22 +34,22 @@
                     </div>
                 </div>
             </section>
-            <section class="py-5 bg-light">
+<!--             <section class="py-5 bg-light">
                 <div class="container px-5">
                     <div class="row gx-5">
                         <div class="col-xl-8">
                             <h2 class="fw-bolder fs-5 mb-4">News</h2>
-                            <!-- News item-->
+                            News item
                             <div class="mb-4">
                                 <div class="small text-muted">May 12, 2022</div>
                                 <a class="link-dark" href="#!"><h3>Start Bootstrap releases Bootstrap 5 updates for templates and themes</h3></a>
                             </div>
-                            <!-- News item-->
+                            News item
                             <div class="mb-5">
                                 <div class="small text-muted">May 5, 2022</div>
                                 <a class="link-dark" href="#!"><h3>Bootstrap 5 has officially landed</h3></a>
                             </div>
-                            <!-- News item-->
+                            News item
                             <div class="mb-5">
                                 <div class="small text-muted">Apr 21, 2022</div>
                                 <a class="link-dark" href="#!"><h3>This is another news article headline, but this one is a little bit longer</h3></a>
@@ -82,8 +84,10 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> -->
             <!-- Blog preview section-->
+            
+            
             <section class="py-5">
                 <div class="container px-5">
                     <h2 class="fw-bolder fs-5 mb-4">Featured Stories</h2>
@@ -92,9 +96,9 @@
                             <div class="card h-100 shadow border-0">
                                 <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
                                 <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">관악구</div>
                                     <a class="text-decoration-none link-dark stretched-link" href="#!"><div class="h5 card-title mb-3">Blog post title</div></a>
-                                    <p class="card-text mb-0">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <p class="card-text mb-0"><c:out value="${data[0].res_name}" /></p>
                                 </div>
                                 <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                     <div class="d-flex align-items-end justify-content-between">

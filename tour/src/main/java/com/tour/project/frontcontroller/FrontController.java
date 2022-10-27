@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tour.project.restaurantservice.RestaurantInfoService;
+import com.tour.project.restaurantvo.RestaurantVO;
 
 @Controller
 public class FrontController {
+	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -75,9 +80,9 @@ public class FrontController {
 				info = node.path("NM_DP").toString();
 				lists.add(info);
 			}
-
+			/* info.replaceAll("\\\"", "") */ //쌍따옴표 제거 
 			rd.close();
-			conn.disconnect();
+			conn.disconnect();	
 			models.addObject("sb", lists);
 		} catch (Exception e) {
 			e.getStackTrace();
@@ -147,5 +152,10 @@ public class FrontController {
 
 		return models;
 	}
+	
+	
+
+	
+	
 
 }
