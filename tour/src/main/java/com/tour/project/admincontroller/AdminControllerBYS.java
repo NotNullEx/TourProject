@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +21,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tour.project.adminvo.TourVO;
+import com.tour.project.eventservice.CreateEventService;
 import com.tour.project.restaurantdao.RestaurantInfoDao;
 import com.tour.project.restaurantservice.CreateRestaurantService;
 import com.tour.project.restaurantservice.RestaurantInfoService;
@@ -41,6 +44,9 @@ public class AdminControllerBYS {
 	
 	@Autowired
 	private RestaurantInfoService infoService;
+	
+	@Autowired
+	private CreateEventService CES;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminControllerBYS.class);
 
@@ -120,6 +126,20 @@ public class AdminControllerBYS {
 		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
 		resVO = infoService.list();
 		mav.addObject("data",resVO);
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/admin/contact"})
+	public ModelAndView contact(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("/admin/contact");
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/admin/contact"}, method = RequestMethod.POST)
+	public ModelAndView contact(@RequestParam("map") Map<String,Object> map) {
+		ModelAndView mav = new ModelAndView("/admin/contact");
+		CES.create(map);
+		mav.addObject("map",map);
 		return mav;
 	}
 		

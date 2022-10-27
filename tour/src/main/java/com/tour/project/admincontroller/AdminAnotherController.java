@@ -24,12 +24,6 @@ public class AdminAnotherController {
 		return mav;
 	}
 	
-	@RequestMapping(value = {"/admin/contact"})
-	public ModelAndView contact(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/contact");
-		return mav;
-	}
-	
 	@RequestMapping(value = {"/admin/faq"})
 	public ModelAndView faq(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/faq");

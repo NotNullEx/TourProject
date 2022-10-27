@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="event">
+
+	<insert id="create" parameterType="hashMap">
+ 		INSERT INTO event(even_code,tour_seq,tour_post_sn,mem_seq,even_name,even_start_date,even_end_date,even_adress,even_status,even_desc)
+ 		values(${code},1,1,1,${title},now(),now(),${adress},1,${desc})
+	</insert>
+	
+</mapper>
