@@ -6,14 +6,14 @@ import lombok.ToString;
 @Data
 @ToString
 public class EventVO {
-	public String even_code;
-	public int tour_seq;
-	public int tour_post_sn;
-	public int mem_seq;
-	public String even_name;
-	public String even_start_date;
-	public String even_end_date;
-	public String even_adress;
-	public int even_status;
-	public String even_desc;
+	private String even_code;
+	private int tour_seq;
+	private int tour_post_sn;
+	private int mem_seq;
+	private String even_name;
+	private String even_start_date;
+	private String even_end_date;
+	private String even_adress;
+	private int even_status;
+	private String even_desc;
 }

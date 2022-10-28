@@ -13,9 +13,8 @@ public class CreateEventServiceImpl implements CreateEventService {
 	private CreateEventDao createDao;
 	
 	@Override
-	public int create(Map<String, Object> map) {
-		int result = createDao.create(map);		
-		return result;
+	public int create(Map<String, Object> map) {	
+		return createDao.create(map);
 	}
 	
 }

@@ -12,8 +12,7 @@ public class CreateEventDao {
 	private SqlSessionTemplate sqltemplate;
 	
 	public int create(Map<String, Object> map) {
-		int result = 0;
-		result = sqltemplate.insert("event.create", map);
-		return result;
+		return sqltemplate.insert("event.create", map);
+		
 	}
 }

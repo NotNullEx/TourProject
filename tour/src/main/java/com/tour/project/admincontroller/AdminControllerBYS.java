@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -130,16 +131,16 @@ public class AdminControllerBYS {
 	}
 	
 	@RequestMapping(value = {"/admin/contact"})
-	public ModelAndView contact(Locale locale, Model model) {
+	public ModelAndView contact() {
 		ModelAndView mav = new ModelAndView("/admin/contact");
 		return mav;
 	}
 	
 	@RequestMapping(value = {"/admin/contact"}, method = RequestMethod.POST)
-	public ModelAndView contact(@RequestParam("map") Map<String,Object> map) {
-		ModelAndView mav = new ModelAndView("/admin/contact");
+	public ModelAndView contact(@RequestParam Map<String, Object> map) {
+		ModelAndView mav = new ModelAndView("/admin/home");
 		CES.create(map);
-		mav.addObject("map",map);
+		mav.addAllObjects(map);
 		return mav;
 	}
 		
