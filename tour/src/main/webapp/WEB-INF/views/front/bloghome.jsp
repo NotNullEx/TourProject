@@ -12,7 +12,7 @@
             <!-- Page Content-->
             <section class="py-5">
                 <div class="container px-5">
-                    <h1 class="fw-bolder fs-5 mb-4">음식점</h1>
+                    <h1 class="fw-bolder fs-5 mb-4">Company Blog</h1>
                     <div class="card border-0 shadow rounded-3 overflow-hidden">
                         <div class="card-body p-0">
                             <div class="row gx-0">
@@ -28,7 +28,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-xl-7"><div class="bg-featured-blog" style="background-image: url('https://dummyimage.com/700x350/343a40/6c757d')"></div></div>
+                                <div class="col-lg-6 col-xl-7"><div class="bg-featured-blog" style="background-image: url('https://previews.123rf.com/images/macrovector/macrovector1604/macrovector160402844/54906048-%EB%8B%A4%EC%96%91%ED%95%9C-%EC%9D%8C%EC%8B%9D-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8%EC%99%80-%ED%95%A8%EA%BB%98-%EB%8B%A4%EC%96%91%ED%95%9C-%ED%81%AC%EA%B8%B0%EC%9D%98-%EC%83%81%EB%8B%A8-%EB%B3%BC-%ED%94%8C%EB%A0%88%EC%9D%B4%ED%8A%B8-%EC%84%B8%ED%8A%B8.jpg')"></div></div>
                             </div>
                         </div>
                     </div>
@@ -94,62 +94,43 @@
                     <div class="row gx-5">
                         <div class="col-lg-4 mb-5">
                             <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
+                                <img class="card-img-top" src="https://ukcooyocdlvo8099722.cdn.ntruss.com/public_data/menu_images/1813278_1638844743_menu.png" alt="..." />
                                 <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">관악구</div>
-                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><div class="h5 card-title mb-3">Blog post title</div></a>
-                                    <p class="card-text mb-0"><c:out value="${data[0].res_name}" /></p>
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2"><c:out value="${data[0].res_name}" /></div>
+                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><div class="h5 card-title mb-3">서울특별시 관악구 신림동</div></a>
+                                    <p class="card-text mb-0"></p>
                                 </div>
                                 <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                     <div class="d-flex align-items-end justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-                                            <div class="small">
-                                                <div class="fw-bold">Kelly Rowan</div>
-                                                <div class="text-muted">March 12, 2022 &middot; 6 min read</div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 mb-5">
                             <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />
+                                <img class="card-img-top" src="https://ukcooyocdlvo8099722.cdn.ntruss.com/public_data/menu_images/1417244_1638844842_menu.png" width:"100%"; alt="..." />
                                 <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">Media</div>
-                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><div class="h5 card-title mb-3">Another blog post title</div></a>
-                                    <p class="card-text mb-0">This text is a bit longer to illustrate the adaptive height of each card. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2"><c:out value="${data[1].res_name}" /></div>
+                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><div class="h5 card-title mb-3">서울특별시 서대문구 신촌동</div></a>
+                                    <p class="card-text mb-0"></p>
                                 </div>
                                 <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                     <div class="d-flex align-items-end justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-                                            <div class="small">
-                                                <div class="fw-bold">Josiah Barclay</div>
-                                                <div class="text-muted">March 23, 2022 &middot; 4 min read</div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 mb-5">
                             <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="https://dummyimage.com/600x350/6c757d/343a40" alt="..." />
+                                <img class="card-img-top" src="https://ukcooyocdlvo8099722.cdn.ntruss.com/public_data/menu_images/2291640_1638845477_menu.jpg" alt="..." />
                                 <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2"><c:out value="${data[2].res_name}" /></div>
                                     <a class="text-decoration-none link-dark stretched-link" href="#!"><div class="h5 card-title mb-3">The last blog post title is a little bit longer than the others</div></a>
                                     <p class="card-text mb-0">Some more quick example text to build on the card title and make up the bulk of the card's content.</p>
                                 </div>
                                 <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                     <div class="d-flex align-items-end justify-content-between">
                                         <div class="d-flex align-items-center">
-                                            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-                                            <div class="small">
-                                                <div class="fw-bold">Evelyn Martinez</div>
-                                                <div class="text-muted">April 2, 2022 &middot; 10 min read</div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
