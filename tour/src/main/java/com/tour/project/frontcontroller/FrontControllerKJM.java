@@ -11,15 +11,21 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tour.project.admin_eventservice.CreateEventService;
+import com.tour.project.admin_eventservice.EventListService;
+import com.tour.project.admin_eventvo.EventVO;
 import com.tour.project.restaurantservice.RestaurantInfoService;
 import com.tour.project.restaurantvo.RestaurantVO;
 
@@ -28,6 +34,12 @@ public class FrontControllerKJM {
 	
 	@Autowired
 	private RestaurantInfoService infoService;
+	
+	@Autowired
+	private EventListService ELS;
+	
+	@Autowired
+	private CreateEventService CES;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -171,12 +183,23 @@ public class FrontControllerKJM {
 	@RequestMapping(value = {"/front/blogPost"})
 	public ModelAndView blogPost(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/front/blogpost");
+		List<EventVO> list = new ArrayList<EventVO>();
+		list = ELS.list();
+		mav.addObject("list", list);
 		return mav;
 	}
 	
 	@RequestMapping(value = {"/front/contact"})
-	public ModelAndView contact(Locale locale, Model model) {
+	public ModelAndView contact() {
 		ModelAndView mav = new ModelAndView("/front/contact");
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/front/contact"}, method = RequestMethod.POST)
+	public ModelAndView contact(@RequestParam Map<String, Object> map) {
+		ModelAndView mav = new ModelAndView("/front/home");
+		CES.create(map);
+		mav.addAllObjects(map);
 		return mav;
 	}
 	

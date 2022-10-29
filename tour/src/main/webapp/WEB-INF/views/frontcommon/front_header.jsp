@@ -33,6 +33,7 @@
                                     <li><a class="dropdown-item" href="/front/portfolioitem">Portfolio Item</a></li>
                                 </ul>
                             </li>
+                            <li class="nav-item"><button onclick="location='/front/login'" type="button" id="reg" name="regi" class="btn btn-secondary">로그인</button></li>
                         </ul>
                     </div>
                 </div>

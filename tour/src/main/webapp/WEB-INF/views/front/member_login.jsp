@@ -68,6 +68,8 @@
 						</div>
 						<button type="button" id="signIn"
 							class="w-100 btn btn-primary mb-2" onclick="check_account()">로그인</button>
+						<button type="button" id="signIn"
+							class="w-100 btn btn-primary mb-2" onclick="check_account()">회원가입</button>
 					</form>
 				</div>
 			</div>
