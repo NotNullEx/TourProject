@@ -29,5 +29,7 @@ public class TourVO {
 	private String CMMN_USE_TIME;
 	// 상호명
 	private String POST_SJ;
+	// 고유 번호
+	private String POST_SN;
 
 }

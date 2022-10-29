@@ -1,3 +1,5 @@
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
  <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container px-5">
@@ -25,6 +27,7 @@
                                     <li><a class="dropdown-item" href="/admin/portfolioitem">Portfolio Item</a></li>
                                 </ul>
                             </li>
+                            <li class="nav-item"><button type="button" id="reg" name="regi" class="btn btn-secondary" onclick="data_insert()">데이터 등록</button></li>
                         </ul>
                     </div>
                 </div>

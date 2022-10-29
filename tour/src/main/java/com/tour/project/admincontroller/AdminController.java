@@ -5,30 +5,23 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tour.project.adminservice.InsertAdminTourDataService;
 import com.tour.project.adminvo.TourVO;
-import com.tour.project.restaurantdao.RestaurantInfoDao;
-import com.tour.project.restaurantservice.CreateRestaurantService;
-import com.tour.project.restaurantservice.RestaurantInfoService;
-import com.tour.project.restaurantvo.RestaurantVO;
 
 /**
  * Handles requests for the application home page.
@@ -37,12 +30,11 @@ import com.tour.project.restaurantvo.RestaurantVO;
 public class AdminController {
 	
 	@Autowired
-	private CreateRestaurantService service;
+	private InsertAdminTourDataService service;
 	
-	@Autowired
-	private RestaurantInfoService infoService;
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
+	
+	private static final Logger log = LoggerFactory.getLogger(AdminController.class);
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -60,7 +52,7 @@ public class AdminController {
 
 			// 즉, 페이지라고 생각하면됩니다 1부터 5까지 출력
 			urlBuilder.append("/" + URLEncoder.encode("1", "UTF-8")); /* 요청시작위치 (sample인증키 사용시 5이내 숫자) */
-			urlBuilder.append("/" + URLEncoder.encode("5", "UTF-8")); /* 요청종료위치(sample인증키 사용시 5이상 숫자 선택 안 됨) */
+			urlBuilder.append("/" + URLEncoder.encode("1000", "UTF-8")); /* 요청종료위치(sample인증키 사용시 5이상 숫자 선택 안 됨) */
 
 //				urlBuilder.append("/" + URLEncoder.encode("NM_DP","UTF-8"));
 			// 상위 5개는 필수적으로 순서바꾸지 않고 호출해야 합니다.
@@ -89,47 +81,38 @@ public class AdminController {
 			JsonNode rootNode = mapper.readTree(rd);
 			System.out.println(rootNode.toString());
 			Iterator<JsonNode> it = rootNode.path("TbVwAttractions").path("row").elements();
-			String info = null;
-			List<String> lists = new ArrayList<String>();
+			int result = 0;
+			List<TourVO> lists = new ArrayList<TourVO>();
 			TourVO tourInfo = new TourVO();
 			while (it.hasNext()) {
 				JsonNode node = it.next();
 				String lan = node.path("LANG_CODE_ID").toString();
+				lan = lan.replaceAll("\\\"","");
+				System.out.println(lan);
 				if(lan.equals("ko")) {
 					System.out.println("test: " + node.path("POST_SJ"));
-					info = node.path("POST_SJ").toString();
-					lists.add(info);
 					
-//					tourInfo.setCMMN_FAX(node.path("CMMN_FAX").toString());
-//					tourInfo.setADDRESS(node.path("ADDRESS").toString());
-//					tourInfo.setNEW_ADDRESS(node.path("NEW_ADDRESS").toString());
-//					tourInfo.setSUBWAY_INFO(node.path("SUBWAY_INFO").toString());
-//					tourInfo.setCMMN_HMPG_URL(node.path("MMN_HMPG_URL").toString());
-//					tourInfo.setCMMN_TELNO(node.path("MMN_TELNO").toString());
-//					tourInfo.setCMMN_BSNDE(node.path("MMN_BSNDE").toString());
-//					tourInfo.setBF_DESC(node.path("BF_DESC").toString());
-//					tourInfo.setCMMN_RSTDE(node.path("CMMN_RSTDE").toString());
-//					tourInfo.setCMMN_USE_TIME(node.path("CMMN_USE_TIME").toString());
-//					tourInfo.setPOST_SJ(node.path("POST_SJ").toString());
-					
+					tourInfo.setPOST_SJ(node.path("POST_SJ").toString().replaceAll("\\\"",""));
+					tourInfo.setCMMN_FAX(node.path("CMMN_FAX").toString().replaceAll("\\\"",""));
+					tourInfo.setADDRESS(node.path("ADDRESS").toString().replaceAll("\\\"",""));
+					tourInfo.setNEW_ADDRESS(node.path("NEW_ADDRESS").toString().replaceAll("\\\"",""));
+					tourInfo.setSUBWAY_INFO(node.path("SUBWAY_INFO").toString().replaceAll("\\\"",""));
+					tourInfo.setCMMN_HMPG_URL(node.path("MMN_HMPG_URL").toString().replaceAll("\\\"",""));
+					tourInfo.setCMMN_TELNO(node.path("MMN_TELNO").toString().replaceAll("\\\"",""));
+					tourInfo.setCMMN_BSNDE(node.path("MMN_BSNDE").toString().replaceAll("\\\"",""));
+					tourInfo.setBF_DESC(node.path("BF_DESC").toString().replaceAll("\\\"",""));
+					tourInfo.setCMMN_RSTDE(node.path("CMMN_RSTDE").toString().replaceAll("\\\"",""));
+					tourInfo.setCMMN_USE_TIME(node.path("CMMN_USE_TIME").toString().replaceAll("\\\"",""));
+					tourInfo.setPOST_SJ(node.path("POST_SJ").toString().replaceAll("\\\"",""));
+					tourInfo.setPOST_SN(node.path("POST_SN").toString().replaceAll("\\\"",""));
+					lists.add(tourInfo);
+//					if(tourInfo != null) {
+//						result = service.tourInsert(tourInfo);
+//						log.info("insert log : " +result);
+//					}
 				}
-				for(int i =0; i<lists.size(); i++) {
-					
-				}
-//				tourInfo.setADD_KOR(node.path("NAME_KOR").toString());
-//				tourInfo.setLAW_SGG(node.path("ADD_KOR").toString());
-//				tourInfo.setNAME_KOR(node.path("LAW_SGG").toString());
-//				tourInfo.setWGS84_X(node.path("WGS84_X").toString());
-//				tourInfo.setWGS84_Y(node.path("WGS84_Y").toString());
-				
-//				LOGGER.info("input Messege:" + tourInfo.getNAME_KOR() + ","+ tourInfo.getADD_KOR() 
-//				+ ","+ tourInfo.getLAW_SGG() + ","+ tourInfo.getWGS84_X()+ ","+
-//				tourInfo.getWGS84_Y());
-				
-				
 			}
 			
-
 			rd.close();
 			conn.disconnect();
 			models.addObject("sb", lists);
