@@ -13,6 +13,6 @@
 		<typeAlias alias="TourVO"
 			type="com.tour.project.adminvo.TourVO" />
 		<typeAlias alias="EventVO"
-			type="com.tour.project.eventvo.EventVO" />
+			type="com.tour.project.admin_eventvo.EventVO" />
 	</typeAliases>
 </configuration>
