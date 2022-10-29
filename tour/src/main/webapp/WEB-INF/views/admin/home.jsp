@@ -6,6 +6,23 @@
     <head>
         <jsp:include page="../admincommon/admin_header_common.jsp"/>
     </head>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+    	function data_insert(){
+    		$.ajax({
+    			type: "post",
+    			url : "/admin/dataInsert",
+    			async : false,
+    			success : function(data) {
+    				if(data.result == 1){
+    					alert("등록 성공");
+    					window.location.assign("/admin"); 
+    				}
+    			}
+    		});
+    		
+    	}
+    </script>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
            <jsp:include page="../admincommon/admin_header.jsp"/>
@@ -17,9 +34,9 @@
                             <div class="my-5 text-center text-xl-start">
                             
                                 <h1 class="display-5 fw-bolder text-white mb-2">
-									sfsfsdf
+									${sb[0].tour_post_sj}
 								</h1>
-                                <p class="lead fw-normal text-white-50 mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit!</p>
+                                <p class="lead fw-normal text-white-50 mb-4">${sb[0].tour_new_address}</p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                                     <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
                                     <a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a>
@@ -60,12 +77,13 @@
                         </div>
                     </div>
                     <div class="row gx-5">
-                        <div class="col-lg-4 mb-5">
+                    <c:forEach var="item" items="${sb}" begin="1">
+                    	<div class="col-lg-4 mb-5">
                             <div class="card h-100 shadow border-0">
                                 <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
                                 <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Blog post title</h5></a>
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">test</div>
+                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">${item.tour_post_sj}</h5></a>
                                     <p class="card-text mb-0">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                 </div>
                                 <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
@@ -81,49 +99,9 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-4 mb-5">
-                            <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />
-                                <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">Media</div>
-                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Another blog post title</h5></a>
-                                    <p class="card-text mb-0">This text is a bit longer to illustrate the adaptive height of each card. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                                    <div class="d-flex align-items-end justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-                                            <div class="small">
-                                                <div class="fw-bold">Josiah Barclay</div>
-                                                <div class="text-muted">March 23, 2022 &middot; 4 min read</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 mb-5">
-                            <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="https://dummyimage.com/600x350/6c757d/343a40" alt="..." />
-                                <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">The last blog post title is a little bit longer than the others</h5></a>
-                                    <p class="card-text mb-0">Some more quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                                    <div class="d-flex align-items-end justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-                                            <div class="small">
-                                                <div class="fw-bold">Evelyn Martinez</div>
-                                                <div class="text-muted">April 2, 2022 &middot; 10 min read</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+                    </c:forEach>
+                        
+                        
                     <!-- Call to action-->
                     <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
                         <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
@@ -141,10 +119,12 @@
                         </div>
                     </aside>
                 </div>
+               </div>
             </section>
             
         </main>
         <jsp:include page="../admincommon/admin_footer.jsp"/>
 		<jsp:include page="../admincommon/admin_footer_common.jsp"/>
     </body>
+    
 </html>

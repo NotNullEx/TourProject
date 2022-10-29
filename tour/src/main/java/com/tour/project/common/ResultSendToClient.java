@@ -1,6 +1,7 @@
 package com.tour.project.common;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -60,6 +61,18 @@ public class ResultSendToClient {
         response.setCharacterEncoding("UTF-8");
         try {
         	response.getWriter().write(jsonArray.toString());
+            response.flushBuffer();
+        }
+        catch (IOException e) {
+        	e.getStackTrace();
+        }
+	}
+	public static void ArrayTo(HttpServletResponse response, List<Object> Array)
+	{
+		response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        try {
+        	response.getWriter().write(Array.toString());
             response.flushBuffer();
         }
         catch (IOException e) {

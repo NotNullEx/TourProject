@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.tour.project.adminvo.TourVO;
 
-public interface InsertAdminTourDataService {
+public interface AdminTourDataService {
 
 	public int tourInsert(TourVO vo);
+	
+	public List<TourVO> tourList();
 }

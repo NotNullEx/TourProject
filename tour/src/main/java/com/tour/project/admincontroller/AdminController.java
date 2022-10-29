@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tour.project.adminservice.InsertAdminTourDataService;
+import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminvo.TourVO;
+import com.tour.project.common.ResultSendToClient;
 
 /**
  * Handles requests for the application home page.
@@ -30,18 +33,15 @@ import com.tour.project.adminvo.TourVO;
 public class AdminController {
 	
 	@Autowired
-	private InsertAdminTourDataService service;
-	
-	
+	private AdminTourDataService service;	
 	
 	private static final Logger log = LoggerFactory.getLogger(AdminController.class);
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = { "/admin" })
-	public ModelAndView publicApi() throws Exception {
-		ModelAndView models = new ModelAndView("/admin/home");
+	@RequestMapping(value = { "/admin/dataInsert" })
+	public void adminHome(HttpServletResponse response) throws Exception {
 		try {
 
 			String key = "4f645452506b6a6d38307a53726f48";
@@ -82,29 +82,27 @@ public class AdminController {
 			System.out.println(rootNode.toString());
 			Iterator<JsonNode> it = rootNode.path("TbVwAttractions").path("row").elements();
 			int result = 0;
-			List<TourVO> lists = new ArrayList<TourVO>();
-			TourVO tourInfo = new TourVO();
+			List<Object> lists = new ArrayList<Object>();
 			while (it.hasNext()) {
 				JsonNode node = it.next();
 				String lan = node.path("LANG_CODE_ID").toString();
 				lan = lan.replaceAll("\\\"","");
-				System.out.println(lan);
 				if(lan.equals("ko")) {
-					System.out.println("test: " + node.path("POST_SJ"));
+					System.out.println("test: " + node.path("CMMN_HMPG_URL"));
 					
-					tourInfo.setPOST_SJ(node.path("POST_SJ").toString().replaceAll("\\\"",""));
-					tourInfo.setCMMN_FAX(node.path("CMMN_FAX").toString().replaceAll("\\\"",""));
-					tourInfo.setADDRESS(node.path("ADDRESS").toString().replaceAll("\\\"",""));
-					tourInfo.setNEW_ADDRESS(node.path("NEW_ADDRESS").toString().replaceAll("\\\"",""));
-					tourInfo.setSUBWAY_INFO(node.path("SUBWAY_INFO").toString().replaceAll("\\\"",""));
-					tourInfo.setCMMN_HMPG_URL(node.path("MMN_HMPG_URL").toString().replaceAll("\\\"",""));
-					tourInfo.setCMMN_TELNO(node.path("MMN_TELNO").toString().replaceAll("\\\"",""));
-					tourInfo.setCMMN_BSNDE(node.path("MMN_BSNDE").toString().replaceAll("\\\"",""));
-					tourInfo.setBF_DESC(node.path("BF_DESC").toString().replaceAll("\\\"",""));
-					tourInfo.setCMMN_RSTDE(node.path("CMMN_RSTDE").toString().replaceAll("\\\"",""));
-					tourInfo.setCMMN_USE_TIME(node.path("CMMN_USE_TIME").toString().replaceAll("\\\"",""));
-					tourInfo.setPOST_SJ(node.path("POST_SJ").toString().replaceAll("\\\"",""));
-					tourInfo.setPOST_SN(node.path("POST_SN").toString().replaceAll("\\\"",""));
+					TourVO tourInfo = new TourVO();
+					tourInfo.setTour_post_sj(node.path("POST_SJ").toString().replaceAll("\\\"",""));
+					tourInfo.setTour_cmmn_fax(node.path("CMMN_FAX").toString().replaceAll("\\\"",""));
+					tourInfo.setTour_address(node.path("ADDRESS").toString().replaceAll("\\\"",""));
+					tourInfo.setTour_new_address(node.path("NEW_ADDRESS").toString().replaceAll("\\\"",""));
+					tourInfo.setTour_subway_info(node.path("SUBWAY_INFO").toString().replaceAll("\\\"",""));
+					tourInfo.setTour_cmmn_hmpg_url(node.path("CMMN_HMPG_URL").toString().replaceAll("\\\"",""));
+					tourInfo.setTour_cmmn_telno(node.path("CMMN_TELNO").toString().replaceAll("\\\"",""));
+					tourInfo.setTour_cmmn_bsnde(node.path("CMMN_BSNDE").toString().replaceAll("\\\"",""));
+					tourInfo.setTour_bf_desc(node.path("BF_DESC").toString().replaceAll("\\\"",""));
+					tourInfo.setTour_cmmn_rstde(node.path("CMMN_RSTDE").toString().replaceAll("\\\"",""));
+					tourInfo.setTour_cmmn_use_time(node.path("CMMN_USE_TIME").toString().replaceAll("\\\"",""));
+					tourInfo.setTour_post_sn(node.path("POST_SN").toString().replaceAll("\\\"",""));
 					lists.add(tourInfo);
 					if(tourInfo != null) {
 						result = service.tourInsert(tourInfo);
@@ -115,12 +113,21 @@ public class AdminController {
 			
 			rd.close();
 			conn.disconnect();
-			models.addObject("sb", lists);
+			ResultSendToClient.ArrayTo(response, lists);
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-		return models;
+		
 	}
-	
+	@RequestMapping(value = { "/admin" })
+	public ModelAndView dataInsert() throws Exception {
+		ModelAndView models = new ModelAndView("/admin/home");
+		List<TourVO> lists = new ArrayList<TourVO>();
+		lists = service.tourList();
+		
+		models.addObject("sb", lists);
+		return models;
+		
+	}
 	
 }

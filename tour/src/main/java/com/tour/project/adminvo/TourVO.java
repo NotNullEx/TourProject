@@ -8,28 +8,28 @@ import lombok.ToString;
 public class TourVO {
 
 	// 팩스 번호
-	private String CMMN_FAX;
+	private String tour_cmmn_fax;
 	// 주소
-	private String ADDRESS;
+	private String tour_address; 
 	// 신주소
-	private String NEW_ADDRESS;
+	private String tour_new_address;
 	// 교통정보
-	private String SUBWAY_INFO;
+	private String tour_subway_info;
 	// 웹사이트
-	private String CMMN_HMPG_URL;
+	private String tour_cmmn_hmpg_url;
 	// 전화번호
-	private String CMMN_TELNO;
+	private String tour_cmmn_telno; 
 	// 운영요일
-	private String CMMN_BSNDE;
+	private String tour_cmmn_bsnde;
 	// 장애인 편의시설
-	private String BF_DESC;
+	private String tour_bf_desc; 
 	// 휴무일
-	private String CMMN_RSTDE;
+	private String tour_cmmn_rstde; 
 	// 운영 시간
-	private String CMMN_USE_TIME;
+	private String tour_cmmn_use_time;
 	// 상호명
-	private String POST_SJ;
+	private String tour_post_sj;
 	// 고유 번호
-	private String POST_SN;
+	private String tour_post_sn;
 
 }

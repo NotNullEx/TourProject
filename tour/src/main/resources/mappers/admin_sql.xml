@@ -16,20 +16,13 @@
 		INSERT INTO
 		tour(tour_post_sn,tour_cmmn_fax,tour_address,tour_new_address,tour_subway_info,tour_cmmn_hmpg_url,tour_cmmn_telno,tour_cmmn_bsnde,toour_bf_desc,tour_cmmn_rstde,
 		tour_cmmn_use_time,tour_post_sj)
-		VALUES(#{POST_SN},#{CMMN_FAX},#{ADDRESS},#{NEW_ADDRESS},#{SUBWAY_INFO},#{CMMN_HMPG_URL},#{CMMN_TELNO},#{CMMN_BSNDE},#{BF_DESC},#{CMMN_RSTDE},
-		#{CMMN_USE_TIME},#{POST_SJ});
+		VALUES(#{tour_post_sn},#{tour_cmmn_fax},#{tour_address},#{tour_new_address},#{tour_subway_info},#{tour_cmmn_hmpg_url},#{tour_cmmn_telno},#{tour_cmmn_bsnde},#{tour_bf_desc},#{tour_cmmn_rstde},
+		#{tour_cmmn_use_time},#{tour_post_sj});
 
 	</insert>
-	<!-- <select id="select_detail" resultType="hashMap" > SELECT * FROM admin 
-		WHERE admin_email = #{email} </select> <select id="passDetail" resultType="hashMap" 
-		parameterType="hashMap"> SELECT * FROM admin WHERE admin_email = #{email} 
-		AND admin_password = #{password} </select> <update id="saveUpdate" parameterType="hashMap"> 
-		UPDATE admin SET admin_name=#{name},admin_regist_day= now() WHERE admin_email=#{email} 
-		</update> <delete id="delete" parameterType="hashMap" > delete from admin 
-		where trim(admin_email = #{email}) </delete> <select id="list" parameterType="hashMap" 
-		resultType="AdminVO"> select * from admin <if test="search != null and search 
-		!= '' "> WHERE name LIKE CONCAT('%',#{search},'%') or id LIKE CONCAT('%',#{search},'%') 
-		</if> </select> <select id="select_seq" resultType="hashMap" parameterType="hashMap"> 
-		SELECT admin_seq FROM admin </select> -->
+	<select id="tourList" resultType="TourVO">
+		SELECT * FROM tour
+	</select>
+	
 
 </mapper>
