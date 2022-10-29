@@ -14,9 +14,8 @@
                     <!-- Contact form-->
                     <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
                         <div class="text-center mb-5">
-                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div>
-                            <h1 class="fw-bolder">Get in touch</h1>
-                            <p class="lead fw-normal text-muted mb-0">We'd love to hear from you</p>
+                            <h1 class="fw-bolder">이벤트 공지사항 등록 페이지 입니다.</h1>
+                            <p class="lead fw-normal text-muted mb-0">비는 내용 없이 확인 후 등록 바랍니다.</p>
                         </div>
                         <div class="row gx-5 justify-content-center">
                             <div class="col-lg-8 col-xl-6">
@@ -31,26 +30,26 @@
                                     <!-- Name input-->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" name="code" type="text">
-                                        <label for="even_code">Event Code</label>
+                                        <label for="even_code">이벤트 코드</label>
                                         <!-- <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div> -->
                                     </div>
                                     <!-- Email address input-->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" name="title" type="text">
-                                        <label for="even_name">Event Name</label>
+                                        <label for="even_name">이벤트 제목</label>
                                         <!-- <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
                                         <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div> -->
                                     </div>
                                     <!-- Phone number input-->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" name="adress" type="text" style="height: 10rem">
-                                        <label for="even_adress">Event Address</label>
+                                        <label for="even_adress">이벤트 주소</label>
                                         <!-- <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div> -->
                                     </div>
                                     <!-- Message input-->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" name="desc" type="text" style="height: 20rem">
-                                        <label for="even_desc">Event Description</label>
+                                        <label for="even_desc">이벤트 설명</label>
                                         <!-- <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div> -->
                                     </div>
                                     <!-- Submit success message-->
@@ -71,7 +70,7 @@
                                     an error submitting the form
                                     <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div> -->
                                     <!-- Submit Button-->
-                                    <div class="d-grid"><input type="submit" value="Submit"></div>
+                                    <div class="d-grid"><input type="submit" value="이벤트 등록"></div>
                                 </form>
                             </div>
                         </div>

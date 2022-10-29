@@ -1,4 +1,4 @@
-package com.tour.project.eventdao;
+package com.tour.project.admin_eventdao;
 
 import java.util.Map;
 

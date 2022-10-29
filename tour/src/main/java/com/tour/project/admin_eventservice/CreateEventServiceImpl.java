@@ -1,11 +1,11 @@
-package com.tour.project.eventservice;
+package com.tour.project.admin_eventservice;
 
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tour.project.eventdao.CreateEventDao;
+import com.tour.project.admin_eventdao.CreateEventDao;
 
 @Service
 public class CreateEventServiceImpl implements CreateEventService {

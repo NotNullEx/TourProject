@@ -106,10 +106,10 @@ public class AdminController {
 					tourInfo.setPOST_SJ(node.path("POST_SJ").toString().replaceAll("\\\"",""));
 					tourInfo.setPOST_SN(node.path("POST_SN").toString().replaceAll("\\\"",""));
 					lists.add(tourInfo);
-//					if(tourInfo != null) {
-//						result = service.tourInsert(tourInfo);
-//						log.info("insert log : " +result);
-//					}
+					if(tourInfo != null) {
+						result = service.tourInsert(tourInfo);
+						log.info("insert log : " +result);
+					}
 				}
 			}
 			

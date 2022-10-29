@@ -27,8 +27,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tour.project.admin_eventservice.CreateEventService;
+import com.tour.project.admin_eventservice.EventListService;
+import com.tour.project.admin_eventvo.EventVO;
 import com.tour.project.adminvo.TourVO;
-import com.tour.project.eventservice.CreateEventService;
 import com.tour.project.restaurantdao.RestaurantInfoDao;
 import com.tour.project.restaurantservice.CreateRestaurantService;
 import com.tour.project.restaurantservice.RestaurantInfoService;
@@ -48,6 +50,9 @@ public class AdminControllerBYS {
 	
 	@Autowired
 	private CreateEventService CES;
+	
+	@Autowired
+	private EventListService ELS;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminControllerBYS.class);
 
@@ -141,6 +146,15 @@ public class AdminControllerBYS {
 		ModelAndView mav = new ModelAndView("/admin/home");
 		CES.create(map);
 		mav.addAllObjects(map);
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/admin/blogPost"})
+	public ModelAndView blogPost(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("/admin/blogpost");
+		List<EventVO> list = new ArrayList<EventVO>();
+		list = ELS.list();
+		mav.addObject("list", list);
 		return mav;
 	}
 		

@@ -1,4 +1,4 @@
-package com.tour.project.eventservice;
+package com.tour.project.admin_eventservice;
 
 import java.util.Map;
 

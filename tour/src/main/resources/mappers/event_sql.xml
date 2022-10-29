@@ -7,4 +7,12 @@
  		values(#{code},1,1,1,#{title},now(),now(),#{adress},1,#{desc})
 	</insert>
 	
+	<select id="list" parameterType="hashMap" resultType="EventVO">
+		select * from event
+<!-- 		<if test="search != null and search != '' ">
+			WHERE name LIKE CONCAT('%',#{search},'%') or id LIKE
+			CONCAT('%',#{search},'%')
+		</if> -->
+	</select>
+	
 </mapper>
