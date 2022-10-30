@@ -14,7 +14,7 @@
 
 	<insert id="tourInsert" parameterType="TourVO">
 		INSERT INTO
-		tour(tour_post_sn,tour_cmmn_fax,tour_address,tour_new_address,tour_subway_info,tour_cmmn_hmpg_url,tour_cmmn_telno,tour_cmmn_bsnde,toour_bf_desc,tour_cmmn_rstde,
+		tour(tour_post_sn,tour_cmmn_fax,tour_address,tour_new_address,tour_subway_info,tour_cmmn_hmpg_url,tour_cmmn_telno,tour_cmmn_bsnde,tour_bf_desc,tour_cmmn_rstde,
 		tour_cmmn_use_time,tour_post_sj)
 		VALUES(#{tour_post_sn},#{tour_cmmn_fax},#{tour_address},#{tour_new_address},#{tour_subway_info},#{tour_cmmn_hmpg_url},#{tour_cmmn_telno},#{tour_cmmn_bsnde},#{tour_bf_desc},#{tour_cmmn_rstde},
 		#{tour_cmmn_use_time},#{tour_post_sj});
