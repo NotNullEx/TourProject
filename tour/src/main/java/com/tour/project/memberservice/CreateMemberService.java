@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface CreateMemberService {
 
-	public boolean create(Map<String, Object> map);
+	public int create(Map<String, Object> map);
 
 }

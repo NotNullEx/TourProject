@@ -15,8 +15,8 @@ public class CreateMemberServiceImpl implements CreateMemberService {
 	private CreateMemberDao createDao;
 	
 	@Override
-	public boolean create(Map<String, Object> map) {
+	public int create(Map<String, Object> map) {
 		int result = createDao.create(map);
-		return result == 1;
+		return result;
 	}
 }
