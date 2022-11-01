@@ -14,5 +14,7 @@
 			type="com.tour.project.adminvo.TourVO" />
 		<typeAlias alias="EventVO"
 			type="com.tour.project.admin_eventvo.EventVO" />
+		<typeAlias alias="BoardVO"
+			type="com.tour.project.boardvo.BoardVO" />
 	</typeAliases>
 </configuration>
