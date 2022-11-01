@@ -13,15 +13,20 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.ResultSendToClient;
@@ -31,17 +36,31 @@ import com.tour.project.common.ResultSendToClient;
  */
 @Controller
 public class AdminController {
-	
+
 	@Autowired
-	private AdminTourDataService service;	
-	
+	private AdminTourDataService service;
+
 	private static final Logger log = LoggerFactory.getLogger(AdminController.class);
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	@ResponseBody
+	@RequestMapping("/testtest")
+	public Object testetest()
+	{
+		TourVO vo = new TourVO();
+		vo.setTour_address("aaaa");
+		List<TourVO> a = new ArrayList<TourVO>();
+		return new Gson().toJson(a);
+	}
+	
+	
+	
+	@ResponseBody
 	@RequestMapping(value = { "/admin/dataInsert" })
-	public void adminHome(HttpServletResponse response) throws Exception {
+	public Object adminHome() throws Exception {
+		List<TourVO> lists = new ArrayList<TourVO>();
 		try {
 
 			String key = "4f645452506b6a6d38307a53726f48";
@@ -49,17 +68,13 @@ public class AdminController {
 			urlBuilder.append("/" + URLEncoder.encode(key, "UTF-8")); /* 인증키 (sample사용시에는 호출시 제한됩니다.) */
 			urlBuilder.append("/" + URLEncoder.encode("json", "UTF-8")); /* 요청파일타입 (xml,xmlf,xls,json) */
 			urlBuilder.append("/" + URLEncoder.encode("TbVwAttractions", "UTF-8")); /* 서비스명 (대소문자 구분 필수입니다.) */
-
-			// 즉, 페이지라고 생각하면됩니다 1부터 5까지 출력
+//
+//			// 즉, 페이지라고 생각하면됩니다 1부터 5까지 출력
 			urlBuilder.append("/" + URLEncoder.encode("1", "UTF-8")); /* 요청시작위치 (sample인증키 사용시 5이내 숫자) */
 			urlBuilder.append("/" + URLEncoder.encode("1000", "UTF-8")); /* 요청종료위치(sample인증키 사용시 5이상 숫자 선택 안 됨) */
-
+//
 //				urlBuilder.append("/" + URLEncoder.encode("NM_DP","UTF-8"));
-			// 상위 5개는 필수적으로 순서바꾸지 않고 호출해야 합니다.
-
-			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
-			Date now = new Date();
-			String nowTime2 = sdf2.format(now);
+//			// 상위 5개는 필수적으로 순서바꾸지 않고 호출해야 합니다.
 
 			// 서비스별 추가 요청 인자이며 자세한 내용은 각 서비스별 '요청인자'부분에 자세히 나와 있습니다.
 			// urlBuilder.append("/" + URLEncoder.encode(nowTime2,"UTF-8")); /* 서비스별 추가
@@ -76,58 +91,59 @@ public class AdminController {
 				rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			} else {
 				rd = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"));
-			}
-			ObjectMapper mapper = new ObjectMapper();
-			JsonNode rootNode = mapper.readTree(rd);
-			System.out.println(rootNode.toString());
-			Iterator<JsonNode> it = rootNode.path("TbVwAttractions").path("row").elements();
-			int result = 0;
-			List<Object> lists = new ArrayList<Object>();
-			while (it.hasNext()) {
-				JsonNode node = it.next();
-				String lan = node.path("LANG_CODE_ID").toString();
-				lan = lan.replaceAll("\\\"","");
-				if(lan.equals("ko")) {
-					System.out.println("test: " + node.path("CMMN_HMPG_URL"));
+			}	
+			String result = rd.readLine();
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObject = (JSONObject)jsonParser.parse(result);
+			JSONObject tourInfoResult = (JSONObject)jsonObject.get("TbVwAttractions");
+			JSONArray tourInfo = (JSONArray)tourInfoResult.get("row");
+			JSONObject row;
+			lists = new ArrayList<TourVO>();
+			int insert = 0;
+			for(int i=0; i<tourInfo.size(); i++) {
+				row = (JSONObject)tourInfo.get(i);
+				if(row.get("LANG_CODE_ID").equals("ko")) {
+					TourVO tourInfoSet = new TourVO();
+					tourInfoSet.setTour_post_sj(row.get("POST_SJ").toString());
+					tourInfoSet.setTour_cmmn_fax(row.get("CMMN_FAX").toString());
+					tourInfoSet.setTour_address(row.get("ADDRESS").toString());
+					tourInfoSet.setTour_new_address(row.get("NEW_ADDRESS").toString());
+					tourInfoSet.setTour_subway_info(row.get("SUBWAY_INFO").toString());
+					tourInfoSet.setTour_cmmn_hmpg_url(row.get("CMMN_HMPG_URL").toString());
+					tourInfoSet.setTour_cmmn_telno(row.get("CMMN_TELNO").toString());
+					tourInfoSet.setTour_cmmn_bsnde(row.get("CMMN_BSNDE").toString());
+					tourInfoSet.setTour_bf_desc(row.get("BF_DESC").toString());
+					tourInfoSet.setTour_cmmn_rstde(row.get("CMMN_RSTDE").toString());
+					tourInfoSet.setTour_cmmn_use_time(row.get("CMMN_USE_TIME").toString());
+					tourInfoSet.setTour_post_sn(row.get("POST_SN").toString());
 					
-					TourVO tourInfo = new TourVO();
-					tourInfo.setTour_post_sj(node.path("POST_SJ").toString().replaceAll("\\\"",""));
-					tourInfo.setTour_cmmn_fax(node.path("CMMN_FAX").toString().replaceAll("\\\"",""));
-					tourInfo.setTour_address(node.path("ADDRESS").toString().replaceAll("\\\"",""));
-					tourInfo.setTour_new_address(node.path("NEW_ADDRESS").toString().replaceAll("\\\"",""));
-					tourInfo.setTour_subway_info(node.path("SUBWAY_INFO").toString().replaceAll("\\\"",""));
-					tourInfo.setTour_cmmn_hmpg_url(node.path("CMMN_HMPG_URL").toString().replaceAll("\\\"",""));
-					tourInfo.setTour_cmmn_telno(node.path("CMMN_TELNO").toString().replaceAll("\\\"",""));
-					tourInfo.setTour_cmmn_bsnde(node.path("CMMN_BSNDE").toString().replaceAll("\\\"",""));
-					tourInfo.setTour_bf_desc(node.path("BF_DESC").toString().replaceAll("\\\"",""));
-					tourInfo.setTour_cmmn_rstde(node.path("CMMN_RSTDE").toString().replaceAll("\\\"",""));
-					tourInfo.setTour_cmmn_use_time(node.path("CMMN_USE_TIME").toString().replaceAll("\\\"",""));
-					tourInfo.setTour_post_sn(node.path("POST_SN").toString().replaceAll("\\\"",""));
-					lists.add(tourInfo);
-					if(tourInfo != null) {
-						result = service.tourInsert(tourInfo);
-						log.info("insert log : " +result);
+					lists.add(tourInfoSet);
+					if (tourInfo != null) {
+						insert = service.tourInsert(tourInfoSet);
+						log.info("insert log : " + insert);
 					}
 				}
+				
 			}
-			
+
 			rd.close();
 			conn.disconnect();
-			ResultSendToClient.ArrayTo(response, lists);
+			return new Gson().toJson(lists);
 		} catch (Exception e) {
 			e.getStackTrace();
+			return lists;
 		}
-		
 	}
+
 	@RequestMapping(value = { "/admin" })
 	public ModelAndView dataInsert() throws Exception {
 		ModelAndView models = new ModelAndView("/admin/home");
 		List<TourVO> lists = new ArrayList<TourVO>();
 		lists = service.tourList();
-		
+
 		models.addObject("sb", lists);
 		return models;
-		
+
 	}
-	
+
 }

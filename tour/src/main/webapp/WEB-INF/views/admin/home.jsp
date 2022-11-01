@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
+<meta name="referrer" content="no-referrer-when-downgrade" />
     <head>
         <jsp:include page="../admincommon/admin_header_common.jsp"/>
     </head>
@@ -10,18 +12,18 @@
     <script type="text/javascript">
     	function data_insert(){
     		$.ajax({
-    			type: "post",
     			url : "/admin/dataInsert",
-    			async : false,
-    			success : function(data) {
-    				if(data.result == 1){
-    					alert("등록 성공");
-    					window.location.assign("/admin"); 
-    				}
+    			success:function(data){
+    				alert("성공");
+    				window.location.assign("/admin"); 
+    			},
+    			error:function(data){
+    				alert("실패");
     			}
     		});
     		
     	}
+    	
     </script>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
