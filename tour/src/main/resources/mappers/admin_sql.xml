@@ -23,6 +23,11 @@
 	<select id="tourList" resultType="TourVO">
 		SELECT * FROM tour
 	</select>
+	<select id="adminInfo" parameterType="String" resultType="hashMap">
+		SELECT * 
+		FROM admin
+		WHERE admin_email = #{id}
+	</select>
 	
 
 </mapper>

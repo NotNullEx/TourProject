@@ -10,11 +10,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AdmingLoginDao {
 
-	
 	@Autowired 
 	private SqlSessionTemplate sqltemplate;
+	
 	public int adminLogin(Map<String, Object> map) throws SQLException {
 		int rtnVal = sqltemplate.selectOne("tour.adminLogin", map);
     	return rtnVal;
+	}
+	
+	public Map<String, Object> getAdminInfo(String id) throws SQLException{
+		
+		Map<String, Object> result = sqltemplate.selectOne("tour.adminInfo",id);
+		
+		return result;
+		
 	}
 }

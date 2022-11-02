@@ -41,20 +41,17 @@ public class AdminController {
 	private AdminTourDataService service;
 
 	private static final Logger log = LoggerFactory.getLogger(AdminController.class);
-
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@ResponseBody
-	@RequestMapping("/testtest")
-	public Object testetest()
-	{
-		TourVO vo = new TourVO();
-		vo.setTour_address("aaaa");
-		List<TourVO> a = new ArrayList<TourVO>();
-		return new Gson().toJson(a);
-	}
 	
+	
+	@RequestMapping(value = { "/admin/regis" })
+	public ModelAndView registration() throws Exception {
+		ModelAndView mav = new ModelAndView("/admin/regis");
+		List<TourVO> lists = new ArrayList<TourVO>();
+		lists = service.tourList();
+
+		mav.addObject("sb", lists);
+		return mav;
+	}
 	
 	
 	@ResponseBody
@@ -109,7 +106,11 @@ public class AdminController {
 					tourInfoSet.setTour_address(row.get("ADDRESS").toString());
 					tourInfoSet.setTour_new_address(row.get("NEW_ADDRESS").toString());
 					tourInfoSet.setTour_subway_info(row.get("SUBWAY_INFO").toString());
-					tourInfoSet.setTour_cmmn_hmpg_url(row.get("CMMN_HMPG_URL").toString());
+					if("".equals(row.get("CMMN_HMPG_URL").toString()) || row.get("CMMN_HMPG_URL").toString() ==null) {
+						tourInfoSet.setTour_cmmn_hmpg_url("none");
+					}else {
+						tourInfoSet.setTour_cmmn_hmpg_url(row.get("CMMN_HMPG_URL").toString());
+					}
 					tourInfoSet.setTour_cmmn_telno(row.get("CMMN_TELNO").toString());
 					tourInfoSet.setTour_cmmn_bsnde(row.get("CMMN_BSNDE").toString());
 					tourInfoSet.setTour_bf_desc(row.get("BF_DESC").toString());
@@ -143,7 +144,5 @@ public class AdminController {
 
 		models.addObject("sb", lists);
 		return models;
-
 	}
-
 }

@@ -1,6 +1,7 @@
 package com.tour.project.adminservice;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class LoginServiceImpl implements LoginService{
 	
 	@Override
 	public int login(Map<String, Object> map) {
-		int result = 0;
+		int result = -1;
 		try {
 			result = dao.adminLogin(map);
 		} catch (SQLException e) {
@@ -24,6 +25,18 @@ public class LoginServiceImpl implements LoginService{
 			e.printStackTrace();
 		}	
 		
+		return result;
+	}
+
+	@Override
+	public Map<String, Object> amindInfo(String id) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			result = dao.getAdminInfo(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return result;
 	}
 }
