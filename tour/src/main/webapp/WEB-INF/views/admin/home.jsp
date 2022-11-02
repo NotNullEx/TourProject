@@ -30,15 +30,24 @@
            <jsp:include page="../admincommon/admin_header.jsp"/>
             <!-- Header-->
             <header class="bg-dark py-5">
-            <c:forEach var="tas" items="${sb}" begin="0" end="2">
-                <div class="carousel-item">
-				  <img src="https://dummyimage.com/600x400/343a40/6c757d" alt="...">
-				  <div class="carousel-caption d-none d-md-block">
-				    <h5>${tas.tour_post_sj}</h5>
-				    <p>${tas.tour_new_address}</p>
-				  </div>
-				</div>
-			</c:forEach>
+            	<div class="container px-5">
+                    <div class="row gx-5 align-items-center justify-content-center">
+                        <div class="col-lg-8 col-xl-7 col-xxl-6">
+                            <div class="my-5 text-center text-xl-start">
+                            
+                                <h1 class="display-5 fw-bolder text-white mb-2">
+									<a href="/admin/tourDetail" class="text-decoration-none link-light">${sb[0].tour_post_sj}</a>
+								</h1>
+                                <p class="lead fw-normal text-white-50 mb-4">${sb[0].tour_new_address}</p>
+                                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                                    <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
+                                    <a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
+                    </div>
+                </div>
             </header>
             <div class="py-5 bg-light">
                 <div class="container px-5 my-5">
@@ -70,7 +79,7 @@
                         </div>
                     </div>
                     <div class="row gx-5">
-                    <c:forEach var="item" items="${sb}" begin="1">
+                    <c:forEach var="item" items="${sb}" begin="1" end="10">
                     	<div class="col-lg-4 mb-5">
                             <div class="card h-100 shadow border-0">
                                 <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
@@ -79,7 +88,7 @@
                                     	<a class="text-decoration-none link-light" href="${item.tour_cmmn_hmpg_url}" target="_blank">${item.tour_cmmn_hmpg_url}</a>  
                                     </div>
                                     <h5 class="card-title mb-3">${item.tour_post_sj}</h5>
-                                    
+                                    <p class="card-text mb-0">${item.tour_new_address}</p>
                                 </div>
                             </div>
                         </div>

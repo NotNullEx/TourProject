@@ -8,7 +8,7 @@
     <body class="d-flex flex-column">
         <main class="flex-shrink-0">
             <!-- 헤더 -->
-	`	<jsp:include page="../admincommon/admin_header.jsp"/>
+		<jsp:include page="../admincommon/admin_header.jsp"/>
             <!-- Header-->
             <header class="py-5">
                 <div class="container px-5">

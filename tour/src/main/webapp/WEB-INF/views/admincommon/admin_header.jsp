@@ -8,18 +8,14 @@
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="/admin">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/admin/about">About</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/admin/contact">Contact</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/admin/pricing">Pricing</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/admin">홈</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/admin/about">관광지</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/admin/contact">행사</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/admin/blog">먹거리</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/admin/pricing">결제</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/faq">FAQ</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-                                    <li><a class="dropdown-item" href="/admin/blog">Blog Home</a></li>
-                                    <li><a class="dropdown-item" href="/admin/blogPost">Blog Post</a></li>
-                                </ul>
-                            </li>
+                            
+                            <li class="nav-item"><a class="nav-link" href="/admin/blogPost">게시판</a></li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Portfolio</a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">

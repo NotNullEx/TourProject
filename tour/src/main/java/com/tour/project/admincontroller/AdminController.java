@@ -145,4 +145,10 @@ public class AdminController {
 		models.addObject("sb", lists);
 		return models;
 	}
+	
+	@RequestMapping(value = { "/admin/tourDetail" })
+	public ModelAndView tourDetail() throws Exception {
+		ModelAndView models = new ModelAndView("/admin/tourdetail");
+		return models;
+	}
 }
