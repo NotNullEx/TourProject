@@ -2,14 +2,18 @@
 <!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="restaurant">
 
-<insert id="create" parameterType="String">
- 	INSERT INTO restaurant(tour_seq,tour_post_sn,mem_seq,res_telnum,res_adress,res_open_time,res_desc,res_name)
- 	values(1,1,1,01011223344,'here','1-12','hello',${map})
+<insert id="create" parameterType="hashMap">
+ 	INSERT INTO restaurant(tour_post_sn,tour_address,res_telnum,res_adress_area,res_adress,res_open_time,res_rest_day,res_image,res_kind,res_desc,res_name,res_reg_date)
+ 	values(#{tour_ps},#{tour_address},#{telnum},#{adress_area},#{adress},#{opentime},#{rest_day},#{image},#{kind},#{desc},#{name},now())
 </insert>
 <select id="list" parameterType="int" resultType="RestaurantVO" >
 	SELECT res_name,res_adress,res_desc,res_image
 	FROM restaurant
 </select>
+<delete id="delete">
+	DELETE FROM restaurant
+</delete>
+<update id="revise" parameterType="hashMap">
 
-
+</update>
 </mapper>

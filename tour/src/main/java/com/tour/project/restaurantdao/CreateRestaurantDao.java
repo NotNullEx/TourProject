@@ -11,7 +11,7 @@ public class CreateRestaurantDao {
 	@Autowired 
 	private SqlSessionTemplate sqltemplate;
 	
-	public int create(String map) {
+	public int create(Map<String, Object> map) {
 		int result = 0;
 		result = sqltemplate.insert("restaurant.create", map);
 		return result;

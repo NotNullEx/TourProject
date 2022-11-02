@@ -43,7 +43,7 @@ import com.tour.project.restaurantvo.RestaurantVO;
 public class AdminControllerBYS {
 	
 	@Autowired
-	private CreateRestaurantService service;
+	private CreateRestaurantService CRS;
 	
 	@Autowired
 	private RestaurantInfoService infoService;
@@ -113,7 +113,7 @@ public class AdminControllerBYS {
 				info = node.path("NM_DP").toString();
 //				info = info.replaceAll("\\\"", "");
 				lists.add(info);
-				service.create(info);
+//				service.create(info);
 			}
 			rd.close();
 			conn.disconnect();
@@ -155,6 +155,19 @@ public class AdminControllerBYS {
 		List<EventVO> list = new ArrayList<EventVO>();
 		list = ELS.list();
 		mav.addObject("list", list);
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/admin/addrestaurant"})
+	public ModelAndView addrestaurant() {
+		ModelAndView mav = new ModelAndView("/admin/addrestaurant");
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/admin/addrestaurant"}, method = RequestMethod.POST)
+	public ModelAndView addrestaurant(@RequestParam Map<String, Object> map) {
+		ModelAndView mav = new ModelAndView("/admin/regis");
+		CRS.create(map);
 		return mav;
 	}
 		

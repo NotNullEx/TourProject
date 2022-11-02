@@ -15,7 +15,7 @@ public class CreateRestaurantServiceImpl implements CreateRestaurantService{
 	private CreateRestaurantDao createDao;
 
 	@Override
-	public int create(String map) {
+	public int create(Map<String, Object> map) {
 		int result = createDao.create(map);		
 		return result;
 	}
