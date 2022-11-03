@@ -5,16 +5,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +27,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.tour.project.admin_eventservice.CreateEventService;
 import com.tour.project.admin_eventservice.EventListService;
 import com.tour.project.admin_eventvo.EventVO;
+import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminvo.TourVO;
-import com.tour.project.restaurantdao.RestaurantInfoDao;
+import com.tour.project.common.ResultSendToClient;
 import com.tour.project.restaurantservice.CreateRestaurantService;
+import com.tour.project.restaurantservice.DeleteRestaurantService;
 import com.tour.project.restaurantservice.RestaurantInfoService;
 import com.tour.project.restaurantvo.RestaurantVO;
 
@@ -53,6 +61,12 @@ public class AdminControllerBYS {
 	
 	@Autowired
 	private EventListService ELS;
+	
+	@Autowired
+	private DeleteRestaurantService DRS;
+	
+	@Autowired
+	private AdminTourDataService ATDS;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminControllerBYS.class);
 
@@ -126,9 +140,9 @@ public class AdminControllerBYS {
 	}
 	
 	
-	@RequestMapping(value = {"/admin/blog"})
+	@RequestMapping(value = {"/admin/restaurant"})
 	public ModelAndView blog(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/bloghome");	
+		ModelAndView mav = new ModelAndView("/admin/restauranthome");	
 		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
 		resVO = infoService.list();
 		mav.addObject("data",resVO);
@@ -149,9 +163,9 @@ public class AdminControllerBYS {
 		return mav;
 	}
 	
-	@RequestMapping(value = {"/admin/blogPost"})
+	@RequestMapping(value = {"/admin/board"})
 	public ModelAndView blogPost(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/blogpost");
+		ModelAndView mav = new ModelAndView("/admin/board");
 		List<EventVO> list = new ArrayList<EventVO>();
 		list = ELS.list();
 		mav.addObject("list", list);
@@ -160,15 +174,42 @@ public class AdminControllerBYS {
 	
 	@RequestMapping(value = {"/admin/addrestaurant"})
 	public ModelAndView addrestaurant() {
-		ModelAndView mav = new ModelAndView("/admin/addrestaurant");
-		return mav;
+		return new ModelAndView("/admin/addrestaurant");
 	}
 	
-	@RequestMapping(value = {"/admin/addrestaurant"}, method = RequestMethod.POST)
-	public ModelAndView addrestaurant(@RequestParam Map<String, Object> map) {
-		ModelAndView mav = new ModelAndView("/admin/regis");
-		CRS.create(map);
+	@RequestMapping(value = {"/admin/addRestaurantOK"})
+	public void addRestaurantOK(@RequestParam Map<String,Object> map, HttpServletResponse response) {
+		int isCreated =  CRS.create(map);
+		if(isCreated ==1) {
+			System.out.println("success");
+			ResultSendToClient.onlyResultTo(response, isCreated);
+		}
+		else {
+			System.out.println("faile");
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = {"/admin/deleteRestaurant"})
+	public Object deleteRestaurant() {
+		int result = 0;
+		// Gson을 활용한 경우
+		result = DRS.delete();
+		return new Gson().toJson(result);
+	}
+	
+	@RequestMapping(value = {"/admin/regis"})
+	public ModelAndView regis() {
+		return new ModelAndView("/admin/regis");
+	}
+	
+	@RequestMapping(value = { "/admin/restaurantDetail" })
+	public ModelAndView restaurantDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("/admin/restaurantdetail");
+		String search = request.getParameter("res_code");
+		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
+		lists = infoService.listOne(search);
+		mav.addObject("data",lists);
 		return mav;
 	}
-		
 }

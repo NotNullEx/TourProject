@@ -23,6 +23,12 @@ public class RestaurantInfoServiceImpl implements RestaurantInfoService{
 		List<RestaurantVO> result = infoDao.list();
 		return result;
 	}
+
+	@Override
+	public List<RestaurantVO> listOne(String search) {
+		List<RestaurantVO> result = infoDao.listOne(search);
+		return result;
+	}
 	
 
 

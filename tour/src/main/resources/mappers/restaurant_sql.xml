@@ -6,14 +6,23 @@
  	INSERT INTO restaurant(tour_post_sn,tour_address,res_telnum,res_adress_area,res_adress,res_open_time,res_rest_day,res_image,res_kind,res_desc,res_name,res_reg_date)
  	values(#{tour_ps},#{tour_address},#{telnum},#{adress_area},#{adress},#{opentime},#{rest_day},#{image},#{kind},#{desc},#{name},now())
 </insert>
-<select id="list" parameterType="int" resultType="RestaurantVO" >
-	SELECT res_name,res_adress,res_desc,res_image
+<select id="list" resultType="RestaurantVO" >
+	SELECT *
 	FROM restaurant
 </select>
 <delete id="delete">
 	DELETE FROM restaurant
 </delete>
 <update id="revise" parameterType="hashMap">
-
+	UPDATE restaurant 
+	SET tour_post_sn = #{tour_ps}, tour_address = #{tour_address}, res_telnum = #{telnum}, res_adress_area = #{adress_area}
+	,res_adress = #{adress}, res_open_time = #{opentime}, res_rest_day = #{rest_day}, res_image = #{image}
+	,res_kind = #{kind}, res_desc = #{desc}, res_name = #{name}, res_upd_date = #{upd_date}
+	WHERE res_code = #{code}
 </update>
+<select id="listOne" parameterType="String" resultType="RestaurantVO">
+	SELECT *
+	FROM restaurant
+	WHERE res_code = #{search}
+</select>
 </mapper>

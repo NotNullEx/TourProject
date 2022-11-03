@@ -21,5 +21,6 @@ public class RestaurantVO {
 	private String res_name;
 	private String res_reg_date;
 	private int mem_seq;
+	private String res_upd_date;
 }
 	

@@ -11,21 +11,44 @@
 </head>
 <script type="text/javascript">
 	function resetRestaurant() {
-		$.ajax({
-			url : "/admin/loginOk",
-			
-		});
-		
+		if(confirm("정말 삭제하시겠습니까??")) {
+			$.ajax({
+				url : "/admin/deleteRestaurant",
+				success : function(data) {
+					console.log(data);
+					if(data > 0) {
+						alert("DB 삭제가 완료되었습니다."); 
+					}else {
+						alert("DB 삭제에 실패했습니다.");
+					}
+				}
+			});
+		}
 	}
 </script>
 <body>
 <jsp:include page="../admincommon/admin_header.jsp"/>
-
-<div class="col-lg-4 mb-5">
-<form>
-<button type="button" id="resetRes" class="w-100 btn btn-primary mb-2" onclick="resetRestaurant()">음식점 데이터 초기화</button>
-<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="location.href='/admin/addrestaurant'">음식점 데이터 추가</button>
-</form>
-</div>
+<section class="py-5">
+	<div class="row gx-5">
+		<div class="col-lg-4 mb-5">
+			 <div class="card h-100 shadow border-0">
+					<button type="button" id="resetRes" class="w-100 btn btn-primary mb-2" onclick="resetRestaurant()">음식점 데이터 초기화</button>
+					<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="location.href='/admin/addrestaurant'">음식점 Admin 데이터 추가</button>
+			</div>
+		</div>
+		<div class="col-lg-4 mb-5">
+			<div class="card h-100 shadow border-0">
+				<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="#">Tour 데이터 추가</button>
+			</div>
+		</div>
+		<div class="col-lg-4 mb-5">
+			<div class="card h-100 shadow border-0">
+				<button type="button" id="resetRes" class="w-100 btn btn-primary mb-2" onclick="#">Event 데이터 초기화</button>
+				<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="#">Event API 데이터 추가</button>
+				<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="#">Event Admin 데이터 추가</button>
+			</div>
+		</div>
+	</div>
+</section>
 </body>
 </html>

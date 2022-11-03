@@ -6,4 +6,5 @@ import com.tour.project.restaurantvo.RestaurantVO;
 
 public interface RestaurantInfoService {
 	public List<RestaurantVO> list();
+	public List<RestaurantVO> listOne(String search);
 }
