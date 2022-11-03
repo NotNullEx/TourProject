@@ -9,7 +9,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item"><a class="nav-link" href="/admin">홈</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/admin/about">관광지</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/admin/tourList">관광지</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/contact">행사</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/blog">먹거리</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/pricing">결제</a></li>
@@ -23,7 +23,7 @@
                                     <li><a class="dropdown-item" href="/admin/portfolioitem">Portfolio Item</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="/admin/regis">데이터 등록</a></li>
+                            <li class="nav-item"><a class="nav-link" onclick="data_insert()">데이터 등록</a></li>
                             <c:if test="${empty sessionScope.ADMIN_ID}">            
 					        	<li class="nav-item"><a class="nav-link" href="#" onclick="location='/admin/login'">로그인</a></li>
 					       </c:if>
