@@ -11,6 +11,7 @@
 	function account() {
 		var id = document.getElementById('emails').value;
 		var pass = document.getElementById('pass').value;
+		var passChk = document.getElementById('passChk').value;
 		var name = document.getElementById('names').value;
 		var phone = document.getElementById('phone').value;
 		
@@ -28,6 +29,14 @@
 		}
 		if (phone == "") {
 			alert("전화번호를 입력해주세요.");
+			return false;
+		}
+		if(pass != passChk){
+			alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+			return false;
+		}
+		if(passChk == ""){
+			alert("비밀번호 확인을 해주세요.");
 			return false;
 		}
 		
@@ -101,6 +110,11 @@
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="pass" type="password" data-sb-validations="required" />
                                         <label for="password">비밀번호</label>
+                                        <!-- <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div> -->
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="passChk" type="password" data-sb-validations="required" />
+                                        <label for="password">비밀번호 확인</label>
                                         <!-- <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div> -->
                                     </div>
                                     <!-- Submit success message-->
