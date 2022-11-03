@@ -43,7 +43,7 @@ public class FrontControllerKJM {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = { "/" })
+	@RequestMapping(value = { "" })
 	public ModelAndView frontHome() throws Exception {
 		ModelAndView models = new ModelAndView("/front/home");
 		try {
@@ -165,11 +165,11 @@ public class FrontControllerKJM {
 //
 //		return models;
 //	}
-	@RequestMapping(value = {"/front"})
-	public ModelAndView about(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/front/about");
-		return mav;
-	}
+	/*
+	 * @RequestMapping(value = {"/front"}) public ModelAndView about(Locale locale,
+	 * Model model) { ModelAndView mav = new ModelAndView("/front/about"); return
+	 * mav; }
+	 */
 	
 	@RequestMapping(value = {"/front/blog"})
 	public ModelAndView blog(Locale locale, Model model) {
