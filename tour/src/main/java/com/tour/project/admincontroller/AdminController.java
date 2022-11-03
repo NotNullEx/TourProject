@@ -44,17 +44,6 @@ public class AdminController {
 	private static final Logger log = LoggerFactory.getLogger(AdminController.class);
 	
 	
-	@RequestMapping(value = { "/admin/regis" })
-	public ModelAndView registration() throws Exception {
-		ModelAndView mav = new ModelAndView("/admin/regis");
-		List<TourVO> lists = new ArrayList<TourVO>();
-		lists = service.tourList();
-
-		mav.addObject("sb", lists);
-		return mav;
-	}
-	
-	
 	@ResponseBody
 	@RequestMapping(value = { "/admin/dataInsert" })
 	public Object adminHome() throws Exception {
