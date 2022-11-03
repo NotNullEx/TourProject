@@ -28,6 +28,10 @@
 		FROM admin
 		WHERE admin_email = #{id}
 	</select>
-	
+	<select id="tourOneList" parameterType="String" resultType="TourVO">
+		SELECT * 
+		FROM tour
+		WHERE tour_seq = #{tour_seq}
+	</select>
 
 </mapper>

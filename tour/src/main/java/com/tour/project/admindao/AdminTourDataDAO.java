@@ -25,4 +25,8 @@ public class AdminTourDataDAO {
 		return tourList;
 	}
 	
+	public List<TourVO> tourOneList(String tour_seq){
+		List<TourVO> tourList = sqltemplate.selectList("tour.tourOneList",tour_seq);
+		return tourList;
+	}
 }

@@ -14,11 +14,11 @@
     		$.ajax({
     			url : "/admin/dataInsert",
     			success:function(data){
-    				alert("성공");
+    				alert("정상적으로 등록되었습니다.");
     				window.location.assign("/admin"); 
     			},
     			error:function(data){
-    				alert("실패");
+    				alert("데이터 등록에 실패했습니다.");
     			}
     		});
     		
@@ -36,7 +36,7 @@
                             <div class="my-5 text-center text-xl-start">
                             
                                 <h1 class="display-5 fw-bolder text-white mb-2">
-									<a href="/admin/tourDetail" class="text-decoration-none link-light">${sb[0].tour_post_sj}</a>
+									<a href="/admin/tourDetail?tour_seq=${sb[0].tour_seq}" class="text-decoration-none link-light">${sb[0].tour_post_sj}</a>
 								</h1>
                                 <p class="lead fw-normal text-white-50 mb-4">${sb[0].tour_new_address}</p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
@@ -87,7 +87,7 @@
                                     <div class="badge bg-primary bg-gradient rounded-pill mb-2 d-inline-block text-truncate" style="max-width: 150px;">
                                     	<a class="text-decoration-none link-light" href="${item.tour_cmmn_hmpg_url}" target="_blank">${item.tour_cmmn_hmpg_url}</a>  
                                     </div>
-                                    <h5 class="card-title mb-3">${item.tour_post_sj}</h5>
+                                    <h5 class="card-title mb-3"><a href="/admin/tourDetail?tour_seq=${item.tour_seq}" class="text-decoration-none link-dark">${item.tour_post_sj}</a> </h5>
                                     <p class="card-text mb-0">${item.tour_new_address}</p>
                                 </div>
                             </div>

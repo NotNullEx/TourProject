@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
@@ -147,8 +148,16 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = { "/admin/tourDetail" })
-	public ModelAndView tourDetail() throws Exception {
+	public ModelAndView tourDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView models = new ModelAndView("/admin/tourdetail");
+		String tour_seq = request.getParameter("tour_seq");
+		List<TourVO> lists = new ArrayList<TourVO>();
+		lists = service.tourOneList(tour_seq);
+		String[] result = lists.get(0).getTour_address().split(" ");
+		String address = result[2];
+
+		models.addObject("sb",lists);
+		models.addObject("address",address);
 		return models;
 	}
 }

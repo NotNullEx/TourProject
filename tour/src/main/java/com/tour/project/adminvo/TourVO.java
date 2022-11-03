@@ -6,7 +6,9 @@ import lombok.ToString;
 @Data
 @ToString
 public class TourVO {
-
+	
+	// 관광 시퀀스
+	private int tour_seq;
 	// 팩스 번호
 	private String tour_cmmn_fax;
 	// 주소

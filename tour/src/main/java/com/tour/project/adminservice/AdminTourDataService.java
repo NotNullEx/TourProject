@@ -9,4 +9,5 @@ public interface AdminTourDataService {
 	public int tourInsert(TourVO vo);
 	
 	public List<TourVO> tourList();
+	public List<TourVO> tourOneList(String tour_seq);
 }

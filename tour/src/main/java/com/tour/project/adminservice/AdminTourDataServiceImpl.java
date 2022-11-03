@@ -26,7 +26,11 @@ public class AdminTourDataServiceImpl implements AdminTourDataService{
 		List<TourVO> list = dao.tourList();
 		return list;
 	}
-	
-	
+
+	@Override
+	public List<TourVO> tourOneList(String tour_seq) {
+		List<TourVO> list = dao.tourOneList(tour_seq);
+		return list;
+	}
 
 }
