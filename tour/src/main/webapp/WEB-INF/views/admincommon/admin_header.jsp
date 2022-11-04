@@ -23,11 +23,12 @@
                                     <li><a class="dropdown-item" href="/admin/portfolioitem">Portfolio Item</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link" onclick="data_insert()">데이터 등록</a></li>
-                            <c:if test="${empty sessionScope.ADMIN_ID}">            
+                            <c:if test="${empty sessionScope.ADMIN_ID}">
+                            	     
 					        	<li class="nav-item"><a class="nav-link" href="#" onclick="location='/admin/login'">로그인</a></li>
 					       </c:if>
-                            <c:if test="${not empty sessionScope.ADMIN_ID}">            
+                            <c:if test="${not empty sessionScope.ADMIN_ID}">   
+                            	<li class="nav-item"><a class="nav-link" href="#" onclick="data_insert()">데이터 등록</a></li>          
 					        	<li class="nav-item" id="signOut"><a class="nav-link" href="/admin/logOut" class="nav-link text-dark">로그아웃</a></li>
 					       </c:if>
                         </ul>
