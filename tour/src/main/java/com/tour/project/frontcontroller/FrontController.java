@@ -73,4 +73,16 @@ public class FrontController {
 		models.addObject("address",address);
 		return models;
 	}
+	
+	@RequestMapping(value = { "/front/tourList" })
+	public ModelAndView tourList() throws Exception {
+		ModelAndView models = new ModelAndView("/front/tourList");
+		List<TourVO> lists = new ArrayList<TourVO>();
+		lists = service.tourList();
+
+		models.addObject("sb", lists);
+		return models;
+	}
+	
+	
 }
