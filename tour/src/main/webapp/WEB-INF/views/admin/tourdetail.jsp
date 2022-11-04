@@ -224,7 +224,7 @@ div {
 									<li><strong>휴일</strong><span>${sb[0].tour_cmmn_rstde }</span></li>
 									<li><strong>장애인 안내</strong><span>${sb[0].tour_bf_desc }</span></li>
 									<li><strong>운영 요일</strong><span>${sb[0].tour_cmmn_bsnde } </span></li>
-									<li><strong>홈페이지</strong><span>${sb[0].tour_cmmn_hmpg_url } </span></li>
+									<li><strong>홈페이지</strong><span><a href="${sb[0].tour_cmmn_hmpg_url }" target="_blank">${sb[0].tour_cmmn_hmpg_url }</a></span></li>
 								</ul>
 							</div>
 						</div>
