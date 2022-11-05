@@ -144,7 +144,7 @@ public class AdminControllerBYS {
 	public ModelAndView blog(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/restauranthome");	
 		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
-		resVO = infoService.list();
+		resVO = infoService.listAll();
 		mav.addObject("data",resVO);
 		return mav;
 	}
@@ -194,7 +194,7 @@ public class AdminControllerBYS {
 	public Object deleteRestaurant() {
 		int result = 0;
 		// Gson을 활용한 경우
-		result = DRS.delete();
+		result = DRS.deleteAll();
 		return new Gson().toJson(result);
 	}
 	

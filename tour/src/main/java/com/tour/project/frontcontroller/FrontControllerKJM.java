@@ -175,7 +175,7 @@ public class FrontControllerKJM {
 	public ModelAndView blog(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/front/bloghome");	
 		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
-		resVO = infoService.list();
+		resVO = infoService.listAll();
 		mav.addObject("data",resVO);
 		return mav;
 	}	

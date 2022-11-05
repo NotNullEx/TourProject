@@ -11,9 +11,16 @@ public class DeleteRestaurantServiceImpl implements DeleteRestaurantService {
 	DeleteRestaurantDao deleteDao;
 	
 	@Override
-	public int delete() {
+	public int deleteAll() {
 		int result = 0;
-		result = deleteDao.delete();
+		result = deleteDao.deleteAll();
+		return result;
+	}
+
+	@Override
+	public int deleteOne(String code) {
+		int result = 0;
+		result = deleteDao.deleteOne(code);
 		return result;
 	}
 

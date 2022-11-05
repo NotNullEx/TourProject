@@ -14,15 +14,15 @@ public class RestaurantInfoDao {
 	@Autowired 
 	private SqlSessionTemplate sqltemplate;
 	
-	public List<RestaurantVO> list() {
+	public List<RestaurantVO> listAll() {
 		List<RestaurantVO> result = new ArrayList<RestaurantVO>();
-		result = sqltemplate.selectList("restaurant.list");
+		result = sqltemplate.selectList("restaurant.listAll");
 		return result;
 	}
 	
 	public List<RestaurantVO> listOne(String search) {
 		List<RestaurantVO> result = new ArrayList<RestaurantVO>();
-		result = sqltemplate.selectList("restaurant.list", search);
+		result = sqltemplate.selectList("restaurant.listOne", search);
 		return result;
 	}
 }

@@ -9,9 +9,15 @@ public class DeleteRestaurantDao {
 	@Autowired 
 	private SqlSessionTemplate sqltemplate;
 	
-	public int delete() {
+	public int deleteAll() {
 		int result = 0;
-		result = sqltemplate.delete("restaurant.delete");
+		result = sqltemplate.delete("restaurant.deleteAll");
+		return result;
+	}
+	
+	public int deleteOne(String code) {
+		int result = 0;
+		result = sqltemplate.delete("restaurant.deleteOne",code);
 		return result;
 	}
 }

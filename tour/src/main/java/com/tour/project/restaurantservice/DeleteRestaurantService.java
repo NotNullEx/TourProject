@@ -1,5 +1,6 @@
 package com.tour.project.restaurantservice;
 
 public interface DeleteRestaurantService {
-	public int delete();
+	public int deleteAll();
+	public int deleteOne(String code);
 }
