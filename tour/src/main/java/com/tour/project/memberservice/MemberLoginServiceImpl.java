@@ -1,6 +1,7 @@
 package com.tour.project.memberservice;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,18 @@ public class MemberLoginServiceImpl implements MemberLoginService {
 			e.printStackTrace();
 		}	
 		
+		return result;
+	}
+	
+	@Override
+	public Map<String, Object> memberInfo(String id){
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			result = dao.getmemberInfo(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		
+		}
 		return result;
 	}
 }

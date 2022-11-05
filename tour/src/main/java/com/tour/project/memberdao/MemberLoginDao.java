@@ -17,4 +17,9 @@ public class MemberLoginDao {
 		int rtnVal = sqltemplate.selectOne("member.memberLogin", map);
     	return rtnVal;
 	}
+	
+	public Map<String, Object> getmemberInfo(String id) throws SQLException{
+		Map<String, Object> result = sqltemplate.selectOne("member.select_detail",id);
+		return result;
+	}
 }

@@ -17,13 +17,13 @@
 
 	<select id="select_detail" resultType="hashMap"
 		parameterType="hashMap">
-		SELECT * FROM member WHERE id = #{id}
+		SELECT * FROM member WHERE mem_email = #{id}
 	</select>
 
 	<select id="passDetail" resultType="hashMap"
 		parameterType="hashMap">
-		SELECT * FROM member WHERE id = #{id} AND passwd =
-		#{passwd}
+		SELECT * FROM member WHERE id = #{id} AND password =
+		#{password}
 	</select>
 	<update id="saveUpdate" parameterType="hashMap">
 		UPDATE member

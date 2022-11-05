@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<jsp:include page="../frontcommon/front_header_common.jsp" />
+<jsp:include page="../admincommon/admin_header_common.jsp" />
 <style type="text/css">
 	.table{
 		width: 80%;
@@ -18,6 +18,13 @@
 		width: 350;
 	}
 </style>
+<script type="text/javascript">
+	function go_url(){
+		var url = $("#url").val();
+		location.href(url);
+	}
+
+</script>
 </head>
 <body class="d-flex flex-column">
 	<main class="flex-shrink-0">
@@ -30,7 +37,10 @@
 					<div class="col-lg-8 col-xxl-6">
 						<div class="text-center my-5">
 							<h1 class="fw-bolder mb-3">서울 관광명소 리스트</h1>
+							
 							<p class="lead fw-normal text-muted mb-4">서울의 관광지를 한눈에!</p>
+							<!-- <a class="btn btn-primary btn-lg" href="#scroll-target">Read
+								our story</a> -->
 						</div>
 					</div>
 				</div>
@@ -68,7 +78,7 @@
 						<tr>
 							<th scope="row">${vs.index }</th>
 							<td><img class="image" alt="tt" src="../resources/img/001.jpg"> </td>
-							<td>${item.tour_post_sj}<br>
+							<td><a class="text-decoration-none link-dark" href="/admin/tourDetail?tour_seq=${item.tour_seq}" >${item.tour_post_sj}</a> <br>
 								${item.tour_new_address }<br>
 								<c:choose>
 									<c:when test = "${item.tour_cmmn_fax == null or item.tour_cmmn_fax eq ' '}">
@@ -79,7 +89,8 @@
 							        </c:otherwise>
 								</c:choose>
 							</td>
-							<td onclick="${item.tour_cmmn_hmpg_url}" >${item.tour_cmmn_hmpg_url}</td>
+							<td><a class="text-decoration-none link-dark" href="${item.tour_cmmn_hmpg_url}" target="_blank">${item.tour_cmmn_hmpg_url}</a></td>
+							
 						</tr>
 					</c:forEach>
 				</tbody>
