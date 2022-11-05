@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+	function revise() {
+		
+	}
+</script>
 <body>
 	<jsp:include page="../admincommon/admin_header.jsp" />
 	<div class="inr">

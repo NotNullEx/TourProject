@@ -143,9 +143,17 @@ public class AdminControllerBYS {
 	@RequestMapping(value = {"/admin/restaurant"})
 	public ModelAndView blog(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/restauranthome");	
+		String res_adress_area[] = {"강남구","강동구","강서구","강북구","관악구","광진구","구로구","금천구","노원구","동대문구"
+									,"도봉구","동작구","마포구","서대문구","성동구","성북구","서초구","송파구","영등포구","용산구"
+									,"양천구","은평구","종로구","중구","중랑구"};
+		List<String> area = new ArrayList<String>();
+		for(int i = 0; i < res_adress_area.length; i++) {
+			area.add(res_adress_area[i]);
+		}
 		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
 		resVO = infoService.listAll();
 		mav.addObject("data",resVO);
+		mav.addObject("area",area);
 		return mav;
 	}
 	
@@ -210,6 +218,24 @@ public class AdminControllerBYS {
 		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
 		lists = infoService.listOne(search);
 		mav.addObject("data",lists);
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/admin/selectRestaurantBySection"})
+	public ModelAndView selectSection(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("/admin/restauranthome");
+		String res_adress_area[] = {"강남구","강동구","강서구","강북구","관악구","광진구","구로구","금천구","노원구","동대문구"
+									,"도봉구","동작구","마포구","서대문구","성동구","성북구","서초구","송파구","영등포구","용산구"
+									,"양천구","은평구","종로구","중구","중랑구"};
+		List<String> area = new ArrayList<String>();
+		for(int i = 0; i < res_adress_area.length; i++) {
+			area.add(res_adress_area[i]);
+			}
+		String adress = request.getParameter("res_adress_area");
+		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
+		lists = infoService.listBySection(adress);
+		mav.addObject("data",lists);
+		mav.addObject("area",area);
 		return mav;
 	}
 }

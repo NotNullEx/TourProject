@@ -11,11 +11,11 @@
                             <li class="nav-item"><a class="nav-link" href="/admin">홈</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/tourList">관광지</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/contact">행사</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/admin/blog">먹거리</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/admin/restaurant">먹거리</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/pricing">결제</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/faq">FAQ</a></li>
                             
-                            <li class="nav-item"><a class="nav-link" href="/admin/blogPost">게시판</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/admin/board">게시판</a></li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Portfolio</a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">

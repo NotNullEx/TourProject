@@ -8,7 +8,6 @@
 </head>
 
 
-
 <style>
 .bimg {
 	background-image: url('#');
@@ -41,7 +40,6 @@
 								<div class="card-body p-0">
 									<div class="row gx-0">
 										<div class="col-lg-6 col-xl-5 py-lg-5">
-										<a href="/admin/restaurantDetail?res_code=${data[0].res_code}">
 											<div class="p-4 p-md-5">
 												<div class="badge bg-primary bg-gradient rounded-pill mb-2">
 													<c:out value="${data[0].res_name}" />
@@ -52,11 +50,10 @@
 												<p>
 													<c:out value="${data[0].res_desc}" />
 												</p>
-
 											</div>
-											</a>
 										</div>
 										<div class="col-lg-6 col-xl-7">
+										
 											<div class="bg-featured-blog bimg"
 												style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/1/1e/Tom%27s_Restaurant%2C_NYC.jpg)"></div>
 										</div>
@@ -70,7 +67,6 @@
 								<div class="card-body p-0">
 									<div class="row gx-0">
 										<div class="col-lg-6 col-xl-5 py-lg-5">
-										<a href="/admin/restaurantDetail?res_code=${data[1].res_code}">
 											<div class="p-4 p-md-5">
 												<div class="badge bg-primary bg-gradient rounded-pill mb-2">
 													<c:out value="${data[1].res_name}" />
@@ -82,7 +78,6 @@
 													<c:out value="${data[1].res_desc}" />
 												</p>
 											</div>
-											</a>
 										</div>
 										<!-- <i class="bi bi-arrow-right"></i> -->
 										<div class="col-lg-6 col-xl-7">
@@ -98,7 +93,6 @@
 								<div class="card-body p-0">
 									<div class="row gx-0">
 										<div class="col-lg-6 col-xl-5 py-lg-5">
-										<a href="/admin/restaurantDetail?res_code=${data[2].res_code}">
 											<div class="p-4 p-md-5">
 												<div class="badge bg-primary bg-gradient rounded-pill mb-2">
 													<c:out value="${data[2].res_name}" />
@@ -110,7 +104,6 @@
 													<c:out value="${data[2].res_desc}" />
 												</p>
 											</div>
-											</a>
 										</div>
 										<!-- <i class="bi bi-arrow-right"></i> -->
 										<div class="col-lg-6 col-xl-7">
@@ -140,26 +133,34 @@
 			</div>
 
 		</section>
-
-
+		
+		<div>
+			<ul>
+			<c:forEach var="area" items="${area}">
+			<li><button type="button" onclick="location='/admin/selectRestaurantBySection?res_adress_area=${area}'">${area}</button></li>
+			</c:forEach>
+			</ul>
+		</div>
+		
 		<!-- Blog preview section-->
 		<section class="py-5">
 			<div class="container px-5">
 				<h2 class="fw-bolder fs-5 mb-4">여기도 한번 둘러보세요!</h2>
 				<div class="row gx-5">
-					<c:forEach var="data" items="${data}" begin="3">
+					<c:forEach var="data" items="${data}" begin="0">
 						<div class="col-lg-4 mb-5">
 							<div class="card h-100 shadow border-0">
 								<img class="card-img-top" src="/resources/img/${data.res_image}"
 									alt="..." />
 								<div class="card-body p-4">
+								<a href="/admin/restaurantDetail?res_code=${data.res_code}">
 									<div class="badge bg-primary bg-gradient rounded-pill mb-2">
 										<c:out value="${data.res_name}" />
 									</div>
-									<a class="text-decoration-none link-dark stretched-link"
-										href="#!"><div class="h5 card-title mb-3">
+									</a>
+										<div class="h5 card-title mb-3">
 											<c:out value="${data.res_adress}" />
-										</div></a>
+										</div>
 									<p class="card-text mb-0">
 										<c:out value="${data.res_desc}" />
 									</p>

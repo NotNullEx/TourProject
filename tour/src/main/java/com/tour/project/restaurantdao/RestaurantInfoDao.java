@@ -25,4 +25,10 @@ public class RestaurantInfoDao {
 		result = sqltemplate.selectList("restaurant.listOne", search);
 		return result;
 	}
+	
+	public List<RestaurantVO> listBySection(String adress) {
+		List<RestaurantVO> result = new ArrayList<RestaurantVO>();
+		result = sqltemplate.selectList("restaurant.listBySection", adress);
+		return result;
+	}
 }

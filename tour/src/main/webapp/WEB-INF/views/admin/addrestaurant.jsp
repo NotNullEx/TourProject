@@ -73,7 +73,7 @@
 				"rest_day" : rest_day,
 				"desc" : desc,
 				"name" : name,
-				"kind" : kind,
+				"kind" : kind
 			},
 			async : false,
 			success : function(data) {
@@ -94,7 +94,7 @@
 <body>
 <jsp:include page="../admincommon/admin_header.jsp"/>
 
-								<div id="contactForm">
+								<form id="contactForm">
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="tour_ps" type="text">
                                         <label for="even_code">tour_post_sn</label>
@@ -135,12 +135,12 @@
                                         <label for="even_id">이름</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        한식 <input id="kind" type="radio" value="0" checked="checked">
+                                        한식 <input id="kind" type="radio" value="0">
                                         중식 <input id="kind" type="radio" value="1">
                                         일식 <input id="kind" type="radio" value="2">
                                         양식 <input id="kind" type="radio" value="3">
                                     </div>
                                     <div class="d-grid"><button type="button" onclick="add()">음식점 DB 추가</button><button type="button" onclick="cancel()">취소</button></div>
-                                </div>
+                                </form>
 </body>
 </html>
