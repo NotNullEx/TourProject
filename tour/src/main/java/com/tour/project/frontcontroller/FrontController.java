@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -84,5 +85,17 @@ public class FrontController {
 		return models;
 	}
 	
-	
+	@RequestMapping(value = {"/front/createBoard"}, method = RequestMethod.GET)
+	public ModelAndView create(HttpServletRequest request,  HttpServletResponse response) {
+		
+		String user_id = (String) request.getSession().getAttribute("MEMBER_ID");
+		
+		if(user_id == null || "".equals(user_id)) {
+			ModelAndView models = new ModelAndView("/front/member_login");
+			return models;
+		} else {
+			return new ModelAndView("front/createBoard");
+		}
+		
+	}
 }
