@@ -17,6 +17,12 @@
 	WHERE res_code = #{search}
 </select>
 
+<select id="listBySection" parameterType="String" resultType="RestaurantVO">
+	SELECT *
+	FROM restaurant
+	WHERE res_adress_area = #{adress}
+</select>
+
 <delete id="deleteAll">
 	DELETE FROM restaurant
 </delete>
