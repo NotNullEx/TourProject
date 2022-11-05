@@ -53,7 +53,7 @@
 				if (data.result == 1) {
 					console.log(id);
 					alert(name+"님의 가입을 축하드립니다!");
-					window.location.assign("/"); 
+					window.location.assign("/admin"); 
 				} else {
 					alert("가입불가 공란을 확인해주세요.");
 				}
