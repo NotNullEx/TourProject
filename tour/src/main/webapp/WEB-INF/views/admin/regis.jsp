@@ -38,7 +38,7 @@
 		</div>
 		<div class="col-lg-4 mb-5">
 			<div class="card h-100 shadow border-0">
-				<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="location.href='/admin/addrestaurant'">Tour 데이터 추가</button>
+				<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="location.href='/admin/adminDataInsert'">Tour 데이터 추가</button>
 			</div>
 		</div>
 		<div class="col-lg-4 mb-5">
