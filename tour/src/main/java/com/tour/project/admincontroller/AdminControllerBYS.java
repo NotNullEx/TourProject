@@ -42,6 +42,7 @@ import com.tour.project.common.ResultSendToClient;
 import com.tour.project.restaurantservice.CreateRestaurantService;
 import com.tour.project.restaurantservice.DeleteRestaurantService;
 import com.tour.project.restaurantservice.RestaurantInfoService;
+import com.tour.project.restaurantservice.UpdateRestaurantService;
 import com.tour.project.restaurantvo.RestaurantVO;
 
 /**
@@ -66,7 +67,7 @@ public class AdminControllerBYS {
 	private DeleteRestaurantService DRS;
 	
 	@Autowired
-	private AdminTourDataService ATDS;
+	private UpdateRestaurantService URS;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminControllerBYS.class);
 
@@ -238,4 +239,35 @@ public class AdminControllerBYS {
 		mav.addObject("area",area);
 		return mav;
 	}
+	
+	@RequestMapping(value = {"/admin/reviseAll"})
+	public ModelAndView reviseAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("/admin/restaurant_revise");
+		String code = request.getParameter("res_code");
+		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
+		lists = infoService.listOne(code);
+		mav.addObject("data",lists);
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/admin/reviseAllOK"})
+	public void reviseAllOK(@RequestParam Map<String,Object> map,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int isCreated =  URS.reviseAll(map);
+		if(isCreated ==1) {
+			System.out.println("success");
+			ResultSendToClient.onlyResultTo(response, isCreated);
+		}
+		else {
+			System.out.println("faile");
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = {"/admin/deleteOneRestaurant"})
+	public Object deleteOneRestaurant(@RequestParam String code, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int result = 0;
+		result = DRS.deleteOne(code);
+		return new Gson().toJson(result);
+	}
+	
 }

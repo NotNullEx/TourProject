@@ -8,8 +8,26 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	function revise() {
-		
+	function deleteOne(code) {
+		if(confirm("정말 삭제하시겠습니까??")) {
+			$.ajax({
+				type : "POST",
+				data : {
+					"code" : code
+				},
+				url : "/admin/deleteOneRestaurant",
+				async : false,
+				success : function(data) {
+					console.log(data);
+					if(data > 0) {
+						alert("삭제가 완료되었습니다.");
+						window.location.assign("/admin/restaurant"); 
+					}else {
+						alert("삭제에 실패했습니다.");
+					}
+				}
+			});
+		}
 	}
 </script>
 <body>
@@ -32,8 +50,8 @@
 	</div>
 	<div class="col-lg-4 mb-5">
 			 <div class="card h-100 shadow border-0">
-					<button type="button" id="resetRes" class="w-100 btn btn-primary mb-2" onclick="#">수정하기</button>
-					<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="#">삭제하기</button>
+					<button type="button" id="resetRes" class="w-100 btn btn-primary mb-2" onclick="location.href='/admin/reviseAll?res_code=${data[0].res_code}'">수정하기</button>
+					<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="deleteOne(${data[0].res_code})">삭제하기</button>
 			</div>
 		</div>
 </body>

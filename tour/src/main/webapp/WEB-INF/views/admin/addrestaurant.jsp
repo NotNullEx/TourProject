@@ -18,7 +18,7 @@
 		var rest_day = document.getElementById('rest_day').value;
 		var desc = document.getElementById('desc').value;
 		var name = document.getElementById('name').value;
-		var kind = document.getElementById('kind').value;
+		var kind = $('input[name=kind]:checked').val();
 		if (tour_ps == "") {
 			alert("tour_ps를 입력해주세요.");
 			return false;
@@ -135,10 +135,10 @@
                                         <label for="even_id">이름</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        한식 <input id="kind" type="radio" value="0">
-                                        중식 <input id="kind" type="radio" value="1">
-                                        일식 <input id="kind" type="radio" value="2">
-                                        양식 <input id="kind" type="radio" value="3">
+                                        한식 <input name="kind" type="radio" value="0" checked="checked">
+                                        중식 <input name="kind" type="radio" value="1">
+                                        일식 <input name="kind" type="radio" value="2">
+                                        양식 <input name="kind" type="radio" value="3">
                                     </div>
                                     <div class="d-grid"><button type="button" onclick="add()">음식점 DB 추가</button><button type="button" onclick="cancel()">취소</button></div>
                                 </form>

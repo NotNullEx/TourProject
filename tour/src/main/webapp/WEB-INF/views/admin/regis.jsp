@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="../admincommon/admin_header_common.jsp"/>
-<title>관광지 데이터 등록</title>
+<title>데이터 등록</title>
 </head>
 <script type="text/javascript">
 	function resetRestaurant() {

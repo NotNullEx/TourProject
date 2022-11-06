@@ -20,9 +20,9 @@ public class RestaurantInfoDao {
 		return result;
 	}
 	
-	public List<RestaurantVO> listOne(String search) {
+	public List<RestaurantVO> listOne(String code) {
 		List<RestaurantVO> result = new ArrayList<RestaurantVO>();
-		result = sqltemplate.selectList("restaurant.listOne", search);
+		result = sqltemplate.selectList("restaurant.listOne", code);
 		return result;
 	}
 	

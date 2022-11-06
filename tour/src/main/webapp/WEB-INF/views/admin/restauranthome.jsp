@@ -53,7 +53,7 @@
 											</div>
 										</div>
 										<div class="col-lg-6 col-xl-7">
-										
+
 											<div class="bg-featured-blog bimg"
 												style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/1/1e/Tom%27s_Restaurant%2C_NYC.jpg)"></div>
 										</div>
@@ -133,43 +133,60 @@
 			</div>
 
 		</section>
-		
+
 		<div>
 			<ul>
-			<c:forEach var="area" items="${area}">
-			<li><button type="button" onclick="location='/admin/selectRestaurantBySection?res_adress_area=${area}'">${area}</button></li>
-			</c:forEach>
+				<c:forEach var="area" items="${area}">
+					<li><button type="button"
+							onclick="location='/admin/selectRestaurantBySection?res_adress_area=${area}'">${area}</button></li>
+				</c:forEach>
 			</ul>
 		</div>
-		
+
 		<!-- Blog preview section-->
 		<section class="py-5">
-			<div class="container px-5">
+			<table class="table">
 				<h2 class="fw-bolder fs-5 mb-4">여기도 한번 둘러보세요!</h2>
-				<div class="row gx-5">
-					<c:forEach var="data" items="${data}" begin="0">
-						<div class="col-lg-4 mb-5">
-							<div class="card h-100 shadow border-0">
-								<img class="card-img-top" src="/resources/img/${data.res_image}"
-									alt="..." />
-								<div class="card-body p-4">
-								<a href="/admin/restaurantDetail?res_code=${data.res_code}">
-									<div class="badge bg-primary bg-gradient rounded-pill mb-2">
-										<c:out value="${data.res_name}" />
-									</div>
-									</a>
-										<div class="h5 card-title mb-3">
-											<c:out value="${data.res_adress}" />
-										</div>
-									<p class="card-text mb-0">
-										<c:out value="${data.res_desc}" />
-									</p>
-								</div>
-							</div>
-						</div>
+				<thead>
+					<tr>
+						<th scope="col">No.</th>
+						<th scope="col">음식점 이미지</th>
+						<th scope="col">정보</th>
+						<th scope="col">휴일</th>
+						<th scope="col">전화번호</th>
+					</tr>
+				</thead>
+				<tbody class="tableInfo">
+					<c:forEach var="data" items="${data}" begin="0" varStatus="vs">
+						<tr>
+							<th scope="row">${vs.index}</th>
+							<td><img class="image" alt="..." src="${data.res_image}">
+							</td>
+							<td><a class="text-decoration-none link-dark"
+								href="/admin/restaurantDetail?res_code=${data.res_code}">${data.res_name}</a>
+								<br> ${data.res_adress}<br> <c:choose>
+									<c:when
+										test="${data.res_open_time == null or data.res_open_time eq ' '}">
+										- <br>
+									</c:when>
+									<c:otherwise>
+							        	${data.res_open_time}
+							        </c:otherwise>
+								</c:choose></td>
+							<td><c:choose>
+									<c:when
+										test="${data.res_rest_day == null or data.res_rest_day eq ' '}">
+							       	-	<br>
+									</c:when>
+									<c:otherwise>
+									${data.res_rest_day}
+								</c:otherwise>
+								</c:choose></td>
+							<td>${data.res_telnum}</td>
+						</tr>
 					</c:forEach>
-				</div>
-			</div>
+				</tbody>
+			</table>
 		</section>
 	</main>
 	<jsp:include page="../admincommon/admin_footer.jsp" />
