@@ -33,5 +33,22 @@
 		FROM tour
 		WHERE tour_seq = #{tour_seq}
 	</select>
-
+	<insert id="tourDataInsert" parameterType="hashMap">
+		INSERT INTO
+		tour(tour_post_sn,tour_cmmn_fax,tour_address,tour_new_address,tour_subway_info,tour_cmmn_hmpg_url,tour_cmmn_telno,tour_cmmn_bsnde,tour_bf_desc,tour_cmmn_rstde,
+		tour_cmmn_use_time,tour_post_sj)
+		VALUES(#{tour_post_sn},#{tour_cmmn_fax},#{tour_address},#{tour_new_address},#{tour_subway_info},#{tour_cmmn_hmpg_url},#{tour_cmmn_telno},#{tour_cmmn_bsnde},#{tour_bf_desc},#{tour_cmmn_rstde},
+		#{tour_cmmn_use_time},#{tour_post_sj});
+	</insert>
+	<update id="tourUpdateData" parameterType="hashMap" >
+	UPDATE tour
+	SET tour_cmmn_fax=#{tour_cmmn_fax}, tour_address=#{tour_address}, tour_new_address =#{tour_new_address},
+	tour_subway_info = #{tour_subway_info},tour_cmmn_hmpg_url = #{tour_cmmn_hmpg_url},tour_cmmn_telno = #{tour_cmmn_telno},
+	tour_cmmn_bsnde = #{tour_cmmn_bsnde},tour_bf_desc =#{tour_bf_desc}, tour_cmmn_rstde = #{tour_cmmn_rstde}, tour_cmmn_use_time=#{tour_cmmn_use_time}
+	WHERE tour_seq=#{tour_seq}
+	</update>
+	<delete id="tourDeleteData" parameterType="String">
+		DELETE FROM tour
+		WHERE tour_seq= #{value}
+	</delete>
 </mapper>

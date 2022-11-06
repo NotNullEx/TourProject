@@ -1,5 +1,6 @@
 package com.tour.project.adminservice;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,29 @@ public class AdminTourDataServiceImpl implements AdminTourDataService{
 	public List<TourVO> tourOneList(String tour_seq) {
 		List<TourVO> list = dao.tourOneList(tour_seq);
 		return list;
+	}
+
+	@Override
+	public int tourInsert(HashMap<String, Object> map) {
+		int result = -1;
+		result = dao.tourInsert(map);
+		return result;
+	}
+
+	@Override
+	public int tourUpdateDate(HashMap<String, Object> map) {
+		int result = -1;
+		result = dao.tourUpdateData(map);
+		
+		return result;
+	}
+
+	@Override
+	public int tourDeleteDate(String seq) {
+		int result = -1;
+		result = dao.tourDeleteDate(seq);
+		
+		return result;
 	}
 
 }

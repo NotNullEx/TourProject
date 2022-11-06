@@ -3,175 +3,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-#contents {
-	width: 980px;
-	margin: 0 auto;
-	padding: 0 20px 27px 20px;
-}
-
-.titleType1 {
-	text-align: center;
-	position: relative;
-}
-
-.detail_tab ul li {
-	float: left;
-	width: 25%;
-	text-align: center;
-	border-top: 1px solid #e6e6e6;
-	border-bottom: 1px solid #e6e6e6;
-}
-
-dl, ul, ol, menu, li {
-	list-style: none;
-}
-
-.detail_tab ul li a {
-	line-height: 39px;
-	font-size: 15px;
-}
-
-element.style {
-	
-}
-
-@media screen and (max-width: 1023px) .detail_tab ul li a {
-	line-height
-	:
-	 
-	39px
-	;
-	
-    
-	font-size
-	:
-	 
-	15px
-	;
-	
-
-}
-
-.detail_tab ul li a {
-	position: relative;
-	display: block;
-	line-height: 63px;
-	font-size: 18px;
-	color: #666;
-	letter-spacing: -1px;
-}
-
-a:link, a:visited, a:hover, a:focus, a:active {
-	text-decoration: none;
-}
-
-@media screen and (max-width: 1023px) .photo_gallery .swiper-container {
-	height: 
-	193
-	.5px
-	;
-	
-
-}
-
-.titleType1 .post_area {
-	position: relative;
-	top: 0;
-	margin: 35px 0 18px;
-}
-
-.titleType1 .post_area>button {
-	float: left;
-}
-
-.post_area .btn_good {
-	padding: 0 10px 0 0;
-}
-.post_area .num_view {
-    float: left;
-}
-.post_area .btn_good .ico {
-    width: 23px;
-    height: 21px;
-    background-image: url('/resources/img/free-icon-like-149217.png');
-}
-.post_area .btn_bookmark .ico {
-    position: relative;
-    width: 16px;
-    height: 21px;
-    background-image: url('/resources/img/favoritesstar_79753.png');
-}
-.post_area button .ico {
-    display: inline-block;
-    text-indent: -9999px;
-}
-.post_area .num {
-    display: inline-block;
-    margin-left: 8px;
-    color: #000;
-    font-size: 16px;
-    vertical-align: top;
-}
-button {
-    border: 0 none;
-    background-color: transparent;
-    cursor: pointer;
-    outline: 0 none;
-}
-.wrap_contView {
-    position: relative;
-    width: 100%;
-    margin-top: 24px;
-}
-div {
-    box-sizing: border-box;
-}
-.wrap_contView .area_txtView {
-    position: relative;
-    padding-bottom: 0 !important;
-}
-.db_cont_detail .wrap_contView .area_txtView .inr_wrap .inr {
-    overflow: hidden;
-}
-.db_cont_detail .wrap_contView .area_txtView ul li strong {
-    float: none;
-    margin-right: 0;
-    position: relative;
-    display: table-cell;
-    width: 128px;
-    padding: 0 0 0 12px;
-    font-weight: 700;
-    color: #333;
-}
-.db_cont_detail .wrap_contView .area_txtView ul li span.mo {
-    display: none;
-}
-
-.db_cont_detail .wrap_contView .area_txtView ul li span {
-    float: none;
-    width: auto;
-    display: table-cell;
-    color: #666;
-    padding-right: 20px;
-    line-height: 1.4;
-}
-.db_cont_detail .wrap_contView .area_txtView ul li {
-    float: left;
-    width: 50%;
-    padding: 0 0 9px 0;
-    display: table;
-    font-size: 15px;
-    font-weight: 400;
-    background: none !important;
-</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <jsp:include page="../admincommon/admin_header_common.jsp" />
+<link href="../resources/css/tourdetail.css" rel="stylesheet" type="text/css">
 </head>
+<script type="text/javascript">
+	function go_modify(){
+		var tour_seq = $("#tour_seq").val();
+		window.location.assign("/admin/dataUpdate?tour_seq="+tour_seq);
+	}
+	function go_delete(){
+		var tour_seq = $("#tour_seq").val();
+		if(!confirm("삭제 하시겠습니까?")){
+			return false;
+		}else{
+			$.ajax({
+				url : "/admin/dataDelete?tour_seq=" + tour_seq,
+    			success:function(data){
+    				alert("정상적으로 삭제되었습니다.");
+    				window.location.assign("/admin/tourList"); 
+    			},
+    			error:function(data){
+    				alert("데이터 삭제에 실패했습니다.");
+    			}
+			});
+		}
+	}
+</script>
 <body>
 	<jsp:include page="../admincommon/admin_header.jsp" />
 	<div id="contents">
+		<button type="button" onclick="go_modify()">수정</button>
+		<button type="button" onclick="go_delete()">삭제</button>
+		<input type="hidden" id="tour_seq" value="${sb[0].tour_seq}">
 		<div class="titleType1">
 			<div class="area_tag">
 				<div class="brandingIcon">
@@ -179,6 +44,7 @@ div {
 				</div>
 			</div>
 			<h2 id="topTitle" class="select_tab on">${sb[0].tour_post_sj}</h2>
+			
 			<div class="area_address" id="topAddr">
 				<span>${address}</span>
 			</div>

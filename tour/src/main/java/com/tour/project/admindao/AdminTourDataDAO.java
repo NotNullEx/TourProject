@@ -1,5 +1,6 @@
 package com.tour.project.admindao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,6 +20,12 @@ public class AdminTourDataDAO {
 		return result;
 		
 	}
+	public int tourInsert(HashMap<String, Object> map) {
+		int result = -1;
+		result = sqltemplate.insert("tour.tourDataInsert", map);
+		return result;
+		
+	}
 	
 	public List<TourVO> tourList(){
 		List<TourVO> tourList = sqltemplate.selectList("tour.tourList");
@@ -28,5 +35,17 @@ public class AdminTourDataDAO {
 	public List<TourVO> tourOneList(String tour_seq){
 		List<TourVO> tourList = sqltemplate.selectList("tour.tourOneList",tour_seq);
 		return tourList;
+	}
+	
+	public int tourUpdateData(HashMap<String, Object> map) {
+		int result = -1;
+		result = sqltemplate.update("tour.tourUpdateData",map);
+		return result;
+	}
+	
+	public int tourDeleteDate(String seq) {
+		int result = -1;
+		result = sqltemplate.delete("tour.tourDeleteData",seq);
+		return result;
 	}
 }
