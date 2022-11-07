@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +25,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tour.project.adminservice.AdminBoardService;
 import com.tour.project.adminservice.AdminEventService;
 import com.tour.project.adminservice.AdminRestaurantService;
+import com.tour.project.adminvo.BoardVO;
 import com.tour.project.adminvo.EventVO;
 import com.tour.project.adminvo.RestaurantVO;
+import com.tour.project.common.ResultSendToClient;
 
 @Controller
 public class FrontControllerKJM {
@@ -36,6 +41,9 @@ public class FrontControllerKJM {
 	
 	@Autowired
 	private AdminEventService AES;
+	
+	@Autowired
+	private AdminBoardService ABS;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -167,6 +175,18 @@ public class FrontControllerKJM {
 	 * Model model) { ModelAndView mav = new ModelAndView("/front/about"); return
 	 * mav; }
 	 */
+	@RequestMapping(value = {"/front/createBoardOK"})
+	public void createBoardOK(@RequestParam Map<String, Object> map, HttpServletResponse response) {
+		int isCreated =  ABS.create(map);
+		if(isCreated ==1) {
+			System.out.println("success");
+			ResultSendToClient.onlyResultTo(response, isCreated);
+		}
+		else {
+			System.out.println("faile");
+		}
+	}
+	
 	
 	@RequestMapping(value = {"/front/blog"})
 	public ModelAndView blog(Locale locale, Model model) {
@@ -180,8 +200,8 @@ public class FrontControllerKJM {
 	@RequestMapping(value = {"/front/blogPost"})
 	public ModelAndView blogPost(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/front/blogpost");
-		List<EventVO> list = new ArrayList<EventVO>();
-		list = AES.list();
+		List<BoardVO> list = new ArrayList<BoardVO>();
+		list = ABS.list();
 		mav.addObject("list", list);
 		return mav;
 	}

@@ -4,7 +4,7 @@
 	<insert id="create" parameterType="hashMap">
 		INSERT INTO
 		board(board_title,board_contents,board_status,board_reg_date,board_upd_date)
-		VALUES(#{title},#{contents},#{status},now(),now())
+		VALUES(#{board_title},#{board_contents},#{board_status},now(),now())
 	</insert>
 	
 	<select id="list" parameterType="hashMap" resultType="BoardVO">

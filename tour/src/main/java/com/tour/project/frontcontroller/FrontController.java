@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,9 +34,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.tour.project.admincontroller.AdminController;
+import com.tour.project.adminservice.AdminBoardService;
 import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.adminvo.TourVO;
+import com.tour.project.common.ResultSendToClient;
 
 @Controller
 public class FrontController {
@@ -96,5 +100,9 @@ public class FrontController {
 			return new ModelAndView("front/createBoard");
 		}
 		
+	}
+	@RequestMapping(value = {"/front/createBoard"})
+	public ModelAndView createBoard() {
+		return new ModelAndView("/front/createBoard");
 	}
 }
