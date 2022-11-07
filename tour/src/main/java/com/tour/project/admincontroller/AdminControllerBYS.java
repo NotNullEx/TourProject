@@ -145,20 +145,6 @@ public class AdminControllerBYS {
 		return mav;
 	}
 	
-	@RequestMapping(value = {"/admin/contact"})
-	public ModelAndView contact() {
-		ModelAndView mav = new ModelAndView("/admin/contact");
-		return mav;
-	}
-	
-	@RequestMapping(value = {"/admin/contact"}, method = RequestMethod.POST)
-	public ModelAndView contact(@RequestParam Map<String, Object> map) {
-		ModelAndView mav = new ModelAndView("/admin/home");
-		AES.create(map);
-		mav.addAllObjects(map);
-		return mav;
-	}
-	
 	@RequestMapping(value = {"/admin/board"})
 	public ModelAndView blogPost(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/board");
@@ -226,4 +212,126 @@ public class AdminControllerBYS {
 		mav.addObject("area",area);
 		return mav;
 	}
+	
+	@RequestMapping(value = {"/admin/reviseAll"})
+	public ModelAndView reviseAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("/admin/restaurant_revise");
+		String code = request.getParameter("res_code");
+		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
+		lists = ARS.listOne(code);
+		mav.addObject("data",lists);
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/admin/reviseAllOK"})
+	public void reviseAllOK(@RequestParam Map<String,Object> map,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int isCreated =  ARS.reviseAll(map);
+		if(isCreated ==1) {
+			System.out.println("success");
+			ResultSendToClient.onlyResultTo(response, isCreated);
+		}
+		else {
+			System.out.println("faile");
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = {"/admin/deleteOneRestaurant"})
+	public Object deleteOneRestaurant(@RequestParam String code, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int result = 0;
+		result = ARS.deleteOne(code);
+		return new Gson().toJson(result);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = { "/admin/event" })
+	public ModelAndView adminHome() throws Exception {
+		ModelAndView mav = new ModelAndView("/admin/eventhome");
+		List<EventVO> lists = new ArrayList<EventVO>();
+		List<EventVO> listsResult = new ArrayList<EventVO>();
+		try {
+			boolean isEnd = false;
+			int index = 0;
+			String strt = null;
+			String end = null;
+			BufferedReader rd = null;
+			URL url = null;
+			HttpURLConnection conn = null;
+			String key = "4f645452506b6a6d38307a53726f48";
+			while(isEnd == false) {
+				StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088"); /* URL */
+				urlBuilder.append("/" + URLEncoder.encode(key, "UTF-8")); /* 인증키 (sample사용시에는 호출시 제한됩니다.) */
+				urlBuilder.append("/" + URLEncoder.encode("json", "UTF-8")); /* 요청파일타입 (xml,xmlf,xls,json) */
+				urlBuilder.append("/" + URLEncoder.encode("culturalEventInfo", "UTF-8")); /* 서비스명 (대소문자 구분 필수입니다.) */
+	//
+	//			// 즉, 페이지라고 생각하면됩니다 1부터 5까지 출력
+				strt = String.valueOf(1+(index*1000));
+				end = String.valueOf(((1+index)*1000));
+				urlBuilder.append("/" + URLEncoder.encode(strt, "UTF-8")); /* 요청시작위치 (sample인증키 사용시 5이내 숫자) */
+				urlBuilder.append("/" + URLEncoder.encode(end, "UTF-8")); /* 요청종료위치(sample인증키 사용시 5이상 숫자 선택 안 됨) */
+	//
+	//				urlBuilder.append("/" + URLEncoder.encode("NM_DP","UTF-8"));
+	//			// 상위 5개는 필수적으로 순서바꾸지 않고 호출해야 합니다.
+	
+				// 서비스별 추가 요청 인자이며 자세한 내용은 각 서비스별 '요청인자'부분에 자세히 나와 있습니다.
+				// urlBuilder.append("/" + URLEncoder.encode(nowTime2,"UTF-8")); /* 서비스별 추가
+				// 요청인자들*/
+	
+				url = new URL(urlBuilder.toString());
+				conn = (HttpURLConnection) url.openConnection();
+				conn.setRequestMethod("GET");
+				conn.setRequestProperty("Content-type", "application/json");
+				System.out.println("Response code: " + conn.getResponseCode()); /* 연결 자체에 대한 확인이 필요하므로 추가합니다. */
+				// 서비스코드가 정상이면 200~300사이의 숫자가 나옵니다.
+				if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+					rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+				} else {
+					rd = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"));
+				}	
+				String result = rd.readLine();
+				JSONParser jsonParser = new JSONParser();
+				JSONObject jsonObject = (JSONObject)jsonParser.parse(result);
+				JSONObject eventInfoResult = (JSONObject)jsonObject.get("culturalEventInfo");
+				JSONArray eventInfo = (JSONArray)eventInfoResult.get("row");
+				JSONObject row;
+				lists = new ArrayList<EventVO>();
+				for(int i=0; i<eventInfo.size(); i++) {
+					row = (JSONObject)eventInfo.get(i);
+					EventVO eventInfoSet = new EventVO();
+					eventInfoSet.setEven_codename(row.get("CODENAME").toString());
+					eventInfoSet.setEven_guname(row.get("GUNAME").toString());
+					eventInfoSet.setEven_title(row.get("TITLE").toString());
+					eventInfoSet.setEven_date(row.get("DATE").toString());
+					eventInfoSet.setEven_place(row.get("PLACE").toString());
+					eventInfoSet.setEven_org_name(row.get("ORG_NAME").toString());
+					eventInfoSet.setEven_use_trgt(row.get("USE_TRGT").toString());
+					eventInfoSet.setEven_use_fee(row.get("USE_FEE").toString());
+					eventInfoSet.setEven_player(row.get("PLAYER").toString());
+					eventInfoSet.setEven_program(row.get("PROGRAM").toString());
+					eventInfoSet.setEven_etc_desc(row.get("ETC_DESC").toString());
+					eventInfoSet.setEven_org_link(row.get("ORG_LINK").toString());
+					eventInfoSet.setEven_main_img(row.get("MAIN_IMG").toString());
+					eventInfoSet.setEven_rgst_date(row.get("RGSTDATE").toString());
+					eventInfoSet.setEven_ticket(row.get("TICKET").toString());
+					eventInfoSet.setEven_strt_date(row.get("STRTDATE").toString());
+					eventInfoSet.setEven_end_date(row.get("END_DATE").toString());
+					eventInfoSet.setEven_theme_code(row.get("THEMECODE").toString());
+					lists.add(eventInfoSet);
+				}
+				if(eventInfo.size()!=1000) {
+					isEnd = true;
+				}
+				index++;
+				listsResult.addAll(lists);
+			}
+			mav.addObject("data", listsResult);
+			rd.close();
+			conn.disconnect();
+			return mav;
+		} catch (Exception e) {
+			e.getStackTrace();
+			return mav;
+		}
+	}
+	
 }

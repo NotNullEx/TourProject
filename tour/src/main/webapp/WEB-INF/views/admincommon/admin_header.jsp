@@ -10,7 +10,7 @@
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item"><a class="nav-link" href="/admin">홈</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/tourList">관광지</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/admin/contact">행사</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/admin/event">행사</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/restaurant">먹거리</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/pricing">결제</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/faq">FAQ</a></li>
