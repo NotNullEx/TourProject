@@ -1,4 +1,4 @@
-package com.tour.project.restaurantvo;
+package com.tour.project.adminvo;
 
 import lombok.Data;
 import lombok.ToString;

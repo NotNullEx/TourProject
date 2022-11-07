@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminvo.TourVO;
-import com.tour.project.restaurantvo.RestaurantVO;
 
 @Controller
 public class AdminAnotherController {

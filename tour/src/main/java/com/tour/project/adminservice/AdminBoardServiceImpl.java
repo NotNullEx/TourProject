@@ -1,14 +1,14 @@
-package com.tour.project.boardservice;
+package com.tour.project.adminservice;
 
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.tour.project.boarddao.CreateBoardDao;
+import com.tour.project.admindao.AdminBoardDao;
 
-public class CreateBoardServiceImpl implements CreateBoardService {
+public class AdminBoardServiceImpl implements AdminBoardService {
 	@Autowired
-	private CreateBoardDao createDao;
+	private AdminBoardDao createDao;
 	
 	@Override
 	public int create(Map<String, Object> map) {

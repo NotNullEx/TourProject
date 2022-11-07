@@ -23,23 +23,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tour.project.admin_eventservice.CreateEventService;
-import com.tour.project.admin_eventservice.EventListService;
-import com.tour.project.admin_eventvo.EventVO;
-import com.tour.project.restaurantservice.RestaurantInfoService;
-import com.tour.project.restaurantvo.RestaurantVO;
+import com.tour.project.adminservice.AdminEventService;
+import com.tour.project.adminservice.AdminRestaurantService;
+import com.tour.project.adminvo.EventVO;
+import com.tour.project.adminvo.RestaurantVO;
 
 @Controller
 public class FrontControllerKJM {
 	
 	@Autowired
-	private RestaurantInfoService infoService;
+	private AdminRestaurantService infoService;
 	
 	@Autowired
-	private EventListService ELS;
+	private AdminEventService AES;
 	
-	@Autowired
-	private CreateEventService CES;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -184,7 +181,7 @@ public class FrontControllerKJM {
 	public ModelAndView blogPost(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/front/blogpost");
 		List<EventVO> list = new ArrayList<EventVO>();
-		list = ELS.list();
+		list = AES.list();
 		mav.addObject("list", list);
 		return mav;
 	}
@@ -198,7 +195,7 @@ public class FrontControllerKJM {
 	@RequestMapping(value = {"/front/contact"}, method = RequestMethod.POST)
 	public ModelAndView contact(@RequestParam Map<String, Object> map) {
 		ModelAndView mav = new ModelAndView("/front/home");
-		CES.create(map);
+		AES.create(map);
 		mav.addAllObjects(map);
 		return mav;
 	}

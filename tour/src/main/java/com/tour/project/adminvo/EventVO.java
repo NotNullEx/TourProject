@@ -1,4 +1,4 @@
-package com.tour.project.admin_eventvo;
+package com.tour.project.adminvo;
 
 import lombok.Data;
 import lombok.ToString;

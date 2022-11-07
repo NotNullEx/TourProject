@@ -33,17 +33,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.tour.project.admin_eventservice.CreateEventService;
-import com.tour.project.admin_eventservice.EventListService;
-import com.tour.project.admin_eventvo.EventVO;
+import com.tour.project.adminservice.AdminEventService;
+import com.tour.project.adminservice.AdminRestaurantService;
 import com.tour.project.adminservice.AdminTourDataService;
+import com.tour.project.adminvo.EventVO;
+import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.ResultSendToClient;
-import com.tour.project.restaurantservice.CreateRestaurantService;
-import com.tour.project.restaurantservice.DeleteRestaurantService;
-import com.tour.project.restaurantservice.RestaurantInfoService;
-import com.tour.project.restaurantservice.UpdateRestaurantService;
-import com.tour.project.restaurantvo.RestaurantVO;
 
 /**
  * Handles requests for the application home page.
@@ -52,22 +48,13 @@ import com.tour.project.restaurantvo.RestaurantVO;
 public class AdminControllerBYS {
 	
 	@Autowired
-	private CreateRestaurantService CRS;
+	private AdminRestaurantService ARS;
 	
 	@Autowired
-	private RestaurantInfoService infoService;
+	private AdminEventService AES;
 	
 	@Autowired
-	private CreateEventService CES;
-	
-	@Autowired
-	private EventListService ELS;
-	
-	@Autowired
-	private DeleteRestaurantService DRS;
-	
-	@Autowired
-	private UpdateRestaurantService URS;
+	private AdminTourDataService ATDS;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminControllerBYS.class);
 
@@ -152,7 +139,7 @@ public class AdminControllerBYS {
 			area.add(res_adress_area[i]);
 		}
 		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
-		resVO = infoService.listAll();
+		resVO = ARS.listAll();
 		mav.addObject("data",resVO);
 		mav.addObject("area",area);
 		return mav;
@@ -167,7 +154,7 @@ public class AdminControllerBYS {
 	@RequestMapping(value = {"/admin/contact"}, method = RequestMethod.POST)
 	public ModelAndView contact(@RequestParam Map<String, Object> map) {
 		ModelAndView mav = new ModelAndView("/admin/home");
-		CES.create(map);
+		AES.create(map);
 		mav.addAllObjects(map);
 		return mav;
 	}
@@ -176,7 +163,7 @@ public class AdminControllerBYS {
 	public ModelAndView blogPost(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/board");
 		List<EventVO> list = new ArrayList<EventVO>();
-		list = ELS.list();
+		list = AES.list();
 		mav.addObject("list", list);
 		return mav;
 	}
@@ -188,7 +175,7 @@ public class AdminControllerBYS {
 	
 	@RequestMapping(value = {"/admin/addRestaurantOK"})
 	public void addRestaurantOK(@RequestParam Map<String,Object> map, HttpServletResponse response) {
-		int isCreated =  CRS.create(map);
+		int isCreated =  ARS.create(map);
 		if(isCreated ==1) {
 			System.out.println("success");
 			ResultSendToClient.onlyResultTo(response, isCreated);
@@ -203,7 +190,7 @@ public class AdminControllerBYS {
 	public Object deleteRestaurant() {
 		int result = 0;
 		// Gson을 활용한 경우
-		result = DRS.deleteAll();
+		result = ARS.deleteAll();
 		return new Gson().toJson(result);
 	}
 	
@@ -217,7 +204,7 @@ public class AdminControllerBYS {
 		ModelAndView mav = new ModelAndView("/admin/restaurantdetail");
 		String search = request.getParameter("res_code");
 		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
-		lists = infoService.listOne(search);
+		lists = ARS.listOne(search);
 		mav.addObject("data",lists);
 		return mav;
 	}
@@ -234,122 +221,9 @@ public class AdminControllerBYS {
 			}
 		String adress = request.getParameter("res_adress_area");
 		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
-		lists = infoService.listBySection(adress);
+		lists = ARS.listBySection(adress);
 		mav.addObject("data",lists);
 		mav.addObject("area",area);
 		return mav;
 	}
-	
-	@RequestMapping(value = {"/admin/reviseAll"})
-	public ModelAndView reviseAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView("/admin/restaurant_revise");
-		String code = request.getParameter("res_code");
-		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
-		lists = infoService.listOne(code);
-		mav.addObject("data",lists);
-		return mav;
-	}
-	
-	@RequestMapping(value = {"/admin/reviseAllOK"})
-	public void reviseAllOK(@RequestParam Map<String,Object> map,HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int isCreated =  URS.reviseAll(map);
-		if(isCreated ==1) {
-			System.out.println("success");
-			ResultSendToClient.onlyResultTo(response, isCreated);
-		}
-		else {
-			System.out.println("faile");
-		}
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = {"/admin/deleteOneRestaurant"})
-	public Object deleteOneRestaurant(@RequestParam String code, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int result = 0;
-		result = DRS.deleteOne(code);
-		return new Gson().toJson(result);
-	}
-	
-//	@ResponseBody
-//	@RequestMapping(value = { "/admin/eventDataInsert" })
-//	public Object adminHome() throws Exception {
-//		List<EventVO> lists = new ArrayList<EventVO>();
-//		try {
-//
-//			String key = "4f645452506b6a6d38307a53726f48";
-//			StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088"); /* URL */
-//			urlBuilder.append("/" + URLEncoder.encode(key, "UTF-8")); /* 인증키 (sample사용시에는 호출시 제한됩니다.) */
-//			urlBuilder.append("/" + URLEncoder.encode("json", "UTF-8")); /* 요청파일타입 (xml,xmlf,xls,json) */
-//			urlBuilder.append("/" + URLEncoder.encode("culturalEventInfo", "UTF-8")); /* 서비스명 (대소문자 구분 필수입니다.) */
-////
-////			// 즉, 페이지라고 생각하면됩니다 1부터 5까지 출력
-//			urlBuilder.append("/" + URLEncoder.encode("1", "UTF-8")); /* 요청시작위치 (sample인증키 사용시 5이내 숫자) */
-//			urlBuilder.append("/" + URLEncoder.encode("1000", "UTF-8")); /* 요청종료위치(sample인증키 사용시 5이상 숫자 선택 안 됨) */
-////
-////				urlBuilder.append("/" + URLEncoder.encode("NM_DP","UTF-8"));
-////			// 상위 5개는 필수적으로 순서바꾸지 않고 호출해야 합니다.
-//
-//			// 서비스별 추가 요청 인자이며 자세한 내용은 각 서비스별 '요청인자'부분에 자세히 나와 있습니다.
-//			// urlBuilder.append("/" + URLEncoder.encode(nowTime2,"UTF-8")); /* 서비스별 추가
-//			// 요청인자들*/
-//
-//			URL url = new URL(urlBuilder.toString());
-//			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//			conn.setRequestMethod("GET");
-//			conn.setRequestProperty("Content-type", "application/json");
-//			System.out.println("Response code: " + conn.getResponseCode()); /* 연결 자체에 대한 확인이 필요하므로 추가합니다. */
-//			BufferedReader rd;
-//			// 서비스코드가 정상이면 200~300사이의 숫자가 나옵니다.
-//			if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-//				rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-//			} else {
-//				rd = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"));
-//			}	
-//			String result = rd.readLine();
-//			JSONParser jsonParser = new JSONParser();
-//			JSONObject jsonObject = (JSONObject)jsonParser.parse(result);
-//			JSONObject eventInfoResult = (JSONObject)jsonObject.get("culturalEventInfo");
-//			JSONArray eventInfo = (JSONArray)eventInfoResult.get("row");
-//			JSONObject row;
-//			lists = new ArrayList<EventVO>();
-//			int insert = 0;
-//			for(int i=0; i<eventInfo.size(); i++) {
-//				row = (JSONObject)eventInfo.get(i);
-//				if(row.get("LANG_CODE_ID").equals("ko")) {
-//					EventVO eventInfoSet = new EventVO();
-//					eventInfoSet.setTour_post_sj(row.get("POST_SJ").toString());
-//					eventInfoSet.setTour_cmmn_fax(row.get("CMMN_FAX").toString());
-//					eventInfoSet.setTour_address(row.get("ADDRESS").toString());
-//					eventInfoSet.setTour_new_address(row.get("NEW_ADDRESS").toString());
-//					eventInfoSet.setTour_subway_info(row.get("SUBWAY_INFO").toString());
-//					if("".equals(row.get("CMMN_HMPG_URL").toString()) || row.get("CMMN_HMPG_URL").toString() ==null) {
-//						eventInfoSet.setTour_cmmn_hmpg_url("none");
-//					}else {
-//						eventInfoSet.setTour_cmmn_hmpg_url(row.get("CMMN_HMPG_URL").toString());
-//					}
-//					eventInfoSet.setTour_cmmn_telno(row.get("CMMN_TELNO").toString());
-//					eventInfoSet.setTour_cmmn_bsnde(row.get("CMMN_BSNDE").toString());
-//					eventInfoSet.setTour_bf_desc(row.get("BF_DESC").toString());
-//					eventInfoSet.setTour_cmmn_rstde(row.get("CMMN_RSTDE").toString());
-//					eventInfoSet.setTour_cmmn_use_time(row.get("CMMN_USE_TIME").toString());
-//					eventInfoSet.setTour_post_sn(row.get("POST_SN").toString());
-//					
-//					lists.add(eventInfoSet);
-//					if (eventInfo != null) {
-//						insert = CES.create(eventInfoSet);
-//						LOGGER.info("insert log : " + insert);
-//					}
-//				}
-//				
-//			}
-//
-//			rd.close();
-//			conn.disconnect();
-//			return new Gson().toJson(lists);
-//		} catch (Exception e) {
-//			e.getStackTrace();
-//			return lists;
-//		}
-//	}
-	
 }

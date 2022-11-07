@@ -9,12 +9,12 @@
 		<typeAlias alias="AdminVO"
 			type="com.tour.project.adminvo.AdminVO" />
 		<typeAlias alias="RestaurantVO"
-			type="com.tour.project.restaurantvo.RestaurantVO" />
+			type="com.tour.project.adminvo.RestaurantVO" />
 		<typeAlias alias="TourVO"
 			type="com.tour.project.adminvo.TourVO" />
 		<typeAlias alias="EventVO"
-			type="com.tour.project.admin_eventvo.EventVO" />
+			type="com.tour.project.adminvo.EventVO" />
 		<typeAlias alias="BoardVO"
-			type="com.tour.project.boardvo.BoardVO" />
+			type="com.tour.project.adminvo.BoardVO" />
 	</typeAliases>
 </configuration>
