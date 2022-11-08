@@ -15,14 +15,18 @@ public class AdminEventDao {
 	@Autowired 
 	private SqlSessionTemplate sqltemplate;
 	
-	public int create(Map<String, Object> map) {
-		return sqltemplate.insert("event.create", map);
+	public int create(EventVO vo) {
+		return sqltemplate.insert("event.create", vo);
 		
 	}
 	
-	public List<EventVO> list(/* Map<String, Object> map */) {
+	public List<EventVO> listAll() {
 		List<EventVO> result = new ArrayList<EventVO>();
-		result = sqltemplate.selectList("event.list"/* , map */);
+		result = sqltemplate.selectList("event.listAll");
 		return result;
+	}
+	
+	public int getTotal() {
+		return sqltemplate.selectOne("event.getTotal");
 	}
 }

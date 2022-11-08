@@ -3,13 +3,11 @@
 <mapper namespace="event">
 
 	<insert id="create" parameterType="hashMap">
- 		INSERT INTO event(even_codename,even_guname,even_title,even_date,even_place,even_org_name,even_use_trgt,even_use_fee,even_player,even_program
- 		,even_etc_desc,even_org_link,even_main_img,even_rgst_date,even_ticket,even_strt_date,even_end_date,even_theme_code)
- 		values(#{even_codename},(#{even_guname},(#{even_title},(#{even_date},#{even_place},(#{even_org_name},(#{even_use_trgt},#{even_use_fee},(#{even_player}
- 		,#{even_program},(#{even_etc_desc},(#{even_org_link},(#{even_main_img},(#{even_rgst_date},(#{even_ticket},(#{even_strt_date},(#{even_end_date},(#{even_theme_code})
+ 		INSERT INTO event(even_codename,even_guname,even_title,even_date,even_place,even_org_name,even_use_trgt,even_use_fee,even_player,even_program,even_etc_desc,even_org_link,even_main_img,even_rgst_date,even_ticket,even_strt_date,even_end_date,even_theme_code)
+ 		values(#{even_codename},#{even_guname},#{even_title},#{even_date},#{even_place},#{even_org_name},#{even_use_trgt},#{even_use_fee},#{even_player},#{even_program},#{even_etc_desc},#{even_org_link},#{even_main_img},#{even_rgst_date},#{even_ticket},#{even_strt_date},#{even_end_date},#{even_theme_code})
 	</insert>
 
-	<select id="list" parameterType="hashMap" resultType="EventVO">
+	<select id="listAll" parameterType="hashMap" resultType="EventVO">
 		select * from event
 <!-- 		<if test="search != null and search != '' ">
 			WHERE name LIKE CONCAT('%',#{search},'%') or id LIKE
@@ -17,4 +15,7 @@
 		</if> -->
 	</select>
 	
+	<select id="getTotal" resultType="int">
+		select count(*) from event
+	</select>
 </mapper>

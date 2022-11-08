@@ -7,6 +7,7 @@ import com.tour.project.adminvo.EventVO;
 
 public interface AdminEventService {
 	
-	public int create(Map<String, Object> map);
-	public List<EventVO> list(/* Map<String, Object> map */);
+	public int create(EventVO vo);
+	public List<EventVO> listAll();
+	public int getTotal();
 }

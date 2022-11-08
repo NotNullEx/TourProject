@@ -148,9 +148,6 @@ public class AdminControllerBYS {
 	@RequestMapping(value = {"/admin/board"})
 	public ModelAndView blogPost(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/board");
-		List<EventVO> list = new ArrayList<EventVO>();
-		list = AES.list();
-		mav.addObject("list", list);
 		return mav;
 	}
 	
@@ -182,7 +179,11 @@ public class AdminControllerBYS {
 	
 	@RequestMapping(value = {"/admin/regis"})
 	public ModelAndView regis() {
-		return new ModelAndView("/admin/regis");
+		ModelAndView mav = new ModelAndView("/admin/regis");
+		List<EventVO> lists = new ArrayList<EventVO>();
+		lists = AES.listAll();
+		mav.addObject("eventData",lists);
+		return mav;
 	}
 	
 	@RequestMapping(value = { "/admin/restaurantDetail" })
@@ -244,9 +245,8 @@ public class AdminControllerBYS {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = { "/admin/event" })
-	public ModelAndView adminHome() throws Exception {
-		ModelAndView mav = new ModelAndView("/admin/eventhome");
+	@RequestMapping(value = { "/admin/eventDataInsert" })
+	public Object adminHome() throws Exception {
 		List<EventVO> lists = new ArrayList<EventVO>();
 		List<EventVO> listsResult = new ArrayList<EventVO>();
 		try {
@@ -295,6 +295,8 @@ public class AdminControllerBYS {
 				JSONArray eventInfo = (JSONArray)eventInfoResult.get("row");
 				JSONObject row;
 				lists = new ArrayList<EventVO>();
+				listsResult = new ArrayList<EventVO>();
+				int insert = 0;
 				for(int i=0; i<eventInfo.size(); i++) {
 					row = (JSONObject)eventInfo.get(i);
 					EventVO eventInfoSet = new EventVO();
@@ -317,21 +319,30 @@ public class AdminControllerBYS {
 					eventInfoSet.setEven_end_date(row.get("END_DATE").toString());
 					eventInfoSet.setEven_theme_code(row.get("THEMECODE").toString());
 					lists.add(eventInfoSet);
+					insert = AES.create(eventInfoSet);
 				}
+				System.out.println(eventInfo.size());
 				if(eventInfo.size()!=1000) {
 					isEnd = true;
 				}
-				index++;
 				listsResult.addAll(lists);
+				index++;
 			}
-			mav.addObject("data", listsResult);
 			rd.close();
 			conn.disconnect();
-			return mav;
+			return new Gson().toJson(listsResult);
 		} catch (Exception e) {
 			e.getStackTrace();
-			return mav;
+			return listsResult;
 		}
 	}
 	
+	@RequestMapping(value = {"/admin/event"})
+	public ModelAndView event(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("/admin/eventhome");
+		List<EventVO> lists = new ArrayList<EventVO>();
+		lists = AES.listAll();
+		mav.addObject("data",lists);
+		return mav;
+	}
 }

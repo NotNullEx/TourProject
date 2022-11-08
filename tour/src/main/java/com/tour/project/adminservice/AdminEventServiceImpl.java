@@ -15,13 +15,18 @@ public class AdminEventServiceImpl implements AdminEventService {
 	private AdminEventDao eventDao;
 	
 	@Override
-	public int create(Map<String, Object> map) {	
-		return eventDao.create(map);
+	public int create(EventVO vo) {	
+		return eventDao.create(vo);
 	}
 	
 	@Override
-	public List<EventVO> list(/* Map<String, Object> map */) {
-		return eventDao.list(/* map */);
+	public List<EventVO> listAll() {
+		return eventDao.listAll();
+	}
+
+	@Override
+	public int getTotal() {
+		return eventDao.getTotal();
 	}
 	
 }
