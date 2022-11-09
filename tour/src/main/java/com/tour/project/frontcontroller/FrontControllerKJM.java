@@ -197,14 +197,6 @@ public class FrontControllerKJM {
 		return mav;
 	}	
 	
-	@RequestMapping(value = {"/front/blogPost"})
-	public ModelAndView blogPost(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/front/blogpost");
-		List<BoardVO> list = new ArrayList<BoardVO>();
-		list = ABS.list();
-		mav.addObject("list", list);
-		return mav;
-	}
 	
 	@RequestMapping(value = {"/front/contact"})
 	public ModelAndView contact() {
@@ -212,13 +204,6 @@ public class FrontControllerKJM {
 		return mav;
 	}
 	
-	@RequestMapping(value = {"/front/contact"}, method = RequestMethod.POST)
-	public ModelAndView contact(@RequestParam Map<String, Object> map) {
-		ModelAndView mav = new ModelAndView("/front/home");
-		AES.create(map);
-		mav.addAllObjects(map);
-		return mav;
-	}
 	
 	@RequestMapping(value = {"/front/faq"})
 	public ModelAndView faq(Locale locale, Model model) {
