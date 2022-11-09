@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tour.project.common.ResultSendToClient;
 import com.tour.project.common.UtilClass;
-import com.tour.project.memberservice.MemberLoginService;
+import com.tour.project.frontservice.MemberLoginService;
 
 @Controller
 public class MemberLoginController {

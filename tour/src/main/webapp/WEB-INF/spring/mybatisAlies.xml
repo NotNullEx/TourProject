@@ -5,7 +5,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="MemberVO"
-			type="com.tour.project.membervo.MemberVO" />
+			type="com.tour.project.frontvo.MemberVO" />
 		<typeAlias alias="AdminVO"
 			type="com.tour.project.adminvo.AdminVO" />
 		<typeAlias alias="RestaurantVO"

@@ -1,4 +1,4 @@
-package com.tour.project.memberdao;
+package com.tour.project.frontdao;
 
 import java.util.Map;
 

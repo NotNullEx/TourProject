@@ -7,13 +7,18 @@
 		VALUES(#{board_title},#{board_contents},#{board_status},now(),now())
 	</insert>
 	
-	<select id="list" parameterType="hashMap" resultType="BoardVO">
+	<select id="listAll" parameterType="hashMap" resultType="BoardVO">
 		select * from board
-		<if test="search != null and search != '' ">
+<!-- 		<if test="search != null and search != '' ">
 			WHERE board_title LIKE CONCAT('%',#{search},'%') or board_contents LIKE
 			CONCAT('%',#{search},'%')
-		</if>
+		</if> -->
 	</select>
+	<select id="listBySeq" parameterType="String" resultType = "BoardVO">
+		select * from board where board_seq = #{seq}
+	
+	</select>
+	
 	
 	<update id="update" parameterType="hashMap">
 		UPDATE board

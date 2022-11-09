@@ -1,4 +1,4 @@
-package com.tour.project.memberservice;
+package com.tour.project.frontservice;
 
 import java.util.Map;
 

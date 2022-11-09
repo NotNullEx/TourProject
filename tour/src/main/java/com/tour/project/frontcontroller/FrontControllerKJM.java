@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ import com.tour.project.adminvo.BoardVO;
 import com.tour.project.adminvo.EventVO;
 import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.common.ResultSendToClient;
+import com.tour.project.frontservice.FrontBoardService;
 
 @Controller
 public class FrontControllerKJM {
@@ -43,7 +45,7 @@ public class FrontControllerKJM {
 	private AdminEventService AES;
 	
 	@Autowired
-	private AdminBoardService ABS;
+	private FrontBoardService FBS;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -175,9 +177,28 @@ public class FrontControllerKJM {
 	 * Model model) { ModelAndView mav = new ModelAndView("/front/about"); return
 	 * mav; }
 	 */
+	@RequestMapping(value = {"/front/blogPost_detail"})
+	public ModelAndView blogPostDetail(Locale locale, Model model, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/front/blogpost_detail");
+		List<BoardVO> bv = new ArrayList<BoardVO>();
+		String seq = request.getParameter("board_seq");
+		bv = FBS.listBySeq(seq);
+		mav.addObject("list", bv);
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/front/blogPost"})
+	public ModelAndView blogPost(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("/front/blogpost");
+		List<BoardVO> bv = new ArrayList<BoardVO>();
+		bv = FBS.listAll();
+		mav.addObject("list", bv);
+		return mav;
+	}
+	
 	@RequestMapping(value = {"/front/createBoardOK"})
 	public void createBoardOK(@RequestParam Map<String, Object> map, HttpServletResponse response) {
-		int isCreated =  ABS.create(map);
+		int isCreated =  FBS.create(map);
 		if(isCreated ==1) {
 			System.out.println("success");
 			ResultSendToClient.onlyResultTo(response, isCreated);

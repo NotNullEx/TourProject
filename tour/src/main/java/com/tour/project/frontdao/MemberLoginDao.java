@@ -1,4 +1,4 @@
-package com.tour.project.memberdao;
+package com.tour.project.frontdao;
 
 import java.sql.SQLException;
 import java.util.HashMap;

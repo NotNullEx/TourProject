@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tour.project.common.ResultSendToClient;
 import com.tour.project.common.UtilClass;
-import com.tour.project.memberservice.CreateMemberService;
+import com.tour.project.frontservice.CreateMemberService;
 
 
 @Controller
