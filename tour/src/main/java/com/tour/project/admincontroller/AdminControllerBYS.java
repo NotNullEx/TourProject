@@ -39,7 +39,9 @@ import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminvo.EventVO;
 import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.adminvo.TourVO;
+import com.tour.project.common.Criteria;
 import com.tour.project.common.ResultSendToClient;
+import com.tour.project.common.vo.PageMakerVO;
 
 /**
  * Handles requests for the application home page.
@@ -248,7 +250,6 @@ public class AdminControllerBYS {
 	@RequestMapping(value = { "/admin/eventDataInsert" })
 	public Object adminHome() throws Exception {
 		List<EventVO> lists = new ArrayList<EventVO>();
-		List<EventVO> listsResult = new ArrayList<EventVO>();
 		try {
 			boolean isEnd = false;
 			int index = 0;
@@ -295,7 +296,6 @@ public class AdminControllerBYS {
 				JSONArray eventInfo = (JSONArray)eventInfoResult.get("row");
 				JSONObject row;
 				lists = new ArrayList<EventVO>();
-				listsResult = new ArrayList<EventVO>();
 				int insert = 0;
 				for(int i=0; i<eventInfo.size(); i++) {
 					row = (JSONObject)eventInfo.get(i);
@@ -325,24 +325,54 @@ public class AdminControllerBYS {
 				if(eventInfo.size()!=1000) {
 					isEnd = true;
 				}
-				listsResult.addAll(lists);
 				index++;
 			}
 			rd.close();
 			conn.disconnect();
-			return new Gson().toJson(listsResult);
+			return new Gson().toJson(lists);
 		} catch (Exception e) {
 			e.getStackTrace();
-			return listsResult;
+			return lists;
 		}
 	}
 	
 	@RequestMapping(value = {"/admin/event"})
-	public ModelAndView event(Locale locale, Model model) {
+	public ModelAndView event(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/eventhome");
 		List<EventVO> lists = new ArrayList<EventVO>();
 		lists = AES.listAll();
+		int total = AES.getTotal();
+		Criteria cri = new Criteria(1,20);
+		int numIndex = 1, num = 0;
+		
+		if(request.getParameter("num") != null)
+			num = Integer.valueOf(request.getParameter("num"));
+		
+		if(num > 0) {
+			numIndex = num;
+			cri.setPageNum(num);
+		}
+		
+		PageMakerVO pmVO = new PageMakerVO(cri, total);
+		int end = numIndex*cri.getAmount();
+		int strt = end-cri.getAmount();
+		
+		if(end > cri.getAmount())
+			strt++;
+		
 		mav.addObject("data",lists);
+		mav.addObject("page",pmVO);
+		mav.addObject("strt",strt);
+		mav.addObject("end",end);
+		mav.addObject("index", num);
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/admin/eventDetail"})
+	public ModelAndView eventDetail(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		ModelAndView mav = new ModelAndView("/admin/eventdetail");
+		String code = request.getParameter("even_code");
+		mav.addObject("data", AES.listByCode(code));
 		return mav;
 	}
 }

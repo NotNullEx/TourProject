@@ -29,4 +29,10 @@ public class AdminEventDao {
 	public int getTotal() {
 		return sqltemplate.selectOne("event.getTotal");
 	}
+	
+	public List<EventVO> listByCode(String code) {
+		List<EventVO> result = new ArrayList<EventVO>();
+		result = sqltemplate.selectList("event.listByCode", code);
+		return result;
+	}
 }

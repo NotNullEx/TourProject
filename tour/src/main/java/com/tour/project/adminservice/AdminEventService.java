@@ -10,4 +10,5 @@ public interface AdminEventService {
 	public int create(EventVO vo);
 	public List<EventVO> listAll();
 	public int getTotal();
+	public List<EventVO> listByCode(String code);
 }

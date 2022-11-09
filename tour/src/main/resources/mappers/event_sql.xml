@@ -15,6 +15,10 @@
 		</if> -->
 	</select>
 	
+	<select id="listByCode" parameterType="String" resultType="EventVO">
+		select * from event where even_code = #{code}
+	</select>
+	
 	<select id="getTotal" resultType="int">
 		select count(*) from event
 	</select>

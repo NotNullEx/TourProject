@@ -28,5 +28,10 @@ public class AdminEventServiceImpl implements AdminEventService {
 	public int getTotal() {
 		return eventDao.getTotal();
 	}
+
+	@Override
+	public List<EventVO> listByCode(String code) {
+		return eventDao.listByCode(code);
+	}
 	
 }
