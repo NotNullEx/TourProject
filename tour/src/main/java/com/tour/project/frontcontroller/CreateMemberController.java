@@ -42,5 +42,19 @@ public class CreateMemberController {
 			System.out.println("faile");
 		}
 	}
+	
+	@RequestMapping(value = {"/front/overlapOK"})
+	public void overlap(HttpServletRequest request, HttpServletResponse response) {
+		String id = request.getParameter("email");
+		int isCreated =  service.overlap(id);
+		if(isCreated ==1) {
+			System.out.println("success");
+			ResultSendToClient.onlyResultTo(response, isCreated);
+		}
+		else {
+			System.out.println("faile");
+		}
+	}
+	
 }
 

@@ -5,5 +5,6 @@ import java.util.Map;
 public interface CreateMemberService {
 
 	public int create(Map<String, Object> map);
+	public int overlap(String id);
 
 }

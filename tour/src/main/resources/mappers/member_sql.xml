@@ -7,6 +7,11 @@
 		member(mem_email,mem_password,mem_name,mem_phone_num,mem_regist_day,mem_upd_date)
 		values(#{email},#{password},#{name},#{phone_num},now(),now())
 	</insert>
+	
+	<select id="overlap" parameterType="String" resultType="int">
+		SELECT count(*) FROM member
+		where mem_email = #{email}
+	</select>
 
 	<select id="memberLogin" parameterType="hashMap"
 		resultType="int">

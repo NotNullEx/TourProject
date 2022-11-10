@@ -19,4 +19,10 @@ public class CreateMemberServiceImpl implements CreateMemberService {
 		int result = createDao.create(map);
 		return result;
 	}
+
+	@Override
+	public int overlap(String id) {
+		int result = createDao.overlap(id);
+		return result;
+	}
 }

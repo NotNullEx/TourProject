@@ -45,9 +45,6 @@
 			url : "/front/createMemberOK",
 			data : {
 				"email" : id,
-				"password" : pass,
-				"name" : name,
-				"phone_num" : phone
 			},
 			async : false,
 			success : function(data) {
@@ -57,6 +54,27 @@
 					window.location.assign("/"); 
 				} else {
 					alert("가입불가 공란을 확인해주세요.");
+				}
+			}
+		});
+	}
+	
+	function overlap() {
+		var id = document.getElementById('emails').value;
+		
+		$.ajax({
+			type : "POST",
+			url : "/front/overlapOK",
+			data : {
+				"email" : id,
+			},
+			async : false,
+			success : function(data) {
+				if (data.result != 1) {
+					console.log(id);
+					alert("사용 가능한 이메일 입니다.");
+				} else {
+					alert("사용중인 이메일 입니다.");
 				}
 			}
 		});
@@ -97,6 +115,7 @@
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="emails" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
                                         <label for="email">이메일</label>
+                                        <input type="button" value="중복" onclick="overlap()">
                                         <!-- <div class="invalid-feedback" data-sb-feedback="email:required">이메일을 입력해 주세요.</div> -->
                                         <!-- <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div> -->
                                     </div>

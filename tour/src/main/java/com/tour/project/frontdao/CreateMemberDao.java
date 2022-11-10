@@ -15,5 +15,9 @@ public class CreateMemberDao {
 	public int create(Map<String, Object> map) {
 		return sqltemplate.insert("member.create", map);
 	}
+
+	public int overlap(String id) {
+		return sqltemplate.selectOne("member.overlap", id);
+	}
 	
 }
