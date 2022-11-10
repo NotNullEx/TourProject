@@ -28,6 +28,47 @@
 		var even_theme_code = document.getElementById('even_theme_code').value;
 		var even_rgst_date = document.getElementById('even_rgst_date').value;
 		
+		if (even_codename == "") {
+			alert("even_codename를 확인해 주세요.");
+			return false;
+		}
+		if (even_guname == "") {
+			alert("even_guname를 확인해 주세요.");
+			return false;
+		}
+		if (even_title == "") {
+			alert("even_title를 확인해 주세요.");
+			return false;
+		}
+		if (even_date == "") {
+			alert("even_date를 확인해 주세요.");
+			return false;
+		}
+		if (even_place == "") {
+			alert("even_place를 확인해 주세요.");
+			return false;
+		}
+		if (even_use_trgt == "") {
+			alert("even_use_trgt를 확인해 주세요.");
+			return false;
+		}
+		if (even_ticket == "") {
+			alert("even_ticket를 확인해 주세요.");
+			return false;
+		}
+		if (even_strt_date == "") {
+			alert("even_strt_date를 확인해 주세요.");
+			return false;
+		}
+		if (even_end_date == "") {
+			alert("even_end_date를 확인해 주세요.");
+			return false;
+		}
+		if (even_rgst_date == "") {
+			alert("even_rgst_date를 확인해 주세요.");
+			return false;
+		}
+		
 		$.ajax({
 			type : "POST",
 			url : "/admin/addEventOK",
@@ -63,13 +104,13 @@
 	}
 	function cancel() {
 		alert("등록을 취소합니다.")
-		window.location.assign("/admin/regis);
+		window.location.assign("/admin/regis");
 	}
 </script>
 <body>
 	<jsp:include page="../admincommon/admin_header.jsp" />
 	
-	<div id="contactForm">
+	<form id="contactForm">
 		<div class="form-floating mb-3">
 			<input class="form-control" id="even_codename" type="text"> <label
 				for="even_codename">이벤트 분류</label>
@@ -142,6 +183,6 @@
 			<button type="button" onclick="add()">이벤트 DB 등록</button>
 			<button type="button" onclick="cancel()">취소</button>
 		</div>
-	</div>
+	</form>
 </body>
 </html>
