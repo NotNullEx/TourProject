@@ -64,31 +64,45 @@ public class AdminControllerBYS {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = {"/admin/restaurant"})
-	public ModelAndView blog() {
-		ModelAndView mav = new ModelAndView("/admin/restauranthome");	
-		String res_adress_area[] = {"강남구","강동구","강서구","강북구","관악구","광진구","구로구","금천구","노원구","동대문구"
-									,"도봉구","동작구","마포구","서대문구","성동구","성북구","서초구","송파구","영등포구","용산구"
-									,"양천구","은평구","종로구","중구","중랑구"};
-		List<String> area = new ArrayList<String>();
-		for(int i = 0; i < res_adress_area.length; i++) {
-			area.add(res_adress_area[i]);
+	public ModelAndView blog(HttpServletRequest request) {
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		} else {
+			ModelAndView mav = new ModelAndView("/admin/restauranthome");	
+			String res_adress_area[] = {"강남구","강동구","강서구","강북구","관악구","광진구","구로구","금천구","노원구","동대문구"
+										,"도봉구","동작구","마포구","서대문구","성동구","성북구","서초구","송파구","영등포구","용산구"
+										,"양천구","은평구","종로구","중구","중랑구"};
+			List<String> area = new ArrayList<String>();
+			for(int i = 0; i < res_adress_area.length; i++) {
+				area.add(res_adress_area[i]);
+			}
+			List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
+			resVO = ARS.listAll();
+			mav.addObject("data",resVO);
+			mav.addObject("area",area);
+			return mav;
 		}
-		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
-		resVO = ARS.listAll();
-		mav.addObject("data",resVO);
-		mav.addObject("area",area);
-		return mav;
 	}
 	
 	@RequestMapping(value = {"/admin/board"})
-	public ModelAndView blogPost() {
-		ModelAndView mav = new ModelAndView("/admin/board");
-		return mav;
+	public ModelAndView board(HttpServletRequest request) {
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		}else {
+			return new ModelAndView("/admin/board");
+		}
 	}
 	
 	@RequestMapping(value = {"/admin/addrestaurant"})
-	public ModelAndView addrestaurant() {
+	public ModelAndView addrestaurant(HttpServletRequest request) {
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		}else {
 		return new ModelAndView("/admin/addrestaurant");
+		}
 	}
 	
 	@RequestMapping(value = {"/admin/addRestaurantOK"})
@@ -113,26 +127,40 @@ public class AdminControllerBYS {
 	}
 	
 	@RequestMapping(value = {"/admin/regis"})
-	public ModelAndView regis() {
+	public ModelAndView regis(HttpServletRequest request) {
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		}else {
 		ModelAndView mav = new ModelAndView("/admin/regis");
 		List<EventVO> lists = new ArrayList<EventVO>();
 		lists = AES.listAll();
 		mav.addObject("eventData",lists);
 		return mav;
+		}
 	}
 	
 	@RequestMapping(value = { "/admin/restaurantDetail" })
 	public ModelAndView restaurantDetail(HttpServletRequest request) throws Exception {
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		}else {
 		ModelAndView mav = new ModelAndView("/admin/restaurantdetail");
 		String search = request.getParameter("res_code");
 		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
 		lists = ARS.listOne(search);
 		mav.addObject("data",lists);
 		return mav;
+		}
 	}
 	
 	@RequestMapping(value = {"/admin/selectRestaurantBySection"})
 	public ModelAndView selectSection(HttpServletRequest request) throws Exception {
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		}else {
 		ModelAndView mav = new ModelAndView("/admin/restauranthome");
 		String res_adress_area[] = {"강남구","강동구","강서구","강북구","관악구","광진구","구로구","금천구","노원구","동대문구"
 									,"도봉구","동작구","마포구","서대문구","성동구","성북구","서초구","송파구","영등포구","용산구"
@@ -147,16 +175,22 @@ public class AdminControllerBYS {
 		mav.addObject("data",lists);
 		mav.addObject("area",area);
 		return mav;
+		}
 	}
 	
 	@RequestMapping(value = {"/admin/reviseAll"})
 	public ModelAndView reviseAll(HttpServletRequest request) throws Exception {
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		}else {
 		ModelAndView mav = new ModelAndView("/admin/restaurant_revise");
 		String code = request.getParameter("res_code");
 		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
 		lists = ARS.listOne(code);
 		mav.addObject("data",lists);
 		return mav;
+		}
 	}
 	
 	@RequestMapping(value = {"/admin/reviseAllOK"})
@@ -271,6 +305,10 @@ public class AdminControllerBYS {
 	
 	@RequestMapping(value = {"/admin/event"})
 	public ModelAndView event(HttpServletRequest request) throws Exception {
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		}else {
 		ModelAndView mav = new ModelAndView("/admin/eventhome");
 		List<EventVO> lists = new ArrayList<EventVO>();
 		lists = AES.listAll();
@@ -299,11 +337,17 @@ public class AdminControllerBYS {
 		mav.addObject("end",end);
 		mav.addObject("index", num);
 		return mav;
+		}
 	}
 	
 	@RequestMapping(value = {"/admin/addEvent"})
-	public ModelAndView addEvent() {
+	public ModelAndView addEvent(HttpServletRequest request) {
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		}else {
 		return new ModelAndView("/admin/addevent");
+		}
 	}
 	
 	@RequestMapping(value = {"/admin/addEventOK"})
@@ -320,12 +364,17 @@ public class AdminControllerBYS {
 	
 	@RequestMapping(value = {"/admin/eventDetail"})
 	public ModelAndView eventDetail(HttpServletRequest request) throws Exception {
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		}else {
 		ModelAndView mav = new ModelAndView("/admin/eventdetail");
 		String code = request.getParameter("even_code");
 		List<EventVO> lists = new ArrayList<EventVO>();
 		lists = AES.listByCode(code);
 		mav.addObject("data", lists);
 		return mav;
+		}
 	}
 	
 	@ResponseBody
@@ -347,12 +396,17 @@ public class AdminControllerBYS {
 	
 	@RequestMapping(value = {"/admin/eventReviseAll"})
 	public ModelAndView eventReviseAll(HttpServletRequest request) throws Exception {
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		}else {
 		ModelAndView mav = new ModelAndView("/admin/event_revise");
 		String code = request.getParameter("even_code");
 		List<EventVO> lists = new ArrayList<EventVO>();
 		lists = AES.listByCode(code);
 		mav.addObject("data",lists);
 		return mav;
+		}
 	}
 	
 	@RequestMapping(value = {"/admin/eventReviseAllOK"})
