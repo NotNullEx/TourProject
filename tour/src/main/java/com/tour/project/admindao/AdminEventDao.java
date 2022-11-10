@@ -20,6 +20,11 @@ public class AdminEventDao {
 		
 	}
 	
+	public int create(Map<String, Object> map) {
+		return sqltemplate.insert("event.create", map);
+		
+	}
+	
 	public List<EventVO> listAll() {
 		List<EventVO> result = new ArrayList<EventVO>();
 		result = sqltemplate.selectList("event.listAll");
@@ -39,6 +44,18 @@ public class AdminEventDao {
 	public int deleteAll() {
 		int result = 0;
 		result = sqltemplate.delete("event.deleteAll");
+		return result;
+	}
+	
+	public int deleteOne(String code) {
+		int result = 0;
+		result = sqltemplate.delete("event.deleteOne",code);
+		return result;
+	}
+	
+	public int reviseAll(Map<String, Object> map) {
+		int result = 0;
+		result = sqltemplate.update("event.reviseAll", map);
 		return result;
 	}
 }

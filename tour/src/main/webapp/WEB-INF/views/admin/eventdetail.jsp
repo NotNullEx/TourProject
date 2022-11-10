@@ -10,22 +10,27 @@
 <title>이벤트 상세정보</title>
 </head>
 <script type="text/javascript">
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous">
-  
-  let form = $("#infoForm");
-	
-	$("#list_btn").on("click", function(e){
-		form.find("#bno").remove();
-		form.attr("action", "/admin/event");
-		form.submit();
-	});
-	
-	$("#modify_btn").on("click", function(e){
-		form.attr("action", "/board/modify");
-		form.submit();
-	});	
+	function deleteOne(code) {
+		if(confirm("정말 삭제하시겠습니까??")) {
+			$.ajax({
+				type : "POST",
+				data : {
+					"code" : code
+				},
+				url : "/admin/deleteOneEvent",
+				async : false,
+				success : function(data) {
+					console.log(data);
+					if(data > 0) {
+						alert("삭제가 완료되었습니다.");
+						window.location.assign("/admin/event"); 
+					}else {
+						alert("삭제에 실패했습니다.");
+					}
+				}
+			});
+		}
+	}
 </script>
 <style>
 <style type="text/css">
@@ -79,7 +84,7 @@ textarea{
 <h1>조회 페이지</h1>
 	<div class="input_wrap">
 		<label>이벤트 번호</label>
-		<input name="evne_code" readonly="readonly" value='<c:out value="${data[0].even_code}"/>' >
+		<li><input name="evne_code" readonly="readonly" value='<c:out value="${data[0].even_code}"/>' ></li>
 	</div>
 	<div class="input_wrap">
 		<label>이벤트 이미지</label>
@@ -87,32 +92,33 @@ textarea{
 	</div>
 	<div class="input_wrap">
 		<label>이벤트 제목</label>
-		<input name="even_title" readonly="readonly" value='<c:out value="${data[0].even_title}"/>' >
+		<li><input name="even_title" readonly="readonly" value='<c:out value="${data[0].even_title}"/>' ></li>
 	</div>
 	<div class="input_wrap">
 		<label>이벤트 정보</label>
-		<input name="even_use_trgt" readonly="readonly" value='이용대상 : <c:out value="${data[0].even_use_trgt}"/>' >
-		<input name="even_org_name" readonly="readonly" value='기관명 : <c:out value="${data[0].even_org_name}"/>' >
-		<input name="even_player" readonly="readonly" value='출연자 : <c:out value="${data[0].even_player}"/>' >
-		<input name="even_program" readonly="readonly" value='프로그램 : <c:out value="${data[0].even_program}"/>' >
-		<input name="even_etc_desc" readonly="readonly" value='기타 : <c:out value="${data[0].even_etc_desc}"/>' >
+			<li><input name="even_use_trgt" readonly="readonly" value='이용대상 : <c:out value="${data[0].even_use_trgt}"/>' ></li>
+			<li><input name="even_org_name" readonly="readonly" value='기관명 : <c:out value="${data[0].even_org_name}"/>' ></li>
+			<li><input name="even_player" readonly="readonly" value='출연자 : <c:out value="${data[0].even_player}"/>' ></li>
+			<li><input name="even_program" readonly="readonly" value='프로그램 : <c:out value="${data[0].even_program}"/>' ></li>
+			<li><input name="even_etc_desc" readonly="readonly" value='기타 : <c:out value="${data[0].even_etc_desc}"/>' ></li>
 	</div>
 	<div class="input_wrap">
 		<label>이용료</label>
-		<input name="writer" readonly="readonly" value='<c:out value="${data[0].even_use_fee}"/>' >
+		<li><input name="writer" readonly="readonly" value='<c:out value="${data[0].even_use_fee}"/>' ></li>
 	</div>
 	<div class="input_wrap">
 		<label>이벤트 장소 및 날짜</label>
-		<input name="even_place" readonly="readonly" value="${data[0].even_place}">
-		<input name="even_date" readonly="readonly" value="${data[0].even_date}">
+		<li><input name="even_place" readonly="readonly" value="${data[0].even_place}"></li>
+		<li><input name="even_date" readonly="readonly" value="${data[0].even_date}"></li>
 	</div>	
 	<div class="input_wrap">
 		<label>게시판 등록일</label>
-		<input name="regdater" readonly="readonly" value="${data[0].even_rgst_date}">
+		<li><input name="regdater" readonly="readonly" value="${data[0].even_rgst_date}"></li>
 	</div>
 	<div class="btn_wrap">
-		<a class="btn" id="list_btn">목록 페이지</a> 
-		<a class="btn" id="modify_btn">수정 하기</a>
+		<button type="button" class="btn" onclick="location.href='/admin/event'">목록</button>
+		<button type="button" class="btn" onclick="location.href='/admin/eventReviseAll?even_code=${data[0].even_code}'">수정하기</button>
+		<button type="button" class="btn" onclick="deleteOne(${data[0].even_code})">삭제하기</button>
 	</div>
 	<form id="infoForm" action="/board/modify" method="get">
 		<input type="hidden" id="even_code" name="even_code" value='<c:out value="${data[0].even_code}"/>'>

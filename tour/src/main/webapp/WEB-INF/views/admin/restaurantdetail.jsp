@@ -52,6 +52,7 @@
 			 <div class="card h-100 shadow border-0">
 					<button type="button" id="resetRes" class="w-100 btn btn-primary mb-2" onclick="location.href='/admin/reviseAll?res_code=${data[0].res_code}'">수정하기</button>
 					<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="deleteOne(${data[0].res_code})">삭제하기</button>
+					<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="location.href='/admin/restaurant'">목록</button>
 			</div>
 		</div>
 </body>

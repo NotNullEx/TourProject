@@ -32,7 +32,7 @@
 	WHERE res_code = #{code}
 </delete>
 
-<update id="revise" parameterType="hashMap">
+<update id="reviseAll" parameterType="hashMap">
 	UPDATE restaurant 
 	SET tour_post_sn = #{tour_ps}, tour_address = #{tour_address}, res_telnum = #{telnum}, res_adress_area = #{adress_area}
 	,res_adress = #{adress}, res_open_time = #{opentime}, res_rest_day = #{rest_day}, res_image = #{image}

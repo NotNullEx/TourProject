@@ -228,10 +228,10 @@ public class AdminControllerBYS {
 	
 	@RequestMapping(value = {"/admin/reviseAllOK"})
 	public void reviseAllOK(@RequestParam Map<String,Object> map,HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int isCreated =  ARS.reviseAll(map);
-		if(isCreated ==1) {
+		int isRevised =  ARS.reviseAll(map);
+		if(isRevised ==1) {
 			System.out.println("success");
-			ResultSendToClient.onlyResultTo(response, isCreated);
+			ResultSendToClient.onlyResultTo(response, isRevised);
 		}
 		else {
 			System.out.println("faile");
@@ -368,11 +368,30 @@ public class AdminControllerBYS {
 		return mav;
 	}
 	
+	@RequestMapping(value = {"/admin/addEvent"})
+	public ModelAndView addEvent() {
+		return new ModelAndView("/admin/addevent");
+	}
+	
+	@RequestMapping(value = {"/admin/addEventOK"})
+	public void addEventOK(@RequestParam Map<String,Object> map, HttpServletResponse response) {
+		int isCreated =  AES.create(map);
+		if(isCreated ==1) {
+			System.out.println("success");
+			ResultSendToClient.onlyResultTo(response, isCreated);
+		}
+		else {
+			System.out.println("faile");
+		}
+	}
+	
 	@RequestMapping(value = {"/admin/eventDetail"})
 	public ModelAndView eventDetail(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/eventdetail");
 		String code = request.getParameter("even_code");
-		mav.addObject("data", AES.listByCode(code));
+		List<EventVO> lists = new ArrayList<EventVO>();
+		lists = AES.listByCode(code);
+		mav.addObject("data", lists);
 		return mav;
 	}
 	
@@ -383,5 +402,35 @@ public class AdminControllerBYS {
 		// Gson을 활용한 경우
 		result = AES.deleteAll();
 		return new Gson().toJson(result);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = {"/admin/deleteOneEvent"})
+	public Object deleteOneEvent(@RequestParam String code, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int result = 0;
+		result = AES.deleteOne(code);
+		return new Gson().toJson(result);
+	}
+	
+	@RequestMapping(value = {"/admin/eventReviseAll"})
+	public ModelAndView eventReviseAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("/admin/event_revise");
+		String code = request.getParameter("even_code");
+		List<EventVO> lists = new ArrayList<EventVO>();
+		lists = AES.listByCode(code);
+		mav.addObject("data",lists);
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/admin/eventReviseAllOK"})
+	public void eventReviseAllOK(@RequestParam Map<String,Object> map,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int isRevised =  AES.reviseAll(map);
+		if(isRevised ==1) {
+			System.out.println("success");
+			ResultSendToClient.onlyResultTo(response, isRevised);
+		}
+		else {
+			System.out.println("faile");
+		}
 	}
 }

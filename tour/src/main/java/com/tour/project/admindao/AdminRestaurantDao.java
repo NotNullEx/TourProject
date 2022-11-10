@@ -53,7 +53,7 @@ public class AdminRestaurantDao {
 	
 	public int reviseAll(Map<String, Object> map) {
 		int result = 0;
-		result = sqltemplate.update("restaurant.revise", map);
+		result = sqltemplate.update("restaurant.reviseAll", map);
 		return result;
 	}
 }

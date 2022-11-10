@@ -20,6 +20,11 @@ public class AdminEventServiceImpl implements AdminEventService {
 	}
 	
 	@Override
+	public int create(Map<String, Object> map) {	
+		return eventDao.create(map);
+	}
+	
+	@Override
 	public List<EventVO> listAll() {
 		return eventDao.listAll();
 	}
@@ -38,6 +43,20 @@ public class AdminEventServiceImpl implements AdminEventService {
 	public int deleteAll() {
 		int result = 0;
 		result = eventDao.deleteAll();
+		return result;
+	}
+
+	@Override
+	public int reviseAll(Map<String, Object> map) {
+		int result = 0;
+		result = eventDao.reviseAll(map);
+		return result;
+	}
+
+	@Override
+	public int deleteOne(String code) {
+		int result = 0;
+		result = eventDao.deleteOne(code);
 		return result;
 	}
 	

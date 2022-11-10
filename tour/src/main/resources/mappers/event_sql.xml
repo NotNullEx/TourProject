@@ -9,10 +9,6 @@
 
 	<select id="listAll" parameterType="hashMap" resultType="EventVO">
 		SELECT * FROM event
-<!-- 		<if test="search != null and search != '' ">
-			WHERE name LIKE CONCAT('%',#{search},'%') or id LIKE
-			CONCAT('%',#{search},'%')
-		</if> -->
 	</select>
 	
 	<select id="listByCode" parameterType="String" resultType="EventVO">
@@ -27,5 +23,19 @@
 	<delete id="deleteAll">
 		DELETE FROM event
 	</delete>
+	
+	<delete id="deleteOne" parameterType="String">
+		DELETE FROM event
+		WHERE even_code = #{code}
+	</delete>
+	
+	<update id="reviseAll" parameterType="hashMap">
+		UPDATE event 
+		SET even_codename = #{even_codename}, even_guname = #{even_guname}, even_title = #{even_title}, even_date = #{even_date}
+		,even_place = #{even_place}, even_org_name = #{even_org_name}, even_use_trgt = #{even_use_trgt}, even_use_fee = #{even_use_fee}
+		,even_player = #{even_player}, even_program = #{even_program}, even_etc_desc = #{even_etc_desc}, even_org_link = #{even_org_link}, even_main_img = #{even_main_img}
+		,even_rgst_date = #{even_rgst_date}, even_ticket = #{even_ticket}, even_strt_date = #{even_strt_date}, even_end_date = #{even_end_date}, even_theme_code = #{even_theme_code}
+		WHERE even_code = #{code}
+	</update>
 	
 </mapper>

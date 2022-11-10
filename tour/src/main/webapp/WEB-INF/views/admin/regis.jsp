@@ -82,7 +82,7 @@
 			<div class="card h-100 shadow border-0">
 				<button type="button" id="resetRes" class="w-100 btn btn-primary mb-2" onclick="resetEvent()">Event 데이터 초기화</button>
 				<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="eventDataInsert(${eventData[0].even_code})">Event API 데이터 추가</button>
-				<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="#">Event Admin 데이터 추가</button>
+				<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="location.href='/admin/addEvent'">Event Admin 데이터 추가</button>
 			</div>
 		</div>
 		
