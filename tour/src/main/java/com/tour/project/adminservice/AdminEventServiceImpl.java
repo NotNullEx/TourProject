@@ -33,5 +33,12 @@ public class AdminEventServiceImpl implements AdminEventService {
 	public List<EventVO> listByCode(String code) {
 		return eventDao.listByCode(code);
 	}
+
+	@Override
+	public int deleteAll() {
+		int result = 0;
+		result = eventDao.deleteAll();
+		return result;
+	}
 	
 }

@@ -8,7 +8,7 @@
 	</insert>
 
 	<select id="listAll" parameterType="hashMap" resultType="EventVO">
-		select * from event
+		SELECT * FROM event
 <!-- 		<if test="search != null and search != '' ">
 			WHERE name LIKE CONCAT('%',#{search},'%') or id LIKE
 			CONCAT('%',#{search},'%')
@@ -16,10 +16,16 @@
 	</select>
 	
 	<select id="listByCode" parameterType="String" resultType="EventVO">
-		select * from event where even_code = #{code}
+		SELECT * FROM event
+		WHERE even_code = #{code}
 	</select>
 	
 	<select id="getTotal" resultType="int">
-		select count(*) from event
+		SELECT count(*) from event
 	</select>
+	
+	<delete id="deleteAll">
+		DELETE FROM event
+	</delete>
+	
 </mapper>

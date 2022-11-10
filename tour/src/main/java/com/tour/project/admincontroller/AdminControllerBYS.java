@@ -375,4 +375,13 @@ public class AdminControllerBYS {
 		mav.addObject("data", AES.listByCode(code));
 		return mav;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = {"/admin/deleteEvent"})
+	public Object deleteEvent() {
+		int result = 0;
+		// Gson을 활용한 경우
+		result = AES.deleteAll();
+		return new Gson().toJson(result);
+	}
 }

@@ -135,7 +135,7 @@ a:hover {
 
 			<div class="pageInfo_wrap">
 				<div class="pageInfo_area">
-					<ul>
+					<ul id="pageInfo" class="pageInfo">
 						<!-- 이전페이지 버튼 -->
 						<c:if test="${page.prev}">
 							<li class="pageInfo_btn previous"><a

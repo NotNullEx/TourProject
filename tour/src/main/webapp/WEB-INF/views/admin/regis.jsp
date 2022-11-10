@@ -11,15 +11,15 @@
 </head>
 <script type="text/javascript">
 	function resetRestaurant() {
-		if(confirm("정말 삭제하시겠습니까??")) {
+		if(confirm("정말 restaurant를 삭제하시겠습니까??")) {
 			$.ajax({
 				url : "/admin/deleteRestaurant",
 				success : function(data) {
 					console.log(data);
 					if(data > 0) {
-						alert("DB 삭제가 완료되었습니다."); 
+						alert("restaurant DB 삭제가 완료되었습니다."); 
 					}else {
-						alert("DB 삭제에 실패했습니다.");
+						alert("restaurant DB 삭제에 실패했습니다.");
 					}
 				}
 			});
@@ -38,6 +38,22 @@
 						alert("이벤트 api 등록이 완료되었습니다."); 
 					}else {
 						alert("이벤트 api 등록에 실패했습니다.");
+					}
+				}
+			});
+		}
+	}
+	
+	function resetEvent() {
+		if(confirm("정말 event를 삭제하시겠습니까??")) {
+			$.ajax({
+				url : "/admin/deleteEvent",
+				success : function(data) {
+					console.log(data);
+					if(data > 0) {
+						alert("event DB 삭제가 완료되었습니다."); 
+					}else {
+						alert("event DB 삭제에 실패했습니다.");
 					}
 				}
 			});
@@ -64,8 +80,8 @@
 		
 		<div class="col-lg-4 mb-5">
 			<div class="card h-100 shadow border-0">
-				<button type="button" id="resetRes" class="w-100 btn btn-primary mb-2" onclick="#">Event 데이터 초기화</button>
-				<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="eventDataInsert(${eventData[3001].even_code})">Event API 데이터 추가</button>
+				<button type="button" id="resetRes" class="w-100 btn btn-primary mb-2" onclick="resetEvent()">Event 데이터 초기화</button>
+				<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="eventDataInsert(${eventData[0].even_code})">Event API 데이터 추가</button>
 				<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="#">Event Admin 데이터 추가</button>
 			</div>
 		</div>

@@ -35,4 +35,10 @@ public class AdminEventDao {
 		result = sqltemplate.selectList("event.listByCode", code);
 		return result;
 	}
+	
+	public int deleteAll() {
+		int result = 0;
+		result = sqltemplate.delete("event.deleteAll");
+		return result;
+	}
 }
