@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.tour.project.admindao.AdminTourDataDAO;
 import com.tour.project.adminvo.TourVO;
+import com.tour.project.common.vo.PageCriteriaVO;
 
 @Service
 public class AdminTourDataServiceImpl implements AdminTourDataService{
@@ -22,9 +23,14 @@ public class AdminTourDataServiceImpl implements AdminTourDataService{
 		return result;
 	}
 
-	@Override
+	@Override  
 	public List<TourVO> tourList() {
 		List<TourVO> list = dao.tourList();
+		return list;
+	}
+	
+	public List<TourVO> tourList(PageCriteriaVO cri) {
+		List<TourVO> list = dao.tourList(cri);
 		return list;
 	}
 

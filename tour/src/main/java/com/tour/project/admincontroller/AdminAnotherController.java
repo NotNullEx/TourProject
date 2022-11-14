@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminvo.TourVO;
+import com.tour.project.common.PageMaker;
+import com.tour.project.common.vo.PageCriteriaVO;
 
 @Controller
 public class AdminAnotherController {
@@ -27,13 +29,19 @@ public class AdminAnotherController {
 	private AdminTourDataService service;
 	
 	@RequestMapping(value = {"/admin/tourList"})
-	public ModelAndView about(Locale locale, Model model) {
+	public ModelAndView about(PageCriteriaVO cri) {
 		ModelAndView mav = new ModelAndView("/admin/tour_list");
 		
 		List<TourVO> lists = new ArrayList<TourVO>();
-		lists = service.tourList();
+		List<TourVO> cntLists = new ArrayList<TourVO>();
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		lists = service.tourList(cri);
+		cntLists = service.tourList();
+		pageMaker.setTotalCount(cntLists.size());
 
 		mav.addObject("sb", lists);
+		mav.addObject("pageMaker", pageMaker);
 		
 		return mav;
 	}

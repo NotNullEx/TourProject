@@ -16,5 +16,7 @@
 			type="com.tour.project.adminvo.EventVO" />
 		<typeAlias alias="BoardVO"
 			type="com.tour.project.adminvo.BoardVO" />
+		<typeAlias alias="PageCriteriaVO"
+			type="com.tour.project.common.vo.PageCriteriaVO" />
 	</typeAliases>
 </configuration>

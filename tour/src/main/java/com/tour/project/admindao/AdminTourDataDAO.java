@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.tour.project.adminvo.TourVO;
+import com.tour.project.common.vo.PageCriteriaVO;
 @Repository
 public class AdminTourDataDAO {
 
@@ -29,6 +30,11 @@ public class AdminTourDataDAO {
 	
 	public List<TourVO> tourList(){
 		List<TourVO> tourList = sqltemplate.selectList("tour.tourList");
+		return tourList;
+	}
+	
+	public List<TourVO> tourList(PageCriteriaVO cri){
+		List<TourVO> tourList = sqltemplate.selectList("tour.selecttourList",cri);
 		return tourList;
 	}
 	

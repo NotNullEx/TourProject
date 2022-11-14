@@ -76,7 +76,7 @@
 				<tbody class="tableInfo">
 					<c:forEach var="item" items="${sb}" varStatus="vs">
 						<tr>
-							<th scope="row">${vs.index }</th>
+							<th scope="row">${vs.count }</th>
 							<td><img class="image" alt="tt" src="../resources/img/001.jpg"> </td>
 							<td><a class="text-decoration-none link-dark" href="/admin/tourDetail?tour_seq=${item.tour_seq}" >${item.tour_post_sj}</a> <br>
 								${item.tour_new_address }<br>
@@ -95,6 +95,29 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<ul class="pagination">
+				<c:if test="${pageMaker.prev }">
+					<li class="page-item"><a class="page-link" href='<c:url value="/admin/tourList?page=${pageMaker.startPage-1 }"/>'>prev</a></li>
+				</c:if>
+				<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum" varStatus="status">
+					<c:choose>
+						<c:when test = "${pageMaker.cri.page == pageNum}">
+							<li class="page-item active" aria-current="page">
+								<a class="page-link" href='<c:url value="/admin/tourList?page=${pageNum }"/>'>${pageNum }</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item ">
+								<a class="page-link" href='<c:url value="/admin/tourList?page=${pageNum }"/>'>${pageNum }</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+					<li class="page-item"><a class="page-link" href='<c:url value="/admin/tourList?page=${pageMaker.endPage+1 }"/>'>next</a></li>
+				</c:if>
+			</ul>
+
 		</section>
 		<!-- Team members section-->
 		<section class="py-5 bg-light">

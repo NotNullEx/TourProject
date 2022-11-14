@@ -5,10 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,12 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminvo.TourVO;
-import com.tour.project.common.ResultSendToClient;
+import com.tour.project.common.vo.PageCriteriaVO;
 
 /**
  * Handles requests for the application home page.
@@ -127,7 +122,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = { "/admin" })
-	public ModelAndView dataInsert() throws Exception {
+	public ModelAndView dataInsert(PageCriteriaVO cri) throws Exception {
 		ModelAndView models = new ModelAndView("/admin/home");
 		List<TourVO> lists = new ArrayList<TourVO>();
 		lists = service.tourList();
