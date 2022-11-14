@@ -1,0 +1,35 @@
+- aws계정
+gonala0808@gmail.com
+$function123
+
+-서버정보
+IP : 52.78.184.83
+Port : 8080
+
+http://52.78.184.83:8080
+
+- 배포
+1.Run As에서 maven빌드로 war파일생성
+2.filezila접속
+-ip : 52.78.184.83
+-로그온유형 : 키파일 (키파일은 받은 pem-key업로드)
+3.tomcat war경로에 war파일 업로드
+-tomcat war경로 : /usr/local/tomcat8.5/webapp
+4.서버 접근 (aws사이트에서 터미널접근 or putty등의 터미널 프로그램이용)
+4.tomca재시작 (./startup.sh, ./shutdown.sh)
+
+- tomcat로그경로
+/usr/local/tomcat8.5/logs
+
+-tomcat로그 확인
+tail -f catalina.out
+
+현재 tomcat의 경우 root권한으로 되어 있어
+로그 확인 서버 재기동을 할때 root권한으로 변경 후 실행 (sudo su)
+
+DB정보
+-Host : 52.78.184.83
+-Port : 3306
+-Database명 : TOUR
+-ID : choi
+-PW : $1q2w3e4R (root계정 : $Tour167771)
