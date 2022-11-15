@@ -33,3 +33,8 @@ DB정보
 -Database명 : TOUR
 -ID : choi
 -PW : $1q2w3e4R (root계정 : $Tour167771)
+
+젠킨스 접속정보
+-http://52.78.184.83/
+-id : tour
+-pw : 1q2w3e4r
