@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="../frontcommon/front_header_common.jsp" />
 <style type="text/css">
 #contents {
 	width: 980px;
@@ -165,9 +166,35 @@ div {
     font-weight: 400;
     background: none !important;
 </style>
+<script type="text/javascript">
+	function setLike() {
+		var tour_seq = $("#tour_seq").val();
+		var mem_seq = $("#mem_seq").val();
+		var tour_name = $("#tour_name").val();
+		
+		$.ajax({
+			type : "POST",
+			url : "/front/tourLike",
+			data : {
+				"tour_seq" : tour_seq,
+				"mem_seq" : mem_seq
+			},
+			success : function(data) {
+					if(data == 1){
+						alter(tour_name + "가 즐겨찾기 되었습니다.");
+					}else{
+						alter("즐겨찾기 실패");
+					}
+				}, error: function(data){
+					alter("즐겨찾기 실패");
+				}
+		});
+	}
+
+</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<jsp:include page="../frontcommon/front_header_common.jsp" />
+
 </head>
 <body>
 	<jsp:include page="../frontcommon/front_header.jsp" />
@@ -178,12 +205,15 @@ div {
 					<ul class="food"></ul>
 				</div>
 			</div>
-			<h2 id="topTitle" class="select_tab on">${sb[0].tour_post_sj}</h2>
+			<h2 id="topTitle" class="select_tab on" >${sb[0].tour_post_sj}</h2>
+			<input type="hidden" id="tour_name" value="${sb[0].tour_post_sj}">
 			<div class="area_address" id="topAddr">
 				<span>${address}</span>
 			</div>
+			<input type="hidden" id="tour_seq" value="${tour_seq}">
+			<input type="hidden" id="mem_seq" value="${mem_seq}">
 			<div class="post_area">
-				<button type="button" class="btn_good" onclick="setLike();">
+				<button type="button" class="btn_good" onclick="javascript:setLike()">
 					<span class="ico">좋아요</span><span class="num" id="conLike">0</span>
 				</button>
 				<span class="num_view"><em class="tit">조회수</em><span

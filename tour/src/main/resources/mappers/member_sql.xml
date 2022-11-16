@@ -8,6 +8,13 @@
 		values(#{email},#{password},#{name},#{phone_num},now(),now())
 	</insert>
 	
+	<insert id="favorites" parameterType="hashMap">
+		INSERT INTO
+		favorites (tour_seq, mem_seq)
+		values(#{tour_seq},#{mem_seq})
+	</insert>
+	
+	
 	<select id="overlap" parameterType="String" resultType="int">
 		SELECT count(*) FROM member
 		where mem_email = #{email}

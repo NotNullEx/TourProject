@@ -43,6 +43,8 @@ public class MemberLoginController {
 			request.getSession().setAttribute("MEMBER_ID", id);
 			String memberId = (String) request.getSession().getAttribute("MEMBER_ID");
 			Map<String, Object> rtnVal = service.memberInfo(memberId);
+			int mem_seq = (Integer) rtnVal.get("mem_seq");
+			request.getSession().setAttribute("SESSION_US_SEQ", mem_seq);
 			System.out.println("success");
 
 			ResultSendToClient.onlyResultTo(response, isCreated);

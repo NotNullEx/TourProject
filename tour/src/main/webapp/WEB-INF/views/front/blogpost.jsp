@@ -25,7 +25,7 @@
 					</div>
 					<div class="col-lg-9">
 				
-					
+						<input type="hidden" value="${seq}">
  						<c:forEach begin="0" var="list" items="${list}">
 							<li class="page-item"><a class="page-link"
 								href="/front/blogPost_detail?board_seq=${list.board_seq}">${list.board_title}</a></li>

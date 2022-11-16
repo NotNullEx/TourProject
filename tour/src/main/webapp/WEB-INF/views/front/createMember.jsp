@@ -45,6 +45,9 @@
 			url : "/front/createMemberOK",
 			data : {
 				"email" : id,
+				"password" : pass,
+				"name" : name,
+				"phone_num" : phone
 			},
 			async : false,
 			success : function(data) {
@@ -104,20 +107,24 @@
                                 <!-- https://startbootstrap.com/solution/contact-forms-->
                                 <!-- to get an API token!-->
                                 <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="post">
-                                    <!-- Name input-->
-                                    <div class="form-floating mb-3">
-                                    
-                                        <input class="form-control" id="names" type="text" placeholder="Enter your name..." data-sb-validations="required" />
-                                        <label for="name">이름</label>
-                                        <!-- <div class="invalid-feedback" data-sb-feedback="name:required">이름을 입력해 주세요.</div> -->
-                                    </div>
                                     <!-- Email address input-->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="emails" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
                                         <label for="email">이메일</label>
-                                        <input type="button" value="중복" onclick="overlap()">
+                                 		<input type="button" value="중복" class="btn btn-primary mb-3" onclick="overlap()">
                                         <!-- <div class="invalid-feedback" data-sb-feedback="email:required">이메일을 입력해 주세요.</div> -->
                                         <!-- <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div> -->
+                                    </div>
+                                    <!-- Message input-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="pass" type="password" data-sb-validations="required" />
+                                        <label for="password" >비밀번호</label>
+                                        <!-- <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div> -->
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="passChk" type="password" data-sb-validations="required" />
+                                        <label for="password">비밀번호 확인</label>
+                                        <!-- <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div> -->
                                     </div>
                                     <!-- Phone number input-->
                                     <div class="form-floating mb-3">
@@ -125,16 +132,12 @@
                                         <label for="phone">전화번호</label>
                                         <!-- <div class="invalid-feedback" data-sb-feedback="phone:required">전화번호를 입력해 주세요.</div> -->
                                     </div>
-                                    <!-- Message input-->
+                                       <!-- Name input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="pass" type="password" data-sb-validations="required" />
-                                        <label for="password">비밀번호</label>
-                                        <!-- <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div> -->
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="passChk" type="password" data-sb-validations="required" />
-                                        <label for="password">비밀번호 확인</label>
-                                        <!-- <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div> -->
+                                    
+                                        <input class="form-control" id="names" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                                        <label for="name">이름</label>
+                                        <!-- <div class="invalid-feedback" data-sb-feedback="name:required">이름을 입력해 주세요.</div> -->
                                     </div>
                                     <!-- Submit success message-->
                                     <!---->
