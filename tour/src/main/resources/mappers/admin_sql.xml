@@ -24,9 +24,11 @@
 		SELECT * FROM tour
 	</select>
 	<select id="adminInfo" parameterType="String" resultType="hashMap">
-		SELECT * 
+		SELECT admin_seq,admin_name,admin_password,admin_phone_num,admin_status,admin_email,
+		DATE_FORMAT(admin_regist_day, '%Y-%m-%d') AS admin_regist_day
 		FROM admin
 		WHERE admin_email = #{id}
+		
 	</select>
 	<select id="tourOneList" parameterType="String" resultType="TourVO">
 		SELECT * 

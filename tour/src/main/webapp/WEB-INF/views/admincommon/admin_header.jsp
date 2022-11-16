@@ -29,7 +29,8 @@
 					       </c:if>
                             <c:if test="${not empty sessionScope.ADMIN_ID}">   
                             	<!-- <li class="nav-item"><a class="nav-link" href="#" onclick="data_insert()">데이터 등록</a></li> -->
-                            	<li class="nav-item"><a class="nav-link" href="/admin/regis">데이터 등록</a></li>          
+                            	<li class="nav-item"><a class="nav-link" href="/admin/regis">데이터 등록</a></li> 
+                            	<li class="nav-item"><a class="nav-link" href="/admin/myPage">마이페이지</a></li>         
 					        	<li class="nav-item" id="signOut"><a class="nav-link" href="/admin/logOut" class="nav-link text-dark">로그아웃</a></li>
 					       </c:if>
                         </ul>

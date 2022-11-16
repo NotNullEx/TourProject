@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.tour.project.adminservice.AdminTourDataService;
+import com.tour.project.adminservice.LoginService;
 import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.vo.PageCriteriaVO;
 
@@ -35,6 +37,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminTourDataService service;
+	
+	@Autowired
+	private LoginService adminService;
 
 	private static final Logger log = LoggerFactory.getLogger(AdminController.class);
 	
@@ -117,7 +122,7 @@ public class AdminController {
 			return new Gson().toJson(lists);
 		} catch (Exception e) {
 			e.getStackTrace();
-			return lists;
+			throw new Exception();
 		}
 	}
 
@@ -143,5 +148,41 @@ public class AdminController {
 		models.addObject("sb",lists);
 		models.addObject("address",address);
 		return models;
+	}
+	
+	@RequestMapping(value = { "/admin/myPage" })
+	public ModelAndView mypage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String adminId = (String) request.getSession().getAttribute("ADMIN_ID");
+		sidebar(request, response);
+		ModelAndView mav = new ModelAndView("/admin/mypage");
+		mav.addObject("adminId", adminId);
+		
+		return mav;
+	}
+	
+	public ModelAndView sidebar(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String adminId = (String) request.getSession().getAttribute("ADMIN_ID");
+		ModelAndView mav = new ModelAndView("/admin/admin_sidebar");
+		mav.addObject("adminId", adminId);
+		
+		return mav;
+	}
+	@RequestMapping(value = { "/admin/myInfo" })
+	public ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String adminId = (String) request.getSession().getAttribute("ADMIN_ID");
+		ModelAndView mav = new ModelAndView("/admin/myinfo");
+		Map<String, Object> rtnVal = adminService.amindInfo(adminId);
+		String name = (String) rtnVal.get("admin_name");
+		String phon = (String) rtnVal.get("admin_phone_num");
+		String email = (String) rtnVal.get("admin_email");
+		String seq =  Integer.toString((Integer) rtnVal.get("admin_seq"));
+		String regist_day = (String) rtnVal.get("admin_regist_day");
+		mav.addObject("name" , name);
+		mav.addObject("phon" , phon);
+		mav.addObject("email" , email);
+		mav.addObject("seq" , seq);
+		mav.addObject("regist_day" , regist_day);
+		
+		return mav;
 	}
 }

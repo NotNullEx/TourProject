@@ -36,6 +36,7 @@
 	<div id="contents">
 		<button type="button" onclick="go_modify()">수정</button>
 		<button type="button" onclick="go_delete()">삭제</button>
+		<button type="button" onclick="history.back()">목록</button>
 		<input type="hidden" id="tour_seq" value="${sb[0].tour_seq}">
 		<div class="titleType1">
 			<div class="area_tag">
