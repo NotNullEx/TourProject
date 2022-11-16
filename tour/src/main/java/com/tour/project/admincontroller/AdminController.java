@@ -24,8 +24,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.tour.project.adminservice.AdminNotificationService;
 import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminservice.LoginService;
+import com.tour.project.adminvo.NotificationVO;
 import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.vo.PageCriteriaVO;
 
@@ -40,6 +42,9 @@ public class AdminController {
 	
 	@Autowired
 	private LoginService adminService;
+	
+	@Autowired
+	private AdminNotificationService adminNotificationService;
 
 	private static final Logger log = LoggerFactory.getLogger(AdminController.class);
 	
@@ -131,7 +136,10 @@ public class AdminController {
 		ModelAndView models = new ModelAndView("/admin/home");
 		List<TourVO> lists = new ArrayList<TourVO>();
 		lists = service.tourList();
-
+		List<NotificationVO> notiList = adminNotificationService.getNotiList();
+		if(notiList != null && notiList.size() > 0) {
+			models.addObject("list", notiList);
+		}
 		models.addObject("sb", lists);
 		return models;
 	}

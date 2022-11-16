@@ -18,5 +18,7 @@
 			type="com.tour.project.adminvo.BoardVO" />
 		<typeAlias alias="PageCriteriaVO"
 			type="com.tour.project.common.vo.PageCriteriaVO" />
+		<typeAlias alias="NotificationVO"
+			type="com.tour.project.adminvo.NotificationVO" />
 	</typeAliases>
 </configuration>

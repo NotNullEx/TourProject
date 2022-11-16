@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notification">
+	<insert id="create" parameterType="hashMap">
+		INSERT INTO
+		notification(admin_seq,noti_title,noti_contents,noti_reg_date,noti_upd_date,noti_status)
+		VALUES(#{admin_seq},#{noti_title},#{noti_contents},now(),now(),1)
+	</insert>
+
+	<select id="list" resultType="NotificationVO">
+		select noti_seq,
+			(select admin_name from admin where admin_seq = noti.admin_seq) as admin_name,
+			noti_title,
+			noti_contents,
+			noti_reg_date
+		from notification noti
+		where noti_status = 1
+	</select>
+	
+	<select id="getNotiDetail" parameterType="String" resultType="NotificationVO">
+		select noti_seq,
+			(select admin_name from admin where admin_seq = noti.admin_seq) as admin_name,
+			noti_title,
+			noti_contents,
+			noti_reg_date
+		from notification noti
+		where noti_seq = #{noti_seq}
+	</select>
+</mapper>
+
+
+
+
+
+

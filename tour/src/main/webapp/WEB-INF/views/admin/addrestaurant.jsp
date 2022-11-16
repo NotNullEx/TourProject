@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<jsp:include page="../admincommon/admin_header_common.jsp"/>
+<jsp:include page="../admincommon/admin_header_common.jsp" />
 <title>음식점 데이터 추가</title>
 </head>
 <script type="text/javascript">
@@ -59,7 +59,7 @@
 			alert("kind를 확인해 주세요.");
 			return false;
 		}
-		
+
 		$.ajax({
 			type : "POST",
 			url : "/admin/addRestaurantOK",
@@ -79,7 +79,7 @@
 			success : function(data) {
 				if (data.result == 1) {
 					alert("DB에 등록 완료되었습니다.");
-					window.location.assign("/admin/regis"); 
+					window.location.assign("/admin/regis");
 				} else {
 					alert("등록이 안되었습니다.");
 				}
@@ -92,55 +92,58 @@
 	}
 </script>
 <body>
-<jsp:include page="../admincommon/admin_header.jsp"/>
+	<jsp:include page="../admincommon/admin_header.jsp" />
 
-								<form id="contactForm">
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="tour_ps" type="text">
-                                        <label for="even_code">tour_post_sn</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="tour_address" type="text">
-                                        <label for="even_id">tour_address</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="telnum" type="text">
-                                        <label for="even_adress">전화번호</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="adress_area" type="text">
-                                        <label for="even_desc">주소(구)</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="adress" type="text">
-                                        <label for="even_id">전체 주소</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="opentime" type="text">
-                                        <label for="even_id">여는시간</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="rest_day" type="text">
-                                        <label for="even_id">쉬는 날(null)</label>
-                                    </div>
-                                    <!-- <div class="form-floating mb-3">
+	<form id="contactForm">
+		<div class="form-floating mb-3">
+			<input class="form-control" id="tour_ps" type="text"> 
+			<label for="even_code">tour_post_sn</label>
+		</div>
+		<div class="form-floating mb-3">
+			<input class="form-control" id="tour_address" type="text"> 
+			<label for="even_id">tour_address</label>
+		</div>
+		<div class="form-floating mb-3">
+			<input class="form-control" id="telnum" type="text"> 
+			<label for="even_adress">전화번호</label>
+		</div>
+		<div class="form-floating mb-3">
+			<input class="form-control" id="adress_area" type="text"> 
+			<label for="even_desc">주소(구)</label>
+		</div>
+		<div class="form-floating mb-3">
+			<input class="form-control" id="adress" type="text"> 
+			<label for="even_id">전체 주소</label>
+		</div>
+		<div class="form-floating mb-3">
+			<input class="form-control" id="opentime" type="text"> 
+			<label for="even_id">여는시간</label>
+		</div>
+		<div class="form-floating mb-3">
+			<input class="form-control" id="rest_day" type="text"> 
+			<label for="even_id">쉬는 날(null)</label>
+		</div>
+		<!-- <div class="form-floating mb-3">
                                         <input class="form-control" id="image" type="text">
                                     </div> -->
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="desc" type="text">
-                                        <label for="even_id">설명</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="name" type="text">
-                                        <label for="even_id">이름</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        한식 <input name="kind" type="radio" value="0" checked="checked">
-                                        중식 <input name="kind" type="radio" value="1">
-                                        일식 <input name="kind" type="radio" value="2">
-                                        양식 <input name="kind" type="radio" value="3">
-                                    </div>
-                                    <div class="d-grid"><button type="button" onclick="add()">음식점 DB 추가</button><button type="button" onclick="cancel()">취소</button></div>
-                                </form>
+		<div class="form-floating mb-3">
+			<input class="form-control" id="desc" type="text"> 
+			<label for="even_id">설명</label>
+		</div>
+		<div class="form-floating mb-3">
+			<input class="form-control" id="name" type="text"> 
+			<label for="even_id">이름</label>
+		</div>
+		<div class="form-floating mb-3">
+			한식 <input name="kind" type="radio" value="0" checked="checked">
+			중식 <input name="kind" type="radio" value="1"> 
+			일식 <input name="kind" type="radio" value="2"> 
+			양식 <input name="kind" type="radio" value="3">
+		</div>
+		<div class="d-grid">
+			<button type="button" onclick="add()">음식점 DB 추가</button>
+			<button type="button" onclick="cancel()">취소</button>
+		</div>
+	</form>
 </body>
 </html>

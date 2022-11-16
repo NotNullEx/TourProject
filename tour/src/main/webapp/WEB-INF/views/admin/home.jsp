@@ -116,6 +116,7 @@
 											<div class="fw-bold">
 												<h2>
 													<strong>공지사항</strong>
+													<button type="button" id="addNoti" class="btn btn-primary" onclick="location.href='/admin/createNotification'">공지사항 등록</button>
 												</h2>
 											</div>
 										</div>
@@ -130,30 +131,21 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th scope="col">#</th>
-									<th scope="col">First</th>
-									<th scope="col">Last</th>
-									<th scope="col">Handle</th>
+									<th scope="col">No</th>
+									<th scope="col">작성자</th>
+									<th scope="col">제목</th>
+									<th scope="col">작성일</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<th scope="row">1</th>
-									<td>Mark</td>
-									<td>Otto</td>
-									<td>@mdo</td>
-								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td>Jacob</td>
-									<td>Thornton</td>
-									<td>@fat</td>
-								</tr>
-								<tr>
-									<th scope="row">3</th>
-									<td colspan="2">Larry the Bird</td>
-									<td>@twitter</td>
-								</tr>
+								<c:forEach var="list" items="${list}" >
+									<tr>
+										<th scope="row"><c:out value="${list.noti_seq}"/></th>
+										<td><c:out value="${list.admin_name}"/></td>
+										<td><a href="/admin/notificationDetail?noti_seq=${list.noti_seq}"><c:out value="${list.noti_title}"/></a></td>
+										<td><c:out value="${list.noti_reg_date}"/></td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</aside>
