@@ -61,4 +61,13 @@
 		DELETE FROM tour
 		WHERE tour_seq= #{value}
 	</delete>
+	
+	<update id="adminUpdate" parameterType="hashMap">
+		UPDATE admin
+		SET admin_name= #{name}, admin_phone_num = #{phone}
+		<if test="pass != null and pass != '' ">
+			, admin_password =  #{pass}
+		</if>
+		WHERE admin_seq = #{seq}
+	</update>
 </mapper>

@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +27,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.tour.project.adminservice.AdminNotificationService;
 import com.tour.project.adminservice.AdminTourDataService;
+import com.tour.project.adminservice.AdminUserUpdateService;
 import com.tour.project.adminservice.LoginService;
 import com.tour.project.adminvo.NotificationVO;
 import com.tour.project.adminvo.TourVO;
+import com.tour.project.common.StringUtil;
+import com.tour.project.common.UtilClass;
 import com.tour.project.common.vo.PageCriteriaVO;
 
 /**
@@ -45,6 +49,9 @@ public class AdminController {
 	
 	@Autowired
 	private AdminNotificationService adminNotificationService;
+	
+	@Autowired
+	private AdminUserUpdateService adminUserUpdateService;
 
 	private static final Logger log = LoggerFactory.getLogger(AdminController.class);
 	
@@ -192,5 +199,27 @@ public class AdminController {
 		mav.addObject("regist_day" , regist_day);
 		
 		return mav;
+	}
+	
+	@RequestMapping(value = { "/admin/myInfoUpdate" })
+	@ResponseBody
+	public Object myInfoUpdate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		int result = 0;
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
+		String seq = request.getParameter("seq");
+		String pass = request.getParameter("pass");
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("name", name);
+		map.put("phone", phone);
+		map.put("seq", seq);
+		if(!StringUtil.isEmpty(pass)) {
+			String repass = UtilClass.SHA256(pass);
+			map.put("pass", repass);
+		}
+		result = adminUserUpdateService.adminUserUpdate(map);
+		return new Gson().toJson(result);
 	}
 }

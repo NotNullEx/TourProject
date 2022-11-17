@@ -22,8 +22,5 @@
 			</div>
 		</div>
 	</main>
-	
-<jsp:include page="../admincommon/admin_footer.jsp" />
-<jsp:include page="../admincommon/admin_footer_common.jsp" />
 </body>
 </html>

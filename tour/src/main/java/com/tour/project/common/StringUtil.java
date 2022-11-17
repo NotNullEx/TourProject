@@ -5,7 +5,7 @@ import java.util.List;
 public class StringUtil {
 
 	public static boolean isEmpty(Object obj) {
-		if (obj == null) return true;
+		if (obj == null || "".equals(obj)) return true;
 		return false;
 	}
 	

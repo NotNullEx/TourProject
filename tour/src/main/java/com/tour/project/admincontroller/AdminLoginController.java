@@ -20,6 +20,7 @@ import com.tour.project.common.ResultSendToClient;
 import com.tour.project.common.UtilClass;
 
 @Controller
+//@RequestMapping("/test")
 public class AdminLoginController {
 	private static final Logger log = LoggerFactory.getLogger(AdminLoginController.class);
 	
