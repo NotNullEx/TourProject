@@ -9,4 +9,6 @@ public interface FrontBoardService {
 	public int create(Map<String, Object> map);
 	public List<BoardVO> listAll();
 	public List<BoardVO> listBySeq(String seq);
+	public int edit(Map<String, Object> map);
+	public Object deleteOne(String seq);
 }

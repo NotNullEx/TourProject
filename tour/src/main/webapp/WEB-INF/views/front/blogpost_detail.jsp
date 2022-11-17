@@ -6,6 +6,30 @@
 <head>
 <jsp:include page="../frontcommon/front_header_common.jsp" />
 </head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	function deleteOne(seq) {
+		if (confirm("정말 삭제하시겠습니까??")) {
+			$.ajax({
+				type : "POST",
+				data : {
+					"seq" : seq
+				},
+				url : "/front/deleteOneBoard",
+				async : false,
+				success : function(list) {
+					console.log(list);
+					if (list > 0) {
+						alert("삭제가 완료되었습니다.");
+						window.location.assign("/front/blogPost");
+					} else {
+						alert("삭제에 실패했습니다.");
+					}
+				}
+			});
+		}
+	}
+</script>
 <body class="d-flex flex-column">
 	<main class="flex-shrink-0">
 		<jsp:include page="../frontcommon/front_header.jsp" />
@@ -28,38 +52,51 @@
 
 
 						<%-- <c:forEach var="list" items="${list}" begin="0"> --%>
-							<article>
+						<article>
 
-								<!-- Post header-->
-								<header class="mb-4">
-									<!-- Post title-->
-									<h1 class="fw-bolder mb-1">${list[0].board_title}</h1>
-									<!-- Post meta content-->
-									<div class="text-muted fst-italic mb-2">${list[0].board_reg_date}</div>
-									<!-- Post categories-->
-									<a class="badge bg-secondary text-decoration-none link-light"
-										href="#!">공지사항</a> <a
-										class="badge bg-secondary text-decoration-none link-light"
-										href="#!">이벤트</a>
-								</header>
-								<!-- Preview image figure-->
-								<figure class="mb-4">
-									<img class="img-fluid rounded"
-										src="https://dummyimage.com/900x400/ced4da/6c757d.jpg"
-										alt="..." />
-								</figure>
-								<!-- Post content-->
-								<section class="mb-5">
-									<p class="fs-5 mb-4">${list[0].board_contents}</p>
-									<!-- <p class="fs-5 mb-4">The universe is large and old, and the ingredients for life as we know it are everywhere, so there's no reason to think that Earth would be unique in that regard. Whether of not the life became intelligent is a different question, and we'll see if we find that.</p>
+							<!-- Post header-->
+							<header class="mb-4">
+								<!-- Post title-->
+								<h1 class="fw-bolder mb-1">${list[0].board_title}</h1>
+								<!-- Post meta content-->
+								<div class="text-muted fst-italic mb-2">${list[0].board_reg_date}</div>
+								<!-- Post categories-->
+								<a class="badge bg-secondary text-decoration-none link-light"
+									href="#!">공지사항</a> <a
+									class="badge bg-secondary text-decoration-none link-light"
+									href="#!">이벤트</a>
+							</header>
+							<!-- Preview image figure-->
+							<figure class="mb-4">
+								<img class="img-fluid rounded"
+									src="https://dummyimage.com/900x400/ced4da/6c757d.jpg"
+									alt="..." />
+							</figure>
+							<!-- Post content-->
+							<section class="mb-5">
+								<p class="fs-5 mb-4">${list[0].board_contents}</p>
+								<!-- <p class="fs-5 mb-4">The universe is large and old, and the ingredients for life as we know it are everywhere, so there's no reason to think that Earth would be unique in that regard. Whether of not the life became intelligent is a different question, and we'll see if we find that.</p>
                                     <p class="fs-5 mb-4">If you get asteroids about a kilometer in size, those are large enough and carry enough energy into our system to disrupt transportation, communication, the food chains, and that can be a really bad day on Earth.</p>
                                     <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
                                     <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
                                     <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p> -->
-								</section>
-							</article> 
-						 <%-- </c:forEach> --%>
-						
+							</section>
+						</article>
+						<div class="col-lg-4 mb-5">
+							<div class="card h-100 shadow border-0">
+								<button type="button" class="w-100 btn btn-primary mb-2"
+									onclick="location.href='/front/editBoard?board_seq=${list[0].board_seq}'">수정하기</button>
+
+
+								<button type="button" id="addRes"
+									class="w-100 btn btn-primary mb-2"
+									onclick="deleteOne(${list[0].board_seq})">삭제하기</button>
+								<button type="button" class="w-100 btn btn-primary mb-2"
+									onclick="location.href='/front/blogPost'">목록</button>
+							</div>
+						</div>
+						<%-- </c:forEach> --%>
+
 						<!-- Comments section-->
 						<section>
 							<div class="card bg-light">

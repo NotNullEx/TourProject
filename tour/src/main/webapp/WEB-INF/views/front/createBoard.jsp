@@ -11,7 +11,7 @@
 
 		var board_title = document.getElementById('board_title').value;
 		var board_contents = document.getElementById('board_contents').value;
-		var board_status = document.getElementById('board_status').value;
+		/* var board_status = document.getElementById('board_status').value; */
 		/* var board_reg_date = document.getElementById('board_reg_date').value;
 		var board_reg_date = document.getElementById('board_upd_date').value;  */
 
@@ -22,7 +22,7 @@
 
 				"board_title" : board_title,
 				"board_contents" : board_contents,
-				"board_status" : board_status
+				/* "board_status" : board_status */
 			/* 				"board_reg_date" : board_reg_date,
 			 "board_upd_date" : board_upd_date, */
 			},
@@ -62,11 +62,11 @@
 									<input class="form-control" name="title" id="board_contents"
 										type="text"> <label for="board_title">내용</label>
 								</div>
-								<div class="form-floating mb-3">
+<!-- <!-- 								<div class="form-floating mb-3">
 									<input class="form-control" name="title" id="board_status"
 										type="text"> <label for="board_title">상태</label>
 								</div>
-
+ --> -->
 
 							</form>
 							<div class="d-grid">

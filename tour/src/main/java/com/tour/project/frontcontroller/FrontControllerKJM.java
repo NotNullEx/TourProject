@@ -22,10 +22,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.tour.project.adminservice.AdminBoardService;
 import com.tour.project.adminservice.AdminEventService;
 import com.tour.project.adminservice.AdminRestaurantService;
@@ -177,6 +179,31 @@ public class FrontControllerKJM {
 	 * Model model) { ModelAndView mav = new ModelAndView("/front/about"); return
 	 * mav; }
 	 */
+
+	
+	@RequestMapping(value = {"/front/editBoard"})
+	public ModelAndView editBoard(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/front/editBoard");
+		List<BoardVO> bv = new ArrayList<BoardVO>();
+		String seq = request.getParameter("board_seq");
+		bv = FBS.listBySeq(seq);
+		mav.addObject("list", bv);
+		return mav;
+		
+	}
+	
+	@RequestMapping(value = {"/front/editBoardOK"})
+	public void editBoardOK(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception {
+		int isCreated = FBS.edit(map);
+		if(isCreated == 1) {
+			System.out.println("success");
+			ResultSendToClient.onlyResultTo(response, isCreated);
+		}else {
+			System.out.println("faile");
+		}
+	}
+	
+	
 	@RequestMapping(value = {"/front/blogPost_detail"})
 	public ModelAndView blogPostDetail(Locale locale, Model model, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/front/blogpost_detail");
@@ -186,6 +213,7 @@ public class FrontControllerKJM {
 		mav.addObject("list", bv);
 		return mav;
 	}
+
 	
 	@RequestMapping(value = {"/front/blogPost"})
 	public ModelAndView blogPost(Locale locale, Model model) {
@@ -194,6 +222,14 @@ public class FrontControllerKJM {
 		bv = FBS.listAll();
 		mav.addObject("list", bv);
 		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = { "/front/deleteOneBoard" })
+	public Object deleteOneRestaurant(@RequestParam String seq) throws Exception {
+		int result = 0;
+		result = (int) FBS.deleteOne(seq);
+		return new Gson().toJson(result);
 	}
 	
 	@RequestMapping(value = {"/front/createBoardOK"})

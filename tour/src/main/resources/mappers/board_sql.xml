@@ -3,34 +3,36 @@
 <mapper namespace="board">
 	<insert id="create" parameterType="hashMap">
 		INSERT INTO
-		board(board_title,board_contents,board_status,board_reg_date,board_upd_date)
-		VALUES(#{board_title},#{board_contents},#{board_status},now(),now())
+		board(board_title,board_contents,board_reg_date,board_upd_date)
+		VALUES(#{board_title},#{board_contents},now(),now())
 	</insert>
-	
-	<select id="listAll" parameterType="hashMap" resultType="BoardVO">
+
+	<select id="listAll" parameterType="hashMap"
+		resultType="BoardVO">
 		select * from board
-<!-- 		<if test="search != null and search != '' ">
-			WHERE board_title LIKE CONCAT('%',#{search},'%') or board_contents LIKE
-			CONCAT('%',#{search},'%')
-		</if> -->
+		<!-- <if test="search != null and search != '' "> WHERE board_title LIKE 
+			CONCAT('%',#{search},'%') or board_contents LIKE CONCAT('%',#{search},'%') 
+			</if> -->
 	</select>
-	<select id="listBySeq" parameterType="String" resultType = "BoardVO">
+	<select id="listBySeq" parameterType="String"
+		resultType="BoardVO">
 		select * from board where board_seq = #{seq}
-	
+
 	</select>
-	
-	
+
+
 	<update id="update" parameterType="hashMap">
 		UPDATE board
 		SET
-		board_title=#{title},board_contents=#{contents},board_status=#{status},board_upd_date= now()
+		board_title=#{board_title},board_contents=#{board_contents},board_upd_date=
+		now()
 		WHERE board_seq=#{seq}
 	</update>
-	
-	<delete id="delete" parameterType="hashMap">
-		delete from board where
-		trim(board_seq = #{seq})
+
+	<delete id="deleteOne" parameterType="String">
+		DELETE FROM board
+		WHERE board_seq = #{seq}
 	</delete>
-	
-	
+
+
 </mapper>

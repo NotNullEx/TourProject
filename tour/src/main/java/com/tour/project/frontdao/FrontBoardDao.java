@@ -34,4 +34,16 @@ public class FrontBoardDao {
 		
 	}
 	
+	public int edit(Map<String, Object> map) {
+		int result = 0;
+		result = sqltemplate.update("board.update", map);
+		return result;
+	}
+	
+	public int deleteOne(String seq) {
+		int result = 0;
+		result = sqltemplate.delete("board.deleteOne",seq);
+		return result;
+		
+	}
 }

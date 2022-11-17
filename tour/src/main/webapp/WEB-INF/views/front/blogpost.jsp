@@ -6,6 +6,7 @@
 <head>
 <jsp:include page="../frontcommon/front_header_common.jsp" />
 </head>
+<button type="button" id="addNoti" class="btn btn-primary" onclick="location.href='/front/createBoard'">게시판 등록</button>
 <body class="d-flex flex-column">
 	<main class="flex-shrink-0">
 		<jsp:include page="../frontcommon/front_header.jsp" />

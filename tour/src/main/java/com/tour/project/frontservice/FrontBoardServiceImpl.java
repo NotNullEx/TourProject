@@ -33,4 +33,18 @@ public class FrontBoardServiceImpl implements FrontBoardService {
 		return result;
 	}
 
+	@Override
+	public int edit(Map<String, Object> map) {
+		int result = 0;
+		result = createDao.edit(map);
+		return result;
+	}
+
+	@Override
+	public Object deleteOne(String seq) {
+		int result = 0;
+		result = createDao.deleteOne(seq);
+		return result;
+	}
+
 }
