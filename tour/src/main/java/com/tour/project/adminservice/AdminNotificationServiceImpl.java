@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.tour.project.admindao.AdminNotificationDao;
 import com.tour.project.adminvo.NotificationVO;
+import com.tour.project.common.vo.PageCriteriaVO;
 @Service
 public class AdminNotificationServiceImpl implements AdminNotificationService {
 	@Autowired
@@ -19,13 +20,28 @@ public class AdminNotificationServiceImpl implements AdminNotificationService {
 	}
 
 	@Override
-	public List<NotificationVO> getNotiList() throws Exception{
-		return dao.getNotiList();
+	public List<NotificationVO> pagingNotiList(PageCriteriaVO cri) throws Exception{
+		return dao.pagingNotiList(cri);
 	}
 
 	@Override
 	public NotificationVO getNotiDetailList(String seq) throws Exception {
 		return dao.getNotiDetailList(seq);
+	}
+
+	@Override
+	public int notiUpdate(Map<String, Object> map) throws Exception {
+		return dao.notiUpdate(map);
+	}
+
+	@Override
+	public int setNotiHidden(Map<String, Object> map) throws Exception {
+		return dao.setNotiHidden(map);
+	}
+
+	@Override
+	public int getTotal() throws Exception {
+		return dao.getTotal();
 	}
 
 }

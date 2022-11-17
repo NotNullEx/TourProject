@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -43,6 +44,7 @@ import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.Criteria;
 import com.tour.project.common.ResultSendToClient;
+import com.tour.project.common.SuccessResponse;
 import com.tour.project.common.vo.PageMakerVO;
 
 /**
@@ -150,7 +152,7 @@ public class AdminControllerBYS {
 			return new ModelAndView("/admin/admin_login");
 		} else {
 			ModelAndView mav = new ModelAndView("/admin/restaurantdetail");
-			String search = request.getParameter("res_code");
+			String search = request.getParameter("res_seq");
 			List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
 			lists = ARS.listOne(search);
 			mav.addObject("data", lists);
@@ -187,7 +189,7 @@ public class AdminControllerBYS {
 			return new ModelAndView("/admin/admin_login");
 		} else {
 			ModelAndView mav = new ModelAndView("/admin/restaurant_revise");
-			String code = request.getParameter("res_code");
+			String code = request.getParameter("res_seq");
 			List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
 			lists = ARS.listOne(code);
 			mav.addObject("data", lists);
@@ -456,5 +458,57 @@ public class AdminControllerBYS {
 		ModelAndView mav = new ModelAndView("/admin/notificationdetail");
 		mav.addObject("data", noti);
 		return mav;
+	}
+	
+	@RequestMapping(value = {"/admin/notificationUpdate"})
+	public ModelAndView dataUpdate(HashMap<String, Object> map, HttpServletRequest request, HttpServletResponse resonse) throws Exception {
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if (user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		} else {
+		ModelAndView mav = new ModelAndView("/admin/notificationupdate");
+		String noti_seq = request.getParameter("noti_seq");
+		NotificationVO noti = adminNotificationService.getNotiDetailList(noti_seq);
+		mav.addObject("data",noti);
+		return mav;
+		}
+	}
+	
+	@RequestMapping(value = { "/admin/notificationUpdateOK" })
+	public void notificationUpdateOK(@RequestParam Map<String, Object> map, HttpServletResponse response, HttpServletRequest request) throws Exception {
+		int admin_seq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
+		map.put("admin_seq", admin_seq);
+		int isRevised = adminNotificationService.notiUpdate(map);
+		if (isRevised == 1) {
+			System.out.println("success");
+			ResultSendToClient.onlyResultTo(response, isRevised);
+		} else {
+			System.out.println("faile");
+		}
+	}
+	
+	
+	@RequestMapping(value = {"/admin/setNotiHidden"})
+	@ResponseBody
+	public SuccessResponse setNotiHidden(@RequestParam Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if (user_id == null || "".equals(user_id)) {
+			//response.sendRedirect("/admin/admin_login");
+			return new SuccessResponse(response.SC_FORBIDDEN, "게시판 표시상태 수정 실패", null);
+		} else {
+			int noti_status = Integer.valueOf(request.getParameter("noti_status"));
+			int admin_seq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
+			map.put("noti_status", noti_status);
+			map.put("admin_seq", admin_seq);
+			int isNotiHidden = adminNotificationService.setNotiHidden(map);
+			if(isNotiHidden == 1) {
+				System.out.println("success");
+				//'ResultSendToClient.onlyResultTo(response, isNotiHidden);
+				if (noti_status == 0) return new SuccessResponse(response.SC_OK, "게시판이 표시상태로 변경되었습니다.", null);
+				else return new SuccessResponse(response.SC_OK, "게시판이 비표시상태로 변경되었습니다.", null);
+			} else {
+				return new SuccessResponse(response.SC_BAD_REQUEST, "게시판 표시상태 수정 실패", null);
+			}
+		}
 	}
 }

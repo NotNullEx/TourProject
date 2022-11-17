@@ -163,7 +163,7 @@
 							<td><img class="image" alt="..." src="${data.res_image}">
 							</td>
 							<td><a class="text-decoration-none link-dark"
-								href="/admin/restaurantDetail?res_code=${data.res_code}">${data.res_name}</a>
+								href="/admin/restaurantDetail?res_seq=${data.res_seq}">${data.res_name}</a>
 								<br> ${data.res_adress}<br> <c:choose>
 									<c:when
 										test="${data.res_open_time == null or data.res_open_time eq ' '}">

@@ -9,10 +9,6 @@
 <jsp:include page="../admincommon/admin_header_common.jsp" />
 </head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript">
-    	
-    	
-</script>
 <body class="d-flex flex-column h-100">
 	<main class="flex-shrink-0">
 		<jsp:include page="../admincommon/admin_header.jsp" />
@@ -148,6 +144,28 @@
 								</c:forEach>
 							</tbody>
 						</table>
+						<ul class="pagination justify-content-center">
+							<c:if test="${pageMaker.prev}">
+								<li class="page-item"><a class="page-link" href='<c:url value="/admin?page=${pageMaker.startPage-1}"/>'>prev</a></li>
+							</c:if>
+							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage }" var="pageNum" varStatus="status">
+								<c:choose>
+									<c:when test = "${pageMaker.cri.page == pageNum}">
+										<li class="page-item active" aria-current="page">
+											<a class="page-link" href='<c:url value="/admin?page=${pageNum}"/>'>${pageNum}</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item ">
+											<a class="page-link" href='<c:url value="/admin?page=${pageNum}"/>'>${pageNum}</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${pageMaker.next && pageMaker.endPage >0}">
+								<li class="page-item"><a class="page-link" href='<c:url value="/admin?page=${pageMaker.endPage+1}"/>'>next</a></li>
+							</c:if>
+						</ul>
 					</aside>
 				</div>
 			</div>

@@ -10,27 +10,41 @@
 <link href="../resources/css/tourdetail.css" rel="stylesheet" type="text/css">
 </head>
 <script type="text/javascript">
-	/* function go_modify(){
-		var tour_seq = $("#tour_seq").val();
-		window.location.assign("/admin/dataUpdate?tour_seq="+tour_seq);
+	function go_modify(){
+		var noti_seq = $("input[name=noti_seq]").val();
+		window.location.assign("/admin/notificationUpdate?noti_seq="+noti_seq);
 	}
-	function go_delete(){
-		var tour_seq = $("#tour_seq").val();
-		if(!confirm("삭제 하시겠습니까?")){
+	function go_delete(status){
+		var noti_seq = $("input[name=noti_seq]").val();
+		if(!confirm("상태를 변경 하시겠습니까?")){
 			return false;
 		}else{
-			$.ajax({
-				url : "/admin/dataDelete?tour_seq=" + tour_seq,
-    			success:function(data){
-    				alert("정상적으로 삭제되었습니다.");
-    				window.location.assign("/admin/tourList"); 
-    			},
-    			error:function(data){
-    				alert("데이터 삭제에 실패했습니다.");
-    			}
-			});
+				$.ajax({
+					url : "/admin/setNotiHidden",
+					data : {
+						"noti_status" : status,
+						"noti_seq" : noti_seq
+					},
+					type : "POST",
+					async : false,
+	    			success:function(data){
+	    				console.log(data);
+	    				if (data.code == 200) {
+	    					alert(data.message);
+	    					window.location.assign("/admin"); 
+	    				} else if (data.code == 403) {
+	    					location.href = "/admin/login";
+	    				} else {
+	    					alert("게시판 비표시에 실패했습니다.");
+	    				}
+	    			},
+	    			error:function(e){
+	    				console.log(e);
+	    				alert("게시판 비표시에 실패했습니다.");
+	    			}
+				});
 		}
-	} */
+	}
 </script>
 <body>
 	<jsp:include page="../admincommon/admin_header.jsp" />
@@ -74,7 +88,7 @@
                 </div>
             </section>
             <button type="button" onclick="go_modify()">수정</button>
-			<button type="button" onclick="go_delete()">삭제</button>
+			<button type="button" onclick="go_delete(${data.noti_status})">게시판 표시상태 수정</button>
 			<button type="button" onclick="history.back()">홈</button>
 	</div>
 	<jsp:include page="../admincommon/admin_footer.jsp"/>

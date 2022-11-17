@@ -31,6 +31,7 @@ import com.tour.project.adminservice.AdminUserUpdateService;
 import com.tour.project.adminservice.LoginService;
 import com.tour.project.adminvo.NotificationVO;
 import com.tour.project.adminvo.TourVO;
+import com.tour.project.common.PageMaker;
 import com.tour.project.common.StringUtil;
 import com.tour.project.common.UtilClass;
 import com.tour.project.common.vo.PageCriteriaVO;
@@ -143,10 +144,15 @@ public class AdminController {
 		ModelAndView models = new ModelAndView("/admin/home");
 		List<TourVO> lists = new ArrayList<TourVO>();
 		lists = service.tourList();
-		List<NotificationVO> notiList = adminNotificationService.getNotiList();
+		List<NotificationVO> notiList = adminNotificationService.pagingNotiList(cri);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		int total = adminNotificationService.getTotal();
+		pageMaker.setTotalCount(total);
 		if(notiList != null && notiList.size() > 0) {
 			models.addObject("list", notiList);
 		}
+		models.addObject("pageMaker", pageMaker);
 		models.addObject("sb", lists);
 		return models;
 	}

@@ -90,7 +90,7 @@
 	}
 	function cancel(code) {
 		alert("수정을 취소합니다.")
-		window.location.assign("/admin/restaurantDetail?res_code="+code);
+		window.location.assign("/admin/restaurantDetail?res_seq="+code);
 	}
 </script>
 <body>
@@ -143,8 +143,8 @@
              양식 <input name="kind" type="radio" value="3">
         </div>
 		<div class="d-grid">
-			<button type="button" onclick="revise(${data[0].res_code})">음식점 DB 수정</button>
-			<button type="button" onclick="cancel(${data[0].res_code})">취소</button>
+			<button type="button" onclick="revise(${data[0].res_seq})">음식점 DB 수정</button>
+			<button type="button" onclick="cancel(${data[0].res_seq})">취소</button>
 		</div>
 	</div>
 	
