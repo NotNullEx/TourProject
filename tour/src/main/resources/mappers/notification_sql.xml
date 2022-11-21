@@ -65,6 +65,22 @@
 		noti_del_date = now()
 		where noti_seq = #{noti_seq}
 	</update>
+	
+	<select id="myNotiInfoList" parameterType="hashMap" resultType="NotificationVO">
+		select noti_seq,
+			(select admin_name from admin where admin_seq = #{seq}) as admin_name,
+			noti_title,
+			noti_contents,
+			noti_reg_date,
+			noti_status
+		from notification
+		WHERE admin_seq = #{seq}
+		ORDER BY noti_seq DESC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	<select id="getmyNotiTotal" resultType="int">
+		SELECT count(*) FROM notification WHERE admin_seq = #{value}
+	</select>
 </mapper>
 
 

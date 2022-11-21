@@ -173,21 +173,19 @@ public class AdminController {
 	
 	@RequestMapping(value = { "/admin/myPage" })
 	public ModelAndView mypage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String adminId = (String) request.getSession().getAttribute("ADMIN_ID");
-		sidebar(request, response);
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		String seq = Integer.toString((int) request.getSession().getAttribute("SESSION_US_SEQ"));
 		ModelAndView mav = new ModelAndView("/admin/mypage");
-		mav.addObject("adminId", adminId);
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		}else {
+			mav.addObject("adminId", user_id);
+			mav.addObject("seq", seq);
+		}
 		
 		return mav;
 	}
 	
-	public ModelAndView sidebar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String adminId = (String) request.getSession().getAttribute("ADMIN_ID");
-		ModelAndView mav = new ModelAndView("/admin/admin_sidebar");
-		mav.addObject("adminId", adminId);
-		
-		return mav;
-	}
 	@RequestMapping(value = { "/admin/myInfo" })
 	public ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String adminId = (String) request.getSession().getAttribute("ADMIN_ID");
@@ -227,5 +225,39 @@ public class AdminController {
 		}
 		result = adminUserUpdateService.adminUserUpdate(map);
 		return new Gson().toJson(result);
+	}
+	
+	@RequestMapping(value = { "/admin/myNotiInfo" })
+	public ModelAndView myNotiInfo(HttpServletRequest request, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
+		ModelAndView mav = new ModelAndView("/admin/mynotiinfo");
+		
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		}else {
+			String adminSeq = request.getParameter("admin_seq");
+			List<NotificationVO> list = new ArrayList<NotificationVO>();
+			int pagingList = 0; 
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			PageMaker pageMaker = new PageMaker();
+			map.put("seq", adminSeq);
+			map.put("pageStart",  cri.getPageStart());
+			map.put("perPageNum", cri.getPerPageNum());
+			pageMaker.setCri(cri);
+			list = adminNotificationService.myNotiInfo(map);
+			pagingList = adminNotificationService.getmyNotiTotal(adminSeq);
+			pageMaker.setTotalCount(pagingList);
+
+			mav.addObject("seq",adminSeq);
+			mav.addObject("list", list);
+			mav.addObject("pageMaker", pageMaker);
+			
+			if(list != null && list.size() >0) {
+				mav.addObject("list",list);
+			}else {
+				throw new Exception();
+			}
+		}
+		return mav;
 	}
 }

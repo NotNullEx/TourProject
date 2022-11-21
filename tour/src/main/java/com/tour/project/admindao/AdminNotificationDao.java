@@ -1,5 +1,6 @@
 package com.tour.project.admindao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,5 +40,13 @@ public class AdminNotificationDao {
 	
 	public int getTotal() throws Exception {
 		return sqltemplate.selectOne("notification.getTotal");
+	}
+	
+	public List<NotificationVO> myNotiInfo(HashMap<String, Object> map) throws Exception{
+		return sqltemplate.selectList("notification.myNotiInfoList",map);
+	}
+	
+	public int getmyNotiTotal(String seq) throws Exception {
+		return sqltemplate.selectOne("notification.getmyNotiTotal",seq);
 	}
 }

@@ -17,31 +17,31 @@ public class AdminTourDataServiceImpl implements AdminTourDataService{
 	private AdminTourDataDAO dao;
 
 	@Override
-	public int tourInsert(TourVO vo) {
+	public int tourInsert(TourVO vo) throws Exception{
 		int result = -1;
 		result = dao.tourInsert(vo);
 		return result;
 	}
 
 	@Override  
-	public List<TourVO> tourList() {
+	public List<TourVO> tourList() throws Exception{
 		List<TourVO> list = dao.tourList();
 		return list;
 	}
 	
-	public List<TourVO> tourList(PageCriteriaVO cri) {
+	public List<TourVO> tourList(PageCriteriaVO cri) throws Exception{
 		List<TourVO> list = dao.tourList(cri);
 		return list;
 	}
 
 	@Override
-	public List<TourVO> tourOneList(String tour_seq) {
+	public List<TourVO> tourOneList(String tour_seq) throws Exception{
 		List<TourVO> list = dao.tourOneList(tour_seq);
 		return list;
 	}
 
 	@Override
-	public int tourInsert(HashMap<String, Object> map) {
+	public int tourInsert(HashMap<String, Object> map) throws Exception{
 		int result = -1;
 		result = dao.tourInsert(map);
 		return result;

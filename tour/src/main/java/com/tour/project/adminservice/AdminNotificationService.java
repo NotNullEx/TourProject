@@ -1,5 +1,6 @@
 package com.tour.project.adminservice;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,4 +14,6 @@ public interface AdminNotificationService {
 	public int notiUpdate(Map<String, Object> map) throws Exception;
 	public int setNotiHidden(Map<String, Object> map) throws Exception;
 	public int getTotal() throws Exception;
+	public List<NotificationVO> myNotiInfo(HashMap<String, Object> map) throws Exception;
+	public int getmyNotiTotal(String seq) throws Exception;
 }

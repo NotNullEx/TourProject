@@ -29,7 +29,7 @@ public class AdminAnotherController {
 	private AdminTourDataService service;
 	
 	@RequestMapping(value = {"/admin/tourList"})
-	public ModelAndView about(PageCriteriaVO cri) {
+	public ModelAndView about(PageCriteriaVO cri) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/tour_list");
 		
 		List<TourVO> lists = new ArrayList<TourVO>();
@@ -55,7 +55,7 @@ public class AdminAnotherController {
 	
 	@ResponseBody
 	@RequestMapping(value = {"/admin/insTourData"})
-	public Object insTourData(HashMap<String, Object> map, HttpServletRequest requset, HttpServletResponse resonse) {
+	public Object insTourData(HashMap<String, Object> map, HttpServletRequest requset, HttpServletResponse resonse) throws Exception {
 		int result = 0;
 		String tour_post_sn = requset.getParameter("tour_post_sn");
 		String tour_post_sj = requset.getParameter("tour_post_sj");
@@ -92,7 +92,7 @@ public class AdminAnotherController {
 	}
 	
 	@RequestMapping(value = {"/admin/dataUpdate"})
-	public ModelAndView dataUpdate(HashMap<String, Object> map, HttpServletRequest requset, HttpServletResponse resonse) {
+	public ModelAndView dataUpdate(HashMap<String, Object> map, HttpServletRequest requset, HttpServletResponse resonse) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/dataupdate");
 		String tour_seq = requset.getParameter("tour_seq");
 		List<TourVO> lists = new ArrayList<TourVO>();
@@ -108,7 +108,7 @@ public class AdminAnotherController {
 	
 	@ResponseBody
 	@RequestMapping(value = {"/admin/updateTourData"})
-	public Object updateTourData(HashMap<String, Object> map, HttpServletRequest requset, HttpServletResponse resonse) {
+	public Object updateTourData(HashMap<String, Object> map, HttpServletRequest requset, HttpServletResponse resonse) throws Exception {
 		String tour_seq = requset.getParameter("tour_seq");
 		String tour_cmmn_fax = requset.getParameter("tour_cmmn_fax");
 		String tour_subway_info = requset.getParameter("tour_subway_info");
@@ -146,7 +146,7 @@ public class AdminAnotherController {
 	
 	@ResponseBody
 	@RequestMapping(value = {"/admin/dataDelete"})
-	public Object dataDelete(HttpServletRequest requset, HttpServletResponse resonse) {
+	public Object dataDelete(HttpServletRequest requset, HttpServletResponse resonse) throws Exception {
 		String tour_seq = requset.getParameter("tour_seq");
 		
 		int result = -1;

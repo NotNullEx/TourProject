@@ -1,5 +1,6 @@
 package com.tour.project.adminservice;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +43,18 @@ public class AdminNotificationServiceImpl implements AdminNotificationService {
 	@Override
 	public int getTotal() throws Exception {
 		return dao.getTotal();
+	}
+
+	@Override
+	public List<NotificationVO> myNotiInfo(HashMap<String, Object> map) throws Exception {
+		
+		return dao.myNotiInfo(map);
+	}
+
+	@Override
+	public int getmyNotiTotal(String seq) throws Exception {
+		
+		return dao.getmyNotiTotal(seq);
 	}
 
 }
