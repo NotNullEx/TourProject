@@ -46,7 +46,7 @@
 	}
 	function cancel(seq) {
 		alert("수정을 취소합니다.")
-		window.location.assign("/admin/notificationdetail?noti_seq="+seq);
+		window.location.assign("/admin/notificationDetail?noti_seq="+seq);
 	}
 </script>
 <body>

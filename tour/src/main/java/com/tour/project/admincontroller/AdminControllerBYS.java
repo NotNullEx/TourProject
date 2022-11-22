@@ -505,7 +505,7 @@ public class AdminControllerBYS {
 				System.out.println("success");
 				//'ResultSendToClient.onlyResultTo(response, isNotiHidden);
 				if (noti_status == 0) return new SuccessResponse(response.SC_OK, "게시판이 표시상태로 변경되었습니다.", null);
-				else return new SuccessResponse(response.SC_OK, "게시판이 비표시상태로 변경되었습니다.", null);
+				else return new SuccessResponse(response.SC_OK, "게시판이 삭제되었습니다.", null);
 			} else {
 				return new SuccessResponse(response.SC_BAD_REQUEST, "게시판 표시상태 수정 실패", null);
 			}

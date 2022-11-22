@@ -9,6 +9,41 @@
 <jsp:include page="../admincommon/admin_header_common.jsp" />
 </head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	function go_modify(seq){
+		window.location.assign("/admin/notificationUpdate?noti_seq="+seq);
+	}
+	function go_delete(seq,status){
+		if(!confirm("게시판을 삭제 하시겠습니까?")){
+			return false;
+		}else{
+				$.ajax({
+					url : "/admin/setNotiHidden",
+					data : {
+						"noti_status" : status,
+						"noti_seq" : seq
+					},
+					type : "POST",
+					async : false,
+	    			success:function(data){
+	    				console.log(data);
+	    				if (data.code == 200) {
+	    					alert(data.message);
+	    					window.location.assign("/admin"); 
+	    				} else if (data.code == 403) {
+	    					location.href = "/admin/login";
+	    				} else {
+	    					alert("게시판 삭제에 실패했습니다.");
+	    				}
+	    			},
+	    			error:function(e){
+	    				console.log(e);
+	    				alert("게시판 삭제에 실패했습니다.");
+	    			}
+				});
+		}
+	}
+</script>
 <body class="d-flex flex-column h-100">
 	<main class="flex-shrink-0">
 		<jsp:include page="../admincommon/admin_header.jsp" />
@@ -131,6 +166,7 @@
 									<th scope="col">작성자</th>
 									<th scope="col">제목</th>
 									<th scope="col">작성일</th>
+									<th scope="col">수정/삭제</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -140,6 +176,10 @@
 										<td><c:out value="${list.admin_name}"/></td>
 										<td><a href="/admin/notificationDetail?noti_seq=${list.noti_seq}"><c:out value="${list.noti_title}"/></a></td>
 										<td><c:out value="${list.noti_reg_date}"/></td>
+										<td>
+											<button type="button" id="modify" class="btn btn-primary" onclick="javascript: go_modify(${list.noti_seq})">수정</button>
+											<button type="button" id="delete" class="btn btn-success" onclick="javascript: go_delete(${list.noti_seq},${list.noti_status})">삭제</button>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
