@@ -38,12 +38,12 @@
 			noti_status
 		FROM notification noti
 		where noti_status = 1
-		ORDER BY noti_seq ASC
+		ORDER BY noti_seq DESC
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>
 	
 	<select id="getTotal" resultType="int">
-		SELECT count(*) from notification
+		SELECT count(*) from notification where noti_status = 1;
 	</select>
 	
 	<update id="notiUpdate" parameterType="hashMap">

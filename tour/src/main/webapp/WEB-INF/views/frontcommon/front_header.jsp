@@ -2,7 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<style>
+	table {
+		text-align : center;
+	}
+</style>
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<div class="container px-5">
@@ -22,7 +26,7 @@
 				<li class="nav-item"><a class="nav-link" href="/front/contact">행사</a></li>
 				<li class="nav-item"><a class="nav-link" href="/front/blog">먹거리</a></li>
 				<li class="nav-item"><a class="nav-link" href="/front/pricing">결제</a></li>
-				<li class="nav-item"><a class="nav-link" href="/front/faq">FAQ</a></li>
+				<li class="nav-item"><a class="nav-link" href="/front/notice/list">공지사항</a></li>
 				<li class="nav-item"><a class="nav-link" href="/front/blogPost">게시판</a></li>
 
 				<li class="nav-item dropdown"><a
