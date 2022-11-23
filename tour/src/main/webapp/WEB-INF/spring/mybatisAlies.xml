@@ -20,5 +20,7 @@
 			type="com.tour.project.common.vo.PageCriteriaVO" />
 		<typeAlias alias="NotificationVO"
 			type="com.tour.project.adminvo.NotificationVO" />
+		<typeAlias alias="ComentsVO"
+			type="com.tour.project.frontvo.ComentsVO" />
 	</typeAliases>
 </configuration>

@@ -16,6 +16,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.tour.project.admincontroller.AdminControllerBYS;
 import com.tour.project.adminservice.AdminBoardService;
 import com.tour.project.adminservice.AdminEventService;
 import com.tour.project.adminservice.AdminRestaurantService;
@@ -36,6 +39,7 @@ import com.tour.project.adminvo.EventVO;
 import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.common.ResultSendToClient;
 import com.tour.project.frontservice.FrontBoardService;
+import com.tour.project.frontservice.FrontComentsService;
 
 @Controller
 public class FrontControllerKJM {
@@ -49,6 +53,10 @@ public class FrontControllerKJM {
 	@Autowired
 	private FrontBoardService FBS;
 	
+	@Autowired
+	private FrontComentsService frontComentsService;
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(FrontControllerKJM.class);
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -241,6 +249,30 @@ public class FrontControllerKJM {
 		}
 		else {
 			System.out.println("faile");
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = {"/front/createComents"})
+	public void createComents(@RequestParam Map<String, Object> map, HttpServletResponse response, HttpServletRequest request) throws Exception {
+		try {
+			String board_seq = request.getParameter("board_seq");
+			String mem_email = (String)request.getSession().getAttribute("MEMBER_ID");
+			String mem_seq = (String)request.getSession().getAttribute("SESSION_US_SEQ");
+			
+			map.put("mem_email", mem_email);
+			map.put("mem_seq", mem_seq);
+			map.put("board_seq", board_seq);
+			int isCreated = frontComentsService.create(map);
+			if (isCreated == 1) {
+				System.out.println("success");
+				ResultSendToClient.onlyResultTo(response, isCreated);
+			} else {
+				System.out.println("faile");
+			}
+		} catch (Exception e) {
+			LOGGER.error("insert error = "+ e.getMessage());
+			throw new Exception();
 		}
 	}
 	

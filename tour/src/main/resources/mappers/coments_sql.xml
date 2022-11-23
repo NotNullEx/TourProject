@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coments">
+	
+	<insert id="create" parameterType="hashMap">
+		INSERT INTO
+		coments(board_seq,coment_contents,coment_like,coment_reg_date,coment_upd_date,mem_email,mem_seq)
+		VALUES(#{board_seq},#{coment_contents},0,now(),now(),#{mem_email},#{mem_seq})
+	</insert>
+	
+	<select id="comentsByBoard" parameterType="String" resultType="ComentsVO">
+		SELECT coment_seq,
+			   coment_contents,
+			   coment_like,
+			   coment_reg_date,
+			   coment_upd_date,
+			   mem_email,
+			   mem_seq,
+			   (select mem_name from coments where mem_seq = co.mem_seq) as mem_name
+		FROM coments co
+		WHERE board_seq = #{board_seq}
+	</select>
+	
+</mapper>
