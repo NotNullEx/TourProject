@@ -1,0 +1,2 @@
+DB툴에서 loopInsert프로시저 소스 수정 후 (소스는 직접확인)
+CALL loopInsert(); 동작
