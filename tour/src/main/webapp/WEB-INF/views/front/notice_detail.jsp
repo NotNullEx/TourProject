@@ -6,32 +6,62 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="../frontcommon/front_header_common.jsp" />
-<title>게시판 수정</title>
+<title>공지사항</title>
 </head>
-<script type="text/javascript">
+<style type="text/css">
+	.btn_list {
+		margin: 2%;
+		width: 10%;
+		background: #EBEDF3;
+		border-radius: 12px;
+	}
+	.item {
+		margin : 2% 10%;
+		margin-bottom: 0;
+		height : 90%;
+		background-color: #EBEDF3;
+	}
+	#board_title {
+		text-align: center;
+		padding-top: 1%;
+	}
 	
-</script>
+	#board_reg_date {
+		text-align: right;
+		padding-right: 2%;
+	}
+	
+	#board_contents {
+		padding-left: 1%;
+	}
+	
+</style>
+<script type="text/javascript"></script>
 <body>
 	<jsp:include page="../frontcommon/front_header.jsp" />
 	
-	<div id="contactForm">
-		<div class="form-floating mb-3">
-			<input class="form-control" id="board_title" type="text" value = "${noti.noti_title }" readonly="readonly"> <label
-				for="even_codename">공지사항 제목</label>
-		</div>
-		<div class="form-floating mb-3">
-			<input class="form-control" id="board_title" type="text" value = "${noti.noti_contents }" readonly="readonly"> <label
-				for="even_guname">공지사항 내용</label>
+		<article class="item">
+			<header class="mb-4">
+				<h1 class="fw-bolder mb-1" id="board_title" type="text" readonly="readonly">
+				<label for="even_codename">${noti.noti_title }</label>
+				</h1>	
+				<div class="text-muted fst-italic mb-2" id="board_reg_date" type="text" readonly="readonly"> 
+				<label for="even_guname">${noti.noti_reg_date }</label></div>
+				<hr>
+			</header>
+			
+			<section class="mb-5">
+				<p class="fs-5 mb-4" id="board_contents" type="text" readonly="readonly"> 
+				<label for="even_guname">${noti.noti_contents }</label></p>
+			</section>
+			
+		</article>
+		
+		<div class="d-grid">
+			<button type="button" class="btn_list" onclick="javascript:history.back(-1);"> 목록으로 </button>
 		</div>
 		
-				<div class="form-floating mb-3">
-			<input class="form-control" id="board_title" type="text" value = "${noti.noti_reg_date }" readonly="readonly"> <label
-				for="even_guname">작성일자</label>
-		</div>
-
-		<div class="d-grid">
-			<button type="button" onclick="javascript:history.back(-1);">돌아가기</button>
-		</div>
-	</div>
+	<jsp:include page="../frontcommon/front_footer.jsp"/>
+	<jsp:include page="../frontcommon/front_footer_common.jsp"/>
 </body>
 </html>
