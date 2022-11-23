@@ -152,6 +152,8 @@ public class AdminController {
 		if(notiList != null && notiList.size() > 0) {
 			models.addObject("list", notiList);
 		}
+		models.addObject("curPage",cri.getPage());
+		models.addObject("totalCount", total);
 		models.addObject("pageMaker", pageMaker);
 		models.addObject("sb", lists);
 		return models;

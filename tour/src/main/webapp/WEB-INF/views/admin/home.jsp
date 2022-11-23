@@ -170,9 +170,10 @@
 								</tr>
 							</thead>
 							<tbody>
+								<c:set var="num" value="${totalCount - ((curPage-1) * 10) }"/>
 								<c:forEach var="list" items="${list}" >
 									<tr>
-										<th scope="row"><c:out value="${list.noti_seq}"/></th>
+										<th scope="row"><c:out value="${num}"/></th>
 										<td><c:out value="${list.admin_name}"/></td>
 										<td><a href="/admin/notificationDetail?noti_seq=${list.noti_seq}"><c:out value="${list.noti_title}"/></a></td>
 										<td><c:out value="${list.noti_reg_date}"/></td>
@@ -181,6 +182,7 @@
 											<button type="button" id="delete" class="btn btn-success" onclick="javascript: go_delete(${list.noti_seq},${list.noti_status})">삭제</button>
 										</td>
 									</tr>
+									<c:set var = "num" value = "${num - 1 }" />
 								</c:forEach>
 							</tbody>
 						</table>
