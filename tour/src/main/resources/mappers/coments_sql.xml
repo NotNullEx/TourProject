@@ -16,9 +16,13 @@
 			   coment_upd_date,
 			   mem_email,
 			   mem_seq,
-			   (select mem_name from coments where mem_seq = co.mem_seq) as mem_name
+			   (select mem_name from member where mem_seq = co.mem_seq) as mem_name
 		FROM coments co
 		WHERE board_seq = #{board_seq}
 	</select>
+	
+	<delete id="deleteComentsWithSeq" parameterType="String">
+		DELETE FROM coments WHERE coment_seq = #{coment_seq}
+	</delete>
 	
 </mapper>

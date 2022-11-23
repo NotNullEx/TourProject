@@ -23,11 +23,11 @@
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				<li class="nav-item"><a class="nav-link" href="/">홈</a></li>
 				<li class="nav-item"><a class="nav-link" href="/front/tourList">관광지</a></li>
-				<li class="nav-item"><a class="nav-link" href="/front/contact">행사</a></li>
-				<li class="nav-item"><a class="nav-link" href="/front/blog">먹거리</a></li>
+				<li class="nav-item"><a class="nav-link" href="/front/event">행사</a></li>
+				<li class="nav-item"><a class="nav-link" href="/front/restaurant">먹거리</a></li>
 				<li class="nav-item"><a class="nav-link" href="/front/pricing">결제</a></li>
 				<li class="nav-item"><a class="nav-link" href="/front/notice/list">공지사항</a></li>
-				<li class="nav-item"><a class="nav-link" href="/front/blogPost">게시판</a></li>
+				<li class="nav-item"><a class="nav-link" href="/front/board">게시판</a></li>
 
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" id="navbarDropdownPortfolio"

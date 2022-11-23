@@ -40,6 +40,7 @@ import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.common.ResultSendToClient;
 import com.tour.project.frontservice.FrontBoardService;
 import com.tour.project.frontservice.FrontComentsService;
+import com.tour.project.frontvo.ComentsVO;
 
 @Controller
 public class FrontControllerKJM {
@@ -212,20 +213,31 @@ public class FrontControllerKJM {
 	}
 	
 	
-	@RequestMapping(value = {"/front/blogPost_detail"})
-	public ModelAndView blogPostDetail(Locale locale, Model model, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("/front/blogpost_detail");
+	@RequestMapping(value = {"/front/board_detail"})
+	public ModelAndView blogPostDetail(Locale locale, Model model, HttpServletRequest request) throws Exception {
+		ModelAndView mav = new ModelAndView("/front/board_detail");
 		List<BoardVO> bv = new ArrayList<BoardVO>();
 		String seq = request.getParameter("board_seq");
+		int mem_seq = (Integer)request.getSession().getAttribute("SESSION_US_SEQ");
 		bv = FBS.listBySeq(seq);
+		List<ComentsVO> list = new ArrayList<ComentsVO>();
+		if(frontComentsService.comentsByBoard(seq) != null) {
+			list = frontComentsService.comentsByBoard(seq);
+		}
+		if(list != null) {
+			mav.addObject("data", list);
+		}
+		if(mem_seq != 0) {
+			mav.addObject("mem_seq", mem_seq);
+		}
 		mav.addObject("list", bv);
 		return mav;
 	}
 
 	
-	@RequestMapping(value = {"/front/blogPost"})
+	@RequestMapping(value = {"/front/board"})
 	public ModelAndView blogPost(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/front/blogpost");
+		ModelAndView mav = new ModelAndView("/front/board");
 		List<BoardVO> bv = new ArrayList<BoardVO>();
 		bv = FBS.listAll();
 		mav.addObject("list", bv);
@@ -258,7 +270,7 @@ public class FrontControllerKJM {
 		try {
 			String board_seq = request.getParameter("board_seq");
 			String mem_email = (String)request.getSession().getAttribute("MEMBER_ID");
-			String mem_seq = (String)request.getSession().getAttribute("SESSION_US_SEQ");
+			int mem_seq = (Integer)request.getSession().getAttribute("SESSION_US_SEQ");
 			
 			map.put("mem_email", mem_email);
 			map.put("mem_seq", mem_seq);
@@ -276,10 +288,28 @@ public class FrontControllerKJM {
 		}
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = {"/front/deleteComents"})
+	public void deleteComents(@RequestParam String seq, HttpServletResponse response, HttpServletRequest request) throws Exception {
+		try {
+			String coment_seq = seq;	
+			int isDeleted = frontComentsService.deleteComentsWithSeq(coment_seq);
+			if (isDeleted == 1) {
+				System.out.println("success");
+				ResultSendToClient.onlyResultTo(response, isDeleted);
+			} else {
+				System.out.println("faile");
+			}
+		} catch (Exception e) {
+			LOGGER.error("insert error = "+ e.getMessage());
+			throw new Exception();
+		}
+	}
 	
-	@RequestMapping(value = {"/front/blog"})
+	
+	@RequestMapping(value = {"/front/restaurant"})
 	public ModelAndView blog(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/front/bloghome");	
+		ModelAndView mav = new ModelAndView("/front/restaurant");	
 		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
 		resVO = infoService.listAll();
 		mav.addObject("data",resVO);
@@ -287,9 +317,9 @@ public class FrontControllerKJM {
 	}	
 	
 	
-	@RequestMapping(value = {"/front/contact"})
+	@RequestMapping(value = {"/front/event"})
 	public ModelAndView contact() {
-		ModelAndView mav = new ModelAndView("/front/contact");
+		ModelAndView mav = new ModelAndView("/front/event");
 		return mav;
 	}
 	

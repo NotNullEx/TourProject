@@ -33,7 +33,7 @@
 				if (data.result == 1) {
 					console.log(id);
 					alert("정상적으로 로그인되었습니다.");
-					window.location.assign("/front/blog");
+					window.location.assign("/");
 				} else {
 					alert("아이디, 패스워드를 확인해주세요.");
 				}
