@@ -28,4 +28,9 @@ public class FrontComentsServiceImpl implements FrontComentsService {
 		return comentsDao.deleteComentsWithSeq(coment_seq);
 	}
 
+	@Override
+	public int reviseComents(Map<String, Object> map) throws Exception {
+		return comentsDao.reviseComents(map);
+	}
+
 }

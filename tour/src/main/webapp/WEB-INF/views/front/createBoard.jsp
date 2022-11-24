@@ -11,26 +11,20 @@
 
 		var board_title = document.getElementById('board_title').value;
 		var board_contents = document.getElementById('board_contents').value;
-		/* var board_status = document.getElementById('board_status').value; */
-		/* var board_reg_date = document.getElementById('board_reg_date').value;
-		var board_reg_date = document.getElementById('board_upd_date').value;  */
-
+		var kind = $('input[name=kind]:checked').val();
 		$.ajax({
 			type : "POST",
 			url : "/front/createBoardOK",
 			data : {
-
 				"board_title" : board_title,
 				"board_contents" : board_contents,
-				/* "board_status" : board_status */
-			/* 				"board_reg_date" : board_reg_date,
-			 "board_upd_date" : board_upd_date, */
+				"kind" : kind
 			},
 			async : false,
 			success : function(data) {
 				if (data.result == 1) {
 					alert("게시판이 등록 되었습니다.");
-					window.location.assign("/front/blogPost");
+					window.location.assign("/front/board");
 				} else {
 					alert("등록 실패");
 				}
@@ -61,13 +55,15 @@
 								<div class="form-floating mb-3">
 									<input class="form-control" name="title" id="board_contents"
 										type="text"> <label for="board_title">내용</label>
+								</div> 								
+								<div class="form-floating mb-3">
+									자유 <input name="kind" type="radio" value="0" checked="checked"> &nbsp;
+									질문 <input name="kind" type="radio" value="1"> &nbsp;
+									답변 <input name="kind" type="radio" value="2"> &nbsp;
+									숙박후기 <input name="kind" type="radio" value="3"> &nbsp;
+									음식점후기 <input name="kind" type="radio" value="4"> &nbsp;
+									축제후기 <input name="kind" type="radio" value="5"> &nbsp;
 								</div>
-<!-- <!-- 								<div class="form-floating mb-3">
-									<input class="form-control" name="title" id="board_status"
-										type="text"> <label for="board_title">상태</label>
-								</div>
- --> -->
-
 							</form>
 							<div class="d-grid">
 								<button type="button" id="reg"

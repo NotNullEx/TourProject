@@ -6,7 +6,7 @@
 <head>
 <jsp:include page="../frontcommon/front_header_common.jsp" />
 </head>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 	function deleteOne(seq) {
 		if (confirm("정말 삭제하시겠습니까??")) {
@@ -85,8 +85,32 @@
 		}
 	}
 	
-	function editComents(seq) {
-		
+	function reviseComents(seq) {
+		var content = document.getElementById('coment_contents').value;
+		if (confirm("수정하시겠습니까?")) {
+			var contents = prompt('수정할 내용',content);
+			if(contents == "" || contents == null) {
+				alert("내용을 입력해 주세요.");
+				return false;
+			}
+			$.ajax({
+				type : "POST",
+				data : {
+					"seq" : seq,
+					"contents" : contents
+				},
+				url : "/front/reviseComents",
+				async : false,
+				success : function(data) {
+					if(data.result != 0) {
+						alert("수정이 완료되었습니다.");
+						location.reload();
+					}else {
+						alert("수정에 실패했습니다.")
+					}
+				}
+			});
+		}
 	}
 </script>
 <body class="d-flex flex-column">
@@ -109,9 +133,6 @@
 					</div>
 					<div class="col-lg-9">
 
-
-
-						<%-- <c:forEach var="list" items="${list}" begin="0"> --%>
 						<article>
 
 							<!-- Post header-->
@@ -121,10 +142,26 @@
 								<!-- Post meta content-->
 								<div class="text-muted fst-italic mb-2">${list[0].board_reg_date}</div>
 								<!-- Post categories-->
-								<a class="badge bg-secondary text-decoration-none link-light"
-									href="#!">공지사항</a> <a
-									class="badge bg-secondary text-decoration-none link-light"
-									href="#!">이벤트</a>
+								<c:choose>
+									<c:when test="${list[0].board_status == 0}">
+										<div class="badge bg-secondary text-decoration-none link-light">자유</div>
+									</c:when>
+									<c:when test="${list[0].board_status == 1}">
+										<div class="badge bg-secondary text-decoration-none link-light">질문</div>
+									</c:when>
+									<c:when test="${list[0].board_status == 2}">
+										<div class="badge bg-secondary text-decoration-none link-light">답변</div>
+									</c:when>
+									<c:when test="${list[0].board_status == 3}">
+										<div class="badge bg-secondary text-decoration-none link-light">숙박후기</div>
+									</c:when>
+									<c:when test="${list[0].board_status == 4}">
+										<div class="badge bg-secondary text-decoration-none link-light">음식점후기</div>
+									</c:when>
+									<c:otherwise>
+										<div class="badge bg-secondary text-decoration-none link-light">축제후기</div>
+									</c:otherwise>
+								</c:choose>
 							</header>
 							<!-- Preview image figure-->
 							<figure class="mb-4">
@@ -135,26 +172,8 @@
 							<!-- Post content-->
 							<section class="mb-5">
 								<p class="fs-5 mb-4">${list[0].board_contents}</p>
-								<!-- <p class="fs-5 mb-4">The universe is large and old, and the ingredients for life as we know it are everywhere, so there's no reason to think that Earth would be unique in that regard. Whether of not the life became intelligent is a different question, and we'll see if we find that.</p>
-                                    <p class="fs-5 mb-4">If you get asteroids about a kilometer in size, those are large enough and carry enough energy into our system to disrupt transportation, communication, the food chains, and that can be a really bad day on Earth.</p>
-                                    <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
-                                    <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
-                                    <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p> -->
 							</section>
 						</article>
-						<div class="col-lg-4 mb-5">
-							<div class="card h-100 shadow border-0">
-								<button type="button" class="w-100 btn btn-primary mb-2"
-									onclick="location.href='/front/editBoard?board_seq=${list[0].board_seq}'">수정하기</button>
-
-
-								<button type="button" id="addRes"
-									class="w-100 btn btn-primary mb-2"
-									onclick="deleteOne(${list[0].board_seq})">삭제하기</button>
-								<button type="button" class="w-100 btn btn-primary mb-2"
-									onclick="location.href='/front/board'">목록</button>
-							</div>
-						</div>
 						<%-- </c:forEach> --%>
 
 						<!-- Comments section-->
@@ -164,7 +183,7 @@
 									<!-- Comment form-->
 									<div class="mb-4">
 										<textarea class="form-control" rows="3"
-											placeholder="Join the discussion and leave a comment!"
+											placeholder="댓글기능은 로그인 후 이용 가능합니다!"
 											id="coments"></textarea>
 										<button type="button" class="w-100 btn btn-primary mb-2"
 											onclick="createComents(${list[0].board_seq})">등록</button>
@@ -178,13 +197,14 @@
 													<div class="fw-bold">${data.mem_name} 
 														<h6><c:out value="${data.coment_upd_date}"/></h6>
 													</div>
+													<input type="hidden" id="coment_contents" value="${data.coment_contents}">
 													<c:out value="${data.coment_contents}"></c:out>
 												</div>
 										</div>
 										<c:choose>
 											<c:when test="${mem_seq == data.mem_seq}">
 												<button type="button" class="btn-primary"
-													onclick="editComents(${data.coment_seq})">수정</button>
+													onclick="javascript: reviseComents(${data.coment_seq})">수정</button>
 												<button type="button" class="btn-success"
 													onclick="deleteComents(${data.coment_seq})">삭제</button>
 											</c:when>
@@ -195,6 +215,17 @@
 						</section>
 					</div>
 				</div>
+				<c:choose>
+					<c:when test="${mem_seq == list[0].mem_seq}">
+						<button type="button" class="btn btn-primary mb-2"
+							onclick="location.href='/front/editBoard?board_seq=${list[0].board_seq}'">수정하기</button>
+						<button type="button" id="addRes"
+							class="btn btn-primary mb-2"
+							onclick="deleteOne(${list[0].board_seq})">삭제하기</button>
+					</c:when>
+				</c:choose>
+				<button type="button" class="btn btn-primary mb-2"
+									onclick="location.href='/front/board'">목록</button>
 			</div>
 		</section>
 	</main>

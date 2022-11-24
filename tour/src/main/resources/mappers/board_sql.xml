@@ -3,8 +3,8 @@
 <mapper namespace="board">
 	<insert id="create" parameterType="hashMap">
 		INSERT INTO
-		board(board_title,board_contents,board_reg_date,board_upd_date)
-		VALUES(#{board_title},#{board_contents},now(),now())
+		board(board_title,board_contents,board_reg_date,board_upd_date,mem_seq,board_status)
+		VALUES(#{board_title},#{board_contents},now(),now(),#{mem_seq},#{kind})
 	</insert>
 
 	<select id="listAll" parameterType="hashMap"

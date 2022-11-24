@@ -135,10 +135,10 @@
 			<label for="even_id">이름</label>
 		</div>
 		<div class="form-floating mb-3">
-			한식 <input name="kind" type="radio" value="0" checked="checked">
-			중식 <input name="kind" type="radio" value="1"> 
-			일식 <input name="kind" type="radio" value="2"> 
-			양식 <input name="kind" type="radio" value="3">
+			한식 <input name="kind" type="radio" value="0" checked="checked"> &nbsp;
+			중식 <input name="kind" type="radio" value="1"> &nbsp;
+			일식 <input name="kind" type="radio" value="2"> &nbsp;
+			양식 <input name="kind" type="radio" value="3"> &nbsp;
 		</div>
 		<div class="d-grid">
 			<button type="button" onclick="add()">음식점 DB 추가</button>

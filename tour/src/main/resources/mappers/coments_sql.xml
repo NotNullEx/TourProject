@@ -25,4 +25,9 @@
 		DELETE FROM coments WHERE coment_seq = #{coment_seq}
 	</delete>
 	
+	<update id="reviseComents" parameterType="hashMap">
+		UPDATE coments 
+		SET coment_contents = #{contents}
+		WHERE coment_seq = #{seq}
+	</update>
 </mapper>

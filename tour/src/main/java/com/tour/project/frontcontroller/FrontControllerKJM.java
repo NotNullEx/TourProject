@@ -218,18 +218,14 @@ public class FrontControllerKJM {
 		ModelAndView mav = new ModelAndView("/front/board_detail");
 		List<BoardVO> bv = new ArrayList<BoardVO>();
 		String seq = request.getParameter("board_seq");
-		int mem_seq = (Integer)request.getSession().getAttribute("SESSION_US_SEQ");
+		int mem_seq = 0;
+		if(request.getSession().getAttribute("SESSION_US_SEQ") != null && (Integer)request.getSession().getAttribute("SESSION_US_SEQ") != 0) 
+			mem_seq = (Integer)request.getSession().getAttribute("SESSION_US_SEQ");
 		bv = FBS.listBySeq(seq);
 		List<ComentsVO> list = new ArrayList<ComentsVO>();
-		if(frontComentsService.comentsByBoard(seq) != null) {
-			list = frontComentsService.comentsByBoard(seq);
-		}
-		if(list != null) {
-			mav.addObject("data", list);
-		}
-		if(mem_seq != 0) {
-			mav.addObject("mem_seq", mem_seq);
-		}
+		if(frontComentsService.comentsByBoard(seq) != null) list = frontComentsService.comentsByBoard(seq);
+		if(list != null) mav.addObject("data", list);
+		if(mem_seq != 0) mav.addObject("mem_seq", mem_seq);
 		mav.addObject("list", bv);
 		return mav;
 	}
@@ -253,7 +249,9 @@ public class FrontControllerKJM {
 	}
 	
 	@RequestMapping(value = {"/front/createBoardOK"})
-	public void createBoardOK(@RequestParam Map<String, Object> map, HttpServletResponse response) {
+	public void createBoardOK(@RequestParam Map<String, Object> map, HttpServletResponse response, HttpServletRequest request) {
+		int mem_seq = (Integer)request.getSession().getAttribute("SESSION_US_SEQ");
+		map.put("mem_seq", mem_seq);
 		int isCreated =  FBS.create(map);
 		if(isCreated ==1) {
 			System.out.println("success");
@@ -280,6 +278,23 @@ public class FrontControllerKJM {
 				System.out.println("success");
 				ResultSendToClient.onlyResultTo(response, isCreated);
 			} else {
+				System.out.println("faile");
+			}
+		} catch (Exception e) {
+			LOGGER.error("insert error = "+ e.getMessage());
+			throw new Exception();
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = {"/front/reviseComents"})
+	public void reviseComents(@RequestParam Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			int isRevised = frontComentsService.reviseComents(map);
+			if(isRevised == 1) {
+				System.out.println("success");
+				ResultSendToClient.onlyResultTo(response, isRevised);
+			}else {
 				System.out.println("faile");
 			}
 		} catch (Exception e) {

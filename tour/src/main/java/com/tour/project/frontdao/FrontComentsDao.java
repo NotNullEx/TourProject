@@ -25,4 +25,8 @@ public class FrontComentsDao {
 	public int deleteComentsWithSeq(String coment_seq) throws Exception {
 		return sqltemplate.delete("coments.deleteComentsWithSeq", coment_seq);
 	}
+	
+	public int reviseComents(Map<String, Object> map) throws Exception {
+		return sqltemplate.update("coments.reviseComents", map);
+	}
 }

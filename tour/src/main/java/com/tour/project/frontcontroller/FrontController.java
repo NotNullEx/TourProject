@@ -104,7 +104,7 @@ public class FrontController {
 		return models;
 	}
 	
-	@RequestMapping(value = {"/front/createBoard"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/front/createBoard"})
 	public ModelAndView create(HttpServletRequest request,  HttpServletResponse response) {
 		
 		String user_id = (String) request.getSession().getAttribute("MEMBER_ID");
@@ -116,10 +116,6 @@ public class FrontController {
 			return new ModelAndView("front/createBoard");
 		}
 		
-	}
-	@RequestMapping(value = {"/front/createBoard"})
-	public ModelAndView createBoard() {
-		return new ModelAndView("/front/createBoard");
 	}
 	
 	@ResponseBody
