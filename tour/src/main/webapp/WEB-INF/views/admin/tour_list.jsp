@@ -90,7 +90,7 @@
 							src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." />
 					</div>
 					<div class="col-lg-6">
-						<h2 class="fw-bolder">${sb[0].tour_post_sj}</h2>
+						<h2 class="fw-bolder">${list[0].tour_post_sj}</h2>
 						<p class="lead fw-normal text-muted mb-0">test</p>
 					</div>
 				</div>
@@ -98,7 +98,7 @@
 		</section>
 		<!-- About section two-->
 		<section class="py-5">
-			<table class="table">
+			<table class="table table-success table-striped">
 				<thead>
 					<tr>
 						<th scope="col">No.</th>
@@ -112,14 +112,15 @@
 					</tr>
 				</thead>
 				<tbody class="tableInfo">
-					<c:forEach var="item" items="${sb}" varStatus="vs">
+					<c:set var="num" value="${totalCount - ((curPage-1) * 10) }"/>
+					<c:forEach var="item" items="${list}" varStatus="vs">
 						<tr>
-							<th scope="row">${item.tour_seq}</th>
+							<th scope="row"><c:out value="${num}"/></th>
 							<td><img class="image" alt="tt" src="../resources/img/001.jpg"> </td>
 							<td><a class="text-decoration-none link-dark" href="/admin/tourDetail?tour_seq=${item.tour_seq}" >${item.tour_post_sj}</a> <br>
 								${item.tour_new_address }<br>
 								<c:choose>
-									<c:when test = "${item.tour_cmmn_fax == null or item.tour_cmmn_fax eq ' '}">
+									<c:when test = "${item.tour_cmmn_fax == null or item.tour_cmmn_fax eq ''}">
 										- <br>
 									</c:when>
 									<c:otherwise>
@@ -133,6 +134,7 @@
 								<button type="button" id="addRes" class="btn btn-success" onclick="javascript: go_delete(${item.tour_seq})">삭제</button>
 							</td>
 						</tr>
+						<c:set var = "num" value = "${num - 1 }" />
 					</c:forEach>
 				</tbody>
 			</table>

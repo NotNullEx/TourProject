@@ -2,13 +2,43 @@
 <!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="event">
 
-	<insert id="create" parameterType="hashMap">
- 		INSERT INTO event(even_codename,even_guname,even_title,even_date,even_place,even_org_name,even_use_trgt,even_use_fee,even_player,even_program,even_etc_desc,even_org_link,even_main_img,even_rgst_date,even_ticket,even_strt_date,even_end_date,even_theme_code)
- 		values(#{even_codename},#{even_guname},#{even_title},#{even_date},#{even_place},#{even_org_name},#{even_use_trgt},#{even_use_fee},#{even_player},#{even_program},#{even_etc_desc},#{even_org_link},#{even_main_img},#{even_rgst_date},#{even_ticket},#{even_strt_date},#{even_end_date},#{even_theme_code})
+	<insert id="create" parameterType="java.util.List">
+ 		INSERT INTO event(even_codename,even_guname,even_title,even_date,even_place,even_org_name,
+ 		even_use_trgt,even_use_fee,even_player,even_program,even_etc_desc,even_org_link,even_main_img,
+ 		even_rgst_date,even_ticket,even_strt_date,even_end_date,even_theme_code)
+ 		VALUES
+ 		<foreach collection="list" item="item" separator=",">
+        (
+            #{item.even_codename},
+            #{item.even_guname},
+            #{item.even_title},
+            #{item.even_date},
+            #{item.even_place},
+            #{item.even_org_name},
+ 			#{item.even_use_trgt},
+ 			#{item.even_use_fee},
+ 			#{item.even_player},
+ 			#{item.even_program},
+ 			#{item.even_etc_desc},
+ 			#{item.even_org_link},
+ 			#{item.even_main_img},
+ 			#{item.even_rgst_date},
+ 			#{item.even_ticket},
+ 			#{item.even_strt_date},
+ 			#{item.even_end_date},
+ 			#{item.even_theme_code}
+        )
+    </foreach>;
 	</insert>
 
 	<select id="listAll" parameterType="hashMap" resultType="EventVO">
 		SELECT * FROM event
+	</select>
+	<select id="pageListAll" parameterType="PageCriteriaVO" resultType="EventVO">
+		SELECT * 
+		FROM event
+		ORDER BY even_code DESC
+		LIMIT #{pageStart}, #{perPageNum}
 	</select>
 	
 	<select id="listByCode" parameterType="String" resultType="EventVO">

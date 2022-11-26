@@ -9,14 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.tour.project.adminvo.EventVO;
+import com.tour.project.common.vo.PageCriteriaVO;
 
 @Repository
 public class AdminEventDao {
 	@Autowired 
 	private SqlSessionTemplate sqltemplate;
 	
-	public int create(EventVO vo) {
-		return sqltemplate.insert("event.create", vo);
+	public int create(List<EventVO> lists) {
+		return sqltemplate.insert("event.create", lists);
 		
 	}
 	
@@ -28,6 +29,12 @@ public class AdminEventDao {
 	public List<EventVO> listAll() {
 		List<EventVO> result = new ArrayList<EventVO>();
 		result = sqltemplate.selectList("event.listAll");
+		return result;
+	}
+	
+	public List<EventVO> listAll(PageCriteriaVO cri) {
+		List<EventVO> result = new ArrayList<EventVO>();
+		result = sqltemplate.selectList("event.pageListAll", cri);
 		return result;
 	}
 	

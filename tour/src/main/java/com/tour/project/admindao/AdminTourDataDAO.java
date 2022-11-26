@@ -15,26 +15,31 @@ public class AdminTourDataDAO {
 	@Autowired 
 	private SqlSessionTemplate sqltemplate;
 	
-	public int tourInsert(TourVO vo) {
+	public int tourInsert(TourVO vo) throws Exception{
 		int result = -1;
 		result = sqltemplate.insert("tour.tourInsert", vo);
 		return result;
 		
 	}
-	public int tourInsert(HashMap<String, Object> map) {
+	public int tourInsert(HashMap<String, Object> map) throws Exception{
 		int result = -1;
 		result = sqltemplate.insert("tour.tourDataInsert", map);
 		return result;
 		
 	}
 	
-	public List<TourVO> tourList(){
-		List<TourVO> tourList = sqltemplate.selectList("tour.tourList");
+	public int getToatal() throws Exception{
+		int getToatal = sqltemplate.selectOne("tour.getTotal");
+		return getToatal;
+	}
+	
+	public List<TourVO> tourList(PageCriteriaVO cri) throws Exception{
+		List<TourVO> tourList = sqltemplate.selectList("tour.selecttourList",cri);
 		return tourList;
 	}
 	
-	public List<TourVO> tourList(PageCriteriaVO cri){
-		List<TourVO> tourList = sqltemplate.selectList("tour.selecttourList",cri);
+	public List<TourVO> tourList() throws Exception{
+		List<TourVO> tourList = sqltemplate.selectList("tour.tourList");
 		return tourList;
 	}
 	

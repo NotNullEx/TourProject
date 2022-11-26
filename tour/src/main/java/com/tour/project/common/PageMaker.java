@@ -21,7 +21,7 @@ public class PageMaker {
     private boolean next;
     
     // 화면 하단에 보여지는 페이지 버튼의 수
-    private int displayPageNum = 5;
+    private int displayPageNum = 10;
     
     
 	public PageCriteriaVO getCri() {

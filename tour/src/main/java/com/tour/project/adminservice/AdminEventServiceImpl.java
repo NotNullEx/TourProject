@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.tour.project.admindao.AdminEventDao;
 import com.tour.project.adminvo.EventVO;
+import com.tour.project.common.vo.PageCriteriaVO;
 
 @Service
 public class AdminEventServiceImpl implements AdminEventService {
@@ -15,8 +16,8 @@ public class AdminEventServiceImpl implements AdminEventService {
 	private AdminEventDao eventDao;
 	
 	@Override
-	public int create(EventVO vo) {	
-		return eventDao.create(vo);
+	public int create(List<EventVO> lists) {	
+		return eventDao.create(lists);
 	}
 	
 	@Override
@@ -27,6 +28,11 @@ public class AdminEventServiceImpl implements AdminEventService {
 	@Override
 	public List<EventVO> listAll() {
 		return eventDao.listAll();
+	}
+	
+	@Override
+	public List<EventVO> listAll(PageCriteriaVO cri) {
+		return eventDao.listAll(cri);
 	}
 
 	@Override

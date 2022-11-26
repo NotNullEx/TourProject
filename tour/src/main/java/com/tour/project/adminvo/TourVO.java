@@ -33,5 +33,7 @@ public class TourVO {
 	private String tour_post_sj;
 	// 고유 번호
 	private String tour_post_sn;
+	// 구 이름
+	private String tour_gu_name;
 
 }

@@ -121,6 +121,12 @@ public class AdminController {
 					tourInfoSet.setTour_cmmn_use_time(row.get("CMMN_USE_TIME").toString());
 					tourInfoSet.setTour_post_sn(row.get("POST_SN").toString());
 					
+					if(tourInfoSet.getTour_address() != null && !"".equals(tourInfoSet.getTour_address())) {
+						String[] tour_gu = tourInfoSet.getTour_address().split(" ");
+						String gu_name = tour_gu[2];
+						tourInfoSet.setTour_gu_name(gu_name);
+					}
+					
 					lists.add(tourInfoSet);
 					if (tourInfo != null) {
 						insert = service.tourInsert(tourInfoSet);
@@ -134,7 +140,8 @@ public class AdminController {
 			conn.disconnect();
 			return new Gson().toJson(lists);
 		} catch (Exception e) {
-			e.getStackTrace();
+		
+			log.error(e.getMessage());
 			throw new Exception();
 		}
 	}

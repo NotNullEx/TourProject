@@ -25,7 +25,7 @@ public class DateUtil {
 	}
 	
 	public static Date strToDate(String str, String format) {
-		if (format == null) format = "yyyyMMdd";
+		if (format == null) format = "yyyy-MM-dd";
 		
 		DateFormat dateFormat = new SimpleDateFormat(format);
 		try {

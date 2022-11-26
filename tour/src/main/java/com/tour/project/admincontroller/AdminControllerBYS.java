@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -43,8 +44,10 @@ import com.tour.project.adminvo.NotificationVO;
 import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.Criteria;
+import com.tour.project.common.PageMaker;
 import com.tour.project.common.ResultSendToClient;
 import com.tour.project.common.SuccessResponse;
+import com.tour.project.common.vo.PageCriteriaVO;
 import com.tour.project.common.vo.PageMakerVO;
 
 /**
@@ -54,13 +57,13 @@ import com.tour.project.common.vo.PageMakerVO;
 public class AdminControllerBYS {
 
 	@Autowired
-	private AdminRestaurantService ARS;
+	private AdminRestaurantService adminRestaurantService;
 
 	@Autowired
-	private AdminEventService AES;
+	private AdminEventService adminEventService;
 
 	@Autowired
-	private AdminTourDataService ATDS;
+	private AdminTourDataService adminTourDataService;
 
 	@Autowired
 	private AdminNotificationService adminNotificationService;
@@ -84,7 +87,7 @@ public class AdminControllerBYS {
 				area.add(res_adress_area[i]);
 			}
 			List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
-			resVO = ARS.listAll();
+			resVO = adminRestaurantService.listAll();
 			mav.addObject("data", resVO);
 			mav.addObject("area", area);
 			return mav;
@@ -113,7 +116,7 @@ public class AdminControllerBYS {
 
 	@RequestMapping(value = { "/admin/addRestaurantOK" })
 	public void addRestaurantOK(@RequestParam Map<String, Object> map, HttpServletResponse response) {
-		int isCreated = ARS.create(map);
+		int isCreated = adminRestaurantService.create(map);
 		if (isCreated == 1) {
 			System.out.println("success");
 			ResultSendToClient.onlyResultTo(response, isCreated);
@@ -127,7 +130,7 @@ public class AdminControllerBYS {
 	public Object deleteRestaurant() {
 		int result = 0;
 		// Gson을 활용한 경우
-		result = ARS.deleteAll();
+		result = adminRestaurantService.deleteAll();
 		return new Gson().toJson(result);
 	}
 
@@ -139,7 +142,7 @@ public class AdminControllerBYS {
 		} else {
 			ModelAndView mav = new ModelAndView("/admin/regis");
 			List<EventVO> lists = new ArrayList<EventVO>();
-			lists = AES.listAll();
+			lists = adminEventService.listAll();
 			mav.addObject("eventData", lists);
 			return mav;
 		}
@@ -154,7 +157,7 @@ public class AdminControllerBYS {
 			ModelAndView mav = new ModelAndView("/admin/restaurantdetail");
 			String search = request.getParameter("res_seq");
 			List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
-			lists = ARS.listOne(search);
+			lists = adminRestaurantService.listOne(search);
 			mav.addObject("data", lists);
 			return mav;
 		}
@@ -175,7 +178,7 @@ public class AdminControllerBYS {
 			}
 			String adress = request.getParameter("res_adress_area");
 			List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
-			lists = ARS.listBySection(adress);
+			lists = adminRestaurantService.listBySection(adress);
 			mav.addObject("data", lists);
 			mav.addObject("area", area);
 			return mav;
@@ -191,7 +194,7 @@ public class AdminControllerBYS {
 			ModelAndView mav = new ModelAndView("/admin/restaurant_revise");
 			String code = request.getParameter("res_seq");
 			List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
-			lists = ARS.listOne(code);
+			lists = adminRestaurantService.listOne(code);
 			mav.addObject("data", lists);
 			return mav;
 		}
@@ -199,7 +202,7 @@ public class AdminControllerBYS {
 
 	@RequestMapping(value = { "/admin/reviseAllOK" })
 	public void reviseAllOK(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception {
-		int isRevised = ARS.reviseAll(map);
+		int isRevised = adminRestaurantService.reviseAll(map);
 		if (isRevised == 1) {
 			System.out.println("success");
 			ResultSendToClient.onlyResultTo(response, isRevised);
@@ -212,7 +215,7 @@ public class AdminControllerBYS {
 	@RequestMapping(value = { "/admin/deleteOneRestaurant" })
 	public Object deleteOneRestaurant(@RequestParam String code) throws Exception {
 		int result = 0;
-		result = ARS.deleteOne(code);
+		result = adminRestaurantService.deleteOne(code);
 		return new Gson().toJson(result);
 	}
 
@@ -221,32 +224,24 @@ public class AdminControllerBYS {
 	public Object adminHome() throws Exception {
 		List<EventVO> lists = new ArrayList<EventVO>();
 		try {
-			boolean isEnd = false;
-			int index = 0;
-			String strt = null;
-			String end = null;
 			BufferedReader rd = null;
 			URL url = null;
 			HttpURLConnection conn = null;
 			String key = "4f645452506b6a6d38307a53726f48";
-			while (isEnd == false) {
-				StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088"); /* URL */
+			String key_url = "http://openapi.seoul.go.kr:8088";
+			StringBuilder urlBuilder = new StringBuilder();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar cal = Calendar.getInstance();
+			String date = formatter.format(cal.getTime());
+			int start = 1;
+			int end = 1000;
+			while(end<=3000) {
+				urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088"); /* URL */
 				urlBuilder.append("/" + URLEncoder.encode(key, "UTF-8")); /* 인증키 (sample사용시에는 호출시 제한됩니다.) */
 				urlBuilder.append("/" + URLEncoder.encode("json", "UTF-8")); /* 요청파일타입 (xml,xmlf,xls,json) */
 				urlBuilder.append("/" + URLEncoder.encode("culturalEventInfo", "UTF-8")); /* 서비스명 (대소문자 구분 필수입니다.) */
-				//
-				// // 즉, 페이지라고 생각하면됩니다 1부터 5까지 출력
-				strt = String.valueOf(1 + (index * 1000));
-				end = String.valueOf(((1 + index) * 1000));
-				urlBuilder.append("/" + URLEncoder.encode(strt, "UTF-8")); /* 요청시작위치 (sample인증키 사용시 5이내 숫자) */
-				urlBuilder.append("/" + URLEncoder.encode(end, "UTF-8")); /* 요청종료위치(sample인증키 사용시 5이상 숫자 선택 안 됨) */
-				//
-				// urlBuilder.append("/" + URLEncoder.encode("NM_DP","UTF-8"));
-				// // 상위 5개는 필수적으로 순서바꾸지 않고 호출해야 합니다.
-
-				// 서비스별 추가 요청 인자이며 자세한 내용은 각 서비스별 '요청인자'부분에 자세히 나와 있습니다.
-				// urlBuilder.append("/" + URLEncoder.encode(nowTime2,"UTF-8")); /* 서비스별 추가
-				// 요청인자들*/
+				urlBuilder.append("/" + URLEncoder.encode(Integer.toString(start), "UTF-8")); /* 요청시작위치 (sample인증키 사용시 5이내 숫자) */
+				urlBuilder.append("/" + URLEncoder.encode(Integer.toString(end), "UTF-8")); /* 요청종료위치(sample인증키 사용시 5이상 숫자 선택 안 됨) */
 
 				url = new URL(urlBuilder.toString());
 				conn = (HttpURLConnection) url.openConnection();
@@ -265,80 +260,80 @@ public class AdminControllerBYS {
 				JSONObject eventInfoResult = (JSONObject) jsonObject.get("culturalEventInfo");
 				JSONArray eventInfo = (JSONArray) eventInfoResult.get("row");
 				JSONObject row;
-				lists = new ArrayList<EventVO>();
+				formatter = new SimpleDateFormat("yyyy-MM-dd");
+				
 				int insert = 0;
+				lists = new ArrayList<EventVO>();
 				for (int i = 0; i < eventInfo.size(); i++) {
+					
 					row = (JSONObject) eventInfo.get(i);
 					EventVO eventInfoSet = new EventVO();
-					eventInfoSet.setEven_codename(row.get("CODENAME").toString());
-					eventInfoSet.setEven_guname(row.get("GUNAME").toString());
-					eventInfoSet.setEven_title(row.get("TITLE").toString());
-					eventInfoSet.setEven_date(row.get("DATE").toString());
-					eventInfoSet.setEven_place(row.get("PLACE").toString());
-					eventInfoSet.setEven_org_name(row.get("ORG_NAME").toString());
-					eventInfoSet.setEven_use_trgt(row.get("USE_TRGT").toString());
-					eventInfoSet.setEven_use_fee(row.get("USE_FEE").toString());
-					eventInfoSet.setEven_player(row.get("PLAYER").toString());
-					eventInfoSet.setEven_program(row.get("PROGRAM").toString());
-					eventInfoSet.setEven_etc_desc(row.get("ETC_DESC").toString());
-					eventInfoSet.setEven_org_link(row.get("ORG_LINK").toString());
-					eventInfoSet.setEven_main_img(row.get("MAIN_IMG").toString());
-					eventInfoSet.setEven_rgst_date(row.get("RGSTDATE").toString());
-					eventInfoSet.setEven_ticket(row.get("TICKET").toString());
-					eventInfoSet.setEven_strt_date(row.get("STRTDATE").toString());
-					eventInfoSet.setEven_end_date(row.get("END_DATE").toString());
-					eventInfoSet.setEven_theme_code(row.get("THEMECODE").toString());
-					lists.add(eventInfoSet);
-					insert = AES.create(eventInfoSet);
+					String rdate = row.get("END_DATE").toString();
+					System.out.println(rdate);
+					System.out.println(date);
+					
+					// api로 취득한 이벤트종료날짜
+					Date rowDate = formatter.parse(rdate);
+					// 로컬 날짜
+					Date localDate = formatter.parse(date);
+					
+					// 로컬날짜를 api 이벤트 종료날짜와 비교
+					// 조건: 로컬 날짜가 이벤트종료 날짜보다 크면 즉, 현재날짜로부터 이벤트가 종료되었을때
+					if(!localDate.after(rowDate)) {
+						eventInfoSet.setEven_codename(row.get("CODENAME").toString());
+						eventInfoSet.setEven_guname(row.get("GUNAME").toString());
+						eventInfoSet.setEven_title(row.get("TITLE").toString());
+						eventInfoSet.setEven_date(row.get("DATE").toString());
+						eventInfoSet.setEven_place(row.get("PLACE").toString());
+						eventInfoSet.setEven_org_name(row.get("ORG_NAME").toString());
+						eventInfoSet.setEven_use_trgt(row.get("USE_TRGT").toString());
+						eventInfoSet.setEven_use_fee(row.get("USE_FEE").toString());
+						eventInfoSet.setEven_player(row.get("PLAYER").toString());
+						eventInfoSet.setEven_program(row.get("PROGRAM").toString());
+						eventInfoSet.setEven_etc_desc(row.get("ETC_DESC").toString());
+						eventInfoSet.setEven_org_link(row.get("ORG_LINK").toString());
+						eventInfoSet.setEven_main_img(row.get("MAIN_IMG").toString());
+						eventInfoSet.setEven_rgst_date(row.get("RGSTDATE").toString());
+						eventInfoSet.setEven_ticket(row.get("TICKET").toString());
+						eventInfoSet.setEven_strt_date(row.get("STRTDATE").toString());
+						eventInfoSet.setEven_end_date(row.get("END_DATE").toString());
+						eventInfoSet.setEven_theme_code(row.get("THEMECODE").toString());
+						lists.add(eventInfoSet);
+					}
 				}
-				System.out.println(eventInfo.size());
-				if (eventInfo.size() != 1000) {
-					isEnd = true;
-				}
-				index++;
-			}
+				insert = adminEventService.create(lists);
+				start += 1000;
+				end += 1000;
+			}			
+
 			rd.close();
 			conn.disconnect();
 			return new Gson().toJson(lists);
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			e.getStackTrace();
-			return lists;
+			throw new Exception();
 		}
 	}
 
 	@RequestMapping(value = { "/admin/event" })
-	public ModelAndView event(HttpServletRequest request) throws Exception {
+	public ModelAndView event(HttpServletRequest request,PageCriteriaVO cri) throws Exception {
 		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
 		if (user_id == null || "".equals(user_id)) {
 			return new ModelAndView("/admin/admin_login");
 		} else {
 			ModelAndView mav = new ModelAndView("/admin/eventhome");
 			List<EventVO> lists = new ArrayList<EventVO>();
-			lists = AES.listAll();
-			int total = AES.getTotal();
-			Criteria cri = new Criteria(1, 20);
-			int numIndex = 1, num = 0;
+			lists = adminEventService.listAll(cri);
+			int total = adminEventService.getTotal();
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(total);
 
-			if (request.getParameter("num") != null)
-				num = Integer.valueOf(request.getParameter("num"));
-
-			if (num > 0) {
-				numIndex = num;
-				cri.setPageNum(num);
-			}
-
-			PageMakerVO pmVO = new PageMakerVO(cri, total);
-			int end = numIndex * cri.getAmount();
-			int strt = end - cri.getAmount();
-
-			if (end > cri.getAmount())
-				strt++;
-
+			mav.addObject("curPage",cri.getPage());
+			mav.addObject("totalCount", total);
 			mav.addObject("data", lists);
-			mav.addObject("page", pmVO);
-			mav.addObject("strt", strt);
-			mav.addObject("end", end);
-			mav.addObject("index", num);
+			mav.addObject("pageMaker", pageMaker);
 			return mav;
 		}
 	}
@@ -355,7 +350,7 @@ public class AdminControllerBYS {
 
 	@RequestMapping(value = { "/admin/addEventOK" })
 	public void addEventOK(@RequestParam Map<String, Object> map, HttpServletResponse response) {
-		int isCreated = AES.create(map);
+		int isCreated = adminEventService.create(map);
 		if (isCreated == 1) {
 			System.out.println("success");
 			ResultSendToClient.onlyResultTo(response, isCreated);
@@ -373,7 +368,7 @@ public class AdminControllerBYS {
 			ModelAndView mav = new ModelAndView("/admin/eventdetail");
 			String code = request.getParameter("even_code");
 			List<EventVO> lists = new ArrayList<EventVO>();
-			lists = AES.listByCode(code);
+			lists = adminEventService.listByCode(code);
 			mav.addObject("data", lists);
 			return mav;
 		}
@@ -384,7 +379,7 @@ public class AdminControllerBYS {
 	public Object deleteEvent() {
 		int result = 0;
 		// Gson을 활용한 경우
-		result = AES.deleteAll();
+		result = adminEventService.deleteAll();
 		return new Gson().toJson(result);
 	}
 
@@ -392,7 +387,7 @@ public class AdminControllerBYS {
 	@RequestMapping(value = { "/admin/deleteOneEvent" })
 	public Object deleteOneEvent(@RequestParam String code) throws Exception {
 		int result = 0;
-		result = AES.deleteOne(code);
+		result = adminEventService.deleteOne(code);
 		return new Gson().toJson(result);
 	}
 
@@ -405,7 +400,7 @@ public class AdminControllerBYS {
 			ModelAndView mav = new ModelAndView("/admin/event_revise");
 			String code = request.getParameter("even_code");
 			List<EventVO> lists = new ArrayList<EventVO>();
-			lists = AES.listByCode(code);
+			lists = adminEventService.listByCode(code);
 			mav.addObject("data", lists);
 			return mav;
 		}
@@ -413,7 +408,7 @@ public class AdminControllerBYS {
 
 	@RequestMapping(value = { "/admin/eventReviseAllOK" })
 	public void eventReviseAllOK(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception {
-		int isRevised = AES.reviseAll(map);
+		int isRevised = adminEventService.reviseAll(map);
 		if (isRevised == 1) {
 			System.out.println("success");
 			ResultSendToClient.onlyResultTo(response, isRevised);
@@ -450,7 +445,7 @@ public class AdminControllerBYS {
 			throw new Exception();
 		}
 	}
-	
+
 	@RequestMapping(value = {"/admin/notificationDetail"})
 	public ModelAndView notificationDetail(HttpServletRequest request) throws Exception {
 		String noti_seq = request.getParameter("noti_seq");
@@ -459,21 +454,21 @@ public class AdminControllerBYS {
 		mav.addObject("data", noti);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = {"/admin/notificationUpdate"})
 	public ModelAndView dataUpdate(HashMap<String, Object> map, HttpServletRequest request, HttpServletResponse resonse) throws Exception {
 		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
 		if (user_id == null || "".equals(user_id)) {
 			return new ModelAndView("/admin/admin_login");
 		} else {
-		ModelAndView mav = new ModelAndView("/admin/notificationupdate");
-		String noti_seq = request.getParameter("noti_seq");
-		NotificationVO noti = adminNotificationService.getNotiDetailList(noti_seq);
-		mav.addObject("data",noti);
-		return mav;
+			ModelAndView mav = new ModelAndView("/admin/notificationupdate");
+			String noti_seq = request.getParameter("noti_seq");
+			NotificationVO noti = adminNotificationService.getNotiDetailList(noti_seq);
+			mav.addObject("data",noti);
+			return mav;
 		}
 	}
-	
+
 	@RequestMapping(value = { "/admin/notificationUpdateOK" })
 	public void notificationUpdateOK(@RequestParam Map<String, Object> map, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		int admin_seq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
@@ -486,8 +481,8 @@ public class AdminControllerBYS {
 			System.out.println("faile");
 		}
 	}
-	
-	
+
+
 	@RequestMapping(value = {"/admin/setNotiHidden"})
 	@ResponseBody
 	public SuccessResponse setNotiHidden(@RequestParam Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -505,7 +500,7 @@ public class AdminControllerBYS {
 				System.out.println("success");
 				//'ResultSendToClient.onlyResultTo(response, isNotiHidden);
 				if (noti_status == 0) return new SuccessResponse(response.SC_OK, "게시판이 표시상태로 변경되었습니다.", null);
-				else return new SuccessResponse(response.SC_OK, "게시판이 삭제되었습니다.", null);
+				else return new SuccessResponse(response.SC_OK, "게시판이 비표시상태로 변경되었습니다.", null);
 			} else {
 				return new SuccessResponse(response.SC_BAD_REQUEST, "게시판 표시상태 수정 실패", null);
 			}

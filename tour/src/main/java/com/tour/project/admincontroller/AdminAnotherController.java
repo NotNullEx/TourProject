@@ -33,14 +33,17 @@ public class AdminAnotherController {
 		ModelAndView mav = new ModelAndView("/admin/tour_list");
 		
 		List<TourVO> lists = new ArrayList<TourVO>();
-		List<TourVO> cntLists = new ArrayList<TourVO>();
+		int total =0;
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		lists = service.tourList(cri);
-		cntLists = service.tourList();
-		pageMaker.setTotalCount(cntLists.size());
-
-		mav.addObject("sb", lists);
+		total = service.getToatal();
+		pageMaker.setTotalCount(total);
+		if(lists != null && lists.size() > 0) {
+			mav.addObject("list", lists);
+		}
+		mav.addObject("curPage",cri.getPage());
+		mav.addObject("totalCount", total);
 		mav.addObject("pageMaker", pageMaker);
 		
 		return mav;
@@ -97,9 +100,26 @@ public class AdminAnotherController {
 		String tour_seq = requset.getParameter("tour_seq");
 		List<TourVO> lists = new ArrayList<TourVO>();
 		lists = service.tourOneList(tour_seq);
-		String[] result = lists.get(0).getTour_address().split(" ");
-		String address = result[2];
-
+		for(int i = 0; i<lists.size(); i++) {
+			if(lists.get(i).getTour_cmmn_fax() == null || "".equals(lists.get(i).getTour_cmmn_fax()))lists.get(i).setTour_cmmn_fax("-");
+			if(lists.get(i).getTour_address() == null || "".equals(lists.get(i).getTour_address()))lists.get(i).setTour_address("-");
+			if(lists.get(i).getTour_new_address() == null || "".equals(lists.get(i).getTour_new_address()))lists.get(i).setTour_new_address("-");
+			if(lists.get(i).getTour_subway_info() == null || "".equals(lists.get(i).getTour_subway_info()))lists.get(i).setTour_subway_info("-");
+			if(lists.get(i).getTour_cmmn_hmpg_url() == null || "".equals(lists.get(i).getTour_cmmn_hmpg_url()))lists.get(i).setTour_cmmn_hmpg_url("-");
+			if(lists.get(i).getTour_cmmn_telno() == null || "".equals(lists.get(i).getTour_cmmn_telno()))lists.get(i).setTour_cmmn_telno("-");
+			if(lists.get(i).getTour_cmmn_bsnde() == null || "".equals(lists.get(i).getTour_cmmn_bsnde()))lists.get(i).setTour_cmmn_bsnde("-");
+			if(lists.get(i).getTour_bf_desc() == null || "".equals(lists.get(i).getTour_bf_desc()))lists.get(i).setTour_bf_desc("-");
+			if(lists.get(i).getTour_cmmn_rstde() == null || "".equals(lists.get(i).getTour_cmmn_rstde()))lists.get(i).setTour_cmmn_rstde("-");
+			if(lists.get(i).getTour_cmmn_use_time() == null || "".equals(lists.get(i).getTour_cmmn_use_time()))lists.get(i).setTour_cmmn_use_time("-");
+			if(lists.get(i).getTour_post_sj() == null || "".equals(lists.get(i).getTour_post_sj()))lists.get(i).setTour_post_sj("-");
+			if(lists.get(i).getTour_post_sn() == null || "".equals(lists.get(i).getTour_post_sn()))lists.get(i).setTour_post_sn("-");
+			
+		}
+		String address = "";
+		if(lists.get(0).getTour_address() != "-" || !"-".equals(lists.get(0).getTour_address())) {
+			String[] result = lists.get(0).getTour_address().split(" ");
+			address = result[2];
+		}
 		mav.addObject("sb",lists);
 		mav.addObject("address",address);
 		

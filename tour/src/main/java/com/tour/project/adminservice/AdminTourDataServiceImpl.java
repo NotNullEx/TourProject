@@ -24,13 +24,19 @@ public class AdminTourDataServiceImpl implements AdminTourDataService{
 	}
 
 	@Override  
-	public List<TourVO> tourList() throws Exception{
-		List<TourVO> list = dao.tourList();
-		return list;
+	public int getToatal() throws Exception{
+		int getTotal = dao.getToatal();
+		return getTotal;
 	}
 	
 	public List<TourVO> tourList(PageCriteriaVO cri) throws Exception{
 		List<TourVO> list = dao.tourList(cri);
+		return list;
+	}
+	
+	@Override
+	public List<TourVO> tourList() throws Exception {
+		List<TourVO> list = dao.tourList();
 		return list;
 	}
 
@@ -62,5 +68,7 @@ public class AdminTourDataServiceImpl implements AdminTourDataService{
 		
 		return result;
 	}
+
+	
 
 }
