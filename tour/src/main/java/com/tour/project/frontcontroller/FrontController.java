@@ -40,7 +40,10 @@ import com.tour.project.adminservice.AdminBoardService;
 import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.adminvo.TourVO;
+import com.tour.project.common.PageMaker;
 import com.tour.project.common.ResultSendToClient;
+import com.tour.project.common.StringUtil;
+import com.tour.project.common.vo.PageCriteriaVO;
 import com.tour.project.frontservice.FrontFavoritesService;
 import com.tour.project.frontservice.MemberFavoriteService;
 
@@ -91,11 +94,22 @@ public class FrontController {
 	}
 	
 	@RequestMapping(value = { "/front/tourList" })
-	public ModelAndView tourList() throws Exception {
+	public ModelAndView tourList(PageCriteriaVO cri) throws Exception {
 		ModelAndView models = new ModelAndView("/front/tourList");
-		List<TourVO> lists = new ArrayList<TourVO>();
-		lists = service.tourList();
-		models.addObject("sb", lists);
+		
+		List<TourVO> lists = service.tourList(cri);
+		int total =0;
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		total = service.getToatal();
+		pageMaker.setTotalCount(total);
+		if(!StringUtil.isEmpty(lists)) {
+			models.addObject("list", lists);
+		}
+		models.addObject("curPage",cri.getPage());
+		models.addObject("totalCount", total);
+		models.addObject("pageMaker", pageMaker);
+		
 		return models;
 	}
 	

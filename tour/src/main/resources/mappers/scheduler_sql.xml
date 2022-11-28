@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scheduler">
+
+	
+	<select id = "getFavoriteTourList" resultType="hashMap">
+		
+		select likeinfo.tour_seq
+			,likeinfo.likecnt
+		from (
+			select tour_seq as tour_seq
+			,count(mem_seq) as likecnt
+			from favorites
+			group by tour_seq
+		) likeinfo
+		order by likeinfo.likecnt desc;
+	</select>
+	
+	<insert id = "insertRecommendTourData" parameterType="java.util.List">
+	
+		INSERT INTO tour_recommend(
+			tour_seq
+			,reg_date
+			,sort_sn
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			 #{item.tour_seq},
+			 now(),
+			 #{index} + 1
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteRecommendTourData">
+		DELETE FROM tour_recommend;
+	</delete>
+	
+	
+</mapper>
