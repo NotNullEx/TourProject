@@ -41,6 +41,7 @@ import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.ResultSendToClient;
+import com.tour.project.frontservice.FrontFavoritesService;
 import com.tour.project.frontservice.MemberFavoriteService;
 
 @Controller
@@ -56,7 +57,7 @@ public class FrontController {
 	private AdminTourDataService service;
 	
 	@Autowired
-	private MemberFavoriteService favoriteService;
+	FrontFavoritesService frontFavoritesService;
 
 	private static final Logger log = LoggerFactory.getLogger(FrontController.class);
 
@@ -133,8 +134,8 @@ public class FrontController {
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				map.put("tour_seq", tour_seq);
 				map.put("mem_seq", mem_seq);
-				result = favoriteService.favorite(map);
-				res = Integer.toString(result);
+				result = frontFavoritesService.create(map);
+				if(result != 0) res = Integer.toString(result);
 				return new Gson().toJson(res);
 			}
 		}catch (Exception e) {

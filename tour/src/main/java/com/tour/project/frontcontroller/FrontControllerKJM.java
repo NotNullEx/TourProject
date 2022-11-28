@@ -39,6 +39,7 @@ import com.tour.project.adminvo.BoardVO;
 import com.tour.project.adminvo.EventVO;
 import com.tour.project.adminvo.NotificationVO;
 import com.tour.project.adminvo.RestaurantVO;
+import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.PageMaker;
 import com.tour.project.common.ResultSendToClient;
 import com.tour.project.common.StringUtil;
@@ -46,6 +47,7 @@ import com.tour.project.common.UtilClass;
 import com.tour.project.common.vo.PageCriteriaVO;
 import com.tour.project.frontservice.FrontBoardService;
 import com.tour.project.frontservice.FrontComentsService;
+import com.tour.project.frontservice.FrontFavoritesService;
 import com.tour.project.frontservice.MemberLoginService;
 import com.tour.project.frontservice.MemberUpdateService;
 import com.tour.project.frontvo.ComentsVO;
@@ -71,6 +73,9 @@ public class FrontControllerKJM {
 	
 	@Autowired
 	private MemberUpdateService memberUpdateService;
+	
+	@Autowired
+	private FrontFavoritesService frontFavoritesService;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(FrontControllerKJM.class);
 	/**
@@ -263,6 +268,7 @@ public class FrontControllerKJM {
 		return new Gson().toJson(result);
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = {"/front/createBoardOK"})
 	public void createBoardOK(@RequestParam Map<String, Object> map, HttpServletResponse response, HttpServletRequest request) {
 		int mem_seq = 0;
@@ -452,5 +458,51 @@ public class FrontControllerKJM {
 		return mav;
 	}
 	
-
+	@RequestMapping(value = {"/front/myFavoritesInfo"})
+	public ModelAndView myFavoritesInfo(HttpServletRequest request, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
+		ModelAndView mav = new ModelAndView("/front/myfavoritesinfo");
+		
+		String user_id = (String) request.getSession().getAttribute("MEMBER_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/front/member_login");
+		}else {
+			int memberSeq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
+			List<TourVO> list = new ArrayList<TourVO>();
+			int pagingList = 0;
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			list = frontFavoritesService.tourListByFavorites(memberSeq);
+			pagingList = list.size();
+			pageMaker.setTotalCount(pagingList);
+			
+			mav.addObject("totalCount", pagingList);
+			mav.addObject("curPage",cri.getPage());
+			mav.addObject("seq",memberSeq);
+			mav.addObject("list", list);
+			mav.addObject("pageMaker", pageMaker);
+			
+		}
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = {"/front/cancelFavorites"})
+	public void cancelFavorites(@RequestParam String tour_seq, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			int mem_seq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("tour_seq", tour_seq);
+			map.put("mem_seq", mem_seq);
+			int isDeleted = frontFavoritesService.cancelFavorites(map);
+			if (isDeleted == 1) {
+				System.out.println("success");
+				ResultSendToClient.onlyResultTo(response, isDeleted);
+			} else {
+				System.out.println("faile");
+			}
+		} catch (Exception e) {
+			LOGGER.error("insert error = "+ e.getMessage());
+			throw new Exception();
+		}
+	}
 }

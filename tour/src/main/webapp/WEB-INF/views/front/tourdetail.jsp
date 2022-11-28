@@ -168,27 +168,31 @@ div {
 </style>
 <script type="text/javascript">
 	function setLike() {
-		var tour_seq = $("#tour_seq").val();
-		var mem_seq = $("#mem_seq").val();
-		var tour_name = $("#tour_name").val();
-		
-		$.ajax({
-			type : "POST",
-			url : "/front/tourLike",
-			data : {
-				"tour_seq" : tour_seq,
-				"mem_seq" : mem_seq
-			},
-			success : function(data) {
-					if(data == 1){
-						alter(tour_name + "가 즐겨찾기 되었습니다.");
-					}else{
-						alter("즐겨찾기 실패");
+		var tour_seq = document.getElementById('tour_seq').value;
+		var mem_seq = document.getElementById('mem_seq').value;
+		var tour_name = document.getElementById('tour_name').value;
+		if(confirm("좋아요를 추가하시겠습니까?")) {
+			$.ajax({
+				type : "POST",
+				url : "/front/tourLike",
+				data : {
+					"tour_seq" : tour_seq,
+					"mem_seq" : mem_seq
+				},
+				async : false,
+				success : function(data) {
+						if(data != null){
+							alert(tour_name + "이(가) 즐겨찾기 되었습니다.");
+						}else{
+							alert("즐겨찾기 실패");
+						}
+					}, error: function(data){
+						alert("즐겨찾기 실패");
 					}
-				}, error: function(data){
-					alter("즐겨찾기 실패");
-				}
-		});
+			});
+		}else {
+			return false;
+		}
 	}
 
 </script>
@@ -213,9 +217,9 @@ div {
 			<input type="hidden" id="tour_seq" value="${tour_seq}">
 			<input type="hidden" id="mem_seq" value="${mem_seq}">
 			<div class="post_area">
-				<button type="button" class="btn_good" onclick="javascript:setLike()">
-					<span class="ico">좋아요</span><span class="num" id="conLike">0</span>
-				</button>
+				<span class="ico">
+				<button type="button" class="btn_good" onclick="setLike()">좋아요</button>
+				</span>
 				<span class="num_view"><em class="tit">조회수</em><span
 					class="num" id="conRead">477</span></span> <span class="rline">
 					<button type="button" class="btn_bookmark"

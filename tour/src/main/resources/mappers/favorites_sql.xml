@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="favorites">
+	
+	<insert id="create" parameterType="hashMap">
+		INSERT INTO
+		favorites(tour_seq,mem_seq)
+		VALUES(#{tour_seq},#{mem_seq})
+	</insert>
+	
+	<select id="tourListByFavorites" parameterType="int" resultType="TourVO">
+		SELECT * FROM tour t
+		JOIN favorites f
+		ON (t.tour_seq = f.tour_seq)
+		WHERE f.mem_seq = #{seq};
+	</select>
+	
+	<delete id="cancelFavorites" parameterType="hashMap">
+		DELETE FROM favorites
+		WHERE tour_seq = #{tour_seq}
+		AND mem_seq = #{mem_seq}
+	</delete>
+	
+</mapper>

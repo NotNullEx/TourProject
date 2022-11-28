@@ -66,8 +66,8 @@
         <a style="color: white">마이페이지</a>
       </li>
       <li><a href="/front/myInfo">내 정보</a></li>
-      <li><a href="/front/myBoardInfo">내가쓴 공지사항</a></li>
-      <li><a href="#">메뉴 3</a></li>
+      <li><a href="/front/myBoardInfo">내가쓴 게시글</a></li>
+      <li><a href="/front/myFavoritesInfo">좋아요 누른 관광지</a></li>
       <li><a href="#">메뉴 4</a></li>
       <li><a href="#">메뉴 5</a></li>
       <li><a href="#">메뉴 6</a></li>
