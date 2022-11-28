@@ -105,12 +105,14 @@ public class AdminControllerBYS {
 	}
 
 	@RequestMapping(value = { "/admin/addrestaurant" })
-	public ModelAndView addrestaurant(HttpServletRequest request) {
+	public String addrestaurant(HttpServletRequest request, Model model) throws Exception {
 		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		List<Map<String, Object>> postCodeList = adminRestaurantService.getpostCodeList();
 		if (user_id == null || "".equals(user_id)) {
-			return new ModelAndView("/admin/admin_login");
+			return "/admin/admin_login";
 		} else {
-			return new ModelAndView("/admin/addrestaurant");
+			model.addAttribute("postCodeList", postCodeList);
+			return "/admin/addrestaurant";
 		}
 	}
 

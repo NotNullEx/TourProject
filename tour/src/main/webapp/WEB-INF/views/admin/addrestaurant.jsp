@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 </head>
 <script type="text/javascript">
 	function add() {
-		var tour_ps = document.getElementById('tour_ps').value;
+		var tour_ps = $('#post option:selected').val();
 		var tour_address = document.getElementById('tour_address').value;
 		var telnum = document.getElementById('telnum').value;
 		var adress_area = document.getElementById('adress_area').value;
@@ -19,10 +20,7 @@
 		var desc = document.getElementById('desc').value;
 		var name = document.getElementById('name').value;
 		var kind = $('input[name=kind]:checked').val();
-		if (tour_ps == "") {
-			alert("tour_ps를 입력해주세요.");
-			return false;
-		}
+		
 		if (tour_address == "") {
 			alert("tour_address를 입력해주세요.");
 			return false;
@@ -96,12 +94,26 @@
 
 	<form id="contactForm">
 		<div class="form-floating mb-3">
-			<input class="form-control" id="tour_ps" type="text"> 
-			<label for="even_code">tour_post_sn</label>
+			<select id = "post">
+				<c:forEach var="list" items="${postCodeList}" varStatus="i">
+					<c:choose>
+						<c:when test="${i.index == 0 }">
+							<option value = "${list.tour_post_sn }" selected>${list.tour_gu_name}</option>
+						</c:when>
+						<c:otherwise>
+							<option value = "${list.tour_post_sn }">${list.tour_gu_name}</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</select>&nbsp;
+			한식 <input name="kind" type="radio" value="0" checked="checked"> &nbsp;
+			중식 <input name="kind" type="radio" value="1"> &nbsp;
+			일식 <input name="kind" type="radio" value="2"> &nbsp;
+			양식 <input name="kind" type="radio" value="3"> &nbsp;
 		</div>
 		<div class="form-floating mb-3">
 			<input class="form-control" id="tour_address" type="text"> 
-			<label for="even_id">tour_address</label>
+			<label for="even_id">주소</label>
 		</div>
 		<div class="form-floating mb-3">
 			<input class="form-control" id="telnum" type="text"> 
@@ -133,12 +145,6 @@
 		<div class="form-floating mb-3">
 			<input class="form-control" id="name" type="text"> 
 			<label for="even_id">이름</label>
-		</div>
-		<div class="form-floating mb-3">
-			한식 <input name="kind" type="radio" value="0" checked="checked"> &nbsp;
-			중식 <input name="kind" type="radio" value="1"> &nbsp;
-			일식 <input name="kind" type="radio" value="2"> &nbsp;
-			양식 <input name="kind" type="radio" value="3"> &nbsp;
 		</div>
 		<div class="d-grid">
 			<button type="button" onclick="add()">음식점 DB 추가</button>

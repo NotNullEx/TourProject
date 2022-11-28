@@ -60,5 +60,11 @@ public class AdminRestaurantServiceImpl implements AdminRestaurantService{
 		result = restaurantDao.reviseAll(map);
 		return result;
 	}
+
+	@Override
+	public List<Map<String, Object>> getpostCodeList() throws Exception {
+		// TODO Auto-generated method stub
+		return restaurantDao.getpostCodeList();
+	}
 	 
 }

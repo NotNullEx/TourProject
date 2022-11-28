@@ -2,42 +2,49 @@
 <!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="restaurant">
 
-<insert id="create" parameterType="hashMap">
- 	INSERT INTO restaurant(tour_post_sn,tour_address,res_telnum,res_adress_area,res_adress,res_open_time,res_rest_day,res_image,res_kind,res_desc,res_name,res_reg_date)
- 	values(#{tour_ps},#{tour_address},#{telnum},#{adress_area},#{adress},#{opentime},#{rest_day},#{image},#{kind},#{desc},#{name},now())
-</insert>
-<select id="listAll" resultType="RestaurantVO" >
-	SELECT *
-	FROM restaurant
-</select>
+	<insert id="create" parameterType="hashMap">
+	 	INSERT INTO restaurant(tour_post_sn,tour_address,res_telnum,res_adress_area,res_adress,res_open_time,res_rest_day,res_image,res_kind,res_desc,res_name,res_reg_date)
+	 	values(#{tour_ps},#{tour_address},#{telnum},#{adress_area},#{adress},#{opentime},#{rest_day},#{image},#{kind},#{desc},#{name},now())
+	</insert>
+	<select id="listAll" resultType="RestaurantVO" >
+		SELECT *
+		FROM restaurant
+	</select>
+	
+	<select id="listOne" parameterType="String" resultType="RestaurantVO">
+		SELECT *
+		FROM restaurant
+		WHERE res_seq = #{code}
+	</select>
+	
+	<select id="listBySection" parameterType="String" resultType="RestaurantVO">
+		SELECT *
+		FROM restaurant
+		WHERE res_adress_area = #{adress}
+	</select>
+	
+	<delete id="deleteAll">
+		DELETE FROM restaurant
+	</delete>
+	
+	<delete id="deleteOne" parameterType="String">
+		DELETE FROM restaurant
+		WHERE res_seq = #{code}
+	</delete>
+	
+	<update id="reviseAll" parameterType="hashMap">
+		UPDATE restaurant 
+		SET tour_post_sn = #{tour_ps}, tour_address = #{tour_address}, res_telnum = #{telnum}, res_adress_area = #{adress_area}
+		,res_adress = #{adress}, res_open_time = #{opentime}, res_rest_day = #{rest_day}, res_image = #{image}
+		,res_kind = #{kind}, res_desc = #{desc}, res_name = #{name}, res_upd_date = now()
+		WHERE res_seq = #{code}
+	</update>
 
-<select id="listOne" parameterType="String" resultType="RestaurantVO">
-	SELECT *
-	FROM restaurant
-	WHERE res_seq = #{code}
-</select>
-
-<select id="listBySection" parameterType="String" resultType="RestaurantVO">
-	SELECT *
-	FROM restaurant
-	WHERE res_adress_area = #{adress}
-</select>
-
-<delete id="deleteAll">
-	DELETE FROM restaurant
-</delete>
-
-<delete id="deleteOne" parameterType="String">
-	DELETE FROM restaurant
-	WHERE res_seq = #{code}
-</delete>
-
-<update id="reviseAll" parameterType="hashMap">
-	UPDATE restaurant 
-	SET tour_post_sn = #{tour_ps}, tour_address = #{tour_address}, res_telnum = #{telnum}, res_adress_area = #{adress_area}
-	,res_adress = #{adress}, res_open_time = #{opentime}, res_rest_day = #{rest_day}, res_image = #{image}
-	,res_kind = #{kind}, res_desc = #{desc}, res_name = #{name}, res_upd_date = now()
-	WHERE res_seq = #{code}
-</update>
+	<select id = "postCodeList" resultType="hashMap">
+		select tour_post_sn
+			,tour_gu_name
+		from tour
+		order by tour_post_sn asc;
+	</select>
 
 </mapper>

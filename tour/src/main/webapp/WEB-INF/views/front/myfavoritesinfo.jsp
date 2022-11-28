@@ -19,7 +19,6 @@
 				type : "POST",
 				async : false,
     			success:function(data){
-    				console.log(data);
     				if (data.result == 1) {
     					alert("좋아요를 취소했습니다.");
     					location.reload();
@@ -28,7 +27,6 @@
     				}
     			},
     			error:function(e){
-    				console.log(e);
     				alert("좋아요를 취소하는 과정에 문제가 발생했습니다.");
     			}
 			});

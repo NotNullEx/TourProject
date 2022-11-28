@@ -65,7 +65,7 @@
                                     <div class="badge bg-primary bg-gradient rounded-pill mb-2 d-inline-block text-truncate" style="max-width: 150px;">
                                     	<a class="text-decoration-none link-light" href="${item.tour_cmmn_hmpg_url}" target="_blank">${item.tour_cmmn_hmpg_url}</a>  
                                     </div>
-                                    <h5 class="card-title mb-3"><a href="/admin/tourDetail?tour_seq=${item.tour_seq}" class="text-decoration-none link-dark">${item.tour_post_sj}</a> </h5>
+                                    <h5 class="card-title mb-3"><a href="/front/tourDetail?tour_seq=${item.tour_seq}" class="text-decoration-none link-dark">${item.tour_post_sj}</a> </h5>
                                     <p class="card-text mb-0">${item.tour_new_address}</p>
                                 </div>
                             </div>

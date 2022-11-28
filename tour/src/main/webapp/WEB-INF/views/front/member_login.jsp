@@ -31,7 +31,6 @@
 			async : false,
 			success : function(data) {
 				if (data.result == 1) {
-					console.log(id);
 					alert("정상적으로 로그인되었습니다.");
 					window.location.assign("/");
 				} else {

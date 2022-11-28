@@ -56,4 +56,10 @@ public class AdminRestaurantDao {
 		result = sqltemplate.update("restaurant.reviseAll", map);
 		return result;
 	}
+	
+	public List<Map<String, Object>> getpostCodeList() throws Exception {
+		List<Map<String, Object>> postCodeList = sqltemplate.selectList("restaurant.postCodeList");
+		
+		return postCodeList;
+	}
 }

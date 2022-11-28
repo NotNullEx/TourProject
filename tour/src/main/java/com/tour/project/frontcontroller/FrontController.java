@@ -74,26 +74,20 @@ public class FrontController {
 	@RequestMapping(value = { "/front/tourDetail" })
 	public ModelAndView tourDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView models = new ModelAndView("/front/tourdetail");
-		String user_id = (String) request.getSession().getAttribute("MEMBER_ID");
-		if(user_id == null || "".equals(user_id)) {
-			models = new ModelAndView("/front/member_login");
-			return models;
-		} else {
-			String tour_seq = request.getParameter("tour_seq");
-			List<TourVO> lists = new ArrayList<TourVO>();
-			lists = service.tourOneList(tour_seq);
-			String[] result = lists.get(0).getTour_address().split(" ");
-			String address = result[2];
-			int member_seq = (Integer) request.getSession().getAttribute("SESSION_US_SEQ");
-			String mem_seq = Integer.toString(member_seq);
-			
-			models.addObject("mem_seq", mem_seq);
-			models.addObject("tour_seq",tour_seq);
-			models.addObject("sb",lists);
-			models.addObject("address",address);
-			return models;
-		}
-		
+		String tour_seq = request.getParameter("tour_seq");
+		List<TourVO> lists = new ArrayList<TourVO>();
+		lists = service.tourOneList(tour_seq);
+		String[] result = lists.get(0).getTour_address().split(" ");
+		String address = result[2];
+		int member_seq = (Integer) request.getSession().getAttribute("SESSION_US_SEQ");
+		String mem_seq = Integer.toString(member_seq);
+
+		models.addObject("mem_seq", mem_seq);
+		models.addObject("tour_seq", tour_seq);
+		models.addObject("sb", lists);
+		models.addObject("address", address);
+		return models;
+
 	}
 	
 	@RequestMapping(value = { "/front/tourList" })

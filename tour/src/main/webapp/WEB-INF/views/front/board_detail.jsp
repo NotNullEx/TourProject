@@ -18,13 +18,14 @@
 				url : "/front/deleteOneBoard",
 				async : false,
 				success : function(list) {
-					console.log(list);
 					if (list > 0) {
 						alert("삭제가 완료되었습니다.");
 						window.location.assign("/front/board");
 					} else {
 						alert("삭제에 실패했습니다.");
 					}
+				}, error : function (e) {
+					alert("오류가 발생하였습니다.");
 				}
 			});
 		}

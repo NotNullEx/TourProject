@@ -14,5 +14,6 @@ public interface AdminRestaurantService {
 	public List<RestaurantVO> listOne(String search);
 	public List<RestaurantVO> listBySection(String adress);
 	public int reviseAll(Map<String, Object> map);
+	public List<Map<String, Object>> getpostCodeList() throws Exception;
 
 }
