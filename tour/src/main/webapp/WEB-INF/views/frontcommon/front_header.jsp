@@ -49,6 +49,7 @@
 					<!-- <li class="nav-item"><a class="nav-link" href="#" onclick="data_insert()">데이터 등록</a></li> -->
 					<li class="nav-item" id="signOut"><a class="nav-link"
 						href="/front/logOut" class="nav-link text-dark">로그아웃</a></li>
+					<li class="nav-item"><a class="nav-link" href="/front/myPage">마이페이지</a></li> 
 				</c:if>
 			</ul>
 		</div>

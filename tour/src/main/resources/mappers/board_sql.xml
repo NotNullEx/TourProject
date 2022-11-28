@@ -33,6 +33,22 @@
 		DELETE FROM board
 		WHERE board_seq = #{seq}
 	</delete>
-
+	
+	<select id="myBoardList" parameterType="hashMap" resultType="BoardVO">
+		select board_seq,
+			(select mem_name from member where mem_seq = #{seq}) as mem_name,
+			board_title,
+			board_contents,
+			board_reg_date,
+			board_status
+		from board
+		WHERE mem_seq = #{seq}
+		ORDER BY board_seq DESC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="getMyBoardTotal" resultType="int" parameterType="int">
+		SELECT count(*) FROM board WHERE mem_seq = #{seq}
+	</select>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.tour.project.frontcontroller;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tour.project.common.ResultSendToClient;
 import com.tour.project.common.UtilClass;
 import com.tour.project.frontservice.MemberLoginService;
+import com.tour.project.frontvo.MemberVO;
 
 @Controller
 public class MemberLoginController {
@@ -42,8 +44,8 @@ public class MemberLoginController {
 		if (isCreated == 1) {
 			request.getSession().setAttribute("MEMBER_ID", id);
 			String memberId = (String) request.getSession().getAttribute("MEMBER_ID");
-			Map<String, Object> rtnVal = service.memberInfo(memberId);
-			int mem_seq = (Integer) rtnVal.get("mem_seq");
+			MemberVO rtnVal = service.memberInfo(memberId);
+			int mem_seq = rtnVal.getMem_seq();
 			request.getSession().setAttribute("SESSION_US_SEQ", mem_seq);
 			System.out.println("success");
 

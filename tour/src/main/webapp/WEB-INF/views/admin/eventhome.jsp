@@ -53,6 +53,18 @@ a:hover {
 	background-color: #cdd5ec;
 }
 
+.box {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.tableInfo td{
+	vertical-align:middle;
+}
+
+.tablelay {
+	table-layout: fixed;
 }
 </style>
 <body class="d-flex flex-column">
@@ -60,7 +72,7 @@ a:hover {
 		<jsp:include page="../admincommon/admin_header.jsp" />
 		<section class="py-5">
 			<h2 class="fw-bolder fs-5 mb-4">여러가지 재밌는 이벤트들을 놓치지 마세요!</h2>
-			<table class="table table-success table-striped">
+			<table class="table table-success table-striped tablelay">
 				<thead>
 					<tr>
 						<th style="width: 2%">No.</th>			
@@ -77,10 +89,10 @@ a:hover {
 					<c:forEach var="data" items="${data}" 
 						varStatus="vs">
 						<tr>
-							<th scope="row"><c:out value="${num}"/></th>
-							<td><a class="text-decoration-none link-dark"
+							<th scope="row" class="box"><c:out value="${num}"/></th>
+							<td class="box"><a class="text-decoration-none link-dark"
 								href="/admin/eventDetail?even_code=${data.even_code}">${data.even_title}</a></td>
-							<th>이용대상 : ${data.even_use_trgt} <br>  
+							<th class="box">이용대상 : ${data.even_use_trgt} <br>  
 								<c:choose>
 									<c:when test="${data.even_org_name == null or data.even_org_name eq ''}">
 										
@@ -114,7 +126,7 @@ a:hover {
 									</c:otherwise>
 								</c:choose>
 							</th>
-							<td>
+							<td class="box">
 								<c:choose>
 									<c:when test="${data.even_use_fee == null or data.even_use_fee eq ''}">
 										무료<br>
@@ -124,9 +136,9 @@ a:hover {
 									</c:otherwise>
 								</c:choose>
 							</td>
-							<td>${data.even_place}</td>
-							<td>${data.even_date}</td>
-							<td><a class="d-inline-block text-truncate link-dark" style="max-width: 150px;"
+							<td class="box">${data.even_place}</td>
+							<td class="box">${data.even_date}</td>
+							<td class="box"><a class="d-inline-block text-truncate link-dark" style="max-width: 150px;"
 								href="${data.even_org_link}" target="_blank">${data.even_org_link}</a></td>
 						</tr>
 						<c:set var = "num" value = "${num - 1 }" />

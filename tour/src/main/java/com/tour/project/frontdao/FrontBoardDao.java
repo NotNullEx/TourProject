@@ -1,6 +1,7 @@
 package com.tour.project.frontdao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,5 +46,13 @@ public class FrontBoardDao {
 		result = sqltemplate.delete("board.deleteOne",seq);
 		return result;
 		
+	}
+	
+	public List<BoardVO> myBoardList(HashMap<String, Object> map) throws Exception {
+		return sqltemplate.selectList("board.myBoardList", map);
+	}
+	
+	public int getMyBoardTotal(int seq) throws Exception {
+		return sqltemplate.selectOne("board.getMyBoardTotal",seq);
 	}
 }

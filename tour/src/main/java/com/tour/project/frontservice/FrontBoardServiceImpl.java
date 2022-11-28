@@ -1,5 +1,6 @@
 package com.tour.project.frontservice;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +46,17 @@ public class FrontBoardServiceImpl implements FrontBoardService {
 		int result = 0;
 		result = createDao.deleteOne(seq);
 		return result;
+	}
+
+	@Override
+	public List<BoardVO> myBoardList(HashMap<String, Object> map) throws Exception {
+		return createDao.myBoardList(map);
+	}
+
+	@Override
+	public int getMyBoardTotal(int seq) throws Exception {
+		// TODO Auto-generated method stub
+		return createDao.getMyBoardTotal(seq);
 	}
 
 }

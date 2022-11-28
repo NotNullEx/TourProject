@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -36,11 +37,19 @@ import com.tour.project.adminservice.AdminEventService;
 import com.tour.project.adminservice.AdminRestaurantService;
 import com.tour.project.adminvo.BoardVO;
 import com.tour.project.adminvo.EventVO;
+import com.tour.project.adminvo.NotificationVO;
 import com.tour.project.adminvo.RestaurantVO;
+import com.tour.project.common.PageMaker;
 import com.tour.project.common.ResultSendToClient;
+import com.tour.project.common.StringUtil;
+import com.tour.project.common.UtilClass;
+import com.tour.project.common.vo.PageCriteriaVO;
 import com.tour.project.frontservice.FrontBoardService;
 import com.tour.project.frontservice.FrontComentsService;
+import com.tour.project.frontservice.MemberLoginService;
+import com.tour.project.frontservice.MemberUpdateService;
 import com.tour.project.frontvo.ComentsVO;
+import com.tour.project.frontvo.MemberVO;
 
 @Controller
 public class FrontControllerKJM {
@@ -56,6 +65,12 @@ public class FrontControllerKJM {
 	
 	@Autowired
 	private FrontComentsService frontComentsService;
+	
+	@Autowired
+	private MemberLoginService loginService;
+	
+	@Autowired
+	private MemberUpdateService memberUpdateService;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(FrontControllerKJM.class);
 	/**
@@ -250,7 +265,8 @@ public class FrontControllerKJM {
 	
 	@RequestMapping(value = {"/front/createBoardOK"})
 	public void createBoardOK(@RequestParam Map<String, Object> map, HttpServletResponse response, HttpServletRequest request) {
-		int mem_seq = (Integer)request.getSession().getAttribute("SESSION_US_SEQ");
+		int mem_seq = 0;
+		mem_seq = (Integer)request.getSession().getAttribute("SESSION_US_SEQ");
 		map.put("mem_seq", mem_seq);
 		int isCreated =  FBS.create(map);
 		if(isCreated ==1) {
@@ -369,7 +385,72 @@ public class FrontControllerKJM {
 		return mav;
 	}
 	
+	@RequestMapping(value = { "/front/myPage" })
+	public ModelAndView mypage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return new ModelAndView("/front/mypage");
+	}
 	
+	@RequestMapping(value = { "/front/myInfo" })
+	public ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String memberId = (String) request.getSession().getAttribute("MEMBER_ID");
+		ModelAndView mav = new ModelAndView("/front/myinfo");
+		MemberVO rtnVal = loginService.memberInfo(memberId);
+		mav.addObject("data" , rtnVal);
+		return mav;
+	}
+	
+	@RequestMapping(value = { "/front/myInfoUpdate" })
+	@ResponseBody
+	public Object myInfoUpdate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		int result = 0;
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
+		String seq = request.getParameter("seq");
+		String pass = request.getParameter("pass");
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("name", name);
+		map.put("phone", phone);
+		map.put("seq", seq);
+		if(!StringUtil.isEmpty(pass)) {
+			String repass = UtilClass.SHA256(pass);
+			map.put("pass", repass);
+		}
+		result = memberUpdateService.memberUpdate(map);
+		return new Gson().toJson(result);
+	}
+	
+	@RequestMapping(value = { "/front/myBoardInfo" })
+	public ModelAndView myNotiInfo(HttpServletRequest request, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
+		ModelAndView mav = new ModelAndView("/front/myboardinfo");
+		
+		String user_id = (String) request.getSession().getAttribute("MEMBER_ID");
+		if(user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/front/member_login");
+		}else {
+			int memberSeq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
+			List<BoardVO> list = new ArrayList<BoardVO>();
+			int pagingList = 0; 
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			PageMaker pageMaker = new PageMaker();
+			map.put("seq", memberSeq);
+			map.put("pageStart",  cri.getPageStart());
+			map.put("perPageNum", cri.getPerPageNum());
+			pageMaker.setCri(cri);
+			list = FBS.myBoardList(map);
+			pagingList = FBS.getMyBoardTotal(memberSeq);
+			pageMaker.setTotalCount(pagingList);
+			
+			mav.addObject("totalCount", pagingList);
+			mav.addObject("curPage",cri.getPage());
+			mav.addObject("seq",memberSeq);
+			mav.addObject("list", list);
+			mav.addObject("pageMaker", pageMaker);
+			
+		}
+		return mav;
+	}
 	
 
 }

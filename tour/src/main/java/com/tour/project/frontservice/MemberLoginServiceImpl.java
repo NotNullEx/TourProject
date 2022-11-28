@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tour.project.frontdao.MemberLoginDao;
+import com.tour.project.frontvo.MemberVO;
 
 @Service
 public class MemberLoginServiceImpl implements MemberLoginService {
@@ -28,8 +29,8 @@ public class MemberLoginServiceImpl implements MemberLoginService {
 	}
 	
 	@Override
-	public Map<String, Object> memberInfo(String id){
-		Map<String, Object> result = new HashMap<String, Object>();
+	public MemberVO memberInfo(String id){
+		MemberVO result = new MemberVO();
 		try {
 			result = dao.getmemberInfo(id);
 		} catch (SQLException e) {

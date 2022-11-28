@@ -20,4 +20,6 @@ public class BoardVO {
 	private String board_reg_date;
 	// 게시판 업데이트 날짜
 	private String board_upd_date;
+	// 고객 이름
+	private String mem_name;
 }

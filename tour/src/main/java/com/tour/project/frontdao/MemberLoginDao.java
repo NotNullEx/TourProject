@@ -7,6 +7,8 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.tour.project.frontvo.MemberVO;
 @Repository
 public class MemberLoginDao {
 
@@ -18,8 +20,8 @@ public class MemberLoginDao {
     	return rtnVal;
 	}
 	
-	public Map<String, Object> getmemberInfo(String id) throws SQLException{
-		Map<String, Object> result = sqltemplate.selectOne("member.select_detail",id);
+	public MemberVO getmemberInfo(String id) throws SQLException{
+		MemberVO result = sqltemplate.selectOne("member.select_detail",id);
 		return result;
 	}
 }

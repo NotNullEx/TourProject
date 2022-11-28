@@ -27,8 +27,8 @@
 	</select>
 
 
-	<select id="select_detail" resultType="hashMap"
-		parameterType="hashMap">
+	<select id="select_detail" parameterType="String"
+		resultType="MemberVO">
 		SELECT * FROM member WHERE mem_email = #{id}
 	</select>
 
@@ -55,5 +55,13 @@
 			CONCAT('%',#{search},'%')
 		</if>
 	</select>
-
+	
+	<update id="memberUpdate" parameterType="hashMap">
+		UPDATE member
+		SET mem_name= #{name}, mem_phone_num = #{phone}
+		<if test="pass != null and pass != '' ">
+			, mem_password =  #{pass}
+		</if>
+		WHERE mem_seq = #{seq}
+	</update>
 </mapper>
