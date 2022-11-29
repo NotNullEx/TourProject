@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.tour.project.adminvo.BoardVO;
+import com.tour.project.common.vo.PageCriteriaVO;
 
 public interface FrontBoardService {
 	public int create(Map<String, Object> map);
-	public List<BoardVO> listAll();
+	public List<BoardVO> listAll(PageCriteriaVO cri);
 	public List<BoardVO> listBySeq(String seq);
 	public int edit(Map<String, Object> map);
 	public Object deleteOne(String seq);

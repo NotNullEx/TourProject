@@ -44,7 +44,7 @@ public class AdminLoginController {
 			String adminId = (String) request.getSession().getAttribute("ADMIN_ID");
 			Map<String, Object> rtnVal = service.amindInfo(adminId);
 			int admin_seq = (Integer) rtnVal.get("admin_seq");
-			request.getSession().setAttribute("SESSION_US_SEQ", admin_seq);
+			request.getSession().setAttribute("ADMIN_US_SEQ", admin_seq);
 			System.out.println("success");
 			
 			ResultSendToClient.onlyResultTo(response, isCreated);

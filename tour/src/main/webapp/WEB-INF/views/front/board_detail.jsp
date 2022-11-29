@@ -124,11 +124,9 @@
 				<div class="row gx-5">
 					<div class="col-lg-3">
 						<div class="d-flex align-items-center mt-lg-5 mb-4">
-							<img class="img-fluid rounded-circle"
-								src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
 							<div class="ms-3">
-								<div class="fw-bold">Valerie Luna</div>
-								<div class="text-muted">News, Business</div>
+								<div class="fw-bold">${list[0].mem_email}</div>
+								<div class="text-muted">${list[0].mem_name}</div>
 							</div>
 						</div>
 					</div>
@@ -171,14 +169,20 @@
 									alt="..." />
 							</figure>
 							<!-- Post content-->
+							<div class="mb-2">
+								<span class="badge bg-success">내용</span>
+							</div>
 							<section class="mb-5">
-								<p class="fs-5 mb-4">${list[0].board_contents}</p>
+								<textarea class="form-control" rows="10">${list[0].board_contents}</textarea>
 							</section>
 						</article>
 						<%-- </c:forEach> --%>
 
 						<!-- Comments section-->
 						<section>
+							<div class="mb-2">
+								<span class="badge bg-dark">댓글</span>
+							</div>
 							<div class="card bg-light">
 								<div class="card-body">
 									<!-- Comment form-->
@@ -186,7 +190,7 @@
 										<textarea class="form-control" rows="3"
 											placeholder="댓글기능은 로그인 후 이용 가능합니다!"
 											id="coments"></textarea>
-										<button type="button" class="w-100 btn btn-primary mb-2"
+										<button type="button" style="float:right;" class="btn btn-primary mb-2"
 											onclick="createComents(${list[0].board_seq})">등록</button>
 
 									</div>
@@ -213,20 +217,22 @@
 									</c:forEach>
 								</div>
 							</div>
+							<div style="float:right;">
+								<c:choose>
+									<c:when test="${mem_seq == list[0].mem_seq}">
+										<button type="button" class="btn btn-primary mb-2"
+											onclick="location.href='/front/editBoard?board_seq=${list[0].board_seq}'">수정하기</button>
+										<button type="button" id="addRes"
+											class="btn btn-primary mb-2"
+											onclick="deleteOne(${list[0].board_seq})">삭제하기</button>
+									</c:when>
+								</c:choose>
+								<button type="button" class="btn btn-primary mb-2"
+									onclick="location.href='/front/board'">목록</button>
+							</div>
 						</section>
 					</div>
 				</div>
-				<c:choose>
-					<c:when test="${mem_seq == list[0].mem_seq}">
-						<button type="button" class="btn btn-primary mb-2"
-							onclick="location.href='/front/editBoard?board_seq=${list[0].board_seq}'">수정하기</button>
-						<button type="button" id="addRes"
-							class="btn btn-primary mb-2"
-							onclick="deleteOne(${list[0].board_seq})">삭제하기</button>
-					</c:when>
-				</c:choose>
-				<button type="button" class="btn btn-primary mb-2"
-									onclick="location.href='/front/board'">목록</button>
 			</div>
 		</section>
 	</main>

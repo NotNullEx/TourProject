@@ -11,7 +11,7 @@
 
 		var board_title = document.getElementById('board_title').value;
 		var board_contents = document.getElementById('board_contents').value;
-		var kind = $('input[name=kind]:checked').val();
+		var kind = document.getElementById('kind').value;
 		$.ajax({
 			type : "POST",
 			url : "/front/createBoardOK",
@@ -49,21 +49,23 @@
 							<form id="title" method="post">
 								<!-- Name input-->
 								<div class="form-floating mb-3">
+									<select id="kind">
+										<option value="0">자유</option>
+										<option value="1">질문 </option>
+										<option value="2">답변 </option>
+										<option value="3">숙박후기 </option>
+										<option value="4">음식점후기 </option>
+										<option value="5">축제후기 </option>
+									</select>
+								</div>
+								
+								<div class="form-floating mb-3">
 									<input class="form-control" name="title" id="board_title"
 										type="text"> <label for="board_title">제목</label>
 								</div>
 								<div class="form-floating mb-3">
-									<input class="form-control" name="title" id="board_contents"
-										type="text"> <label for="board_title">내용</label>
+									<textarea class="form-control" style="height: 20rem" name="title" id="board_contents"></textarea><label for="board_title">내용</label>
 								</div> 								
-								<div class="form-floating mb-3">
-									자유 <input name="kind" type="radio" value="0" checked="checked"> &nbsp;
-									질문 <input name="kind" type="radio" value="1"> &nbsp;
-									답변 <input name="kind" type="radio" value="2"> &nbsp;
-									숙박후기 <input name="kind" type="radio" value="3"> &nbsp;
-									음식점후기 <input name="kind" type="radio" value="4"> &nbsp;
-									축제후기 <input name="kind" type="radio" value="5"> &nbsp;
-								</div>
 							</form>
 							<div class="d-grid">
 								<button type="button" id="reg"

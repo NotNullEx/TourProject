@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.tour.project.adminvo.BoardVO;
+import com.tour.project.common.vo.PageCriteriaVO;
 
 @Repository
 public class FrontBoardDao {
@@ -21,9 +22,9 @@ public class FrontBoardDao {
 		result = sqltemplate.insert("board.create",map);
 		return result;
 	}
-	public List<BoardVO> listAll(){
+	public List<BoardVO> listAll(PageCriteriaVO cri){
 		List<BoardVO> result = new ArrayList<BoardVO>();
-		result = sqltemplate.selectList("board.listAll");
+		result = sqltemplate.selectList("board.listAll", cri);
 		return result;
 		
 	}

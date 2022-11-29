@@ -6,17 +6,35 @@
 		board(board_title,board_contents,board_reg_date,board_upd_date,mem_seq,board_status)
 		VALUES(#{board_title},#{board_contents},now(),now(),#{mem_seq},#{kind})
 	</insert>
-
-	<select id="listAll" parameterType="hashMap"
+	
+	<select id="listAll" parameterType="PageCriteriaVO"
 		resultType="BoardVO">
-		select * from board
-		<!-- <if test="search != null and search != '' "> WHERE board_title LIKE 
-			CONCAT('%',#{search},'%') or board_contents LIKE CONCAT('%',#{search},'%') 
-			</if> -->
+		select board_seq,
+			   (select mem_email from member where mem_seq = b.mem_seq) as mem_email,
+			   (select mem_name from member where mem_seq = b.mem_seq) as mem_name,
+			   board_title,
+			   board_contents,
+			   board_status,
+			   board_reg_date,
+			   board_upd_date
+		from board b
+		order by board_seq desc
+		limit #{pageStart}, #{perPageNum}
 	</select>
+	
 	<select id="listBySeq" parameterType="String"
 		resultType="BoardVO">
-		select * from board where board_seq = #{seq}
+		select board_seq,
+			   mem_seq,
+			   (select mem_email from member where mem_seq = b.mem_seq) as mem_email,
+			   (select mem_name from member where mem_seq = b.mem_seq) as mem_name,
+			   board_title,
+			   board_contents,
+			   board_status,
+			   board_reg_date,
+			   board_upd_date
+		from board b
+		where board_seq = #{seq}
 
 	</select>
 
@@ -45,6 +63,10 @@
 		WHERE mem_seq = #{seq}
 		ORDER BY board_seq DESC
 		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="">
+		
 	</select>
 	
 	<select id="getMyBoardTotal" resultType="int" parameterType="int">

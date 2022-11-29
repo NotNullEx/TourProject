@@ -8,18 +8,22 @@
 <title>Insert title here</title>
 </head>
 <jsp:include page="../frontcommon/front_header_common.jsp" />
+<style>
+.center {text-align: center;}
+</style>
 <body>
 	<main>
 		
 		<jsp:include page="../frontcommon/front_header.jsp" />
 		<div id="page-wrapper">
 			<jsp:include page="../frontcommon/front_sidebar.jsp" />
+			<h1 class="fw-bolder fs-5 mb-4 center">내가 쓴 게시물</h1>
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th scope="col">게시번호</th>
+						<th scope="col">No</th>
 						<th scope="col">이름</th>
-						<th scope="col">제목</th>
+						<th scope="col">게시글 제목</th>
 						<th scope="col">날짜</th>
 					</tr>
 				</thead>

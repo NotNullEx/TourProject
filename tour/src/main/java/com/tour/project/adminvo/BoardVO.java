@@ -22,4 +22,6 @@ public class BoardVO {
 	private String board_upd_date;
 	// 고객 이름
 	private String mem_name;
+	// 고객 이메일
+	private String mem_email;
 }

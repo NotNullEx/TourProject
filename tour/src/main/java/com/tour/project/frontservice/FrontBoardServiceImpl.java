@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.tour.project.admindao.AdminBoardDao;
 import com.tour.project.adminvo.BoardVO;
+import com.tour.project.common.vo.PageCriteriaVO;
 import com.tour.project.frontdao.FrontBoardDao;
 @Service
 public class FrontBoardServiceImpl implements FrontBoardService {
@@ -22,8 +23,8 @@ public class FrontBoardServiceImpl implements FrontBoardService {
 	}
 	
 	@Override
-	public List<BoardVO> listAll(){
-		List<BoardVO> result = createDao.listAll();
+	public List<BoardVO> listAll(PageCriteriaVO cri){
+		List<BoardVO> result = createDao.listAll(cri);
 		return result;
 		
 	}

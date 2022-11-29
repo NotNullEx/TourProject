@@ -8,9 +8,12 @@
 <title>Insert title here</title>
 </head>
 <jsp:include page="../frontcommon/front_header_common.jsp" />
+<style>
+.center {text-align: center;}
+</style>
 <script type="text/javascript">
 	function cancelFavorites(tour_seq) {
-		if(confirm("좋아요를 취소하시겠습니까?")) {
+		if(confirm("즐겨찾기를 취소하시겠습니까?")) {
 			$.ajax({
 				url : "/front/cancelFavorites",
 				data : {
@@ -20,14 +23,14 @@
 				async : false,
     			success:function(data){
     				if (data.result == 1) {
-    					alert("좋아요를 취소했습니다.");
+    					alert("즐겨찾기를 취소했습니다.");
     					location.reload();
     				} else {
-    					alert("좋아요를 취소하는 과정에 문제가 발생했습니다.");
+    					alert("즐겨찾기를 취소하는 과정에 문제가 발생했습니다.");
     				}
     			},
     			error:function(e){
-    				alert("좋아요를 취소하는 과정에 문제가 발생했습니다.");
+    				alert("즐겨찾기를 취소하는 과정에 문제가 발생했습니다.");
     			}
 			});
 		}else {
@@ -41,6 +44,7 @@
 		<jsp:include page="../frontcommon/front_header.jsp" />
 		<div id="page-wrapper">
 			<jsp:include page="../frontcommon/front_sidebar.jsp" />
+			<h1 class="fw-bolder fs-5 mb-4 center">내가 즐겨찾는 관광지</h1>
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -48,7 +52,7 @@
 						<th scope="col">상호명</th>
 						<th scope="col">전화번호</th>
 						<th scope="col">웹사이트</th>
-						<th scope="col">좋아요 취소</th>
+						<th scope="col">즐겨찾기 취소</th>
 					</tr>
 				</thead>
 				<tbody>

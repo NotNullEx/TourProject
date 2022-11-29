@@ -46,7 +46,7 @@ public class MemberLoginController {
 			String memberId = (String) request.getSession().getAttribute("MEMBER_ID");
 			MemberVO rtnVal = service.memberInfo(memberId);
 			int mem_seq = rtnVal.getMem_seq();
-			request.getSession().setAttribute("SESSION_US_SEQ", mem_seq);
+			request.getSession().setAttribute("FRONT_US_SEQ", mem_seq);
 			System.out.println("success");
 
 			ResultSendToClient.onlyResultTo(response, isCreated);

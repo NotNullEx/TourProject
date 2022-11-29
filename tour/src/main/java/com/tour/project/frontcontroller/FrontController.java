@@ -82,7 +82,7 @@ public class FrontController {
 		lists = service.tourOneList(tour_seq);
 		String[] result = lists.get(0).getTour_address().split(" ");
 		String address = result[2];
-		int member_seq = (Integer) request.getSession().getAttribute("SESSION_US_SEQ");
+		int member_seq = (Integer) request.getSession().getAttribute("FRONT_US_SEQ");
 		String mem_seq = Integer.toString(member_seq);
 
 		models.addObject("mem_seq", mem_seq);
@@ -128,8 +128,8 @@ public class FrontController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = { "/front/tourLike" })
-	public String tourLike(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = { "/front/tourFavorites" })
+	public String tourFavorites(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int result = 0;
 		String res = null;
 		try {

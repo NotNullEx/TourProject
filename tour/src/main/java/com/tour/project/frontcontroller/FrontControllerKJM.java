@@ -239,8 +239,8 @@ public class FrontControllerKJM {
 		List<BoardVO> bv = new ArrayList<BoardVO>();
 		String seq = request.getParameter("board_seq");
 		int mem_seq = 0;
-		if(request.getSession().getAttribute("SESSION_US_SEQ") != null && (Integer)request.getSession().getAttribute("SESSION_US_SEQ") != 0) 
-			mem_seq = (Integer)request.getSession().getAttribute("SESSION_US_SEQ");
+		if(request.getSession().getAttribute("FRONT_US_SEQ") != null && (Integer)request.getSession().getAttribute("FRONT_US_SEQ") != 0) 
+			mem_seq = (Integer)request.getSession().getAttribute("FRONT_US_SEQ");
 		bv = FBS.listBySeq(seq);
 		List<ComentsVO> list = new ArrayList<ComentsVO>();
 		if(frontComentsService.comentsByBoard(seq) != null) list = frontComentsService.comentsByBoard(seq);
@@ -252,11 +252,22 @@ public class FrontControllerKJM {
 
 	
 	@RequestMapping(value = {"/front/board"})
-	public ModelAndView blogPost(Locale locale, Model model) {
+	public ModelAndView blogPost(PageCriteriaVO cri) {
 		ModelAndView mav = new ModelAndView("/front/board");
 		List<BoardVO> bv = new ArrayList<BoardVO>();
-		bv = FBS.listAll();
-		mav.addObject("list", bv);
+		int total = 0;
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		bv = FBS.listAll(cri);
+		total = bv.size();
+		pageMaker.setTotalCount(total);
+		if(bv != null && bv.size() > 0) {
+			mav.addObject("list", bv);
+		}
+		mav.addObject("curPage", cri.getPage());
+		mav.addObject("totalCount", total);
+		mav.addObject("pageMaker", pageMaker);
+		
 		return mav;
 	}
 	
@@ -272,7 +283,7 @@ public class FrontControllerKJM {
 	@RequestMapping(value = {"/front/createBoardOK"})
 	public void createBoardOK(@RequestParam Map<String, Object> map, HttpServletResponse response, HttpServletRequest request) {
 		int mem_seq = 0;
-		mem_seq = (Integer)request.getSession().getAttribute("SESSION_US_SEQ");
+		mem_seq = (Integer)request.getSession().getAttribute("FRONT_US_SEQ");
 		map.put("mem_seq", mem_seq);
 		int isCreated =  FBS.create(map);
 		if(isCreated ==1) {
@@ -290,7 +301,7 @@ public class FrontControllerKJM {
 		try {
 			String board_seq = request.getParameter("board_seq");
 			String mem_email = (String)request.getSession().getAttribute("MEMBER_ID");
-			int mem_seq = (Integer)request.getSession().getAttribute("SESSION_US_SEQ");
+			int mem_seq = (Integer)request.getSession().getAttribute("FRONT_US_SEQ");
 			
 			map.put("mem_email", mem_email);
 			map.put("mem_seq", mem_seq);
@@ -431,7 +442,7 @@ public class FrontControllerKJM {
 	public ModelAndView myNotiInfo(HttpServletRequest request, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
 		ModelAndView mav = new ModelAndView("/front/myboardinfo");
 		
-		int memberSeq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
+		int memberSeq = (int) request.getSession().getAttribute("FRONT_US_SEQ");
 		List<BoardVO> list = new ArrayList<BoardVO>();
 		int pagingList = 0; 
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -457,7 +468,7 @@ public class FrontControllerKJM {
 	public ModelAndView myFavoritesInfo(HttpServletRequest request, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
 		ModelAndView mav = new ModelAndView("/front/myfavoritesinfo");
 		
-		int memberSeq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
+		int memberSeq = (int) request.getSession().getAttribute("FRONT_US_SEQ");
 		List<TourVO> list = new ArrayList<TourVO>();
 		int pagingList = 0;
 		PageMaker pageMaker = new PageMaker();
@@ -479,7 +490,7 @@ public class FrontControllerKJM {
 	@RequestMapping(value = {"/front/cancelFavorites"})
 	public void cancelFavorites(@RequestParam String tour_seq, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
-			int mem_seq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
+			int mem_seq = (int) request.getSession().getAttribute("FRONT_US_SEQ");
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("tour_seq", tour_seq);
 			map.put("mem_seq", mem_seq);

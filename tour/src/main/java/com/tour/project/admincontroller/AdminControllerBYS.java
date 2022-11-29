@@ -95,8 +95,10 @@ public class AdminControllerBYS {
 	}
 
 	@RequestMapping(value = { "/admin/addrestaurant" })
-	public ModelAndView addrestaurant(HttpServletRequest request) {
-		return new ModelAndView("/admin/addrestaurant");
+	public String addrestaurant(HttpServletRequest request, Model model) throws Exception {
+		List<Map<String, Object>> postCodeList = adminRestaurantService.getpostCodeList();
+		model.addAttribute("postCodeList", postCodeList);
+		return "/admin/addrestaurant";
 	}
 
 	@RequestMapping(value = { "/admin/addRestaurantOK" })
@@ -283,24 +285,34 @@ public class AdminControllerBYS {
 
 	@RequestMapping(value = { "/admin/event" })
 	public ModelAndView event(HttpServletRequest request,PageCriteriaVO cri) throws Exception {
-		ModelAndView mav = new ModelAndView("/admin/eventhome");
-		List<EventVO> lists = new ArrayList<EventVO>();
-		lists = adminEventService.listAll(cri);
-		int total = adminEventService.getTotal();
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(total);
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if (user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		} else {
+			ModelAndView mav = new ModelAndView("/admin/eventhome");
+			List<EventVO> lists = new ArrayList<EventVO>();
+			lists = adminEventService.listAll(cri);
+			int total = adminEventService.getTotal();
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(total);
 
-		mav.addObject("curPage",cri.getPage());
-		mav.addObject("totalCount", total);
-		mav.addObject("data", lists);
-		mav.addObject("pageMaker", pageMaker);
-		return mav;
+			mav.addObject("curPage",cri.getPage());
+			mav.addObject("totalCount", total);
+			mav.addObject("data", lists);
+			mav.addObject("pageMaker", pageMaker);
+			return mav;
+		}
 	}
 
 	@RequestMapping(value = { "/admin/addEvent" })
 	public ModelAndView addEvent(HttpServletRequest request) {
-		return new ModelAndView("/admin/addevent");
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if (user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		} else {
+			return new ModelAndView("/admin/addevent");
+		}
 	}
 
 	@RequestMapping(value = { "/admin/addEventOK" })
@@ -316,12 +328,17 @@ public class AdminControllerBYS {
 
 	@RequestMapping(value = { "/admin/eventDetail" })
 	public ModelAndView eventDetail(HttpServletRequest request) throws Exception {
-		ModelAndView mav = new ModelAndView("/admin/eventdetail");
-		String code = request.getParameter("even_code");
-		List<EventVO> lists = new ArrayList<EventVO>();
-		lists = adminEventService.listByCode(code);
-		mav.addObject("data", lists);
-		return mav;
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if (user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		} else {
+			ModelAndView mav = new ModelAndView("/admin/eventdetail");
+			String code = request.getParameter("even_code");
+			List<EventVO> lists = new ArrayList<EventVO>();
+			lists = adminEventService.listByCode(code);
+			mav.addObject("data", lists);
+			return mav;
+		}
 	}
 
 	@ResponseBody
@@ -364,7 +381,12 @@ public class AdminControllerBYS {
 
 	@RequestMapping(value = { "/admin/createNotification" })
 	public ModelAndView createNotification(HttpServletRequest request) throws Exception {
-		return new ModelAndView("/admin/createnotification");
+		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		if (user_id == null || "".equals(user_id)) {
+			return new ModelAndView("/admin/admin_login");
+		} else {
+			return new ModelAndView("/admin/createnotification");
+		}
 	}
 
 	@RequestMapping(value = { "/admin/createNotificationOK" })
