@@ -167,14 +167,13 @@ div {
     background: none !important;
 </style>
 <script type="text/javascript">
-	function setLike() {
+	function setFavoContentDetail() {
 		var tour_seq = document.getElementById('tour_seq').value;
 		var mem_seq = document.getElementById('mem_seq').value;
-		var tour_name = document.getElementById('tour_name').value;
-		if(confirm("좋아요를 추가하시겠습니까?")) {
+		if(confirm("즐겨찾기에 추가하시겠습니까?")) {
 			$.ajax({
 				type : "POST",
-				url : "/front/tourLike",
+				url : "/front/tourFavorites",
 				data : {
 					"tour_seq" : tour_seq,
 					"mem_seq" : mem_seq
@@ -218,13 +217,13 @@ div {
 			<input type="hidden" id="mem_seq" value="${mem_seq}">
 			<div class="post_area">
 				<span class="ico">
-				<button type="button" class="btn_good" onclick="setLike()">좋아요</button>
+				<button type="button" class="btn_good" onclick="setFavoContentDetail()">즐겨찾기</button>
 				</span>
 				<span class="num_view"><em class="tit">조회수</em><span
 					class="num" id="conRead">477</span></span> <span class="rline">
 					<button type="button" class="btn_bookmark"
 						onclick="setFavoContentDetail();">
-						<span class="ico">즐겨찾기</span>
+						<span class="ico">좋아요</span>
 					</button>
 				</span>
 			</div>
