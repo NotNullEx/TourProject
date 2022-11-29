@@ -35,5 +35,7 @@ public class TourVO {
 	private String tour_post_sn;
 	// 구 이름
 	private String tour_gu_name;
+	// 이미지 url 
+	private String image_url;
 
 }

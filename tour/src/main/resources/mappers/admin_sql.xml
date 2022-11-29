@@ -34,18 +34,29 @@
 		
 	</select>
 	<select id="tourOneList" parameterType="String" resultType="TourVO">
-		SELECT * 
-		FROM tour
-		WHERE tour_seq = #{tour_seq}
+		SELECT tu.tour_seq,tu.tour_post_sn,tu.tour_cmmn_fax,tu.tour_address,tu.tour_new_address,tu.tour_subway_info,tu.tour_cmmn_hmpg_url,tu.tour_cmmn_telno,tu.tour_cmmn_bsnde,tu.tour_bf_desc,
+			tu.tour_cmmn_rstde,tu.tour_cmmn_use_time,tu.tour_post_sj,tu.tour_gu_name,
+			url.image_url
+			FROM tour tu
+			INNER JOIN imageUrl url
+			ON tu.tour_seq = url.tour_seq
+			AND tu.tour_seq = #{tour_seq}
 	</select>
 	
 	<select id="selecttourList" parameterType="PageCriteriaVO" resultType="TourVO">
-		SELECT * 
-		FROM tour
+		SELECT tu.tour_seq,tu.tour_post_sj,tu.tour_cmmn_fax,tu.tour_cmmn_hmpg_url,tu.tour_new_address,url.image_url
+		FROM tour tu
+		LEFT OUTER JOIN imageUrl url
+		ON tu.tour_seq = url.tour_seq
 		ORDER BY tour_seq DESC
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>
-	
+	<select id="chkUrl" parameterType="hashMap" resultType="int">
+		SELECT count(*)
+		FROM imageUrl
+		WHERE tour_seq = #{tour_seq}
+		
+	</select>
 	<insert id="tourDataInsert" parameterType="hashMap">
 		INSERT INTO
 		tour(tour_post_sn,tour_cmmn_fax,tour_address,tour_new_address,tour_subway_info,tour_cmmn_hmpg_url,tour_cmmn_telno,tour_cmmn_bsnde,tour_bf_desc,tour_cmmn_rstde,
@@ -73,4 +84,11 @@
 		</if>
 		WHERE admin_seq = #{seq}
 	</update>
+	
+	<insert id="insUrl" parameterType="hashMap">
+		INSERT INTO
+		imageUrl(tour_seq,image_url)
+		VALUES(#{tour_seq},#{url});
+	</insert>
+	
 </mapper>

@@ -73,7 +73,7 @@
 							class="swiper-container swiper-container-initialized swiper-container-horizontal">
 							<div class="swiper-wrapper" id="pImgList">
 								<div class="swiper-slide swiper-slide-active">
-									<img class="swiper-lazy swiper-lazy-loaded" style="width:100%;height:100%;object-fit: contain;" alt="ss" src="/resources/img/20221015_133042.jpg">
+									<img class="swiper-lazy swiper-lazy-loaded" style="width:100%;height:100%;object-fit: contain;" alt="ss" src="${sb[0].image_url}">
 								</div>
 							</div>
 						</div>

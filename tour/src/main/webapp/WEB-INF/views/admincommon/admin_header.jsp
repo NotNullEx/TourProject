@@ -13,22 +13,11 @@
                             <li class="nav-item"><a class="nav-link" href="/admin/event">행사</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/restaurant">먹거리</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/pricing">결제</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/admin/faq">FAQ</a></li>
-                            
                             <li class="nav-item"><a class="nav-link" href="/admin/board">게시판</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Portfolio</a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">
-                                    <li><a class="dropdown-item" href="/admin/portfolioOverview">Portfolio Overview</a></li>
-                                    <li><a class="dropdown-item" href="/admin/portfolioitem">Portfolio Item</a></li>
-                                </ul>
-                            </li>
                             <c:if test="${empty sessionScope.ADMIN_ID}">
-                            	     
 					        	<li class="nav-item"><a class="nav-link" href="#" onclick="location='/admin/login'">로그인</a></li>
 					       </c:if>
-                            <c:if test="${not empty sessionScope.ADMIN_ID}">   
-                            	<!-- <li class="nav-item"><a class="nav-link" href="#" onclick="data_insert()">데이터 등록</a></li> -->
+                            <c:if test="${not empty sessionScope.ADMIN_ID}">
                             	<li class="nav-item"><a class="nav-link" href="/admin/regis">데이터 등록</a></li> 
                             	<li class="nav-item"><a class="nav-link" href="/admin/myPage">마이페이지</a></li>         
 					        	<li class="nav-item" id="signOut"><a class="nav-link" href="/admin/logOut" class="nav-link text-dark">로그아웃</a></li>

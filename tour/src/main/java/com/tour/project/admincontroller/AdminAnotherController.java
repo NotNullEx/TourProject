@@ -8,6 +8,8 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ import com.tour.project.common.vo.PageCriteriaVO;
 @Controller
 public class AdminAnotherController {
 
+	private static final Logger log = LoggerFactory.getLogger(AdminAnotherController.class);
 	
 	@Autowired
 	private AdminTourDataService service;
@@ -38,7 +41,8 @@ public class AdminAnotherController {
 		pageMaker.setCri(cri);
 		lists = service.tourList(cri);
 		total = service.getToatal();
-		pageMaker.setTotalCount(total);
+		pageMaker.setTotalCount(total);		
+		
 		if(lists != null && lists.size() > 0) {
 			mav.addObject("list", lists);
 		}
@@ -47,6 +51,46 @@ public class AdminAnotherController {
 		mav.addObject("pageMaker", pageMaker);
 		
 		return mav;
+	}
+	
+	@RequestMapping(value = {"/admin/addImage"})
+	public ModelAndView addImage(HttpServletRequest requset, HttpServletResponse resonse) throws Exception {
+		ModelAndView mav = new ModelAndView("/admin/addimage");
+		String seq = requset.getParameter("tour_seq");
+		String tour_post_sj = requset.getParameter("tour_post_sj");
+		mav.addObject("tour_seq",seq);
+		mav.addObject("tour_post_sj",tour_post_sj);
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = {"/admin/insUrl"})
+	public Object insUrl(HttpServletRequest requset, HttpServletResponse resonse) throws Exception {
+		String seq = requset.getParameter("tour_seq");
+		String url = requset.getParameter("url");
+		HashMap<String, String> map = new HashMap<String, String>();
+		if(!url.contains(".jpg")) {
+			url += ".jpg";
+			map.put("url", url);
+		} else {
+			map.put("url", url);
+		}
+		map.put("tour_seq", seq);
+		int result = -1;
+		int chk = -1;
+		try {
+			chk = service.chkUrl(map);
+			if(chk != 1){
+				result = service.insUrl(map);
+				return new Gson().toJson(result);
+			}else {
+				chk = 0;
+				return new Gson().toJson(chk);
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			throw new Exception();
+		}
 	}
 	
 	@RequestMapping(value = {"/admin/adminDataInsert"})
@@ -178,31 +222,7 @@ public class AdminAnotherController {
 			return new Gson().toJson(result);
 		}
 	}
-	
-	@RequestMapping(value = {"/admin/faq"})
-	public ModelAndView faq(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/faq");
-		return mav;
-	}
-	
-	@RequestMapping(value = {"/admin/index"})
-	public ModelAndView index(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/index");
-		return mav;
-	}
-	
-	@RequestMapping(value = {"/admin/portfolioitem"})
-	public ModelAndView portfolioitem(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/portfolioitem");
-		return mav;
-	}
-	
-	@RequestMapping(value = {"/admin/portfolioOverview"})
-	public ModelAndView portfolioOverview(Locale locale, Model model) {
-		ModelAndView mav = new ModelAndView("/admin/portfolioOverview");
-		return mav;
-	}
-	
+
 	@RequestMapping(value = {"/admin/pricing"})
 	public ModelAndView pricing(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/pricing");

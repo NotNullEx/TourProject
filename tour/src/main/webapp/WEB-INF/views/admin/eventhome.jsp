@@ -72,7 +72,7 @@ a:hover {
 		<jsp:include page="../admincommon/admin_header.jsp" />
 		<section class="py-5">
 			<h2 class="fw-bolder fs-5 mb-4">여러가지 재밌는 이벤트들을 놓치지 마세요!</h2>
-			<table class="table table-success table-striped tablelay">
+			<table class="table table-striped tablelay">
 				<thead>
 					<tr>
 						<th style="width: 2%">No.</th>			
@@ -89,7 +89,7 @@ a:hover {
 					<c:forEach var="data" items="${data}" 
 						varStatus="vs">
 						<tr>
-							<th scope="row" class="box"><c:out value="${num}"/></th>
+							<td valign="middle"><c:out value="${num}" /></td>
 							<td class="box"><a class="text-decoration-none link-dark"
 								href="/admin/eventDetail?even_code=${data.even_code}">${data.even_title}</a></td>
 							<th class="box">이용대상 : ${data.even_use_trgt} <br>  

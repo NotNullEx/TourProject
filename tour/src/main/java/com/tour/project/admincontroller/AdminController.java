@@ -171,19 +171,27 @@ public class AdminController {
 		ModelAndView models = new ModelAndView("/admin/tourdetail");
 		String tour_seq = request.getParameter("tour_seq");
 		List<TourVO> lists = new ArrayList<TourVO>();
-		lists = service.tourOneList(tour_seq);
-		String[] result = lists.get(0).getTour_address().split(" ");
-		String address = result[2];
+		
+		try {
+			lists = service.tourOneList(tour_seq);
+			String[] result = lists.get(0).getTour_address().split(" ");
+			String address = result[2];
 
-		models.addObject("sb",lists);
-		models.addObject("address",address);
-		return models;
+			models.addObject("sb",lists);
+			models.addObject("address",address);
+			return models;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			throw new Exception();
+		}
+		
+		
 	}
 	
 	@RequestMapping(value = { "/admin/myPage" })
 	public ModelAndView mypage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
-		String seq = Integer.toString((int) request.getSession().getAttribute("ADMIN_US_SEQ"));
+		String seq = Integer.toString((int) request.getSession().getAttribute("SESSION_US_SEQ"));
 		ModelAndView mav = new ModelAndView("/admin/mypage");
 		if(user_id == null || "".equals(user_id)) {
 			return new ModelAndView("/admin/admin_login");

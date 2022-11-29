@@ -54,7 +54,7 @@ public class AdminTourDataServiceImpl implements AdminTourDataService{
 	}
 
 	@Override
-	public int tourUpdateDate(HashMap<String, Object> map) {
+	public int tourUpdateDate(HashMap<String, Object> map) throws Exception{
 		int result = -1;
 		result = dao.tourUpdateData(map);
 		
@@ -62,11 +62,26 @@ public class AdminTourDataServiceImpl implements AdminTourDataService{
 	}
 
 	@Override
-	public int tourDeleteDate(String seq) {
+	public int tourDeleteDate(String seq) throws Exception{
 		int result = -1;
 		result = dao.tourDeleteDate(seq);
 		
 		return result;
+	}
+
+	@Override
+	public int insUrl(HashMap<String, String> map) throws Exception {
+		int result = -1;
+		result = dao.insUrl(map);
+		return result;
+	}
+
+	@Override
+	public int chkUrl(HashMap<String, String> map) throws Exception {
+		int result = 0;
+		result = dao.chkUrl(map);
+		if(result ==1) return result;
+		else return result;
 	}
 
 	

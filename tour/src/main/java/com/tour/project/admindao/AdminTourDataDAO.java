@@ -43,20 +43,34 @@ public class AdminTourDataDAO {
 		return tourList;
 	}
 	
-	public List<TourVO> tourOneList(String tour_seq){
+	public List<TourVO> tourOneList(String tour_seq)throws Exception{
 		List<TourVO> tourList = sqltemplate.selectList("tour.tourOneList",tour_seq);
 		return tourList;
 	}
 	
-	public int tourUpdateData(HashMap<String, Object> map) {
+	public int tourUpdateData(HashMap<String, Object> map) throws Exception{
 		int result = -1;
 		result = sqltemplate.update("tour.tourUpdateData",map);
 		return result;
 	}
 	
-	public int tourDeleteDate(String seq) {
+	public int tourDeleteDate(String seq) throws Exception{
 		int result = -1;
 		result = sqltemplate.delete("tour.tourDeleteData",seq);
 		return result;
+	}
+	
+	public int insUrl(HashMap<String, String> map) throws Exception{
+		int result = -1;
+		result = sqltemplate.insert("tour.insUrl",map);
+		return result;
+		
+	}
+	
+	public int chkUrl(HashMap<String, String> map) throws Exception{
+		int result = -1;
+		result = sqltemplate.selectOne("tour.chkUrl",map);
+		return result;
+		
 	}
 }
