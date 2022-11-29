@@ -132,24 +132,18 @@ public class FrontController {
 	public String tourLike(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int result = 0;
 		String res = null;
-		String user_id = (String) request.getSession().getAttribute("MEMBER_ID");
 		try {
-			if(user_id == null || "".equals(user_id)) {
-				response.sendRedirect("/front/member_login");
-			} else {
-				String mem_seq = request.getParameter("mem_seq");
-				String tour_seq = request.getParameter("tour_seq");
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put("tour_seq", tour_seq);
-				map.put("mem_seq", mem_seq);
-				result = frontFavoritesService.create(map);
-				if(result != 0) res = Integer.toString(result);
-				return new Gson().toJson(res);
-			}
+			String mem_seq = request.getParameter("mem_seq");
+			String tour_seq = request.getParameter("tour_seq");
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("tour_seq", tour_seq);
+			map.put("mem_seq", mem_seq);
+			result = frontFavoritesService.create(map);
+			if(result != 0) res = Integer.toString(result);
+			return new Gson().toJson(res);
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception();
 		}
-		return res;
 	}
 }

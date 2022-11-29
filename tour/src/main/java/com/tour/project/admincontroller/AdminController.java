@@ -240,32 +240,27 @@ public class AdminController {
 	public ModelAndView myNotiInfo(HttpServletRequest request, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/mynotiinfo");
 		
-		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
-		if(user_id == null || "".equals(user_id)) {
-			return new ModelAndView("/admin/admin_login");
-		}else {
-			String adminSeq = request.getParameter("admin_seq");
-			List<NotificationVO> list = new ArrayList<NotificationVO>();
-			int pagingList = 0; 
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			PageMaker pageMaker = new PageMaker();
-			map.put("seq", adminSeq);
-			map.put("pageStart",  cri.getPageStart());
-			map.put("perPageNum", cri.getPerPageNum());
-			pageMaker.setCri(cri);
-			list = adminNotificationService.myNotiInfo(map);
-			pagingList = adminNotificationService.getmyNotiTotal(adminSeq);
-			pageMaker.setTotalCount(pagingList);
+		String adminSeq = request.getParameter("admin_seq");
+		List<NotificationVO> list = new ArrayList<NotificationVO>();
+		int pagingList = 0; 
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		PageMaker pageMaker = new PageMaker();
+		map.put("seq", adminSeq);
+		map.put("pageStart",  cri.getPageStart());
+		map.put("perPageNum", cri.getPerPageNum());
+		pageMaker.setCri(cri);
+		list = adminNotificationService.myNotiInfo(map);
+		pagingList = adminNotificationService.getmyNotiTotal(adminSeq);
+		pageMaker.setTotalCount(pagingList);
 
-			mav.addObject("seq",adminSeq);
-			mav.addObject("list", list);
-			mav.addObject("pageMaker", pageMaker);
-			
-			if(list != null && list.size() >0) {
-				mav.addObject("list",list);
-			}else {
-				throw new Exception();
-			}
+		mav.addObject("seq",adminSeq);
+		mav.addObject("list", list);
+		mav.addObject("pageMaker", pageMaker);
+		
+		if(list != null && list.size() >0) {
+			mav.addObject("list",list);
+		}else {
+			throw new Exception();
 		}
 		return mav;
 	}

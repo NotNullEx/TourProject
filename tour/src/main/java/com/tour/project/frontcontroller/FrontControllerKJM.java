@@ -431,30 +431,25 @@ public class FrontControllerKJM {
 	public ModelAndView myNotiInfo(HttpServletRequest request, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
 		ModelAndView mav = new ModelAndView("/front/myboardinfo");
 		
-		String user_id = (String) request.getSession().getAttribute("MEMBER_ID");
-		if(user_id == null || "".equals(user_id)) {
-			return new ModelAndView("/front/member_login");
-		}else {
-			int memberSeq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
-			List<BoardVO> list = new ArrayList<BoardVO>();
-			int pagingList = 0; 
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			PageMaker pageMaker = new PageMaker();
-			map.put("seq", memberSeq);
-			map.put("pageStart",  cri.getPageStart());
-			map.put("perPageNum", cri.getPerPageNum());
-			pageMaker.setCri(cri);
-			list = FBS.myBoardList(map);
-			pagingList = FBS.getMyBoardTotal(memberSeq);
-			pageMaker.setTotalCount(pagingList);
+		int memberSeq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
+		List<BoardVO> list = new ArrayList<BoardVO>();
+		int pagingList = 0; 
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		PageMaker pageMaker = new PageMaker();
+		map.put("seq", memberSeq);
+		map.put("pageStart",  cri.getPageStart());
+		map.put("perPageNum", cri.getPerPageNum());
+		pageMaker.setCri(cri);
+		list = FBS.myBoardList(map);
+		pagingList = FBS.getMyBoardTotal(memberSeq);
+		pageMaker.setTotalCount(pagingList);
+		
+		mav.addObject("totalCount", pagingList);
+		mav.addObject("curPage",cri.getPage());
+		mav.addObject("seq",memberSeq);
+		mav.addObject("list", list);
+		mav.addObject("pageMaker", pageMaker);
 			
-			mav.addObject("totalCount", pagingList);
-			mav.addObject("curPage",cri.getPage());
-			mav.addObject("seq",memberSeq);
-			mav.addObject("list", list);
-			mav.addObject("pageMaker", pageMaker);
-			
-		}
 		return mav;
 	}
 	
@@ -462,26 +457,21 @@ public class FrontControllerKJM {
 	public ModelAndView myFavoritesInfo(HttpServletRequest request, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
 		ModelAndView mav = new ModelAndView("/front/myfavoritesinfo");
 		
-		String user_id = (String) request.getSession().getAttribute("MEMBER_ID");
-		if(user_id == null || "".equals(user_id)) {
-			return new ModelAndView("/front/member_login");
-		}else {
-			int memberSeq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
-			List<TourVO> list = new ArrayList<TourVO>();
-			int pagingList = 0;
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(cri);
-			list = frontFavoritesService.tourListByFavorites(memberSeq);
-			pagingList = list.size();
-			pageMaker.setTotalCount(pagingList);
+		int memberSeq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
+		List<TourVO> list = new ArrayList<TourVO>();
+		int pagingList = 0;
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		list = frontFavoritesService.tourListByFavorites(memberSeq);
+		pagingList = list.size();
+		pageMaker.setTotalCount(pagingList);
+		
+		mav.addObject("totalCount", pagingList);
+		mav.addObject("curPage",cri.getPage());
+		mav.addObject("seq",memberSeq);
+		mav.addObject("list", list);
+		mav.addObject("pageMaker", pageMaker);
 			
-			mav.addObject("totalCount", pagingList);
-			mav.addObject("curPage",cri.getPage());
-			mav.addObject("seq",memberSeq);
-			mav.addObject("list", list);
-			mav.addObject("pageMaker", pageMaker);
-			
-		}
 		return mav;
 	}
 	
