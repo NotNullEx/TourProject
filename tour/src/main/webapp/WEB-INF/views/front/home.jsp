@@ -6,12 +6,21 @@
     <head>
         <jsp:include page="../frontcommon/front_header_common.jsp"/>
         <style>
-        	.py-5 {
-        		padding-top : 0px !important;
-        		padding-bottom : 0px !important;
+        	#regist,#login {
+        		border : 1px solid #BDBDBD;
         	}
+        
         </style>
     </head>
+    <script type="text/javascript">
+    	function goLogin() {
+    		location.href= "/front/login";
+    	}
+    	
+    	function goRegist() {
+    		location.href="/front/createMember";
+    	}
+    </script>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
            <jsp:include page="../frontcommon/front_header.jsp"/>
@@ -46,18 +55,11 @@
                                     		<c:when test="${not empty memberInfo }">
                                     			<h1>${memberInfo.mem_name}
                                     			<span class="fw-bold text-primary mx-1"></span>
-                                    			<c:choose>
-		                                        	<c:when test="${memberInfo.mem_status eq '1' }">
-		                                        		 유료회원.</h1>
-		                                        	</c:when>
-		                                        	<c:otherwise>
-		                                        		 님 환영합니다.</h1>
-		                                        	</c:otherwise>
-	                                        	</c:choose>
+		                                        님 환영합니다.</h1>
                                     		</c:when>
                                     		<c:otherwise>
-                                    			<button>회원가입</button>
-                                    			<button>로그인</button>
+                                    			<button id = "regist" onclick="javascript:goRegist(); return false;">회원가입</button>
+                                    			<button id = "login" onclick="javascript:goLogin(); return false;">로그인</button>
                                     		</c:otherwise>
                                     	</c:choose>
                                     </div>
