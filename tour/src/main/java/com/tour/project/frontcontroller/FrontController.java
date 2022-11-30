@@ -21,7 +21,9 @@ import com.tour.project.common.PageMaker;
 import com.tour.project.common.StringUtil;
 import com.tour.project.common.vo.PageCriteriaVO;
 import com.tour.project.frontservice.FrontFavoritesService;
+import com.tour.project.frontservice.MemberLoginService;
 import com.tour.project.frontservice.TourRecommendService;
+import com.tour.project.frontvo.MemberVO;
 import com.tour.project.frontvo.TourRecommendVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,14 +41,24 @@ public class FrontController {
 	@Autowired
 	private TourRecommendService tourRecommendService;
 	
+	@Autowired
+	private MemberLoginService memberLoginService;
+	
 
 	@RequestMapping(value = { "/" })
-	public ModelAndView dataInsert() throws Exception {
+	public ModelAndView home(HttpServletRequest request) throws Exception {
 		ModelAndView models = new ModelAndView("/front/home");
-		List<TourVO> lists = new ArrayList<TourVO>();
-		lists = service.tourList();
+		
+		String memberId = (String) request.getSession().getAttribute("MEMBER_ID");
+		if (!StringUtil.isEmpty(memberId)) {
+			MemberVO memberInfo = memberLoginService.memberInfo(memberId);
+			if (memberInfo != null) models.addObject("memberInfo", memberInfo);
+		}
+		TourVO tourInfo  = tourRecommendService.getTourRecommendBest().get(0);
+		List<TourVO> list = tourRecommendService.getTourRecommendFrontList();
 
-		models.addObject("sb", lists);
+		models.addObject("tourInfo", tourInfo);
+		models.addObject("list",list);
 		return models;
 	}
 	

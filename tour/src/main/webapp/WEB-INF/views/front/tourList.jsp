@@ -41,8 +41,6 @@
 		      autoplaySpeed : 2000,         // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
 		      pauseOnHover : true,        // 슬라이드 이동    시 마우스 호버하면 슬라이더 멈추게 설정
 		      vertical : false,        // 세로 방향 슬라이드 옵션
-		      prevArrow : "<button type='button' class='slick-prev'>Previous</button>",
-		      nextArrow : "<button type='button' class='slick-next'>Next</button>",
 		      draggable : true,     //드래그 가능 여부 
 
 		});
@@ -138,7 +136,7 @@
 					<c:forEach var="item" items="${list}" varStatus="vs">
 						<tr>
 							<th scope="row"><c:out value="${num}"/></th>
-							<td><a href = '/front/tourDetail?tour_seq=${item.tour_seq }'><img class="image" alt="tt" src="../resources/img/001.jpg"></a></td>
+							<td><a href = '/front/tourDetail?tour_seq=${item.tour_seq }'><img class="image" alt="tt" src="${item.image_url }" width="293px;" height="172px;"></a></td>
 							<td><a class="text-decoration-none link-dark" href="/front/tourDetail?tour_seq=${item.tour_seq}" >${item.tour_post_sj}</a> <br>
 								${item.tour_new_address }<br>
 								<c:choose>

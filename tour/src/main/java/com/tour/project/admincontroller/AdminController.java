@@ -191,13 +191,11 @@ public class AdminController {
 	@RequestMapping(value = { "/admin/myPage" })
 	public ModelAndView mypage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
-		String seq = Integer.toString((int) request.getSession().getAttribute("SESSION_US_SEQ"));
 		ModelAndView mav = new ModelAndView("/admin/mypage");
 		if(user_id == null || "".equals(user_id)) {
 			return new ModelAndView("/admin/admin_login");
 		}else {
 			mav.addObject("adminId", user_id);
-			mav.addObject("seq", seq);
 		}
 		
 		return mav;

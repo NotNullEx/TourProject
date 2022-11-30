@@ -2,7 +2,7 @@
 <!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tourrecommend">
 	
-	<select id = "getTourRecommendList" resultType="TourRecommendVO">
+	<select id = "getTourRecommendList" resultType="TourVO">
 		SELECT a.tour_seq
 			,a.tour_post_sj
 			,c.image_url 
@@ -12,6 +12,40 @@
 		LEFT JOIN imageUrl c
 		ON a.tour_seq = c.tour_seq 
 		ORDER BY b.sort_sn ASC;
+	</select>
+
+	<select id = "getTourRecommendFrontList" resultType="TourVO">
+		SELECT a.tour_seq
+			,b.tour_cmmn_hmpg_url
+			,b.tour_post_sj
+			,b.tour_new_address
+			,c.image_url 
+		FROM tour_recommend a
+		INNER JOIN tour b
+		ON a.tour_seq  = b.tour_seq
+		LEFT JOIN imageUrl c
+		ON a.tour_seq = c.tour_seq
+		WHERE b.tour_new_address != ''
+		AND b.tour_new_address IS NOT NULL
+		ORDER BY a.sort_sn ASC
+		LIMIT 9;
+	</select>
+	
+	<select id = "getTourRecommendBest" resultType="TourVO">
+		SELECT a.tour_seq
+			,b.tour_cmmn_hmpg_url
+			,b.tour_post_sj
+			,b.tour_new_address
+			,c.image_url 
+		FROM tour_recommend a
+		INNER JOIN tour b
+		ON a.tour_seq  = b.tour_seq
+		LEFT JOIN imageUrl c
+		ON a.tour_seq = c.tour_seq
+		WHERE b.tour_new_address != ''
+		AND b.tour_new_address IS NOT NULL
+		ORDER BY a.sort_sn ASC
+		LIMIT 1;
 	</select>
 
 </mapper>

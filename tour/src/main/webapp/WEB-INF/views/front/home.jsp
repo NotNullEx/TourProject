@@ -5,6 +5,12 @@
 <html lang="en">
     <head>
         <jsp:include page="../frontcommon/front_header_common.jsp"/>
+        <style>
+        	.py-5 {
+        		padding-top : 0px !important;
+        		padding-bottom : 0px !important;
+        	}
+        </style>
     </head>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
@@ -17,13 +23,13 @@
                             <div class="my-5 text-center text-xl-start">
                             
                                 <h1 class="display-5 fw-bolder text-white mb-2">
-									<a href="/front/tourDetail?tour_seq=${sb[0].tour_seq}" class="text-decoration-none link-light">${sb[0].tour_post_sj}</a>
+									<a href="/front/tourDetail?tour_seq=${tourInfo.tour_seq}" class="text-decoration-none link-light">${tourInfo.tour_post_sj}</a>
 								</h1>
-                                <p class="lead fw-normal text-white-50 mb-4">${sb[0].tour_new_address}</p>
+                                <p class="lead fw-normal text-white-50 mb-4">${tourInfo.tour_new_address}</p>
                             
                             </div>
                         </div>
-                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
+                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="${tourInfo.image_url }" alt="..." /></div>
                     </div>
                 </div>
             </header>
@@ -34,11 +40,26 @@
                             <div class="text-center">
                                 <div class="fs-4 mb-4 fst-italic">      </div>
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
+                                    <img class="rounded-circle me-3" src="/resources/img/member.jpg" alt="..." width = "70px" height = "70px" />
                                     <div class="fw-bold">
-                                        Tom Ato
-                                        <span class="fw-bold text-primary mx-1">/</span>
-                                        CEO, Pomodoro
+                                    	<c:choose>
+                                    		<c:when test="${not empty memberInfo }">
+                                    			<h1>${memberInfo.mem_name}
+                                    			<span class="fw-bold text-primary mx-1"></span>
+                                    			<c:choose>
+		                                        	<c:when test="${memberInfo.mem_status eq '1' }">
+		                                        		 유료회원.</h1>
+		                                        	</c:when>
+		                                        	<c:otherwise>
+		                                        		 님 환영합니다.</h1>
+		                                        	</c:otherwise>
+	                                        	</c:choose>
+                                    		</c:when>
+                                    		<c:otherwise>
+                                    			<button>회원가입</button>
+                                    			<button>로그인</button>
+                                    		</c:otherwise>
+                                    	</c:choose>
                                     </div>
                                 </div>
                             </div>
@@ -57,37 +78,21 @@
                         </div>
                     </div>
                     <div class="row gx-5">
-                         <c:forEach var="item" items="${sb}" begin="1" end="10">
-                    	<div class="col-lg-4 mb-5">
-                            <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
-                                <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2 d-inline-block text-truncate" style="max-width: 150px;">
-                                    	<a class="text-decoration-none link-light" href="${item.tour_cmmn_hmpg_url}" target="_blank">${item.tour_cmmn_hmpg_url}</a>  
-                                    </div>
-                                    <h5 class="card-title mb-3"><a href="/front/tourDetail?tour_seq=${item.tour_seq}" class="text-decoration-none link-dark">${item.tour_post_sj}</a> </h5>
-                                    <p class="card-text mb-0">${item.tour_new_address}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-                    
-                    <!-- Call to action-->
-                    <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
-                        <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
-                            <div class="mb-4 mb-xl-0">
-                                <div class="fs-3 fw-bold text-white">New products, delivered to you.</div>
-                                <div class="text-white-50">Sign up for our newsletter for the latest updates.</div>
-                            </div>
-                            <div class="ms-xl-4">
-                                <div class="input-group mb-2">
-                                    <input class="form-control" type="text" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" />
-                                    <button class="btn btn-outline-light" id="button-newsletter" type="button">Sign up</button>
-                                </div>
-                                <div class="small text-white-50">We care about privacy, and will never share your data.</div>
-                            </div>
-                        </div>
-                    </aside>
+                         <c:forEach var="item" items="${list}">
+	                    	<div class="col-lg-4 mb-5">
+	                            <div class="card h-100 shadow border-0">
+	                                <img class="card-img-top" src="${item.image_url }" alt="..." />
+	                                <div class="card-body p-4">
+	                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2 d-inline-block text-truncate" style="max-width: 150px;">
+	                                    	<a class="text-decoration-none link-light" href="${item.tour_cmmn_hmpg_url}" target="_blank">${item.tour_cmmn_hmpg_url}</a>  
+	                                    </div>
+	                                    <h5 class="card-title mb-3"><a href="/front/tourDetail?tour_seq=${item.tour_seq}" class="text-decoration-none link-dark">${item.tour_post_sj}</a> </h5>
+	                                    <p class="card-text mb-0">${item.tour_new_address}</p>
+	                                </div>
+	                            </div>
+	                        </div>
+                    	</c:forEach>
+                	</div>
                 </div>
             </section>
             
