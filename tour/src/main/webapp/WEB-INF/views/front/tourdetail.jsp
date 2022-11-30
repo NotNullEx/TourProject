@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -211,7 +212,9 @@ div {
 			<h2 id="topTitle" class="select_tab on" >${sb[0].tour_post_sj}</h2>
 			<input type="hidden" id="tour_name" value="${sb[0].tour_post_sj}">
 			<div class="area_address" id="topAddr">
-				<span>${address}</span>
+				<c:if test="${not empty address}">
+					<span>${address}</span>
+				</c:if>
 			</div>
 			<input type="hidden" id="tour_seq" value="${tour_seq}">
 			<input type="hidden" id="mem_seq" value="${mem_seq}">

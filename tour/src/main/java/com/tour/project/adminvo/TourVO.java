@@ -37,5 +37,7 @@ public class TourVO {
 	private String tour_gu_name;
 	// 이미지 url 
 	private String image_url;
+	// 즐겨찾기 flag
+	private String wishflag;
 
 }

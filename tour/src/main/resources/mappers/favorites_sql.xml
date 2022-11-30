@@ -9,7 +9,7 @@
 	</insert>
 	
 	<select id="tourListByFavorites" parameterType="int" resultType="TourVO">
-		SELECT * FROM tour t
+		SELECT *,'N' as wishflag FROM tour t
 		JOIN favorites f
 		ON (t.tour_seq = f.tour_seq)
 		WHERE f.mem_seq = #{seq};

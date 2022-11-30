@@ -23,6 +23,7 @@ import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.expression.MapAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,8 +47,13 @@ import com.tour.project.common.StringUtil;
 import com.tour.project.common.vo.PageCriteriaVO;
 import com.tour.project.frontservice.FrontFavoritesService;
 import com.tour.project.frontservice.MemberFavoriteService;
+import com.tour.project.frontservice.TourRecommendService;
+import com.tour.project.frontvo.TourRecommendVO;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class FrontController {
 	
 
@@ -60,9 +66,11 @@ public class FrontController {
 	private AdminTourDataService service;
 	
 	@Autowired
-	FrontFavoritesService frontFavoritesService;
-
-	private static final Logger log = LoggerFactory.getLogger(FrontController.class);
+	private FrontFavoritesService frontFavoritesService;
+	
+	@Autowired
+	private TourRecommendService tourRecommendService;
+	
 
 	@RequestMapping(value = { "/" })
 	public ModelAndView dataInsert() throws Exception {
@@ -80,24 +88,49 @@ public class FrontController {
 		String tour_seq = request.getParameter("tour_seq");
 		List<TourVO> lists = new ArrayList<TourVO>();
 		lists = service.tourOneList(tour_seq);
-		String[] result = lists.get(0).getTour_address().split(" ");
-		String address = result[2];
-		int member_seq = (Integer) request.getSession().getAttribute("FRONT_US_SEQ");
-		String mem_seq = Integer.toString(member_seq);
-
-		models.addObject("mem_seq", mem_seq);
+		if (!StringUtil.isEmpty(lists.get(0).getTour_address())) {
+			String[] result = lists.get(0).getTour_address().split(" ");
+			String address = result[2];
+			models.addObject("address", address);
+		}
+		
+		if (!StringUtil.isEmpty(request.getSession().getAttribute("FRONT_US_SEQ"))) {
+			int member_seq = (Integer) request.getSession().getAttribute("FRONT_US_SEQ");
+			String mem_seq = Integer.toString(member_seq);
+	
+			models.addObject("mem_seq", mem_seq);
+		}
 		models.addObject("tour_seq", tour_seq);
 		models.addObject("sb", lists);
-		models.addObject("address", address);
+		
 		return models;
 
 	}
 	
 	@RequestMapping(value = { "/front/tourList" })
-	public ModelAndView tourList(PageCriteriaVO cri) throws Exception {
+	public ModelAndView tourList(PageCriteriaVO cri, HttpServletRequest request) throws Exception {
 		ModelAndView models = new ModelAndView("/front/tourList");
 		
 		List<TourVO> lists = service.tourList(cri);
+		List<TourRecommendVO> tourRecommendList = tourRecommendService.getTourRecommendList();
+		if (!StringUtil.isEmpty(request.getSession().getAttribute("FRONT_US_SEQ")))  {
+			int member_seq = (Integer) request.getSession().getAttribute("FRONT_US_SEQ");
+			List<TourVO> membetFavoriteLIst = frontFavoritesService.tourListByFavorites(member_seq);
+			
+			Map<Object,Object> wishMap = new HashMap<Object, Object>();
+			
+			for (TourVO favorite : membetFavoriteLIst) 
+			{
+				wishMap.put(favorite.getTour_seq(), favorite.getTour_seq());
+			}
+			
+			for (TourVO tour : lists) {
+				if (wishMap.containsKey(tour.getTour_seq())) {
+					tour.setWishflag("Y");
+				}
+			}
+		}
+		
 		int total =0;
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -105,6 +138,9 @@ public class FrontController {
 		pageMaker.setTotalCount(total);
 		if(!StringUtil.isEmpty(lists)) {
 			models.addObject("list", lists);
+		}
+		if (!StringUtil.isEmpty(tourRecommendList)) {
+			models.addObject("tourRecommendList", tourRecommendList);
 		}
 		models.addObject("curPage",cri.getPage());
 		models.addObject("totalCount", total);

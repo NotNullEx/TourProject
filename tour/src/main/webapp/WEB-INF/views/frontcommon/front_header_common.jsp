@@ -13,3 +13,6 @@
         <!-- Core theme JS-->
         <script src="/resources/js/scripts.js"></script>
         <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <!-- Slick -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
