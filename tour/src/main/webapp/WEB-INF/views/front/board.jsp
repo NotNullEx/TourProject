@@ -1,28 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
 <jsp:include page="../frontcommon/front_header_common.jsp" />
+<title>게시판</title>
 </head>
-<body class="d-flex flex-column">
-	<main class="flex-shrink-0">
-		<jsp:include page="../frontcommon/front_header.jsp" />
-		<!-- Page Content-->
-		<section class="py-5">
-			<div class="container px-5 my-5">
-				<div class="row gx-5">
-					<div class="col-lg-9">
-				
-						<input type="hidden" value="${seq}">
-						<table class="table table-striped">
+<style type="text/css">
+	#addNoti {
+		float: right;
+		margin-right: 2%;
+	}
+</style>
+
+    <body class="d-flex flex-column h-100">
+        <main class="flex-shrink-0">
+            <jsp:include page="../frontcommon/front_header.jsp"/>
+            <!-- Page Content-->
+            <section class="py-5">
+                <div class="container px-5 my-5">
+                    <div class="text-center mb-5">
+                        <h1 class="fw-bolder">게시판</h1>
+                    </div>
+                    <input type="hidden" value="${seq}">
+                    <table class="table">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
-									<th scope="col">아이디</th>
 									<th scope="col">제목</th>
-									<th scope="col">날짜</th>
+									<th scope="col">작성자</th>
+									<th scope="col">작성일</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -37,6 +46,7 @@
 								<c:set var = "num" value = "${num - 1 }" />
 								</c:forEach>
 							</tbody>
+							<button type="button" id="addNoti" class="btn btn-primary" onclick="location.href='/front/createBoard'">게시판 등록</button>
 						</table>
 						<ul class="pagination justify-content-center">
 							<c:if test="${pageMaker.prev }">
@@ -61,12 +71,9 @@
 							</c:if>
 						</ul>
 					</div>
-				</div>
-				<button type="button" id="addNoti" class="btn btn-primary" onclick="location.href='/front/createBoard'">게시판 등록</button>
-			</div>
 		</section>
-	</main>
-	<jsp:include page="../frontcommon/front_footer.jsp" />
-	<jsp:include page="../frontcommon/front_footer_common.jsp" />
-</body>
+        </main>
+        <jsp:include page="../frontcommon/front_footer.jsp"/>
+		<jsp:include page="../frontcommon/front_footer_common.jsp"/>
+    </body>
 </html>
