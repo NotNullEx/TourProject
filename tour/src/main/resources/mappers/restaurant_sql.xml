@@ -14,7 +14,7 @@
 	<select id="listOne" parameterType="String" resultType="RestaurantVO">
 		SELECT *
 		FROM restaurant
-		WHERE res_seq = #{code}
+		WHERE res_code = #{code}
 	</select>
 	
 	<select id="listBySection" parameterType="String" resultType="RestaurantVO">
@@ -29,7 +29,7 @@
 	
 	<delete id="deleteOne" parameterType="String">
 		DELETE FROM restaurant
-		WHERE res_seq = #{code}
+		WHERE res_code = #{code}
 	</delete>
 	
 	<update id="reviseAll" parameterType="hashMap">
@@ -37,7 +37,7 @@
 		SET tour_post_sn = #{tour_ps}, tour_address = #{tour_address}, res_telnum = #{telnum}, res_adress_area = #{adress_area}
 		,res_adress = #{adress}, res_open_time = #{opentime}, res_rest_day = #{rest_day}, res_image = #{image}
 		,res_kind = #{kind}, res_desc = #{desc}, res_name = #{name}, res_upd_date = now()
-		WHERE res_seq = #{code}
+		WHERE res_code = #{code}
 	</update>
 
 	<select id = "postCodeList" resultType="hashMap">

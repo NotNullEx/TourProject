@@ -68,4 +68,42 @@
 		WHERE even_code = #{code}
 	</update>
 	
+	<select id="getEventlist" resultType="EventVO" parameterType="PageCriteriaVO">
+		<![CDATA[
+			SELECT even_code
+				,even_codename
+				,even_guname
+				,even_title
+				,even_date
+				,even_place
+				,even_org_name
+				,even_use_trgt
+				,even_use_fee
+				,even_player
+				,even_program
+				,even_etc_desc
+				,even_org_link
+				,even_main_img
+				,even_rgst_date
+				,even_ticket
+				,even_strt_date
+				,even_end_date
+				,even_theme_code
+			FROM event
+			WHERE date_format(even_strt_date,'%Y-%m-%d') <= CURDATE()
+			AND date_format(even_end_date ,'%Y-%m-%d') >= CURDATE() 
+			ORDER BY even_strt_date ASC
+			LIMIT #{pageStart}, #{perPageNum}
+		]]>
+	</select>
+	
+	<select id="getOngoingEventCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(even_code)
+			from event
+			WHERE DATE_FORMAT(even_strt_date,'%Y-%m-%d') <= CURDATE()
+			AND DATE_FORMAT(even_end_date ,'%Y-%m-%d') >= CURDATE()
+		]]>
+	</select>
+	
 </mapper>

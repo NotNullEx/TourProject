@@ -1,15 +1,7 @@
 package com.tour.project.frontcontroller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -21,23 +13,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.tour.project.admincontroller.AdminControllerBYS;
-import com.tour.project.adminservice.AdminBoardService;
 import com.tour.project.adminservice.AdminEventService;
 import com.tour.project.adminservice.AdminRestaurantService;
 import com.tour.project.adminvo.BoardVO;
 import com.tour.project.adminvo.EventVO;
-import com.tour.project.adminvo.NotificationVO;
 import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.PageMaker;
@@ -60,7 +46,7 @@ public class FrontControllerKJM {
 	private AdminRestaurantService infoService;
 	
 	@Autowired
-	private AdminEventService AES;
+	private AdminEventService adminEventService;
 	
 	@Autowired
 	private FrontBoardService FBS;
@@ -366,9 +352,33 @@ public class FrontControllerKJM {
 	
 	
 	@RequestMapping(value = {"/front/event"})
-	public ModelAndView contact() {
-		ModelAndView mav = new ModelAndView("/front/event");
-		return mav;
+	@Transactional(readOnly = true)
+	public String eventList(Model model,PageCriteriaVO cri) throws Exception{
+		
+		List<EventVO> list = adminEventService.getEventlist(cri);
+		int total = adminEventService.getOngoingEventCount();
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(total);
+
+		model.addAttribute("curPage",cri.getPage());
+		model.addAttribute("totalCount", total);
+		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "/front/event";
+	}
+	
+	@RequestMapping(value = {"/front/event/detail"})
+	@Transactional(readOnly = true)
+	public String eventDetail(@RequestParam("even_code") String code,Model model) throws Exception{
+		
+		List<EventVO> lists = new ArrayList<EventVO>();
+		lists = adminEventService.listByCode(code);
+		
+		model.addAttribute("data",lists);
+		
+		return "/front/eventdetail";
 	}
 	
 	

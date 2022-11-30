@@ -17,4 +17,6 @@ public interface AdminEventService {
 	public int deleteAll();
 	public int deleteOne(String code);
 	public int reviseAll(Map<String, Object> map);
+	public List<EventVO> getEventlist(PageCriteriaVO cri) throws Exception;
+	public int getOngoingEventCount() throws Exception;
 }

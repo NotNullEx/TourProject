@@ -65,5 +65,16 @@ public class AdminEventServiceImpl implements AdminEventService {
 		result = eventDao.deleteOne(code);
 		return result;
 	}
+
+	@Override
+	public List<EventVO> getEventlist(PageCriteriaVO cri) throws Exception {
+		
+		return eventDao.getEventlist(cri);
+	}
+
+	@Override
+	public int getOngoingEventCount() throws Exception {
+		return eventDao.getOngoingEventCount();
+	}
 	
 }

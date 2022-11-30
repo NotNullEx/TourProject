@@ -1,52 +1,26 @@
 package com.tour.project.frontcontroller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.expression.MapAccessor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.mysql.cj.Session;
-import com.tour.project.admincontroller.AdminController;
-import com.tour.project.adminservice.AdminBoardService;
 import com.tour.project.adminservice.AdminTourDataService;
-import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.PageMaker;
-import com.tour.project.common.ResultSendToClient;
 import com.tour.project.common.StringUtil;
 import com.tour.project.common.vo.PageCriteriaVO;
 import com.tour.project.frontservice.FrontFavoritesService;
-import com.tour.project.frontservice.MemberFavoriteService;
 import com.tour.project.frontservice.TourRecommendService;
 import com.tour.project.frontvo.TourRecommendVO;
 
@@ -55,13 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class FrontController {
-	
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-
-	
 	@Autowired
 	private AdminTourDataService service;
 	

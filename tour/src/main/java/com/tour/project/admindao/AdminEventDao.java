@@ -65,4 +65,15 @@ public class AdminEventDao {
 		result = sqltemplate.update("event.reviseAll", map);
 		return result;
 	}
+	
+	public List<EventVO> getEventlist(PageCriteriaVO cri) {
+		List<EventVO> list = sqltemplate.selectList("event.getEventlist",cri);
+		return list;
+	}
+	
+	public int getOngoingEventCount() {
+		int cnt = sqltemplate.selectOne("event.getOngoingEventCount");
+		
+		return cnt;
+	}
 }

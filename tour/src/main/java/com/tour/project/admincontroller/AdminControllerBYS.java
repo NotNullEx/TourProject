@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,13 +25,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.tour.project.adminservice.AdminEventService;
 import com.tour.project.adminservice.AdminNotificationService;
@@ -42,13 +37,10 @@ import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminvo.EventVO;
 import com.tour.project.adminvo.NotificationVO;
 import com.tour.project.adminvo.RestaurantVO;
-import com.tour.project.adminvo.TourVO;
-import com.tour.project.common.Criteria;
 import com.tour.project.common.PageMaker;
 import com.tour.project.common.ResultSendToClient;
 import com.tour.project.common.SuccessResponse;
 import com.tour.project.common.vo.PageCriteriaVO;
-import com.tour.project.common.vo.PageMakerVO;
 
 /**
  * Handles requests for the application home page.
@@ -61,9 +53,6 @@ public class AdminControllerBYS {
 
 	@Autowired
 	private AdminEventService adminEventService;
-
-	@Autowired
-	private AdminTourDataService adminTourDataService;
 
 	@Autowired
 	private AdminNotificationService adminNotificationService;
@@ -133,7 +122,7 @@ public class AdminControllerBYS {
 	@RequestMapping(value = { "/admin/restaurantDetail" })
 	public ModelAndView restaurantDetail(HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/restaurantdetail");
-		String search = request.getParameter("res_seq");
+		String search = request.getParameter("res_code");
 		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
 		lists = adminRestaurantService.listOne(search);
 		mav.addObject("data", lists);

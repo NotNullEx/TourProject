@@ -1,112 +1,133 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <jsp:include page="../frontcommon/front_header_common.jsp"/>
-    </head>
-    <body class="d-flex flex-column">
-        <main class="flex-shrink-0">
-            <jsp:include page="../frontcommon/front_header.jsp"/>
-            <!-- Page content-->
-            <section class="py-5">
-                <div class="container px-5">
-                    <!-- Contact form-->
-                    <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
-                        <div class="text-center mb-5">
-                            <h1 class="fw-bolder">이벤트 공지사항 등록 페이지 입니다.</h1>
-                            <p class="lead fw-normal text-muted mb-0">비는 내용 없이 확인 후 등록 바랍니다.</p>
-                        </div>
-                        <div class="row gx-5 justify-content-center">
-                            <div class="col-lg-8 col-xl-6">
-                                <!-- * * * * * * * * * * * * * * *-->
-                                <!-- * * SB Forms Contact Form * *-->
-                                <!-- * * * * * * * * * * * * * * *-->
-                                <!-- This form is pre-integrated with SB Forms.-->
-                                <!-- To make this form functional, sign up at-->
-                                <!-- https://startbootstrap.com/solution/contact-forms-->
-                                <!-- to get an API token!-->
-                                <form id="contactForm" method="post">
-                                    <!-- Name input-->
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" name="code" type="text">
-                                        <label for="even_code">이벤트 코드</label>
-                                        <!-- <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div> -->
-                                    </div>
-                                    <!-- Email address input-->
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" name="title" type="text">
-                                        <label for="even_name">이벤트 제목</label>
-                                        <!-- <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div> -->
-                                    </div>
-                                    <!-- Phone number input-->
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" name="adress" type="text" style="height: 10rem">
-                                        <label for="even_adress">이벤트 주소</label>
-                                        <!-- <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div> -->
-                                    </div>
-                                    <!-- Message input-->
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" name="desc" type="text" style="height: 20rem">
-                                        <label for="even_desc">이벤트 설명</label>
-                                        <!-- <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div> -->
-                                    </div>
-                                    <!-- Submit success message-->
-                                    <!---->
-                                    <!-- This is what your users will see when the form-->
-                                    <!-- has successfully submitted-->
-                                    <!-- <div class="d-none" id="submitSuccessMessage">
-                                        <div class="text-center mb-3">
-                                            <div class="fw-bolder">Form submission successful!</div>
-                                            To activate this form, sign up at
-                                            <br />
-                                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                                        </div>
-                                    </div>
-                                    Submit error message
-                                   
-                                    This is what your users will see when there is
-                                    an error submitting the form
-                                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div> -->
-                                    <!-- Submit Button-->
-                                    <div class="d-grid"><input type="submit" value="이벤트 등록"></div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Contact cards-->
-                    <div class="row gx-5 row-cols-2 row-cols-lg-4 py-5">
-                        <div class="col">
-                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-chat-dots"></i></div>
-                            <div class="h5 mb-2">Chat with us</div>
-                            <p class="text-muted mb-0">Chat live with one of our support specialists.</p>
-                        </div>
-                        <div class="col">
-                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-people"></i></div>
-                            <div class="h5">Ask the community</div>
-                            <p class="text-muted mb-0">Explore our community forums and communicate with other users.</p>
-                        </div>
-                        <div class="col">
-                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-question-circle"></i></div>
-                            <div class="h5">Support center</div>
-                            <p class="text-muted mb-0">Browse FAQ's and support articles to find solutions.</p>
-                        </div>
-                        <div class="col">
-                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-telephone"></i></div>
-                            <div class="h5">Call us</div>
-                            <p class="text-muted mb-0">Call us during normal business hours at (555) 892-9403.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-        <jsp:include page="../frontcommon/front_footer.jsp"/>
-		<jsp:include page="../frontcommon/front_footer_common.jsp"/>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-    </body>
+<head>
+<jsp:include page="../frontcommon/front_header_common.jsp" />
+<style>
+
+.box {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.tableInfo td{
+	text-align : left;
+	vertical-align:middle;
+}
+
+.tablelay {
+	table-layout: fixed;
+}
+</style>
+</head>
+<body class="d-flex flex-column">
+	<main class="flex-shrink-0">
+		<jsp:include page="../frontcommon/front_header.jsp"/>
+		<section class="py-5">
+			<h2 class="fw-bolder fs-5 mb-4">여러가지 재밌는 이벤트들을 놓치지 마세요!</h2>
+			<table class="table table-striped tablelay">
+				<thead>
+					<tr>		
+						<th style="width: 10%">이벤트 이름</th>
+						<th style="width: 30%">정보</th>
+						<th style="width: 10%">이용료</th>
+						<th style="width: 10%">장소</th>
+						<th style="width: 10%">날짜</th>
+						<th style="width: 30%">홈페이지</th>
+					</tr>
+				</thead>
+				<tbody class="tableInfo">
+					<c:forEach var="data" items="${list}" varStatus="vs">
+						<tr>
+							<td class="box"><a class="text-decoration-none link-dark"
+								href="/front/event/detail?even_code=${data.even_code}">${data.even_title}</a></td>
+							<td class="box">이용대상 : ${data.even_use_trgt} <br>  
+								<c:choose>
+									<c:when test="${data.even_org_name == null or data.even_org_name eq ''}">
+										
+									</c:when>
+									<c:otherwise>
+							        	기관명 : ${data.even_org_name} <br>
+									</c:otherwise>
+								</c:choose>  
+								<c:choose>
+									<c:when test="${data.even_player == null or data.even_player eq ''}">
+										
+									</c:when>
+									<c:otherwise>
+							        	출연자 : ${data.even_player} <br>
+									</c:otherwise>
+								</c:choose> 
+								<c:choose>
+									<c:when test="${data.even_program == null or data.even_program eq ''}">
+										
+									</c:when>
+									<c:otherwise>
+							        	프로그램 : ${data.even_program} <br>
+									</c:otherwise>
+								</c:choose> 
+								<c:choose>
+									<c:when test="${data.even_etc_desc == null or data.even_etc_desc eq ''}">
+										
+									</c:when>
+									<c:otherwise>
+							        	기타 : ${data.even_etc_desc} <br>
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td class="box">
+								<c:choose>
+									<c:when test="${data.even_use_fee == null or data.even_use_fee eq ''}">
+										무료<br>
+									</c:when>
+									<c:otherwise>
+										${data.even_use_fee}
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td class="box">${data.even_place}</td>
+							<td class="box">${data.even_date}</td>
+							<td class="box"><a class="d-inline-block text-truncate link-dark" style="max-width: 150px;"
+								href="${data.even_org_link}" target="_blank">${data.even_org_link}</a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<ul class="pagination justify-content-center">
+				<c:if test="${pageMaker.prev}">
+					<li class="page-item"><a class="page-link"
+						href='<c:url value="/front/event?page=${pageMaker.startPage-1}"/>'>prev</a></li>
+				</c:if>
+				<c:forEach begin="${pageMaker.startPage}"
+					end="${pageMaker.endPage }" var="pageNum" varStatus="status">
+					<c:choose>
+						<c:when test="${pageMaker.cri.page == pageNum}">
+							<li class="page-item active" aria-current="page"><a
+								class="page-link" href='<c:url value="/front/event?page=${pageNum}"/>'>${pageNum}</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item "><a class="page-link"
+								href='<c:url value="/front/event?page=${pageNum}"/>'>${pageNum}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${pageMaker.next && pageMaker.endPage >0}">
+					<li class="page-item"><a class="page-link"
+						href='<c:url value="/front/event?page=${pageMaker.endPage+1}"/>'>next</a></li>
+				</c:if>
+			</ul>
+		</section>
+	</main>
+	<jsp:include page="../frontcommon/front_footer.jsp" />
+	<jsp:include page="../frontcommon/front_footer_common.jsp" />
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<!-- * *                               SB Forms JS                               * *-->
+	<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
 </html>
