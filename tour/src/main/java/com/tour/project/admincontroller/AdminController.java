@@ -112,7 +112,12 @@ public class AdminController {
 					if("".equals(row.get("CMMN_HMPG_URL").toString()) || row.get("CMMN_HMPG_URL").toString() ==null) {
 						tourInfoSet.setTour_cmmn_hmpg_url("none");
 					}else {
-						tourInfoSet.setTour_cmmn_hmpg_url(row.get("CMMN_HMPG_URL").toString());
+						if(!row.get("CMMN_HMPG_URL").toString().contains("https://")) {
+							String http = "https://";
+							tourInfoSet.setTour_cmmn_hmpg_url(http + row.get("CMMN_HMPG_URL").toString());
+						}else {
+							tourInfoSet.setTour_cmmn_hmpg_url(row.get("CMMN_HMPG_URL").toString());
+						}
 					}
 					tourInfoSet.setTour_cmmn_telno(row.get("CMMN_TELNO").toString());
 					tourInfoSet.setTour_cmmn_bsnde(row.get("CMMN_BSNDE").toString());
@@ -149,8 +154,6 @@ public class AdminController {
 	@RequestMapping(value = { "/admin" })
 	public ModelAndView dataInsert(PageCriteriaVO cri) throws Exception {
 		ModelAndView models = new ModelAndView("/admin/home");
-		List<TourVO> lists = new ArrayList<TourVO>();
-		lists = service.tourList();
 		List<NotificationVO> notiList = adminNotificationService.pagingNotiList(cri);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -162,7 +165,6 @@ public class AdminController {
 		models.addObject("curPage",cri.getPage());
 		models.addObject("totalCount", total);
 		models.addObject("pageMaker", pageMaker);
-		models.addObject("sb", lists);
 		return models;
 	}
 	
@@ -191,11 +193,13 @@ public class AdminController {
 	@RequestMapping(value = { "/admin/myPage" })
 	public ModelAndView mypage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
+		int seq = (int)request.getSession().getAttribute("ADMIN_US_SEQ");
 		ModelAndView mav = new ModelAndView("/admin/mypage");
 		if(user_id == null || "".equals(user_id)) {
 			return new ModelAndView("/admin/admin_login");
 		}else {
 			mav.addObject("adminId", user_id);
+			mav.addObject("seq", seq);
 		}
 		
 		return mav;
