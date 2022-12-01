@@ -19,6 +19,7 @@ import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.PageMaker;
 import com.tour.project.common.StringUtil;
+import com.tour.project.common.UtilClass;
 import com.tour.project.common.vo.PageCriteriaVO;
 import com.tour.project.frontservice.FrontFavoritesService;
 import com.tour.project.frontservice.MemberLoginService;
@@ -91,6 +92,7 @@ public class FrontController {
 	public ModelAndView tourList(PageCriteriaVO cri, HttpServletRequest request) throws Exception {
 		ModelAndView models = new ModelAndView("/front/tourList");
 		
+		cri.setPerPageNum(9);
 		List<TourVO> lists = service.tourList(cri);
 		List<TourRecommendVO> tourRecommendList = tourRecommendService.getTourRecommendList();
 		if (!StringUtil.isEmpty(request.getSession().getAttribute("FRONT_US_SEQ")))  {
@@ -113,6 +115,10 @@ public class FrontController {
 		
 		int total =0;
 		PageMaker pageMaker = new PageMaker();
+		String device = UtilClass.isDevice(request);
+		if ("MOBILE".equals(device)) {
+			pageMaker.setDisplayPageNum(5);
+		}
 		pageMaker.setCri(cri);
 		total = service.getToatal();
 		pageMaker.setTotalCount(total);

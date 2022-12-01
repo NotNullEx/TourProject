@@ -23,7 +23,7 @@
 	}
 	.img-fluid {
 		width : 100%;
-		height : 700px !important;
+		height : auto !important;
 	}
 </style>
 <script type="text/javascript">
@@ -31,13 +31,13 @@
 	$(function() {
 		$('.recommend').slick({
 		      slide: 'div',        //슬라이드 되어야 할 태그
-		      infinite : true,     //무한 반복 옵션     
+		      infinite : false,     //무한 반복 옵션     
 		      slidesToShow : 1,        // 한 화면에 보여질 컨텐츠 개수
 		      slidesToScroll : 1,        //스크롤 한번에 움직일 컨텐츠 개수
 		      speed : 500,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
 		      arrows : false,         // 옆으로 이동하는 화살표 표시 여부
 		      dots : false,         // 스크롤바 아래 점으로 페이지네이션 여부
-		      autoplay : true,            // 자동 스크롤 사용 여부
+		      autoplay : false,            // 자동 스크롤 사용 여부
 		      autoplaySpeed : 2000,         // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
 		      pauseOnHover : true,        // 슬라이드 이동    시 마우스 호버하면 슬라이더 멈추게 설정
 		      vertical : false,        // 세로 방향 슬라이드 옵션
@@ -110,7 +110,7 @@
 					<div class="row gx-5 align-items-center">
 						<div class="col-lg-6">
 							<img class="img-fluid rounded mb-5 mb-lg-0"
-								src="${list.image_url }" alt="..." />
+								src="${list.image_url }" alt="..." width = "300px" height = "300px"/>
 						</div>
 						<div class="col-lg-6">
 							<h2 class="fw-bolder">${list.tour_post_sj }</h2>
@@ -121,35 +121,19 @@
 		</section>
 		<!-- About section two-->
 		<section class="py-5">
-			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col">No.</th>
-						<th scope="col">관광지 이미지</th>
-						<th scope="col">정보</th>
-						<th scope="col">홈페이지 바로가기</th>
-						<th scope="col">즐겨찾기 추가</th>
-					</tr>
-				</thead>
-				<tbody class="tableInfo">
-					<c:set var="num" value="${totalCount - ((curPage-1) * 10) }"/>
-					<c:forEach var="item" items="${list}" varStatus="vs">
-						<tr>
-							<th scope="row"><c:out value="${num}"/></th>
-							<td><a href = '/front/tourDetail?tour_seq=${item.tour_seq }'><img class="image" alt="tt" src="${item.image_url }" width="293px;" height="172px;"></a></td>
-							<td><a class="text-decoration-none link-dark" href="/front/tourDetail?tour_seq=${item.tour_seq}" >${item.tour_post_sj}</a> <br>
-								${item.tour_new_address }<br>
-								<c:choose>
-									<c:when test = "${item.tour_cmmn_fax == null or item.tour_cmmn_fax eq ''}">
-										- <br>
-									</c:when>
-									<c:otherwise>
-							            ${item.tour_cmmn_fax }
-							        </c:otherwise>
-								</c:choose>
-							</td>
-							<td><a class="text-decoration-none link-dark" href="${item.tour_cmmn_hmpg_url}" target="_blank">${item.tour_cmmn_hmpg_url}</a></td>
-							<td>
+			<div class="row gx-5">
+				<c:forEach var="item" items="${list}">
+					<div class="col-lg-4 mb-5">
+						<div class="card h-100 shadow border-0">
+							<img class="card-img-top" src="${item.image_url }" alt="..." width="300px" height="300px" />
+							<div class="card-body p-4">
+								<div class="badge bg-primary bg-gradient rounded-pill mb-2 d-inline-block text-truncate" style="max-width: 150px;">
+									<a class="text-decoration-none link-light" href="" target="_blank">${item.tour_cmmn_hmpg_url}</a>
+								</div>
+								<h5 class="card-title mb-3">
+									<a href="/front/tourDetail?tour_seq=${item.tour_seq}" class="text-decoration-none link-dark">${item.tour_post_sj }</a>
+								</h5>
+								<p class="card-text mb-0">${item.tour_new_address }</p>
 								<c:choose>
 									<c:when test="${item.wishflag eq 'Y' }">
 										<button disabled="disabled">추가완료</button>
@@ -158,13 +142,11 @@
 										<img src = "/resources/img/like.png" width="50" height="50" onclick="javascript:addFavorite(${item.tour_seq})">
 									</c:otherwise>
 								</c:choose>
-								
-							</td>
-						</tr>
-						<c:set var = "num" value = "${num - 1 }" />
-					</c:forEach>
-				</tbody>
-			</table>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
 			<ul class="pagination justify-content-center">
 				<c:if test="${pageMaker.prev }">
 					<li class="page-item"><a class="page-link" href='<c:url value="/front/tourList?page=${pageMaker.startPage-1 }"/>'>prev</a></li>
