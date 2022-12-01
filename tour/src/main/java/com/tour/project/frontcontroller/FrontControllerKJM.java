@@ -353,11 +353,16 @@ public class FrontControllerKJM {
 	
 	@RequestMapping(value = {"/front/event"})
 	@Transactional(readOnly = true)
-	public String eventList(Model model,PageCriteriaVO cri) throws Exception{
+	public String eventList(Model model,PageCriteriaVO cri,HttpServletRequest request) throws Exception{
 		
+		cri.setPerPageNum(9);
 		List<EventVO> list = adminEventService.getEventlist(cri);
 		int total = adminEventService.getOngoingEventCount();
 		PageMaker pageMaker = new PageMaker();
+		String device = UtilClass.isDevice(request);
+		if ("MOBILE".equals(device)) {
+			pageMaker.setDisplayPageNum(5);
+		}
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(total);
 

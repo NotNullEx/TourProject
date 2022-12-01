@@ -29,6 +29,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,5 +89,15 @@ public class UtilClass {
         	
         }
         return exceptionAsString;
+    }
+    
+    public static String isDevice(HttpServletRequest request) {
+        String userAgent = request.getHeader("User-Agent").toUpperCase();
+    		
+        if(userAgent.indexOf("MOBI") > -1) {
+             return "MOBILE";
+        } else {
+            return "PC";
+        }
     }
 }

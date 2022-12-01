@@ -83,7 +83,7 @@
                          <c:forEach var="item" items="${list}">
 	                    	<div class="col-lg-4 mb-5">
 	                            <div class="card h-100 shadow border-0">
-	                                <img class="card-img-top" src="${item.image_url }" alt="..." />
+	                                <img class="card-img-top" src="${item.image_url }" alt="..." width = "600px" height = "300px" />
 	                                <div class="card-body p-4">
 	                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2 d-inline-block text-truncate" style="max-width: 150px;">
 	                                    	<a class="text-decoration-none link-light" href="${item.tour_cmmn_hmpg_url}" target="_blank">${item.tour_cmmn_hmpg_url}</a>  

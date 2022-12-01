@@ -35,11 +35,6 @@ public class PageCriteriaVO {
     
     // 페이지당 보여줄 게시글 수가 변하지 않게 설정
     public void setPerPageNum(int pageCount) {
-        int cnt = this.perPageNum;
-        if(pageCount != cnt) {
-            this.perPageNum = cnt;
-        } else {
-            this.perPageNum = pageCount;
-        }
+    	this.perPageNum = pageCount;
     }
 }
