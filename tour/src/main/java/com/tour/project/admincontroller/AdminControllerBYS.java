@@ -382,7 +382,7 @@ public class AdminControllerBYS {
 	public void createNotificationOK(@RequestParam Map<String, Object> map, HttpServletResponse response,
 			HttpServletRequest request) throws Exception {
 		try {
-			int admin_seq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
+			int admin_seq = (int) request.getSession().getAttribute("ADMIN_US_SEQ");
 			map.put("admin_seq", admin_seq);
 			int isCreated = adminNotificationService.create(map);
 			if (isCreated == 1) {
@@ -417,7 +417,7 @@ public class AdminControllerBYS {
 
 	@RequestMapping(value = { "/admin/notificationUpdateOK" })
 	public void notificationUpdateOK(@RequestParam Map<String, Object> map, HttpServletResponse response, HttpServletRequest request) throws Exception {
-		int admin_seq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
+		int admin_seq = (int) request.getSession().getAttribute("ADMIN_US_SEQ");
 		map.put("admin_seq", admin_seq);
 		int isRevised = adminNotificationService.notiUpdate(map);
 		if (isRevised == 1) {
@@ -434,7 +434,7 @@ public class AdminControllerBYS {
 	public SuccessResponse setNotiHidden(@RequestParam Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
 //		return new SuccessResponse(response.SC_FORBIDDEN, "게시판 표시상태 수정 실패", null);
 		int noti_status = Integer.valueOf(request.getParameter("noti_status"));
-		int admin_seq = (int) request.getSession().getAttribute("SESSION_US_SEQ");
+		int admin_seq = (int) request.getSession().getAttribute("ADMIN_US_SEQ");
 		map.put("noti_status", noti_status);
 		map.put("admin_seq", admin_seq);
 		int isNotiHidden = adminNotificationService.setNotiHidden(map);
