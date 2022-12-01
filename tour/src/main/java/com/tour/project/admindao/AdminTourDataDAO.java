@@ -38,11 +38,6 @@ public class AdminTourDataDAO {
 		return tourList;
 	}
 	
-	public List<TourVO> tourList() throws Exception{
-		List<TourVO> tourList = sqltemplate.selectList("tour.tourList");
-		return tourList;
-	}
-	
 	public List<TourVO> tourOneList(String tour_seq)throws Exception{
 		List<TourVO> tourList = sqltemplate.selectList("tour.tourOneList",tour_seq);
 		return tourList;

@@ -33,12 +33,6 @@ public class AdminTourDataServiceImpl implements AdminTourDataService{
 		List<TourVO> list = dao.tourList(cri);
 		return list;
 	}
-	
-	@Override
-	public List<TourVO> tourList() throws Exception {
-		List<TourVO> list = dao.tourList();
-		return list;
-	}
 
 	@Override
 	public List<TourVO> tourOneList(String tour_seq) throws Exception{

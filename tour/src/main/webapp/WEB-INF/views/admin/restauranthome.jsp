@@ -137,8 +137,7 @@
 		<div>
 			<ul>
 				<c:forEach var="area" items="${area}">
-					<li><button type="button"
-							onclick="location='/admin/selectRestaurantBySection?res_adress_area=${area}'">${area}</button></li>
+					<button type="button" onclick="location='/admin/selectRestaurantBySection?res_adress_area=${area}'">${area}</button>
 				</c:forEach>
 			</ul>
 		</div>

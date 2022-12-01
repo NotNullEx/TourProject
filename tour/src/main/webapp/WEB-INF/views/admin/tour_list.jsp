@@ -102,8 +102,10 @@
 		<!-- About section two-->
 		<section class="py-5">
 		<div style="float: right; margin-bottom: 5px; margin-right: 5px;">
-			<button type="button" id="addRes" class="btn btn-primary" onclick="location.href='/admin/adminDataInsert'">관광지 추가</button>
-			<button type="button" id="addRes" class="btn btn-primary" onclick="data_insert()">api 관광지 추가</button>
+				<c:if test="${not empty sessionScope.ADMIN_ID}">
+					<button type="button" id="addRes" class="btn btn-primary" onclick="location.href='/admin/adminDataInsert'">관광지 추가</button>
+					<button type="button" id="addRes" class="btn btn-primary" onclick="data_insert()">api 관광지 추가</button>
+				</c:if>
 		</div>
 			<table class="table table-striped">
 				<thead>

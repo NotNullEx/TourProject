@@ -11,7 +11,6 @@ public interface AdminTourDataService {
 	public int tourInsert(TourVO vo) throws Exception;
 	public int tourInsert(HashMap<String, Object> map)throws Exception;
 	public List<TourVO> tourList(PageCriteriaVO cri)throws Exception;
-	public List<TourVO> tourList()throws Exception;
 	public int getToatal()throws Exception;
 	public List<TourVO> tourOneList(String tour_seq)throws Exception;
 	public int tourUpdateDate(HashMap<String, Object> map)throws Exception;

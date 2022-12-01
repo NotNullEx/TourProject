@@ -23,9 +23,7 @@
 	<select id="getTotal" resultType="int">
 		SELECT count(*) FROM tour
 	</select>
-	<select id="tourList" resultType="TourVO">
-		SELECT * FROM tour
-	</select>
+
 	<select id="adminInfo" parameterType="String" resultType="hashMap">
 		SELECT admin_seq,admin_name,admin_password,admin_phone_num,admin_status,admin_email,
 		DATE_FORMAT(admin_regist_day, '%Y-%m-%d') AS admin_regist_day

@@ -63,7 +63,7 @@ public class AdminControllerBYS {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = { "/admin/restaurant" })
-	public ModelAndView blog(HttpServletRequest request) {
+	public ModelAndView restaurant(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/admin/restauranthome");
 		String res_adress_area[] = { "강남구", "강동구", "강서구", "강북구", "관악구", "광진구", "구로구", "금천구", "노원구", "동대문구", "도봉구",
 				"동작구", "마포구", "서대문구", "성동구", "성북구", "서초구", "송파구", "영등포구", "용산구", "양천구", "은평구", "종로구", "중구", "중랑구" };
@@ -177,7 +177,7 @@ public class AdminControllerBYS {
 
 	@ResponseBody
 	@RequestMapping(value = { "/admin/eventDataInsert" })
-	public Object adminHome() throws Exception {
+	public Object eventDataInsert() throws Exception {
 		List<EventVO> lists = new ArrayList<EventVO>();
 		try {
 			BufferedReader rd = null;
@@ -274,24 +274,20 @@ public class AdminControllerBYS {
 
 	@RequestMapping(value = { "/admin/event" })
 	public ModelAndView event(HttpServletRequest request,PageCriteriaVO cri) throws Exception {
-		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
-		if (user_id == null || "".equals(user_id)) {
-			return new ModelAndView("/admin/admin_login");
-		} else {
-			ModelAndView mav = new ModelAndView("/admin/eventhome");
-			List<EventVO> lists = new ArrayList<EventVO>();
-			lists = adminEventService.listAll(cri);
-			int total = adminEventService.getTotal();
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(total);
 
-			mav.addObject("curPage",cri.getPage());
-			mav.addObject("totalCount", total);
-			mav.addObject("data", lists);
-			mav.addObject("pageMaker", pageMaker);
-			return mav;
-		}
+		ModelAndView mav = new ModelAndView("/admin/eventhome");
+		List<EventVO> lists = new ArrayList<EventVO>();
+		lists = adminEventService.listAll(cri);
+		int total = adminEventService.getTotal();
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(total);
+
+		mav.addObject("curPage",cri.getPage());
+		mav.addObject("totalCount", total);
+		mav.addObject("data", lists);
+		mav.addObject("pageMaker", pageMaker);
+		return mav;
 	}
 
 	@RequestMapping(value = { "/admin/addEvent" })
