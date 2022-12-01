@@ -7,11 +7,15 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -86,7 +90,14 @@ public class AdminControllerBYS {
 	@RequestMapping(value = { "/admin/addrestaurant" })
 	public String addrestaurant(HttpServletRequest request, Model model) throws Exception {
 		List<Map<String, Object>> postCodeList = adminRestaurantService.getpostCodeList();
+		String res_adress_area[] = { "강남구", "강동구", "강서구", "강북구", "관악구", "광진구", "구로구", "금천구", "노원구", "동대문구", "도봉구",
+				"동작구", "마포구", "서대문구", "성동구", "성북구", "서초구", "송파구", "영등포구", "용산구", "양천구", "은평구", "종로구", "중구", "중랑구" };
+		List<String> area = new ArrayList<String>();
+		for (int i = 0; i < res_adress_area.length; i++) {
+			area.add(res_adress_area[i]);
+		}
 		model.addAttribute("postCodeList", postCodeList);
+		model.addAttribute("area", area);
 		return "/admin/addrestaurant";
 	}
 

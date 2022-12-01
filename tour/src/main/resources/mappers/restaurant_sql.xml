@@ -17,6 +17,12 @@
 		WHERE res_code = #{code}
 	</select>
 	
+	<select id="exitingAddressArea" resultType="RestaurantVO">
+		SELECT res_adress_area
+		FROM restaurant
+		GROUP BY res_adress_area
+	</select>
+	
 	<select id="listBySection" parameterType="String" resultType="RestaurantVO">
 		SELECT *
 		FROM restaurant
@@ -42,6 +48,7 @@
 
 	<select id = "postCodeList" resultType="hashMap">
 		select tour_post_sn
+			,tour_post_sj
 			,tour_gu_name
 		from tour
 		order by tour_post_sn asc;

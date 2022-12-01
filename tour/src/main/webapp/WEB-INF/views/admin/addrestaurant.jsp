@@ -13,7 +13,7 @@
 		var tour_ps = $('#post option:selected').val();
 		var tour_address = document.getElementById('tour_address').value;
 		var telnum = document.getElementById('telnum').value;
-		var adress_area = document.getElementById('adress_area').value;
+		var adress_area = $('#adress_area option:selected').val();
 		var adress = document.getElementById('adress').value;
 		var opentime = document.getElementById('opentime').value;
 		var rest_day = document.getElementById('rest_day').value;
@@ -98,10 +98,10 @@
 				<c:forEach var="list" items="${postCodeList}" varStatus="i">
 					<c:choose>
 						<c:when test="${i.index == 0 }">
-							<option value = "${list.tour_post_sn }" selected>${list.tour_gu_name}</option>
+							<option value = "${list.tour_post_sn}" selected>${list.tour_post_sj}</option>
 						</c:when>
 						<c:otherwise>
-							<option value = "${list.tour_post_sn }">${list.tour_gu_name}</option>
+							<option value = "${list.tour_post_sn }">${list.tour_post_sj}</option>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -112,16 +112,27 @@
 			양식 <input name="kind" type="radio" value="3"> &nbsp;
 		</div>
 		<div class="form-floating mb-3">
+		<h5>(구)</h5>
+			<select id = "adress_area">
+				<c:forEach var="area" items="${area}" varStatus="i">
+					<c:choose>
+						<c:when test="${i.index == 0 }">
+							<option value = "${area}" selected>${area}</option>
+						</c:when>
+						<c:otherwise>
+							<option value = "${area}">${area}</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</select>
+		</div>
+		<div class="form-floating mb-3">
 			<input class="form-control" id="tour_address" type="text"> 
 			<label for="even_id">주소</label>
 		</div>
 		<div class="form-floating mb-3">
 			<input class="form-control" id="telnum" type="text"> 
 			<label for="even_adress">전화번호</label>
-		</div>
-		<div class="form-floating mb-3">
-			<input class="form-control" id="adress_area" type="text"> 
-			<label for="even_desc">주소(구)</label>
 		</div>
 		<div class="form-floating mb-3">
 			<input class="form-control" id="adress" type="text"> 
