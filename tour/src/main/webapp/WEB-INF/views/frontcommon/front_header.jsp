@@ -28,18 +28,7 @@
 				<li class="nav-item"><a class="nav-link" href="/front/pricing">결제</a></li>
 				<li class="nav-item"><a class="nav-link" href="/front/notice/list">공지사항</a></li>
 				<li class="nav-item"><a class="nav-link" href="/front/board">게시판</a></li>
-
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" id="navbarDropdownPortfolio"
-					href="#" role="button" data-bs-toggle="dropdown"
-					aria-expanded="false">Portfolio</a>
-					<ul class="dropdown-menu dropdown-menu-end"
-						aria-labelledby="navbarDropdownPortfolio">
-						<li><a class="dropdown-item" href="/front/portfolioOverview">Portfolio
-								Overview</a></li>
-						<li><a class="dropdown-item" href="/front/portfolioitem">Portfolio
-								Item</a></li>
-					</ul></li>
+				
 				<c:if test="${empty sessionScope.MEMBER_ID}">
 
 					<li class="nav-item"><a class="nav-link" href="#"
