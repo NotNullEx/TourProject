@@ -44,6 +44,8 @@ import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.common.PageMaker;
 import com.tour.project.common.ResultSendToClient;
 import com.tour.project.common.SuccessResponse;
+import com.tour.project.common.service.GunameService;
+import com.tour.project.common.vo.GunameVO;
 import com.tour.project.common.vo.PageCriteriaVO;
 
 /**
@@ -60,6 +62,9 @@ public class AdminControllerBYS {
 
 	@Autowired
 	private AdminNotificationService adminNotificationService;
+	
+	@Autowired
+	private GunameService gunameService;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminControllerBYS.class);
 
@@ -67,18 +72,22 @@ public class AdminControllerBYS {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = { "/admin/restaurant" })
-	public ModelAndView restaurant(HttpServletRequest request) {
+	public ModelAndView restaurant(HttpServletRequest request, PageCriteriaVO cri) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/restauranthome");
-		String res_adress_area[] = { "강남구", "강동구", "강서구", "강북구", "관악구", "광진구", "구로구", "금천구", "노원구", "동대문구", "도봉구",
-				"동작구", "마포구", "서대문구", "성동구", "성북구", "서초구", "송파구", "영등포구", "용산구", "양천구", "은평구", "종로구", "중구", "중랑구" };
-		List<String> area = new ArrayList<String>();
-		for (int i = 0; i < res_adress_area.length; i++) {
-			area.add(res_adress_area[i]);
+		int pagingList = 0; 
+		List<RestaurantVO> resVO = adminRestaurantService.listAll(cri);
+		List<GunameVO> area = gunameService.gunameList();
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pagingList = adminRestaurantService.getRestaurantTotal();
+		pageMaker.setTotalCount(pagingList);
+		if(resVO != null && resVO.size() > 0) {
+			mav.addObject("data", resVO);
 		}
-		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
-		resVO = adminRestaurantService.listAll();
-		mav.addObject("data", resVO);
 		mav.addObject("area", area);
+		mav.addObject("curPage", cri.getPage());
+		mav.addObject("totalCount", pagingList);
+		mav.addObject("pageMaker", pageMaker);
 		return mav;
 	}
 
@@ -89,14 +98,7 @@ public class AdminControllerBYS {
 
 	@RequestMapping(value = { "/admin/addrestaurant" })
 	public String addrestaurant(HttpServletRequest request, Model model) throws Exception {
-		List<Map<String, Object>> postCodeList = adminRestaurantService.getpostCodeList();
-		String res_adress_area[] = { "강남구", "강동구", "강서구", "강북구", "관악구", "광진구", "구로구", "금천구", "노원구", "동대문구", "도봉구",
-				"동작구", "마포구", "서대문구", "성동구", "성북구", "서초구", "송파구", "영등포구", "용산구", "양천구", "은평구", "종로구", "중구", "중랑구" };
-		List<String> area = new ArrayList<String>();
-		for (int i = 0; i < res_adress_area.length; i++) {
-			area.add(res_adress_area[i]);
-		}
-		model.addAttribute("postCodeList", postCodeList);
+		List<GunameVO> area = gunameService.gunameList();
 		model.addAttribute("area", area);
 		return "/admin/addrestaurant";
 	}
@@ -110,15 +112,6 @@ public class AdminControllerBYS {
 		} else {
 			System.out.println("faile");
 		}
-	}
-
-	@ResponseBody
-	@RequestMapping(value = { "/admin/deleteRestaurant" })
-	public Object deleteRestaurant() {
-		int result = 0;
-		// Gson을 활용한 경우
-		result = adminRestaurantService.deleteAll();
-		return new Gson().toJson(result);
 	}
 
 	@RequestMapping(value = { "/admin/regis" })
@@ -141,19 +134,28 @@ public class AdminControllerBYS {
 	}
 
 	@RequestMapping(value = { "/admin/selectRestaurantBySection" })
-	public ModelAndView selectSection(HttpServletRequest request) throws Exception {
+	public ModelAndView selectSection(HttpServletRequest request, PageCriteriaVO cri) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/restauranthome");
-		String res_adress_area[] = { "강남구", "강동구", "강서구", "강북구", "관악구", "광진구", "구로구", "금천구", "노원구", "동대문구", "도봉구",
-				"동작구", "마포구", "서대문구", "성동구", "성북구", "서초구", "송파구", "영등포구", "용산구", "양천구", "은평구", "종로구", "중구", "중랑구" };
-		List<String> area = new ArrayList<String>();
-		for (int i = 0; i < res_adress_area.length; i++) {
-			area.add(res_adress_area[i]);
-		}
+		int pagingList = 0;
 		String adress = request.getParameter("res_adress_area");
-		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
-		lists = adminRestaurantService.listBySection(adress);
-		mav.addObject("data", lists);
+		List<GunameVO> area = gunameService.gunameList();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pagingList = adminRestaurantService.getRestaurantTotal();
+		pageMaker.setTotalCount(pagingList);
+		map.put("adress", adress);
+		map.put("pageStart",  cri.getPageStart());
+		map.put("perPageNum", cri.getPerPageNum());
+		List<RestaurantVO> lists = adminRestaurantService.listBySection(map);
+		if(lists != null && lists.size() > 0) {
+			mav.addObject("data", lists);
+		}
 		mav.addObject("area", area);
+		mav.addObject("curPage", cri.getPage());
+		mav.addObject("totalCount", pagingList);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("address", adress);
 		return mav;
 	}
 

@@ -30,6 +30,8 @@ import com.tour.project.common.PageMaker;
 import com.tour.project.common.ResultSendToClient;
 import com.tour.project.common.StringUtil;
 import com.tour.project.common.UtilClass;
+import com.tour.project.common.service.GunameService;
+import com.tour.project.common.vo.GunameVO;
 import com.tour.project.common.vo.PageCriteriaVO;
 import com.tour.project.frontservice.FrontBoardService;
 import com.tour.project.frontservice.FrontComentsService;
@@ -62,6 +64,9 @@ public class FrontControllerKJM {
 	
 	@Autowired
 	private FrontFavoritesService frontFavoritesService;
+	
+	@Autowired
+	private GunameService gunameService;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(FrontControllerKJM.class);
 	/**
@@ -342,11 +347,24 @@ public class FrontControllerKJM {
 	
 	
 	@RequestMapping(value = {"/front/restaurant"})
-	public ModelAndView blog(Locale locale, Model model) {
+	public ModelAndView blog(Locale locale, Model model, PageCriteriaVO cri) throws Exception{
 		ModelAndView mav = new ModelAndView("/front/restaurant");	
+		int pagingList = 0; 
 		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
-		resVO = infoService.listAll();
-		mav.addObject("data",resVO);
+		List<GunameVO> area = gunameService.gunameList();
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		resVO = infoService.listAll(cri);
+		pagingList = resVO.size();
+		System.out.println(pagingList);
+		pageMaker.setTotalCount(pagingList);
+		if(resVO != null && resVO.size() > 0) {
+			mav.addObject("data", resVO);
+		}
+		mav.addObject("area", area);
+		mav.addObject("curPage", cri.getPage());
+		mav.addObject("totalCount", pagingList);
+		mav.addObject("pageMaker", pageMaker);
 		return mav;
 	}	
 	

@@ -125,9 +125,6 @@
 			<input class="form-control" id="rest_day" type="text" value="${data[0].res_rest_day}"> <label
 				for="even_id">쉬는 날(null)</label>
 		</div>
-		<!-- <div class="form-floating mb-3">
-             	<input class="form-control" id="image" type="text">
-             </div> -->
 		<div class="form-floating mb-3">
 			<input class="form-control" id="desc" type="text" value="${data[0].res_desc}"> <label
 				for="even_id">설명</label>

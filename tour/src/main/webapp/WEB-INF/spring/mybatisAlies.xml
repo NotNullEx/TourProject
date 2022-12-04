@@ -26,5 +26,7 @@
 			type="com.tour.project.frontvo.FavoritesVO" />
 		<typeAlias alias="TourRecommendVO"
 			type="com.tour.project.frontvo.TourRecommendVO"/>
+		<typeAlias alias="GunameVO"
+			type="com.tour.project.common.vo.GunameVO"/>
 	</typeAliases>
 </configuration>

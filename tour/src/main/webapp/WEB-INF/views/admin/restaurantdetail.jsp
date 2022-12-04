@@ -41,7 +41,6 @@
 			<li><strong>res_adress</strong><span>  ${data[0].res_adress}</span></li>
 			<li><strong>res_open_time</strong><span>  ${data[0].res_open_time}</span></li>
 			<li><strong>res_rest_day</strong><span>  ${data[0].res_rest_day}</span></li>
-			<li><strong>res_image</strong><span>  ${data[0].res_image}</span></li>
 			<li><strong>res_kind</strong><span>  ${data[0].res_kind}</span></li>
 			<li><strong>res_desc</strong><span>  ${data[0].res_desc}</span></li>
 			<li><strong>res_name</strong><span>  ${data[0].res_name}</span></li>
@@ -49,10 +48,10 @@
 		</ul>
 	</div>
 	<div class="col-lg-4 mb-5">
-			 <div class="card h-100 shadow border-0">
-					<button type="button" id="resetRes" class="w-100 btn btn-primary mb-2" onclick="location.href='/admin/reviseAll?res_code=${data[0].res_code}'">수정하기</button>
-					<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="deleteOne(${data[0].res_code})">삭제하기</button>
-					<button type="button" id="addRes" class="w-100 btn btn-primary mb-2" onclick="location.href='/admin/restaurant'">목록</button>
+			 <div class="card card-body">
+					<button type="button" id="resetRes" class="btn btn-primary mb-2" onclick="location.href='/admin/reviseAll?res_code=${data[0].res_code}'">수정하기</button>
+					<button type="button" id="addRes" class="btn btn-primary mb-2" onclick="deleteOne(${data[0].res_code})">삭제하기</button>
+					<button type="button" id="addRes" class="btn btn-primary mb-2" onclick="location.href='/admin/restaurant'">목록</button>
 			</div>
 		</div>
 </body>

@@ -1,6 +1,7 @@
 package com.tour.project.admindao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.tour.project.adminvo.RestaurantVO;
+import com.tour.project.common.vo.PageCriteriaVO;
 
 @Repository
 public class AdminRestaurantDao {
@@ -21,21 +23,15 @@ public class AdminRestaurantDao {
 		return result;
 	}
 	
-	public int deleteAll() {
-		int result = 0;
-		result = sqltemplate.delete("restaurant.deleteAll");
-		return result;
-	}
-	
 	public int deleteOne(String code) {
 		int result = 0;
 		result = sqltemplate.delete("restaurant.deleteOne",code);
 		return result;
 	}
 	
-	public List<RestaurantVO> listAll() {
+	public List<RestaurantVO> listAll(PageCriteriaVO cri) throws Exception{
 		List<RestaurantVO> result = new ArrayList<RestaurantVO>();
-		result = sqltemplate.selectList("restaurant.listAll");
+		result = sqltemplate.selectList("restaurant.listAll", cri);
 		return result;
 	}
 	
@@ -45,9 +41,9 @@ public class AdminRestaurantDao {
 		return result;
 	}
 	
-	public List<RestaurantVO> listBySection(String adress) {
+	public List<RestaurantVO> listBySection(HashMap<String, Object> map) {
 		List<RestaurantVO> result = new ArrayList<RestaurantVO>();
-		result = sqltemplate.selectList("restaurant.listBySection", adress);
+		result = sqltemplate.selectList("restaurant.listBySection", map);
 		return result;
 	}
 	
@@ -57,9 +53,9 @@ public class AdminRestaurantDao {
 		return result;
 	}
 	
-	public List<Map<String, Object>> getpostCodeList() throws Exception {
-		List<Map<String, Object>> postCodeList = sqltemplate.selectList("restaurant.postCodeList");
-		
-		return postCodeList;
+	public int getRestaurantTotal() throws Exception{
+		int result = 0;
+		result = sqltemplate.selectOne("restaurant.getRestaurantTotal");
+		return result;
 	}
 }

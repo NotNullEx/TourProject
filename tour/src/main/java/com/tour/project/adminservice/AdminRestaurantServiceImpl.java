@@ -1,6 +1,7 @@
 package com.tour.project.adminservice;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.tour.project.admindao.AdminRestaurantDao;
 import com.tour.project.adminvo.RestaurantVO;
+import com.tour.project.common.vo.PageCriteriaVO;
 
 @Service
 public class AdminRestaurantServiceImpl implements AdminRestaurantService{
@@ -21,13 +23,6 @@ public class AdminRestaurantServiceImpl implements AdminRestaurantService{
 		int result = restaurantDao.create(map);		
 		return result;
 	}
-	
-	@Override
-	public int deleteAll() {
-		int result = 0;
-		result = restaurantDao.deleteAll();
-		return result;
-	}
 
 	@Override
 	public int deleteOne(String code) {
@@ -37,8 +32,8 @@ public class AdminRestaurantServiceImpl implements AdminRestaurantService{
 	}
 
 	@Override
-	public List<RestaurantVO> listAll() {
-		List<RestaurantVO> result = restaurantDao.listAll();
+	public List<RestaurantVO> listAll(PageCriteriaVO cri) throws Exception{
+		List<RestaurantVO> result = restaurantDao.listAll(cri);
 		return result;
 	}
 
@@ -49,8 +44,8 @@ public class AdminRestaurantServiceImpl implements AdminRestaurantService{
 	}
 
 	@Override
-	public List<RestaurantVO> listBySection(String adress) {
-		List<RestaurantVO> result = restaurantDao.listBySection(adress);
+	public List<RestaurantVO> listBySection(HashMap<String, Object> map) {
+		List<RestaurantVO> result = restaurantDao.listBySection(map);
 		return result;
 	}
 	
@@ -62,9 +57,8 @@ public class AdminRestaurantServiceImpl implements AdminRestaurantService{
 	}
 
 	@Override
-	public List<Map<String, Object>> getpostCodeList() throws Exception {
-		// TODO Auto-generated method stub
-		return restaurantDao.getpostCodeList();
+	public int getRestaurantTotal() throws Exception {
+		return restaurantDao.getRestaurantTotal();
 	}
 	 
 }

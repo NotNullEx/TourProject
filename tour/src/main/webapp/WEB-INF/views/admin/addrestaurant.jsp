@@ -10,7 +10,6 @@
 </head>
 <script type="text/javascript">
 	function add() {
-		var tour_ps = $('#post option:selected').val();
 		var tour_address = document.getElementById('tour_address').value;
 		var telnum = document.getElementById('telnum').value;
 		var adress_area = $('#adress_area option:selected').val();
@@ -62,7 +61,6 @@
 			type : "POST",
 			url : "/admin/addRestaurantOK",
 			data : {
-				"tour_ps" : tour_ps,
 				"tour_address" : tour_address,
 				"telnum" : telnum,
 				"adress_area" : adress_area,
@@ -77,7 +75,7 @@
 			success : function(data) {
 				if (data.result == 1) {
 					alert("DB에 등록 완료되었습니다.");
-					window.location.assign("/admin/regis");
+					window.location.assign("/admin/restaurant");
 				} else {
 					alert("등록이 안되었습니다.");
 				}
@@ -94,18 +92,6 @@
 
 	<form id="contactForm">
 		<div class="form-floating mb-3">
-			<select id = "post">
-				<c:forEach var="list" items="${postCodeList}" varStatus="i">
-					<c:choose>
-						<c:when test="${i.index == 0 }">
-							<option value = "${list.tour_post_sn}" selected>${list.tour_post_sj}</option>
-						</c:when>
-						<c:otherwise>
-							<option value = "${list.tour_post_sn }">${list.tour_post_sj}</option>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</select>&nbsp;
 			한식 <input name="kind" type="radio" value="0" checked="checked"> &nbsp;
 			중식 <input name="kind" type="radio" value="1"> &nbsp;
 			일식 <input name="kind" type="radio" value="2"> &nbsp;
@@ -117,10 +103,10 @@
 				<c:forEach var="area" items="${area}" varStatus="i">
 					<c:choose>
 						<c:when test="${i.index == 0 }">
-							<option value = "${area}" selected>${area}</option>
+							<option value = "${area.gu_name}" selected>${area.gu_name}</option>
 						</c:when>
 						<c:otherwise>
-							<option value = "${area}">${area}</option>
+							<option value = "${area.gu_name}">${area.gu_name}</option>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -146,9 +132,6 @@
 			<input class="form-control" id="rest_day" type="text"> 
 			<label for="even_id">쉬는 날(null)</label>
 		</div>
-		<!-- <div class="form-floating mb-3">
-                                        <input class="form-control" id="image" type="text">
-                                    </div> -->
 		<div class="form-floating mb-3">
 			<input class="form-control" id="desc" type="text"> 
 			<label for="even_id">설명</label>
