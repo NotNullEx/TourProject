@@ -16,5 +16,6 @@ public interface AdminRestaurantService {
 	public List<RestaurantVO> listBySection(HashMap<String, Object> map);
 	public int reviseAll(Map<String, Object> map);
 	public int getRestaurantTotal() throws Exception;
+	public int getRestaurantTotalBySection(String adress) throws Exception;
 
 }

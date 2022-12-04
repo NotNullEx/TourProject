@@ -58,4 +58,10 @@ public class AdminRestaurantDao {
 		result = sqltemplate.selectOne("restaurant.getRestaurantTotal");
 		return result;
 	}
+	
+	public int getRestaurantTotalBySection(String adress) throws Exception{
+		int result = 0;
+		result = sqltemplate.selectOne("restaurant.getRestaurantTotalBySection", adress);
+		return result;
+	}
 }

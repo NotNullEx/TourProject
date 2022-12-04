@@ -60,5 +60,10 @@ public class AdminRestaurantServiceImpl implements AdminRestaurantService{
 	public int getRestaurantTotal() throws Exception {
 		return restaurantDao.getRestaurantTotal();
 	}
+
+	@Override
+	public int getRestaurantTotalBySection(String adress) throws Exception {
+		return restaurantDao.getRestaurantTotalBySection(adress);
+	}
 	 
 }

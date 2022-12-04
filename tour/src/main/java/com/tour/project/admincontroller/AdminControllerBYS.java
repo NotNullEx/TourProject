@@ -142,7 +142,7 @@ public class AdminControllerBYS {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pagingList = adminRestaurantService.getRestaurantTotal();
+		pagingList = adminRestaurantService.getRestaurantTotalBySection(adress);
 		pageMaker.setTotalCount(pagingList);
 		map.put("adress", adress);
 		map.put("pageStart",  cri.getPageStart());

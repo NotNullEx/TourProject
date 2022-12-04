@@ -37,6 +37,12 @@
 		SELECT count(*) FROM restaurant
 	</select>
 	
+	<select id="getRestaurantTotalBySection" resultType="int" parameterType="String">
+		SELECT count(*)
+		FROM restaurant
+		WHERE res_adress_area = #{adress}
+	</select>
+	
 	<delete id="deleteOne" parameterType="String">
 		DELETE FROM restaurant
 		WHERE res_code = #{code}
