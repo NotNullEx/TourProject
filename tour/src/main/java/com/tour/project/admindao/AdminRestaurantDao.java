@@ -64,4 +64,10 @@ public class AdminRestaurantDao {
 		result = sqltemplate.selectOne("restaurant.getRestaurantTotalBySection", adress);
 		return result;
 	}
+	
+	public List<RestaurantVO> findByRestaurant(Map<String, Object> map) throws Exception {
+		List<RestaurantVO> list = sqltemplate.selectList("restaurant.findByRestaurant",map);
+		
+		return list;
+	}
 }

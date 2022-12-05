@@ -17,5 +17,6 @@ public interface AdminRestaurantService {
 	public int reviseAll(Map<String, Object> map);
 	public int getRestaurantTotal() throws Exception;
 	public int getRestaurantTotalBySection(String adress) throws Exception;
+	public List<RestaurantVO> findByRestaurant(Map<String, Object> map) throws Exception;
 
 }

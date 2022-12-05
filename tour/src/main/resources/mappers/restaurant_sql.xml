@@ -55,5 +55,13 @@
 		,res_kind = #{kind}, res_desc = #{desc}, res_name = #{name}, res_upd_date = now()
 		WHERE res_code = #{code}
 	</update>
+	
+	<select id="findByRestaurant" resultType="RestaurantVO" parameterType="hashMap">
+		SELECT *
+		FROM restaurant
+		WHERE res_adress_area = #{res_adress_area}
+		ORDER BY res_code DESC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
 
 </mapper>

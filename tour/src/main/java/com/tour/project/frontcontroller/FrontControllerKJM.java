@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +30,7 @@ import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.PageMaker;
 import com.tour.project.common.ResultSendToClient;
 import com.tour.project.common.StringUtil;
+import com.tour.project.common.SuccessResponse;
 import com.tour.project.common.UtilClass;
 import com.tour.project.common.service.GunameService;
 import com.tour.project.common.vo.GunameVO;
@@ -347,16 +349,15 @@ public class FrontControllerKJM {
 	
 	
 	@RequestMapping(value = {"/front/restaurant"})
-	public ModelAndView blog(Locale locale, Model model, PageCriteriaVO cri) throws Exception{
+	public ModelAndView restaurant(Locale locale, Model model, PageCriteriaVO cri) throws Exception{
 		ModelAndView mav = new ModelAndView("/front/restaurant");	
-		int pagingList = 0; 
+		cri.setPerPageNum(9);
+		int pagingList = infoService.getRestaurantTotal();
 		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
 		List<GunameVO> area = gunameService.gunameList();
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		resVO = infoService.listAll(cri);
-		pagingList = resVO.size();
-		System.out.println(pagingList);
 		pageMaker.setTotalCount(pagingList);
 		if(resVO != null && resVO.size() > 0) {
 			mav.addObject("data", resVO);
@@ -366,7 +367,35 @@ public class FrontControllerKJM {
 		mav.addObject("totalCount", pagingList);
 		mav.addObject("pageMaker", pageMaker);
 		return mav;
-	}	
+	}
+	
+	@GetMapping(value = "/front/selected/restaurant")
+	@ResponseBody
+	@Transactional(readOnly = true)
+	public SuccessResponse selectedRestaurant(@RequestParam("optVal") String optVal,@RequestParam("page") int page,HttpServletRequest request, HttpServletResponse response ) throws Exception {
+		PageCriteriaVO cri = new PageCriteriaVO();
+		cri.setPage(page);
+		Map<String, Object> reqMap = new HashMap<String, Object>();
+		reqMap.put("res_adress_area", optVal);
+		reqMap.put("pageStart",  cri.getPageStart());
+		reqMap.put("perPageNum", cri.getPerPageNum());
+		List<RestaurantVO> list = infoService.findByRestaurant(reqMap);
+		int cnt = infoService.getRestaurantTotalBySection(optVal);
+		List<GunameVO> area = gunameService.gunameList();
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(cnt);
+		Map<String, Object> responseMap = new HashMap<String, Object>();
+		if(list != null && list.size() > 0) {
+			responseMap.put("data", list);
+		}
+		responseMap.put("optVal", optVal);
+		responseMap.put("area", area);
+		responseMap.put("curPage", cri.getPage());
+		responseMap.put("totalCount", cnt);
+		responseMap.put("pageMaker", pageMaker);
+		return new SuccessResponse(response.SC_OK, "", responseMap);
+	}
 	
 	
 	@RequestMapping(value = {"/front/event"})

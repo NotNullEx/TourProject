@@ -65,5 +65,10 @@ public class AdminRestaurantServiceImpl implements AdminRestaurantService{
 	public int getRestaurantTotalBySection(String adress) throws Exception {
 		return restaurantDao.getRestaurantTotalBySection(adress);
 	}
+
+	@Override
+	public List<RestaurantVO> findByRestaurant(Map<String, Object> map) throws Exception {
+		return restaurantDao.findByRestaurant(map);
+	}
 	 
 }
