@@ -290,6 +290,7 @@ public class AdminControllerBYS {
 
 		ModelAndView mav = new ModelAndView("/admin/eventhome");
 		List<EventVO> lists = new ArrayList<EventVO>();
+		cri.setPerPageNum(9);
 		lists = adminEventService.listAll(cri);
 		int total = adminEventService.getTotal();
 		PageMaker pageMaker = new PageMaker();

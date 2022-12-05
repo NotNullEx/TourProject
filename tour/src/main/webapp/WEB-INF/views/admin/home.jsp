@@ -9,7 +9,68 @@
 <jsp:include page="../admincommon/admin_header_common.jsp" />
 </head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
+
+
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(memberChart);
+		google.charts.setOnLoadCallback(contentsChart);
+		google.charts.setOnLoadCallback(boardChart);
+		
+		function memberChart() {
+		
+		  var data = google.visualization.arrayToDataTable([
+		    ['Task', 'Hours per Day'],
+		    ['가입자 수',11],
+		    ['탈퇴자 수',2]
+		  ]);
+		
+		  var options = {
+		    title: '회원수'
+		  };
+		
+		  var chart = new google.visualization.PieChart(document.getElementById('memberChart'));
+		
+		  chart.draw(data, options);
+		}
+		
+		function contentsChart() {
+			
+			  var data = google.visualization.arrayToDataTable([
+			    ['Task', 'Hours per Day'],
+			    ['관광지 수',5],
+			    ['음식점 수',2],
+			    ['행사 수',2]
+			  ]);
+			
+			  var options = {
+			    title: '컨텐츠 수'
+			  };
+			
+			  var chart = new google.visualization.PieChart(document.getElementById('contentsChart'));
+			
+			  chart.draw(data, options);
+			}
+		
+		function boardChart() {
+			
+			  var data = google.visualization.arrayToDataTable([
+			    ['Task', 'Hours per Day'],
+			    ['게시글 수',5],
+			    ['댓글 수',2],
+			  ]);
+			
+			  var options = {
+			    title: '게시글 수'
+			  };
+			
+			  var chart = new google.visualization.PieChart(document.getElementById('boardChart'));
+			
+			  chart.draw(data, options);
+			}
+	
+	
 	function go_modify(seq){
 		window.location.assign("/admin/notificationUpdate?noti_seq="+seq);
 	}
@@ -48,24 +109,17 @@
 	<main class="flex-shrink-0">
 		<jsp:include page="../admincommon/admin_header.jsp" />
 		<!-- Header-->
-		<header class="bg-dark py-5">
-			<div class="container px-5">
-				<div class="row gx-5 align-items-center justify-content-center">
-					<div class="col-lg-8 col-xl-7 col-xxl-6">
-						<div class="my-5 text-center text-xl-start">
-
-							<h1 class="display-5 fw-bolder text-white mb-2">
-								<a href="/admin/tourDetail?tour_seq=${lists[0].tour_seq}"
-									class="text-decoration-none link-light">${lists[0].tour_post_sj}</a>
-							</h1>
-							<p class="lead fw-normal text-white-50 mb-4">${lists[0].tour_new_address}</p>
-						</div>
-					</div>
-					<div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-						<img class="img-fluid rounded-3 my-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." />
-					</div>
-				</div>
-			</div>
+		<header >
+			<table>
+				<tbody>
+					<tr>
+						<td><div id="memberChart" style="width: 600px; height: 300px;"></div></td>
+						<td><div id="contentsChart" style="width: 600px; height: 300px;"></div></td>
+						<td><div id="boardChart" style="width: 600px; height: 300px;"></div></td>
+					</tr>
+				</tbody>
+			</table>
+			
 		</header>
 
 		<section class="py-5">

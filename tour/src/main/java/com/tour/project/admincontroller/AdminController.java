@@ -162,6 +162,18 @@ public class AdminController {
 		if(notiList != null && notiList.size() > 0) {
 			models.addObject("list", notiList);
 		}
+		
+		// 구해야 하는것
+		// 가입자 수
+		// 탈퇴자 수
+		
+		
+		// 관광지 수
+		// 음식점 수
+		// 행사 수
+		
+		// 게시글 수
+		// 댓글 수
 		models.addObject("curPage",cri.getPage());
 		models.addObject("totalCount", total);
 		models.addObject("pageMaker", pageMaker);
@@ -176,11 +188,8 @@ public class AdminController {
 		
 		try {
 			lists = service.tourOneList(tour_seq);
-			String[] result = lists.get(0).getTour_address().split(" ");
-			String address = result[2];
 
-			models.addObject("sb",lists);
-			models.addObject("address",address);
+			models.addObject("lists",lists);
 			return models;
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -249,7 +258,7 @@ public class AdminController {
 	@RequestMapping(value = { "/admin/myNotiInfo" })
 	public ModelAndView myNotiInfo(HttpServletRequest request, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/mynotiinfo");
-		
+		String adminId = (String) request.getSession().getAttribute("ADMIN_ID");
 		String adminSeq = request.getParameter("admin_seq");
 		List<NotificationVO> list = new ArrayList<NotificationVO>();
 		int pagingList = 0; 
@@ -260,11 +269,12 @@ public class AdminController {
 		map.put("perPageNum", cri.getPerPageNum());
 		pageMaker.setCri(cri);
 		list = adminNotificationService.myNotiInfo(map);
+		Map<String, Object> rtnVal = adminService.amindInfo(adminId);
+		String email = (String) rtnVal.get("admin_email");
 		pagingList = adminNotificationService.getmyNotiTotal(adminSeq);
 		pageMaker.setTotalCount(pagingList);
-
+		mav.addObject("adminId" , email);
 		mav.addObject("seq",adminSeq);
-		mav.addObject("list", list);
 		mav.addObject("pageMaker", pageMaker);
 		
 		if(list != null && list.size() >0) {
@@ -273,5 +283,15 @@ public class AdminController {
 			throw new Exception();
 		}
 		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = { "/admin/adminDel" })
+	public int adminDel(HttpServletRequest request, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
+		String emails = request.getParameter("emails");
+		int result= 0;
+		result = adminService.amindDel(emails);
+		
+		return result;
 	}
 }

@@ -77,8 +77,8 @@ a:hover {
                     <div class="row gx-5 justify-content-center">
                         <div class="col-lg-8 col-xl-6">
                             <div class="text-center">
-                                <h2 class="fw-bolder">요즘 핫한 서울 볼거리!</h2>
-                                <p class="lead fw-normal text-muted mb-5">2030세대들이 가볼만한 이쁜곳!</p>
+                                <h2 class="fw-bolder">요즘 핫한 서울 행사!</h2>
+                                <p class="lead fw-normal text-muted mb-5">여러가지 행사에 참가해보세요!</p>
                             </div>
                         </div>
                     </div>
@@ -86,12 +86,12 @@ a:hover {
                          <c:forEach var="data" items="${data}">
 	                    	<div class="col-lg-4 mb-5">
 	                            <div class="card h-100 shadow border-0">
-	                                <img class="card-img-top" src="${data.even_main_img }" alt="..." />
+	                                <img class="card-img-top" src="${data.even_main_img }" alt="..." width="316px;" height="316px;"/>
 	                                <div class="card-body p-4">
 	                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2 d-inline-block text-truncate" style="max-width: 150px;">
-	                                    	상세: <a class="text-decoration-none link-light" href="${data.even_org_link}" target="_blank">${data.even_org_link}</a>  
+	                                    	<a class="text-decoration-none link-light" href="${data.even_org_link}" target="_blank">${data.even_org_link}</a>  
 	                                    </div>
-	                                    <h5 class="card-title mb-3"><a href="${data.even_org_link}" class="text-decoration-none link-dark">${data.even_title}</a> </h5>
+	                                    <h5 class="card-title mb-3"><a href="/admin/eventDetail?even_code=${data.even_code}" class="text-decoration-none link-dark">${data.even_title}</a> </h5>
 	                                    <p class="card-text mb-0">${data.even_place}</p>
 	                                </div>
 	                            </div>
@@ -100,83 +100,6 @@ a:hover {
                 	</div>
                 </div>
             </section>
-			<table class="table table-striped tablelay">
-				<thead>
-					<tr>
-						<th style="width: 2%">No.</th>
-						<th style="width: 10%">이벤트 이름</th>
-						<th style="width: 30%">정보</th>
-						<th style="width: 10%">이용료</th>
-						<th style="width: 10%">장소</th>
-						<th style="width: 10%">날짜</th>
-						<th style="width: 30%">홈페이지</th>
-					</tr>
-				</thead>
-
-				<tbody class="tableInfo">
-					<c:set var="num" value="${totalCount - ((curPage-1) * 10) }" />
-
-
-
-					<c:forEach var="data" items="${data}" varStatus="vs">
-						<tr>
-							<td valign="middle"><c:out value="${num}" /></td>
-							<td class="box"><a class="text-decoration-none link-dark"
-								href="/admin/eventDetail?even_code=${data.even_code}">${data.even_title}</a></td>
-							<th class="box">이용대상 : ${data.even_use_trgt} <br> <c:choose>
-									<c:when
-										test="${data.even_org_name == null or data.even_org_name eq ''}">
-
-									</c:when>
-									<c:otherwise>
-							        	기관명 : ${data.even_org_name} <br>
-									</c:otherwise>
-								</c:choose> <c:choose>
-									<c:when
-										test="${data.even_player == null or data.even_player eq ''}">
-
-									</c:when>
-									<c:otherwise>
-							        	출연자 : ${data.even_player} <br>
-									</c:otherwise>
-								</c:choose> <c:choose>
-									<c:when
-										test="${data.even_program == null or data.even_program eq ''}">
-
-									</c:when>
-									<c:otherwise>
-							        	프로그램 : ${data.even_program} <br>
-									</c:otherwise>
-								</c:choose> <c:choose>
-									<c:when
-										test="${data.even_etc_desc == null or data.even_etc_desc eq ''}">
-
-									</c:when>
-									<c:otherwise>
-							        	기타 : ${data.even_etc_desc} <br>
-									</c:otherwise>
-								</c:choose>
-							</th>
-							<td class="box"><c:choose>
-									<c:when
-										test="${data.even_use_fee == null or data.even_use_fee eq ''}">
-										무료<br>
-									</c:when>
-									<c:otherwise>
-										${data.even_use_fee}
-									</c:otherwise>
-								</c:choose></td>
-							<td class="box">${data.even_place}</td>
-							<td class="box">${data.even_date}</td>
-							<td class="box"><a
-								class="d-inline-block text-truncate link-dark"
-								style="max-width: 150px;" href="${data.even_org_link}"
-								target="_blank">${data.even_org_link}</a></td>
-						</tr>
-						<c:set var="num" value="${num - 1 }" />
-					</c:forEach>
-				</tbody>
-			</table>
 			<ul class="pagination justify-content-center">
 				<c:if test="${pageMaker.prev}">
 					<li class="page-item"><a class="page-link"

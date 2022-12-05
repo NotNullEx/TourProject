@@ -33,7 +33,7 @@ public class AdminLoginController {
 	}
 	
 	@RequestMapping(value = {"/admin/loginOk"})
-	public void loginOk(@RequestParam Map<String,Object> map,HttpServletResponse response, HttpServletRequest request) {
+	public void loginOk(@RequestParam Map<String,Object> map,HttpServletResponse response, HttpServletRequest request) throws Exception{
 		String id = map.get("id").toString();
 		String pass = map.get("password").toString();
 		String pasword = UtilClass.SHA256(pass);

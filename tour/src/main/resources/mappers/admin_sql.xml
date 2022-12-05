@@ -89,4 +89,11 @@
 		VALUES(#{tour_seq},#{url});
 	</insert>
 	
+	<update id="adminDel" parameterType="String">
+		UPDATE admin
+		SET admin_status= 1
+		WHERE admin_email = #{value}
+	
+	</update>
+	
 </mapper>

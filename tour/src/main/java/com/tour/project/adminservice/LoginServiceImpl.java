@@ -16,7 +16,7 @@ public class LoginServiceImpl implements LoginService{
 	private AdmingLoginDao dao;
 	
 	@Override
-	public int login(Map<String, Object> map) {
+	public int login(Map<String, Object> map) throws Exception{
 		int result = -1;
 		try {
 			result = dao.adminLogin(map);
@@ -29,7 +29,7 @@ public class LoginServiceImpl implements LoginService{
 	}
 
 	@Override
-	public Map<String, Object> amindInfo(String id) {
+	public Map<String, Object> amindInfo(String id) throws Exception{
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			result = dao.getAdminInfo(id);
@@ -37,6 +37,12 @@ public class LoginServiceImpl implements LoginService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return result;
+	}
+
+	@Override
+	public int amindDel(String id) throws Exception {
+		int result = dao.daminDel(id);
 		return result;
 	}
 }

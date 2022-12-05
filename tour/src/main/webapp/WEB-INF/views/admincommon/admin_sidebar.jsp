@@ -65,7 +65,7 @@
       <li class="sidebar-brand">
         <a style="color: white">마이페이지</a>
       </li>
-      <li><a href="/admin/myInfo?admin_email=${adminId}">내 정보</a></li>
+      <li><a href="/admin/myInfo">내 정보</a></li>
       <li><a href="/admin/myNotiInfo?admin_seq=${seq}">내가쓴 공지사항</a></li>
       <li><a href="#">메뉴 3</a></li>
       <li><a href="#">메뉴 4</a></li>

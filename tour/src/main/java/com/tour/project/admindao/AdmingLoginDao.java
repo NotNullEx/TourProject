@@ -14,6 +14,7 @@ public class AdmingLoginDao {
 	private SqlSessionTemplate sqltemplate;
 	
 	public int adminLogin(Map<String, Object> map) throws SQLException {
+		
 		int rtnVal = sqltemplate.selectOne("tour.adminLogin", map);
     	return rtnVal;
 	}
@@ -21,8 +22,12 @@ public class AdmingLoginDao {
 	public Map<String, Object> getAdminInfo(String id) throws SQLException{
 		
 		Map<String, Object> result = sqltemplate.selectOne("tour.adminInfo",id);
-		
 		return result;
+	}
+	
+	public int daminDel(String id) throws Exception{
+		int result = sqltemplate.update("tour.adminDel",id);
 		
+		return result;		
 	}
 }

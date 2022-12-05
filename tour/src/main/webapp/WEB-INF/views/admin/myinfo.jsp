@@ -10,6 +10,23 @@
 
 <!-- <link href="../resources/css/footer.css" rel="stylesheet"/>  -->
 <script type="text/javascript">
+	
+	function tour_outmember(){
+		var emails = $("#emails").val();
+		if(confirm("정말 탈퇴하시겠습니까?")){
+			$.ajax({
+				type: "POST",
+				url: "/admin/adminDel",
+				data:{
+					"emails" : emails
+				},
+				success : function(data){
+					
+				}
+			});
+		}
+	}
+
 	function tour_update(){
 		
 		var name = $("#names").val();
@@ -71,7 +88,7 @@
 							</div>
 							<div class="mb-3">
 								<label class="float-start form-label">이메일</label> <input
-									type="text" class="form-control" id="emails" name="email"
+									type="text" class="form-control" id="emails" name="email" disabled="disabled"
 									value="${email}" >
 							</div>
 							<div class="mb-3">
@@ -94,6 +111,8 @@
 							</div>
 							<button type="button" id="signIn"
 								class="w-100 btn btn-primary mb-2" onclick="tour_update()">수정</button>
+							<button type="button" id="signOut"
+								class="w-100 btn btn-primary mb-2" onclick="tour_outmember()">탈퇴</button>
 						</form>
 					</div>
 				</div>
