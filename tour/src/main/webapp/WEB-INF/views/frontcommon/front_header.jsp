@@ -25,7 +25,6 @@
 				<li class="nav-item"><a class="nav-link" href="/front/tourList">관광지</a></li>
 				<li class="nav-item"><a class="nav-link" href="/front/event">행사</a></li>
 				<li class="nav-item"><a class="nav-link" href="/front/restaurant">먹거리</a></li>
-				<li class="nav-item"><a class="nav-link" href="/front/pricing">결제</a></li>
 				<li class="nav-item"><a class="nav-link" href="/front/notice/list">공지사항</a></li>
 				<li class="nav-item"><a class="nav-link" href="/front/board">게시판</a></li>
 				

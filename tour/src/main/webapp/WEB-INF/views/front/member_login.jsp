@@ -42,7 +42,7 @@
 </script>
 <body class="d-flex flex-column">
 	<jsp:include page="../frontcommon/front_header.jsp" />
-	<div class="bg-light rounded-	 py-5 px-4 px-md-5 mb-5">
+	<div class="bg-light rounded-	 py-5 px-4 px-md-5 mb-5" style = "padding-top : 20px;">
 		<div class="text-center mb-5">
 			<div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
 				<i class="bi bi-envelope"></i>
@@ -75,47 +75,9 @@
 
 		</div>
 	</div>
-	<div class="row gx-5 row-cols-2 row-cols-lg-4 py-5">
-		<div class="col">
-			<div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
-				<i class="bi bi-chat-dots"></i>
-			</div>
-			<div class="h5 mb-2">Chat with us</div>
-			<p class="text-muted mb-0">Chat live with one of our support
-				specialists.</p>
-		</div>
-		<div class="col">
-			<div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
-				<i class="bi bi-people"></i>
-			</div>
-			<div class="h5">Ask the community</div>
-			<p class="text-muted mb-0">Explore our community forums and
-				communicate with other users.</p>
-		</div>
-		<div class="col">
-			<div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
-				<i class="bi bi-question-circle"></i>
-			</div>
-			<div class="h5">Support center</div>
-			<p class="text-muted mb-0">Browse FAQ's and support articles to
-				find solutions.</p>
-		</div>
-		<div class="col">
-			<div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
-				<i class="bi bi-telephone"></i>
-			</div>
-			<div class="h5">Call us</div>
-			<p class="text-muted mb-0">Call us during normal business hours
-				at (555) 892-9403.</p>
-		</div>
-	</div>
 
 	<jsp:include page="../frontcommon/front_footer.jsp" />
 	<jsp:include page="../frontcommon/front_footer_common.jsp" />
-	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-	<!-- * *                               SB Forms JS                               * *-->
-	<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 

@@ -23,7 +23,7 @@
 	}
 	.img-fluid {
 		width : 100%;
-		height : auto !important;
+		height : 400px !important;
 	}
 </style>
 <script type="text/javascript">
@@ -110,7 +110,7 @@
 					<div class="row gx-5 align-items-center">
 						<div class="col-lg-6">
 							<img class="img-fluid rounded mb-5 mb-lg-0"
-								src="${list.image_url }" alt="..." width = "300px" height = "300px"/>
+								src="${list.image_url }" alt="..." width = "300px"/>
 						</div>
 						<div class="col-lg-6">
 							<h2 class="fw-bolder">${list.tour_post_sj }</h2>

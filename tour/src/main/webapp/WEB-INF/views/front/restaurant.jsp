@@ -27,6 +27,7 @@
 					if (data.code == 200) {
 						var list = data.obj.data;
 						var html = "";
+						$("#restaurantText").text(optVal+"음식점 리스트");
 						$("#restaurant").empty();
 						$(".pagination").empty();
 						for (var item of list) {
@@ -68,7 +69,7 @@
 
 		<section class="py-5">
 			<div class="container px-5">
-				<h2 class="fw-bolder fs-5 mb-4">음식점 전체 리스트</h2>
+				<h2 class="fw-bolder fs-5 mb-4" id = "restaurantText">음식점 전체 리스트</h2>
 				<select id = "guselect" onchange="javascript:selectedRestaurantGu(1)">
 					<option value = "ALL" selected>ALL</option>
 					<c:forEach var = "item" items="${area }" varStatus="i">
