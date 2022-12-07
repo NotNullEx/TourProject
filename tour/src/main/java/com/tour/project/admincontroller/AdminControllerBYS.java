@@ -165,15 +165,17 @@ public class AdminControllerBYS {
 	}
 
 	@RequestMapping(value = { "/admin/reviseAll" })
-	public ModelAndView reviseAll(HttpServletRequest request) throws Exception {
+	public ModelAndView reviseAll(@RequestParam String res_code) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/restaurant_revise");
-		String code = request.getParameter("res_seq");
 		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
-		lists = adminRestaurantService.listOne(code);
+		lists = adminRestaurantService.listOne(res_code);
+		List<GunameVO> area = gunameService.gunameList();
+		mav.addObject("area", area);
 		mav.addObject("data", lists);
 		return mav;
 	}
-
+	
+	@ResponseBody
 	@RequestMapping(value = { "/admin/reviseAllOK" })
 	public void reviseAllOK(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception {
 		int isRevised = adminRestaurantService.reviseAll(map);

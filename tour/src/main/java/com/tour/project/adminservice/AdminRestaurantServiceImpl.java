@@ -38,8 +38,8 @@ public class AdminRestaurantServiceImpl implements AdminRestaurantService{
 	}
 
 	@Override
-	public List<RestaurantVO> listOne(String search) {
-		List<RestaurantVO> result = restaurantDao.listOne(search);
+	public List<RestaurantVO> listOne(String code) {
+		List<RestaurantVO> result = restaurantDao.listOne(code);
 		return result;
 	}
 

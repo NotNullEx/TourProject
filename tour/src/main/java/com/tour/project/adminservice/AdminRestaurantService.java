@@ -12,7 +12,7 @@ public interface AdminRestaurantService {
 	public int create(Map<String, Object> map);
 	public int deleteOne(String code);
 	public List<RestaurantVO> listAll(PageCriteriaVO cri) throws Exception;
-	public List<RestaurantVO> listOne(String search);
+	public List<RestaurantVO> listOne(String code);
 	public List<RestaurantVO> listBySection(HashMap<String, Object> map);
 	public int reviseAll(Map<String, Object> map);
 	public int getRestaurantTotal() throws Exception;

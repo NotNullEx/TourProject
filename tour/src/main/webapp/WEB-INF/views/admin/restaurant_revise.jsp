@@ -13,27 +13,19 @@
 		var tour_ps = document.getElementById('tour_ps').value;
 		var tour_address = document.getElementById('tour_address').value;
 		var telnum = document.getElementById('telnum').value;
-		var adress_area = document.getElementById('adress_area').value;
+		var adress_area = $('#adress_area option:selected').val();
 		var adress = document.getElementById('adress').value;
 		var opentime = document.getElementById('opentime').value;
 		var rest_day = document.getElementById('rest_day').value;
 		var desc = document.getElementById('desc').value;
 		var name = document.getElementById('name').value;
 		var kind = $('input[name=kind]:checked').val();
-		if (tour_ps == "") {
-			alert("tour_ps를 입력해주세요.");
-			return false;
-		}
 		if (tour_address == "") {
 			alert("tour_address를 입력해주세요.");
 			return false;
 		}
 		if (telnum == "") {
 			alert("telnum을 입력해주세요.");
-			return false;
-		}
-		if (adress_area == "") {
-			alert("adress_area를 입력해주세요.");
 			return false;
 		}
 		if (adress == "") {
@@ -56,16 +48,10 @@
 			alert("id을 입력해주세요.");
 			return false;
 		}
-		if (kind == "") {
-			alert("kind를 확인해 주세요.");
-			return false;
-		}
-		
 		$.ajax({
 			type : "POST",
 			url : "/admin/reviseAllOK",
 			data : {
-				"tour_ps" : tour_ps,
 				"tour_address" : tour_address,
 				"telnum" : telnum,
 				"adress_area" : adress_area,
@@ -90,7 +76,7 @@
 	}
 	function cancel(code) {
 		alert("수정을 취소합니다.")
-		window.location.assign("/admin/restaurantDetail?res_seq="+code);
+		window.location.assign("/admin/restaurantDetail?res_code="+code);
 	}
 </script>
 <body>
@@ -98,8 +84,25 @@
 	
 	<div id="contactForm">
 		<div class="form-floating mb-3">
-			<input class="form-control" id="tour_ps" type="text" value="${data[0].tour_post_sn}" disabled="disabled"> <label
-				for="even_code">tour_post_sn</label>
+             한식 <input name="kind" type="radio" value="0" checked="checked"> &nbsp;
+             중식 <input name="kind" type="radio" value="1"> &nbsp;
+             일식 <input name="kind" type="radio" value="2"> &nbsp;
+             양식 <input name="kind" type="radio" value="3"> &nbsp;
+        </div>
+        <div class="form-floating mb-3">
+		<h5>(구)</h5>
+			<select id = "adress_area">
+				<c:forEach var="area" items="${area}" varStatus="i">
+					<c:choose>
+						<c:when test="${i.index == 0 }">
+							<option value = "${area.gu_name}" selected>${area.gu_name}</option>
+						</c:when>
+						<c:otherwise>
+							<option value = "${area.gu_name}">${area.gu_name}</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</select>
 		</div>
 		<div class="form-floating mb-3">
 			<input class="form-control" id="tour_address" type="text" value="${data[0].tour_address}"> <label
@@ -108,10 +111,6 @@
 		<div class="form-floating mb-3">
 			<input class="form-control" id="telnum" type="text" value="${data[0].res_telnum}"> <label
 				for="even_adress">전화번호</label>
-		</div>
-		<div class="form-floating mb-3">
-			<input class="form-control" id="adress_area" type="text" value="${data[0].res_adress_area}"> <label
-				for="even_desc">주소(구)</label>
 		</div>
 		<div class="form-floating mb-3">
 			<input class="form-control" id="adress" type="text" value="${data[0].res_adress}"> <label
@@ -133,15 +132,10 @@
 			<input class="form-control" id="name" type="text" value="${data[0].res_name}"> <label
 				for="even_id">이름</label>
 		</div>
-		<div class="form-floating mb-3">
-             한식 <input name="kind" type="radio" value="0" checked="checked">
-             중식 <input name="kind" type="radio" value="1">
-             일식 <input name="kind" type="radio" value="2">
-             양식 <input name="kind" type="radio" value="3">
-        </div>
+		
 		<div class="d-grid">
-			<button type="button" onclick="revise(${data[0].res_seq})">음식점 DB 수정</button>
-			<button type="button" onclick="cancel(${data[0].res_seq})">취소</button>
+			<button type="button" onclick="revise(${data[0].res_code})">음식점 데이터 수정</button>
+			<button type="button" onclick="cancel(${data[0].res_code})">취소</button>
 		</div>
 	</div>
 	

@@ -29,6 +29,10 @@
 			});
 		}
 	}
+	function go_modify(code){
+		var res_code = code;
+		window.location.assign("/admin/reviseAll?res_code="+res_code);
+	}
 </script>
 
 <style>
@@ -57,7 +61,7 @@
 		<div>
 			<ul>
 				<c:forEach var="area" items="${area}">
-					<button type="button" class="btn btn-warning" onclick="location='/admin/selectRestaurantBySection?res_adress_area=${area.gu_name}'">${area.gu_name}</button>
+					<button type="button" class="btn btn-warning" style="margin: 2px" onclick="location='/admin/selectRestaurantBySection?res_adress_area=${area.gu_name}'">${area.gu_name}</button>
 				</c:forEach>
 			</ul>
 		</div>
@@ -103,7 +107,7 @@
 								</c:choose></td>
 							<td>${data.res_telnum}</td>
 							<td>
-								<button type="button" id="modi" class="btn btn-primary" onclick="location.href='/admin/reviseAll?res_code=${data.res_code}">수정</button>
+								<button type="button" id="modi" class="btn btn-primary" onclick="javascript: go_modify(${data.res_code})">수정</button>
 								<button type="button" id="del" class="btn btn-success" onclick="javascript: deleteOne(${data.res_code})">삭제</button>
 							</td>
 						</tr>
@@ -112,67 +116,29 @@
 				</tbody>
 			</table>
 			<ul class="pagination justify-content-center">
-				<c:choose>
-					<c:when test="${address != null and address != ''}">
-						<c:if test="${pageMaker.prev}">
-							<li class="page-item"><a class="page-link"
-								href='<c:url value="/admin/selectRestaurantBySection?page=${pageMaker.startPage-1}&res_adress_area=${address}"/>'>prev</a></li>	
-						</c:if>
-					</c:when>
-					<c:otherwise>
-						<c:if test="${pageMaker.prev}">
-							<li class="page-item"><a class="page-link"
-								href='<c:url value="/admin/restaurant?page=${pageMaker.startPage-1}"/>'>prev</a></li>	
-						</c:if>
-					</c:otherwise>
-				</c:choose>
+				<c:if test="${pageMaker.prev}">
+					<li class="page-item"><a class="page-link"
+						href='<c:url value="/admin/restaurant?page=${pageMaker.startPage-1}&res_adress_area=${address}"/>'>prev</a></li>	
+				</c:if>
 				<c:forEach begin="${pageMaker.startPage}"
 					end="${pageMaker.endPage }" var="pageNum" varStatus="status">
 					<c:choose>
-						<c:when test="${address != null and address != ''}">
-							<c:choose>
-								<c:when test="${pageMaker.cri.page == pageNum}">
-									<li class="page-item active" aria-current="page"><a
-										class="page-link"
-										href='<c:url value="/admin/selectRestaurantBySection?page=${pageNum}&res_adress_area=${address}"/>'>${pageNum}</a>
-									</li>
-								</c:when>
-								<c:otherwise>
-									<li class="page-item "><a class="page-link"
-										href='<c:url value="/admin/selectRestaurantBySection?page=${pageNum}&res_adress_area=${address}"/>'>${pageNum}</a></li>
-								</c:otherwise>
-							</c:choose>
+						<c:when test="${pageMaker.cri.page == pageNum}">
+							<li class="page-item active" aria-current="page"><a
+								class="page-link"
+								href='<c:url value="/admin/restaurant?page=${pageNum}&res_adress_area=${address}"/>'>${pageNum}</a>
+							</li>
 						</c:when>
 						<c:otherwise>
-							<c:choose>
-								<c:when test="${pageMaker.cri.page == pageNum}">
-									<li class="page-item active" aria-current="page"><a
-										class="page-link"
-										href='<c:url value="/admin/restaurant?page=${pageNum}"/>'>${pageNum}</a>
-									</li>
-								</c:when>
-								<c:otherwise>
-									<li class="page-item "><a class="page-link"
-										href='<c:url value="/admin/restaurant?page=${pageNum}"/>'>${pageNum}</a></li>
-								</c:otherwise>
-							</c:choose>	
+							<li class="page-item "><a class="page-link"
+								href='<c:url value="/admin/restaurant?page=${pageNum}&res_adress_area=${address}"/>'>${pageNum}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
-				<c:choose>
-					<c:when test="${address != null and address != ''}">
-						<c:if test="${pageMaker.next && pageMaker.endPage >0}">
-							<li class="page-item"><a class="page-link"
-								href='<c:url value="/admin/selectRestaurantBySection?page=${pageMaker.endPage+1}&res_adress_area=${address}"/>'>next</a></li>
-						</c:if>
-					</c:when>
-					<c:otherwise>
-						<c:if test="${pageMaker.next && pageMaker.endPage >0}">
-							<li class="page-item"><a class="page-link"
-								href='<c:url value="/admin/restaurant?page=${pageMaker.endPage+1}"/>'>next</a></li>
-						</c:if>
-					</c:otherwise>
-				</c:choose>	
+				<c:if test="${pageMaker.next && pageMaker.endPage >0}">
+					<li class="page-item"><a class="page-link"
+						href='<c:url value="/admin/restaurant?page=${pageMaker.endPage+1}&res_adress_area=${address}"/>'>next</a></li>
+				</c:if>
 			</ul>
 		</section>
 	</main>

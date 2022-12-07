@@ -9,6 +9,13 @@
 	display: inline-block;
 }	
 
+.tag-square {
+	border-style: solid;
+	box-sizing: border-box;
+	width: 80px;
+	display: inline-block;
+}	
+
 ul{
    list-style:none;
    text-align: center;   
@@ -152,6 +159,10 @@ a {
 		border-color: red;
 		color: red;
 	}
+	
+	.tag-square {
+		border-style: solid;
+	}
 
     .board-list-title > li:first-child,
     .board-list-title > li:nth-child(4),
@@ -181,6 +192,10 @@ a {
 		color: red;
 		box-sizing: border-box;
 	}
+	.tag-square {
+	border-style: solid;
+	box-sizing: border-box;
+	}	
 	.board-list-title {
         display: none;
     }

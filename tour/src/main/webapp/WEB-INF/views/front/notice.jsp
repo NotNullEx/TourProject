@@ -5,7 +5,7 @@
 <html lang="en">
     <head>
    		<jsp:include page="../frontcommon/front_header_common.jsp"/>
-   		<link href="${path}/resources/css/notice_style.css" rel="stylesheet" type="text/css">
+   		<link href="/resources/css/notice_style.css" rel="stylesheet" type="text/css">
         <title>공지사항</title>
     </head>
 
@@ -28,7 +28,14 @@
 						<c:forEach var="list" items="${list}" begin="0" end="1">
 							<li>
 								<ul class="board-list-inner">
-									<li class="board-num"><div class="tag-square-red">공지</div></li>
+								<c:choose>
+									<c:when test="${pageMaker.cri.page == 1}">
+										<li class="board-num"><div class="tag-square-red">공지</div></li>
+									</c:when>
+									<c:otherwise>
+										<li class="board-num"><div class="tag-square">공지</div></li>
+									</c:otherwise>
+								</c:choose>
 									<li class="board-title-con txt-l">
 										<a href="/front/notice/detail?noti_seq=${list.noti_seq}" style="color: inherit;">${list.noti_title}</a>
 									</li>
@@ -44,7 +51,7 @@
 						<c:forEach var="list" items="${list}"  begin="2" >
 							<li>
 								<ul class="board-list-inner">
-									<li class="board-num">공지</li>
+									<li class="board-num"><div class="tag-square">공지</div></li>
 									<li class="board-title-con txt-l">
 										<a href="/front/notice/detail?noti_seq=${list.noti_seq}" style="color: inherit;">${list.noti_title}</a>
 									</li>
@@ -67,7 +74,7 @@
 								<c:choose>
 									<c:when test = "${pageMaker.cri.page == pageNum}">
 										<li class="page-item active" aria-current="page">
-											<a class="page-link" href='<c:url value="/front/notice/list?page=${pageNum}"/>'>${pageNum}</a>
+											<a class="page-link noti_a" href='<c:url value="/front/notice/list?page=${pageNum}"/>'>${pageNum}</a>
 										</li>
 									</c:when>
 									<c:otherwise>
