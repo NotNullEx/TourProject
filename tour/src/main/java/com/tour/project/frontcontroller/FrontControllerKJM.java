@@ -349,13 +349,17 @@ public class FrontControllerKJM {
 	
 	
 	@RequestMapping(value = {"/front/restaurant"})
-	public ModelAndView restaurant(Locale locale, Model model, PageCriteriaVO cri) throws Exception{
+	public ModelAndView restaurant(HttpServletRequest request, Locale locale, Model model, PageCriteriaVO cri) throws Exception{
 		ModelAndView mav = new ModelAndView("/front/restaurant");	
 		cri.setPerPageNum(9);
 		int pagingList = infoService.getRestaurantTotal();
 		List<RestaurantVO> resVO = new ArrayList<RestaurantVO>();
 		List<GunameVO> area = gunameService.gunameList();
 		PageMaker pageMaker = new PageMaker();
+		String device = UtilClass.isDevice(request);
+		if ("MOBILE".equals(device)) {
+			pageMaker.setDisplayPageNum(5);
+		} 
 		pageMaker.setCri(cri);
 		resVO = infoService.listAll(cri);
 		pageMaker.setTotalCount(pagingList);
@@ -383,6 +387,10 @@ public class FrontControllerKJM {
 		int cnt = infoService.getRestaurantTotalBySection(optVal);
 		List<GunameVO> area = gunameService.gunameList();
 		PageMaker pageMaker = new PageMaker();
+		String device = UtilClass.isDevice(request);
+		if ("MOBILE".equals(device)) {
+			pageMaker.setDisplayPageNum(5);
+		}
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(cnt);
 		Map<String, Object> responseMap = new HashMap<String, Object>();

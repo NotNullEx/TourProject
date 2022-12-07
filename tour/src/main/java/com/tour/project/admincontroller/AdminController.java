@@ -152,10 +152,14 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = { "/admin" })
-	public ModelAndView dataInsert(PageCriteriaVO cri) throws Exception {
+	public ModelAndView dataInsert(PageCriteriaVO cri,HttpServletRequest request) throws Exception {
 		ModelAndView models = new ModelAndView("/admin/home");
 		List<NotificationVO> notiList = adminNotificationService.pagingNotiList(cri);
 		PageMaker pageMaker = new PageMaker();
+		String device = UtilClass.isDevice(request);
+		if ("MOBILE".equals(device)) {
+			pageMaker.setDisplayPageNum(5);
+		}
 		pageMaker.setCri(cri);
 		int total = adminNotificationService.getTotal();
 		pageMaker.setTotalCount(total);

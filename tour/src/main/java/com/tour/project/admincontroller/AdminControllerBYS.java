@@ -44,6 +44,7 @@ import com.tour.project.adminvo.RestaurantVO;
 import com.tour.project.common.PageMaker;
 import com.tour.project.common.ResultSendToClient;
 import com.tour.project.common.SuccessResponse;
+import com.tour.project.common.UtilClass;
 import com.tour.project.common.service.GunameService;
 import com.tour.project.common.vo.GunameVO;
 import com.tour.project.common.vo.PageCriteriaVO;
@@ -78,6 +79,10 @@ public class AdminControllerBYS {
 		List<RestaurantVO> resVO = adminRestaurantService.listAll(cri);
 		List<GunameVO> area = gunameService.gunameList();
 		PageMaker pageMaker = new PageMaker();
+		String device = UtilClass.isDevice(request);
+		if ("MOBILE".equals(device)) {
+			pageMaker.setDisplayPageNum(5);
+		}
 		pageMaker.setCri(cri);
 		pagingList = adminRestaurantService.getRestaurantTotal();
 		pageMaker.setTotalCount(pagingList);
@@ -294,6 +299,10 @@ public class AdminControllerBYS {
 		lists = adminEventService.listAll(cri);
 		int total = adminEventService.getTotal();
 		PageMaker pageMaker = new PageMaker();
+		String device = UtilClass.isDevice(request);
+		if ("MOBILE".equals(device)) {
+			pageMaker.setDisplayPageNum(5);
+		}
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(total);
 

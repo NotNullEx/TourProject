@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.tour.project.adminservice.AdminTourDataService;
 import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.PageMaker;
+import com.tour.project.common.UtilClass;
 import com.tour.project.common.vo.PageCriteriaVO;
 
 @Controller
@@ -32,12 +33,16 @@ public class AdminAnotherController {
 	private AdminTourDataService service;
 	
 	@RequestMapping(value = {"/admin/tourList"})
-	public ModelAndView about(PageCriteriaVO cri) throws Exception {
+	public ModelAndView about(PageCriteriaVO cri, HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/tour_list");
 		
 		List<TourVO> lists = new ArrayList<TourVO>();
 		int total =0;
 		PageMaker pageMaker = new PageMaker();
+		String device = UtilClass.isDevice(request);
+		if ("MOBILE".equals(device)) {
+			pageMaker.setDisplayPageNum(5);
+		}
 		pageMaker.setCri(cri);
 		lists = service.tourList(cri);
 		total = service.getToatal();
