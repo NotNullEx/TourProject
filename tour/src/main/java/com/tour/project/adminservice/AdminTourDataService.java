@@ -17,4 +17,5 @@ public interface AdminTourDataService {
 	public int tourDeleteDate(String seq)throws Exception;
 	public int insUrl(HashMap<String, String> map) throws Exception;
 	public int chkUrl(HashMap<String, String> map) throws Exception;
+	public List<TourVO> getTourListAll() throws Exception;
 }

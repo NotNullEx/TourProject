@@ -78,6 +78,12 @@ public class AdminTourDataServiceImpl implements AdminTourDataService{
 		else return result;
 	}
 
+	@Override
+	public List<TourVO> getTourListAll() throws Exception {
+	
+		return dao.getTourListAll();
+	}
+
 	
 
 }

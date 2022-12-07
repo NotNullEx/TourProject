@@ -96,4 +96,23 @@
 	
 	</update>
 	
+	<select id = "tourListAll" resultType="TourVO" >
+		select tour_seq
+			,tour_post_sn
+			,tour_cmmn_fax
+			,tour_address
+			,tour_new_address
+			,tour_subway_info
+			,tour_cmmn_hmpg_url
+			,tour_cmmn_telno
+			,tour_cmmn_bsnde
+			,tour_cmmn_rstde
+			,tour_cmmn_use_time
+			,tour_post_sj
+			,tour_gu_name 
+		from tour
+		order by tour_seq desc;
+		
+	</select> 
+	
 </mapper>

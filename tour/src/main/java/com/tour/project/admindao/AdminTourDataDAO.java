@@ -68,4 +68,10 @@ public class AdminTourDataDAO {
 		return result;
 		
 	}
+	
+	public List<TourVO> getTourListAll() throws Exception {
+		List<TourVO> list = sqltemplate.selectList("tour.tourListAll");
+		
+		return list;
+	}
 }

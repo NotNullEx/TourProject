@@ -28,9 +28,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -99,5 +107,47 @@ public class UtilClass {
         } else {
             return "PC";
         }
+    }
+    
+    public static Workbook excelSupportUtil(String[] headers, String[] keys, List<LinkedHashMap<String, Object>> list) {
+    	Workbook wb = null;
+    	try {
+	    	wb = new XSSFWorkbook();
+	    	Sheet sheet = wb.createSheet("관광지 정보");
+	    	
+	    	Row row = null;
+	        Cell cell = null;
+	        int rowNum = 0;
+	    	
+	        row = sheet.createRow(rowNum++);
+	        
+	        // header
+	        for (int i = 0; i < headers.length; i++) {
+	        	cell = row.createCell(i);
+	        	cell.setCellValue(headers[i]);
+	        }
+	        
+	        int cellIndex = 0;
+	        
+	        if (!StringUtil.isEmpty(list)) {
+	        	for (LinkedHashMap<String, Object> map : list) {
+	        		row = sheet.createRow(rowNum++);
+	        		
+	        		for (String key : keys) {
+	        			String cellData = String.valueOf(map.get(key));
+	        			cell = row.createCell(cellIndex++);
+	        			cell.setCellValue(cellData);
+	        		}
+	        		cellIndex = 0;
+	        	}
+	        	
+	        }
+	        
+    	} catch (Exception e) {
+    		throw e;
+    	} 
+    	
+    	return wb;
+        
     }
 }
