@@ -294,11 +294,16 @@ public class AdminController {
 		mav.addObject("seq",adminSeq);
 		mav.addObject("pageMaker", pageMaker);
 		
-		if(list != null && list.size() >0) {
-			mav.addObject("list",list);
-		}else {
-			throw new Exception();
+		try {
+			if(list != null && list.size() >0) {
+				mav.addObject("list",list);
+			}else {
+				mav.addObject("msg","등록한 공지사항이 없습니다.");
+			}
+		}catch (Exception e) {
+			log.error(e.getMessage());
 		}
+		
 		return mav;
 	}
 	

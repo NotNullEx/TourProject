@@ -8,9 +8,18 @@
 <title>Insert title here</title>
 </head>
 <jsp:include page="../admincommon/admin_header_common.jsp" />
+<script type="text/javascript">
+	$(document).ready(function(){
+		var msg = $('#msg').val();
+		if(msg != null && msg != ''){
+			alert(msg);
+		}
+	});
+
+</script>
 <body>
 	<main>
-		
+		<input type="hidden" id="msg" value="${msg}">
 		<jsp:include page="../admincommon/admin_header.jsp" />
 		<div id="page-wrapper">
 			<jsp:include page="../admincommon/admin_sidebar.jsp" />
