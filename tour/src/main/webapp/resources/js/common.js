@@ -4,7 +4,9 @@ var pagejs = {
 		var pageNation = "";
 		if (obj.pageMaker.prev) {
 			pageNation += "<li class=\"page-item\">";
-			pageNation += "	<a class=\"page-link\" href =\"\">prev</a>";
+			pageNation += "	<a class=\"page-link\" href = \"javascript:pagejs.goPaging("+_callback+","+ (obj.pageMaker.startPage - 1) +")\">";
+			pageNation += "	prev"
+			pageNation += "	</a>";
 			pageNation += "</li>";
 		}
 		
