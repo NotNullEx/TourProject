@@ -1,5 +1,6 @@
 package com.tour.project.adminservice;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -84,6 +85,17 @@ public class AdminTourDataServiceImpl implements AdminTourDataService{
 		return dao.getTourListAll();
 	}
 
-	
+	@Override
+	public List<HashMap<String, Integer>> memTotal() throws Exception {
+		List<HashMap<String, Integer>> list = new ArrayList<HashMap<String,Integer>>();
+		list = dao.memTotal();
+		return list;
+	}
 
+	@Override
+	public HashMap<String, Integer> getContentsTotal() throws Exception {
+		HashMap<String, Integer> list = new HashMap<String, Integer>();
+		list = dao.getContentsTotal();
+		return list;
+	}
 }

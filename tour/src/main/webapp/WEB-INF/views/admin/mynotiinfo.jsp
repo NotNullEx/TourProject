@@ -24,13 +24,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="data" items="${list}" varStatus="status">
-						<tr>
-						<th scope="row">${status.index}</th>
-						<td>${data.admin_name}</td>
-						<td>${data.noti_title}</td>
-						<td>${data.noti_reg_date}</td>
+					<c:set var="num" value="${totalCount - ((curPage-1) * 10) }"/>
+					<c:forEach var="data" items="${list}">
+					<tr>
+						<th scope="row"><c:out value="${num}"/></th>
+						<td><c:out value="${data.admin_name}"/></td>
+						<td><a href="/admin/notificationDetail?noti_seq=${data.noti_seq}"><c:out value="${data.noti_title}"/></a></td>
+						<td><c:out value="${data.noti_reg_date}"/></td>
 					</tr>
+					<c:set var = "num" value = "${num - 1 }" />
 					</c:forEach>
 				</tbody>
 			</table>

@@ -115,4 +115,19 @@
 		
 	</select> 
 	
+	<select id="memTotal" resultType="hashMap">
+		SELECT mem_status as status, count(mem_seq) as cnt
+		FROM member
+		group by mem_status
+	</select>
+	<select id="getContentsTotal" resultType="hashMap">
+		SELECT tu.tourcnt,eve.eventcnt,res.rescnt,boa.boacnt,com.comcnt
+    	FROM
+           ( select count(*) tourcnt from tour) tu
+        ,  ( select count(*) eventcnt from event) eve
+        ,  ( select count(*) rescnt from restaurant) res
+        ,  ( select count(*) boacnt from board) boa
+        ,  ( select count(*) comcnt from coments) com
+		
+	</select>
 </mapper>

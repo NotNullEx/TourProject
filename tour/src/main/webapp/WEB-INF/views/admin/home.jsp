@@ -19,11 +19,13 @@
 		google.charts.setOnLoadCallback(boardChart);
 		
 		function memberChart() {
-		
-		  var data = google.visualization.arrayToDataTable([
-		    ['Task', 'Hours per Day'],
-		    ['가입자 수',11],
-		    ['탈퇴자 수',2]
+		var signin = parseInt($('#signin').val());
+		var signout = parseInt($('#signout').val());
+		console.log(signin);
+		var data = google.visualization.arrayToDataTable([
+			['회원', '수'],
+		    ['가입자 수',signin],
+		    ['탈퇴자 수',signout]
 		  ]);
 		
 		  var options = {
@@ -36,12 +38,14 @@
 		}
 		
 		function contentsChart() {
-			
+			var tour = parseInt($('#tour').val());
+			var event = parseInt($('#event').val());
+			var res = parseInt($('#res').val());
 			  var data = google.visualization.arrayToDataTable([
 			    ['Task', 'Hours per Day'],
-			    ['관광지 수',5],
-			    ['음식점 수',2],
-			    ['행사 수',2]
+			    ['관광지 수',tour],
+			    ['음식점 수',res],
+			    ['행사 수',event]
 			  ]);
 			
 			  var options = {
@@ -54,11 +58,12 @@
 			}
 		
 		function boardChart() {
-			
+			var board = parseInt($('#board').val());
+			var coments = parseInt($('#coments').val());
 			  var data = google.visualization.arrayToDataTable([
 			    ['Task', 'Hours per Day'],
-			    ['게시글 수',5],
-			    ['댓글 수',2],
+			    ['게시글 수',board],
+			    ['댓글 수',coments],
 			  ]);
 			
 			  var options = {
@@ -110,12 +115,36 @@
 		<jsp:include page="../admincommon/admin_header.jsp" />
 		<!-- Header-->
 		<header >
+			<div class="row gx-5 justify-content-center">
+					<div class="col-lg-8 col-xl-6">
+						<div class="text-center">
+							<h2 class="fw-bolder">사이트 현황</h2>
+							
+						</div>
+					</div>
+				</div>
 			<table>
 				<tbody>
 					<tr>
-						<td><div id="memberChart" style="width: 600px; height: 300px;"></div></td>
-						<td><div id="contentsChart" style="width: 600px; height: 300px;"></div></td>
-						<td><div id="boardChart" style="width: 600px; height: 300px;"></div></td>
+						<td>
+							<div id="memberChart" style="width: 600px; height: 300px;">
+								<input type="hidden" id="signin" value="${signin}">
+								<input type="hidden" id="signout" value="${signout}">
+							</div>
+						</td>
+						<td>
+							<div id="contentsChart" style="width: 600px; height: 300px;">
+								<input type="hidden" id="tour" value="${tour}">
+								<input type="hidden" id="event" value="${event}">
+								<input type="hidden" id="res" value="${res}">
+							</div>
+						</td>
+						<td>
+							<div id="boardChart" style="width: 600px; height: 300px;">
+								<input type="hidden" id="board" value="${board}">
+								<input type="hidden" id="coments" value="${coments}">
+							</div>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -124,14 +153,7 @@
 
 		<section class="py-5">
 			<div class="container px-5 my-5">
-				<div class="row gx-5 justify-content-center">
-					<div class="col-lg-8 col-xl-6">
-						<div class="text-center">
-							<h2 class="fw-bolder">요즘 핫한 서울 볼거리!</h2>
-							<p class="lead fw-normal text-muted mb-5">2030세대들이 가볼만한 이쁜곳!</p>
-						</div>
-					</div>
-				</div>
+				
 				<div class="row gx-5">
 					<!-- Call to action-->
 					<aside class="bg-gradient rounded-3 p-4 p-sm-5 mt-5">

@@ -1,5 +1,6 @@
 package com.tour.project.admindao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -73,5 +74,19 @@ public class AdminTourDataDAO {
 		List<TourVO> list = sqltemplate.selectList("tour.tourListAll");
 		
 		return list;
+	}
+	
+	public List<HashMap<String, Integer>> memTotal() throws Exception{
+
+		List<HashMap<String, Integer>> list = new ArrayList<HashMap<String,Integer>>();
+		list = sqltemplate.selectList("tour.memTotal");
+
+		return list;
+	}
+
+	public HashMap<String, Integer> getContentsTotal() throws Exception{
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map = sqltemplate.selectOne("tour.getContentsTotal");
+		return map;
 	}
 }

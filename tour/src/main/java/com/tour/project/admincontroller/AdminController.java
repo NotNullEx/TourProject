@@ -167,17 +167,27 @@ public class AdminController {
 			models.addObject("list", notiList);
 		}
 		
+		List<HashMap<String, Integer>> memTotal = new ArrayList<HashMap<String,Integer>>();
+		HashMap<String, Integer> getContentsTotal = new HashMap<String, Integer>();	
+		memTotal = service.memTotal();
+		getContentsTotal= service.getContentsTotal();
 		// 구해야 하는것
 		// 가입자 수
 		// 탈퇴자 수
-		
-		
+		if(memTotal != null && memTotal.size() >0) {
+			models.addObject("signin", memTotal.get(0).get("cnt"));
+			models.addObject("signout", memTotal.get(1).get("cnt"));
+		}
 		// 관광지 수
 		// 음식점 수
 		// 행사 수
-		
-		// 게시글 수
-		// 댓글 수
+		if(getContentsTotal != null && getContentsTotal.size()>0) {
+			models.addObject("tour", getContentsTotal.get("tourcnt"));
+			models.addObject("event", getContentsTotal.get("eventcnt"));
+			models.addObject("res", getContentsTotal.get("rescnt"));
+			models.addObject("board", getContentsTotal.get("boacnt"));
+			models.addObject("coments", getContentsTotal.get("comcnt"));
+		}
 		models.addObject("curPage",cri.getPage());
 		models.addObject("totalCount", total);
 		models.addObject("pageMaker", pageMaker);
@@ -277,6 +287,9 @@ public class AdminController {
 		String email = (String) rtnVal.get("admin_email");
 		pagingList = adminNotificationService.getmyNotiTotal(adminSeq);
 		pageMaker.setTotalCount(pagingList);
+		
+		mav.addObject("curPage",cri.getPage());
+		mav.addObject("totalCount", pagingList);
 		mav.addObject("adminId" , email);
 		mav.addObject("seq",adminSeq);
 		mav.addObject("pageMaker", pageMaker);
