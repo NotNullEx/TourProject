@@ -11,6 +11,17 @@
 	position: relative;
 }
 
+.tour_btn{
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;  
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;  
+    background-color: white;
+    color: skyblue;
+    margin: 5px;
+    float: right !important;
+}
 .detail_tab ul li {
 	float: left;
 	width: 25%;

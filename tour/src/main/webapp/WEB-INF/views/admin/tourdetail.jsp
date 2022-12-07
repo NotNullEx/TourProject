@@ -36,18 +36,17 @@
 	<div id="contents">
 		<button type="button" onclick="go_modify()">수정</button>
 		<button type="button" onclick="go_delete()">삭제</button>
-		<button type="button" onclick="history.back()">목록</button>
-		<input type="hidden" id="tour_seq" value="${lists[0].tour_seq}">
+		<input type="hidden" id="tour_seq" value="${sb[0].tour_seq}">
 		<div class="titleType1">
 			<div class="area_tag">
 				<div class="brandingIcon">
 					<ul class="food"></ul>
 				</div>
 			</div>
-			<h2 id="topTitle" class="select_tab on">${lists[0].tour_post_sj}</h2>
+			<h2 id="topTitle" class="select_tab on">${sb[0].tour_post_sj}</h2>
 			
 			<div class="area_address" id="topAddr">
-				<span>${lists[0].tour_gu_name}</span>
+				<span>${address}</span>
 			</div>
 			<div class="post_area">
 				<button type="button" class="btn_good" onclick="setLike();">
@@ -73,7 +72,7 @@
 							class="swiper-container swiper-container-initialized swiper-container-horizontal">
 							<div class="swiper-wrapper" id="pImgList">
 								<div class="swiper-slide swiper-slide-active">
-									<img class="swiper-lazy swiper-lazy-loaded" style="width:100%;height:100%;object-fit: contain;" alt="ss" src="${lists[0].image_url}">
+									<img class="swiper-lazy swiper-lazy-loaded" style="width:100%;height:100%;object-fit: contain;" alt="ss" src="/resources/img/20221015_133042.jpg">
 								</div>
 							</div>
 						</div>
@@ -85,13 +84,13 @@
 						<div class="inr_wrap" style="overflow: visible; height: auto;">
 							<div class="inr">
 								<ul>
-									<li><strong>문의 및 안내</strong><span class="mo"><a href="tel:${lists[0].tour_cmmn_telno }">${lists[0].tour_cmmn_telno }</a></span><span class="pc">${lists[0].tour_cmmn_telno }</span></li>
-									<li><strong>주소</strong><span>${lists[0].tour_new_address }</span></li>
-									<li><strong>이용시간</strong><span>${lists[0].tour_cmmn_use_time }</span></li>
-									<li><strong>휴일</strong><span>${lists[0].tour_cmmn_rstde }</span></li>
-									<li><strong>장애인 안내</strong><span>${lists[0].tour_bf_desc }</span></li>
-									<li><strong>운영 요일</strong><span>${lists[0].tour_cmmn_bsnde } </span></li>
-									<li><strong>홈페이지</strong><span><a href="${lists[0].tour_cmmn_hmpg_url }" target="_blank">${lists[0].tour_cmmn_hmpg_url }</a></span></li>
+									<li><strong>문의 및 안내</strong><span class="mo"><a href="tel:${sb[0].tour_cmmn_telno }">${sb[0].tour_cmmn_telno }</a></span><span class="pc">${sb[0].tour_cmmn_telno }</span></li>
+									<li><strong>주소</strong><span>${sb[0].tour_new_address }</span></li>
+									<li><strong>이용시간</strong><span>${sb[0].tour_cmmn_use_time }</span></li>
+									<li><strong>휴일</strong><span>${sb[0].tour_cmmn_rstde }</span></li>
+									<li><strong>장애인 안내</strong><span>${sb[0].tour_bf_desc }</span></li>
+									<li><strong>운영 요일</strong><span>${sb[0].tour_cmmn_bsnde } </span></li>
+									<li><strong>홈페이지</strong><span><a href="${sb[0].tour_cmmn_hmpg_url }" target="_blank">${sb[0].tour_cmmn_hmpg_url }</a></span></li>
 								</ul>
 							</div>
 						</div>

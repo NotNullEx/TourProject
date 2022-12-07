@@ -140,7 +140,7 @@
 				for="even_theme_code">이벤트 테마분류</label>
 		</div>
 		<div class="d-grid">
-			<button type="button" onclick="revise(${data[0].even_code})">음식점 DB 수정</button>
+			<button type="button" onclick="revise(${data[0].even_code})">이벤트 데이터 수정</button>
 			<button type="button" onclick="cancel(${data[0].even_code})">취소</button>
 		</div>
 	</div>

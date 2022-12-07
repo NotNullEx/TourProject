@@ -1,8 +1,55 @@
 @charset "EUC-KR";
 
+.wrap_contView {
+    position: relative;
+    width: 100%;
+    margin-top: 24px;
+}
 
+.wrap_contView .area_txtView {
+    position: relative;
+    padding-bottom: 0 !important;
+}
+
+.wrap_contView .area_txtView .inr_wrap .inr {
+    overflow: hidden;
+}
+.inr{
+	margin-top: 5%;
+}
+.wrap_contView .area_txtView ul li strong {
+    float: none;
+    margin-right: 0;
+    position: relative;
+    display: table-cell;
+    width: 128px;
+    padding: 0 0 0 12px;
+    font-weight: 700;
+    color: #333;
+}
+.wrap_contView .area_txtView ul li {
+    display: none;
+    float: left;
+    width: 50%;
+    padding: 0 0 9px 0;
+    display: table;
+    font-size: 15px;
+    font-weight: 400;
+    background: none !important;
+}
+
+.wrap_contView .area_txtView ul li span {
+    float: none;
+    width: auto;
+    display: table-cell;
+    color: #666;
+    padding-right: 20px;
+    line-height: 1.4;
+}
 .input_wrap{
 	padding: 5px 20px;
+	line-height:300px;
+	margin-top: 10%;
 }
 .input_wrap_num{
 	display: none;
@@ -15,43 +62,33 @@
 	margin-left: 5px;
 	border: none;
 }
-.even_info_name{
-	
-}
 .even{
 	height: 100vh;
-}
-li{
-   list-style:none;
-   text-align: center;   
-}
-
-input{
-	padding: 5px;
-    font-size: 17px;
 }
 
 .regdater{
 	float: right;
 	border: none;
+	padding: 5px;
+    font-size: 17px;
+    margin-right: 3%;
 }
-.btn{
-  	display: inline-block;
-    font-size: 22px;
-    padding: 6px 12px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    font-weight: 600;
-    width: 140px;
-    height: 41px;
-    line-height: 39px;
-    text-align : center;
-    margin-left : 30px;
-    cursor : pointer;
+.even_btn{
+	border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;  
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;  
+ 	border: 1px solid skyblue;
+    background-color: white;
+    color: skyblue;
+    margin: 5px;
+    
 }
 .btn_wrap{
 	padding-left : 80px;
 	margin-top : 50px;
+	float: right;
+	margin-right: 10px;
 }
 .bimg {
 	max-height: 400px;
@@ -60,4 +97,7 @@ input{
 	background-position: center;
 	object-fit: cover;
 	float: left;
+	margin-left: auto;
+	margin-right: auto;
+	vertical-align:middle;
 }
