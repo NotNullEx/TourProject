@@ -12,15 +12,21 @@
 }
 
 .tour_btn{
-	border: 1px solid skyblue;
 	border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;  
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;  
+ 	border: 1px solid skyblue;
     background-color: white;
     color: skyblue;
     margin: 5px;
-    float: right !important;
+}
+.btn_wrap{
+	padding-left : 80px;
+	margin-top : 5px;
+	margin-bottom: 5px;
+	float: right;
+	margin-right: 10px;
 }
 .detail_tab ul li {
 	float: left;
@@ -37,10 +43,6 @@ dl, ul, ol, menu, li {
 .detail_tab ul li a {
 	line-height: 39px;
 	font-size: 15px;
-}
-
-element.style {
-	
 }
 
 @media screen and (max-width: 1023px) .detail_tab ul li a {
@@ -88,10 +90,6 @@ a:link, a:visited, a:hover, a:focus, a:active {
 	margin: 35px 0 18px;
 }
 
-.titleType1 .post_area>button {
-	float: left;
-}
-
 .post_area .btn_good {
 	padding: 0 10px 0 0;
 }
@@ -120,12 +118,7 @@ a:link, a:visited, a:hover, a:focus, a:active {
     font-size: 16px;
     vertical-align: top;
 }
-button {
-    border: 0 none;
-    background-color: transparent;
-    cursor: pointer;
-    outline: 0 none;
-}
+
 .wrap_contView {
     position: relative;
     width: 100%;
