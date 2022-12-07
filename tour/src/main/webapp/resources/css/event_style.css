@@ -1,0 +1,63 @@
+@charset "EUC-KR";
+
+
+.input_wrap{
+	padding: 5px 20px;
+}
+.input_wrap_num{
+	display: none;
+}
+.even_title{
+	text-align: center;
+	margin-top: 15px;
+}
+.even_info{
+	margin-left: 5px;
+	border: none;
+}
+.even_info_name{
+	
+}
+.even{
+	height: 100vh;
+}
+li{
+   list-style:none;
+   text-align: center;   
+}
+
+input{
+	padding: 5px;
+    font-size: 17px;
+}
+
+.regdater{
+	float: right;
+	border: none;
+}
+.btn{
+  	display: inline-block;
+    font-size: 22px;
+    padding: 6px 12px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-weight: 600;
+    width: 140px;
+    height: 41px;
+    line-height: 39px;
+    text-align : center;
+    margin-left : 30px;
+    cursor : pointer;
+}
+.btn_wrap{
+	padding-left : 80px;
+	margin-top : 50px;
+}
+.bimg {
+	max-height: 400px;
+	max-width: 500px;
+	background-repeat: no-repeat;
+	background-position: center;
+	object-fit: cover;
+	float: left;
+}
