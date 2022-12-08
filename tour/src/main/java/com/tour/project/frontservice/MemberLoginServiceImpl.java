@@ -39,4 +39,10 @@ public class MemberLoginServiceImpl implements MemberLoginService {
 		}
 		return result;
 	}
+
+	@Override
+	public int memDel(String id) throws Exception {
+		int result = dao.memDel(id);
+		return result;
+	}
 }

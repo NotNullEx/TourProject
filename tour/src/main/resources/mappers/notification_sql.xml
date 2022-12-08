@@ -75,6 +75,7 @@
 			noti_status
 		from notification
 		WHERE admin_seq = #{seq}
+		AND noti_status = #{noti}
 		ORDER BY noti_seq DESC
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>

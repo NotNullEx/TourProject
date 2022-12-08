@@ -7,6 +7,4 @@ public interface LoginService {
 	public int login(Map<String, Object> map) throws Exception;
 	
 	public Map<String, Object> amindInfo(String id) throws Exception;
-	
-	public int amindDel(String id) throws Exception;
 }

@@ -245,8 +245,11 @@ public class FrontControllerKJM {
 
 	
 	@RequestMapping(value = {"/front/board"})
-	public ModelAndView blogPost(PageCriteriaVO cri) {
+	public ModelAndView blogPost(PageCriteriaVO cri,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/front/board");
+		
+		String mem_email = (String) request.getSession().getAttribute("MEMBER_ID");
+		
 		List<BoardVO> bv = new ArrayList<BoardVO>();
 		int total = 0;
 		PageMaker pageMaker = new PageMaker();
@@ -256,7 +259,9 @@ public class FrontControllerKJM {
 		pageMaker.setTotalCount(total);
 		if(bv != null && bv.size() > 0) {
 			mav.addObject("list", bv);
+			
 		}
+		mav.addObject("mem_email",mem_email);
 		mav.addObject("curPage", cri.getPage());
 		mav.addObject("totalCount", total);
 		mav.addObject("pageMaker", pageMaker);
@@ -505,6 +510,7 @@ public class FrontControllerKJM {
 			map.put("pass", repass);
 		}
 		result = memberUpdateService.memberUpdate(map);
+		request.getSession().invalidate();
 		return new Gson().toJson(result);
 	}
 	

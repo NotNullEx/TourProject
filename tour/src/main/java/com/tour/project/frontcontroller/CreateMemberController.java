@@ -33,12 +33,21 @@ public class CreateMemberController {
 		String pas = request.getParameter("password");
 		String psw = UtilClass.SHA256(pas);
 		map.put("password", psw);
-		int isCreated =  service.create(map);
-		if(isCreated ==1) {
-			System.out.println("success");
+		String email = request.getParameter("email");
+		int emailChk =  service.overlap(email);
+		int isCreated = 0;
+		if(emailChk != 1) {
+			isCreated =  service.create(map);
+			if(isCreated ==1) {
+				System.out.println("success");
+				ResultSendToClient.onlyResultTo(response, isCreated);
+			}
+			else {
+				System.out.println("faile");
+			}
+		} else {
+			isCreated = 0;
 			ResultSendToClient.onlyResultTo(response, isCreated);
-		}
-		else {
 			System.out.println("faile");
 		}
 	}

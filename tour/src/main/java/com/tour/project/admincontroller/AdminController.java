@@ -281,6 +281,7 @@ public class AdminController {
 		map.put("seq", adminSeq);
 		map.put("pageStart",  cri.getPageStart());
 		map.put("perPageNum", cri.getPerPageNum());
+		map.put("noti", 1);
 		pageMaker.setCri(cri);
 		list = adminNotificationService.myNotiInfo(map);
 		Map<String, Object> rtnVal = adminService.amindInfo(adminId);
@@ -305,15 +306,5 @@ public class AdminController {
 		}
 		
 		return mav;
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = { "/admin/adminDel" })
-	public int adminDel(HttpServletRequest request, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
-		String emails = request.getParameter("emails");
-		int result= 0;
-		result = adminService.amindDel(emails);
-		
-		return result;
 	}
 }

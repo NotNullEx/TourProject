@@ -338,17 +338,13 @@ public class AdminControllerBYS {
 
 	@RequestMapping(value = { "/admin/eventDetail" })
 	public ModelAndView eventDetail(HttpServletRequest request) throws Exception {
-		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
-		if (user_id == null || "".equals(user_id)) {
-			return new ModelAndView("/admin/admin_login");
-		} else {
-			ModelAndView mav = new ModelAndView("/admin/eventdetail");
-			String code = request.getParameter("even_code");
-			List<EventVO> lists = new ArrayList<EventVO>();
-			lists = adminEventService.listByCode(code);
-			mav.addObject("data", lists);
-			return mav;
-		}
+
+		ModelAndView mav = new ModelAndView("/admin/eventdetail");
+		String code = request.getParameter("even_code");
+		List<EventVO> lists = new ArrayList<EventVO>();
+		lists = adminEventService.listByCode(code);
+		mav.addObject("data", lists);
+		return mav;
 	}
 
 	@ResponseBody

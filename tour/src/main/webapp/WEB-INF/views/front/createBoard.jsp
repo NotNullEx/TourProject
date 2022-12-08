@@ -40,23 +40,27 @@
 		<!-- Page content-->
 		<section class="py-5">
 			<div class="container px-5">
-				<div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
-					<div class="text-center mb-5">
+				<div class="text-center mb-5">
 						<h1 class="fw-bolder">글쓰기</h1>
 					</div>
+				<div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+					
 					<div class="row gx-5 justify-content-center">
 						<div class="col-lg-8 col-xl-6">
 							<form id="title" method="post">
 								<!-- Name input-->
 								<div class="form-floating mb-3">
-									<select id="kind">
-										<option value="0">자유</option>
-										<option value="1">질문 </option>
-										<option value="2">답변 </option>
-										<option value="3">숙박후기 </option>
-										<option value="4">음식점후기 </option>
-										<option value="5">축제후기 </option>
-									</select>
+									<div>
+										<select id="kind" class="form-select">
+											<option value="0">자유</option>
+											<option value="1">질문 </option>
+											<option value="2">답변 </option>
+											<option value="3">숙박후기 </option>
+											<option value="4">음식점후기 </option>
+											<option value="5">축제후기 </option>
+										</select>
+									</div>
+									
 								</div>
 								
 								<div class="form-floating mb-3">
@@ -69,7 +73,9 @@
 							</form>
 							<div class="d-grid">
 								<button type="button" id="reg"
-									class="btn btn-primary btn-lg enabled" onclick="add()">등록</button>
+									class="form-control btn btn-primary mb-2" onclick="add()">등록</button>
+									<button type="button" id="reg"
+									class="form-control btn btn-primary mb-2" onclick="history.back()">취소</button>
 							</div>
 						</div>
 					</div>

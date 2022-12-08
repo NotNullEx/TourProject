@@ -10,6 +10,23 @@
 
 <!-- <link href="../resources/css/footer.css" rel="stylesheet"/>  -->
 <script type="text/javascript">
+
+	function member_outmember(){
+		var emails = $("#emails").val();
+		if(confirm("정말 탈퇴하시겠습니까?")){
+			$.ajax({
+				type: "POST",
+				url: "/front/memDel",
+				data:{
+					"emails" : emails
+				},
+				success : function(data){
+					window.location.assign("/"); 
+				}
+			});
+		}
+	}
+
 	function member_update(){
 		
 		var name = $("#names").val();
@@ -35,7 +52,7 @@
 				success : function(data){
 					if(data == 1){
 						alert("회원 정보가 정상적으로 수정되었습니다.");
-						window.location.assign("/front/myInfo"); 
+						window.location.assign("/"); 
 					}
 				}, error : function(data){
 					alert("데이터 수정을 할 수 없습니다. 정보를 다시 입력해주세요.");
@@ -62,27 +79,27 @@
 							<div class="mb-3">
 								<label class="float-start form-label">이름</label> <input
 									type="text" class="form-control" id="names" name="name"
-									value="${rtnVal.mem_name}" >
+									value="${data.mem_name}" >
 							</div>
 							<div class="mb-3">
 								<label for="id" class="form-label float-start">전화번호</label> <input
 									type="text" class="form-control" id="phones" name="phon"
-									value="${rtnVal.mem_phone_num}" >
+									value="${data.mem_phone_num}" >
 							</div>
 							<div class="mb-3">
 								<label class="float-start form-label">이메일</label> <input
-									type="text" class="form-control" id="emails" name="email"
-									value="${rtnVal.mem_email}" >
+									type="text" class="form-control" id="emails" name="email" disabled="disabled"
+									value="${data.mem_email}" >
 							</div>
 							<div class="mb-3">
 								<label class="form-label float-start">가입날짜</label> <input
 									type="text" class="form-control" id="regist_day"
-									name="regist_day" value="${rtnVal.mem_regist_day}" disabled="disabled">
+									name="regist_day" value="${data.mem_regist_day}" disabled="disabled">
 							</div>
 							<div class="mb-3">
 								<label class="float-start form-label">고유번호</label> <input
 									type="text" class="form-control" id="seq" name="seq"
-									value="${rtnVal.mem_seq}" disabled="disabled">
+									value="${data.mem_seq}" disabled="disabled">
 							</div>
 							<div class="mb-3">
 								<label class="float-start form-label">비밀번호</label> <input
@@ -94,6 +111,8 @@
 							</div>
 							<button type="button" id="signIn"
 								class="w-100 btn btn-primary mb-2" onclick="member_update()">수정</button>
+							<button type="button" id="signOut"
+								class="w-100 btn btn-primary mb-2" onclick="member_outmember()">탈퇴</button>
 						</form>
 					</div>
 				</div>

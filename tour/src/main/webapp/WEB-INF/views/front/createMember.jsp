@@ -55,6 +55,8 @@
 					console.log(id);
 					alert(name+"님의 가입을 축하드립니다!");
 					window.location.assign("/"); 
+				} else if(data.result == 0){
+					alert("아이디가 중복입니다.");
 				} else {
 					alert("가입불가 공란을 확인해주세요.");
 				}

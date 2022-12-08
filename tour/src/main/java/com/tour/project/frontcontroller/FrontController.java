@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.tour.project.adminservice.AdminEventService;
 import com.tour.project.adminservice.AdminTourDataService;
+import com.tour.project.adminvo.EventVO;
 import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.PageMaker;
 import com.tour.project.common.StringUtil;
@@ -45,6 +47,9 @@ public class FrontController {
 	@Autowired
 	private MemberLoginService memberLoginService;
 	
+	@Autowired
+	private AdminEventService adminEventService;
+	
 
 	@RequestMapping(value = { "/" })
 	public ModelAndView home(HttpServletRequest request) throws Exception {
@@ -68,13 +73,7 @@ public class FrontController {
 		ModelAndView models = new ModelAndView("/front/tourdetail");
 		String tour_seq = request.getParameter("tour_seq");
 		List<TourVO> lists = new ArrayList<TourVO>();
-		lists = service.tourOneList(tour_seq);
-		if (!StringUtil.isEmpty(lists.get(0).getTour_address())) {
-			String[] result = lists.get(0).getTour_address().split(" ");
-			String address = result[2];
-			models.addObject("address", address);
-		}
-		
+		lists = service.tourOneList(tour_seq);		
 		if (!StringUtil.isEmpty(request.getSession().getAttribute("FRONT_US_SEQ"))) {
 			int member_seq = (Integer) request.getSession().getAttribute("FRONT_US_SEQ");
 			String mem_seq = Integer.toString(member_seq);
@@ -82,7 +81,7 @@ public class FrontController {
 			models.addObject("mem_seq", mem_seq);
 		}
 		models.addObject("tour_seq", tour_seq);
-		models.addObject("sb", lists);
+		models.addObject("lists", lists);
 		
 		return models;
 
@@ -167,5 +166,26 @@ public class FrontController {
 			e.printStackTrace();
 			throw new Exception();
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = { "/front/memDel" })
+	public int adminDel(HttpServletRequest request, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
+		String emails = request.getParameter("emails");
+		int result= 0;
+		result = memberLoginService.memDel(emails);
+		request.getSession().invalidate();
+		return result;
+	}
+	
+	@RequestMapping(value = { "/front/eventDetail" })
+	public ModelAndView eventDetail(HttpServletRequest request) throws Exception {
+
+		ModelAndView mav = new ModelAndView("/front/eventdetail");
+		String code = request.getParameter("even_code");
+		List<EventVO> lists = new ArrayList<EventVO>();
+		lists = adminEventService.listByCode(code);
+		mav.addObject("data", lists);
+		return mav;
 	}
 }

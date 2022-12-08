@@ -162,18 +162,12 @@
 									</c:otherwise>
 								</c:choose>
 							</header>
-							<!-- Preview image figure-->
-							<figure class="mb-4">
-								<img class="img-fluid rounded"
-									src="https://dummyimage.com/900x400/ced4da/6c757d.jpg"
-									alt="..." />
-							</figure>
 							<!-- Post content-->
 							<div class="mb-2">
 								<span class="badge bg-success">내용</span>
 							</div>
 							<section class="mb-5">
-								<textarea class="form-control" rows="10">${list[0].board_contents}</textarea>
+								${list[0].board_contents}
 							</section>
 						</article>
 						<%-- </c:forEach> --%>

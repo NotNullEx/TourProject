@@ -47,7 +47,7 @@
 	                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2 d-inline-block text-truncate" style="max-width: 150px;">
 	                                    	상세: <a class="text-decoration-none link-light" href="${data.even_org_link}" target="_blank">${data.even_org_link}</a>  
 	                                    </div>
-	                                    <h5 class="card-title mb-3"><a href="${data.even_org_link}" class="text-decoration-none link-dark">${data.even_title}</a> </h5>
+	                                    <h5 class="card-title mb-3"><a href="/front/eventDetail?even_code=${data.even_code}" class="text-decoration-none link-dark">${data.even_title}</a> </h5>
 	                                    <p class="card-text mb-0">${data.even_place}</p>
 	                                </div>
 	                            </div>

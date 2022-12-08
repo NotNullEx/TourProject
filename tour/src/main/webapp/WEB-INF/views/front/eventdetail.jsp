@@ -9,100 +9,112 @@
 <meta charset="UTF-8">
 <title>이벤트 상세정보</title>
 </head>
+<link href="/resources/css/event_style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
+
 	
 </script>
-<style>
-<style type="text/css">
-.input_wrap{
-	padding: 5px 20px;
-}
-label{
-    display: block;
-    margin: 10px 0;
-    font-size: 20px;	
-}
-input{
-	padding: 5px;
-    font-size: 17px;
-}
-textarea{
-	width: 800px;
-    height: 200px;
-    font-size: 15px;
-    padding: 10px;
-}
-.btn{
-  	display: inline-block;
-    font-size: 22px;
-    padding: 6px 12px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    font-weight: 600;
-    width: 140px;
-    height: 41px;
-    line-height: 39px;
-    text-align : center;
-    margin-left : 30px;
-    cursor : pointer;
-}
-.btn_wrap{
-	padding-left : 80px;
-	margin-top : 50px;
-}
-.bimg {
-	max-height: 400px;
-	max-width: 500px;
-	background-repeat: no-repeat;
-	background-position: center;
-	object-fit: cover;
-}
-#even_main_img {
-	display : block;
-}
-</style>
+
 <body>
 <jsp:include page="../frontcommon/front_header.jsp"/>
-
-<h1>조회 페이지</h1>
-	<div class="input_wrap">
+<div class="even">
+	<h1 class="even_title"><c:out value="${data[0].even_title}"/></h1>
+	<p class="regdater">${data[0].even_rgst_date}</p>
+	
+	<div class="input_wrap_num">
 		<label>이벤트 번호</label>
 		<li><input name="evne_code" readonly="readonly" value='<c:out value="${data[0].even_code}"/>' ></li>
 	</div>
+	
 	<div class="input_wrap">
-		<label>이벤트 이미지</label>
-		<div>
-		<img class="image bimg" id = "even_main_img" name="even_main_img" alt="..." src="${data[0].even_main_img}"></div>
-	</div>
-	<div class="input_wrap">
-		<label>이벤트 제목</label>
-		<li><input name="even_title" readonly="readonly" value='<c:out value="${data[0].even_title}"/>' ></li>
-	</div>
-	<div class="input_wrap">
-		<label>이벤트 정보</label>
-			<li><input name="even_use_trgt" readonly="readonly" value='이용대상 : <c:out value="${data[0].even_use_trgt}"/>' ></li>
-			<li><input name="even_org_name" readonly="readonly" value='기관명 : <c:out value="${data[0].even_org_name}"/>' ></li>
-			<li><input name="even_player" readonly="readonly" value='출연자 : <c:out value="${data[0].even_player}"/>' ></li>
-			<li><input name="even_program" readonly="readonly" value='프로그램 : <c:out value="${data[0].even_program}"/>' ></li>
-			<li><input name="even_etc_desc" readonly="readonly" value='기타 : <c:out value="${data[0].even_etc_desc}"/>' ></li>
-	</div>
-	<div class="input_wrap">
-		<label>이용료</label>
-		<li><input name="writer" readonly="readonly" value='<c:out value="${data[0].even_use_fee}"/>' ></li>
-	</div>
-	<div class="input_wrap">
-		<label>이벤트 장소 및 날짜</label>
-		<li><input name="even_place" readonly="readonly" value="${data[0].even_place}"></li>
-		<li><input name="even_date" readonly="readonly" value="${data[0].even_date}"></li>
-	</div>	
-	<div class="input_wrap">
-		<label>게시판 등록일</label>
-		<li><input name="regdater" readonly="readonly" value="${data[0].even_rgst_date}"></li>
-	</div>
-	<div class="btn_wrap">
-		<button type="button" class="btn" onclick="location.href='/front/event'">목록</button>
+		<img class="bimg" name="even_main_img" alt="..." src="${data[0].even_main_img}">
 	</div>
 	
+	
+	<div class="wrap_contView" id="detailinfoview">			
+		<div class="area_txtView bottom" style="padding-bottom: 0px;">
+			<div class="inr_wrap" style="overflow: visible; height: auto;">
+				<div class="inr">
+					<ul>
+						<c:choose>
+							<c:when test="${data[0].even_org_name != null and data[0].even_org_name != ''}">
+								<li><strong>기관명</strong><span>&emsp;<c:out value="${data[0].even_org_name}"/></span></li>
+							</c:when>
+							<c:otherwise>
+								<li><strong>기관명</strong><span>&emsp;<c:out value="-"/></span></li>
+							</c:otherwise>
+						</c:choose>	
+						<c:choose>
+							<c:when test="${data[0].even_player != null and data[0].even_player != ''}">
+								<li><strong>출연자</strong><span>&emsp;<c:out value="${data[0].even_player}"/></span></li>
+							</c:when>
+							<c:otherwise>
+								<li><strong>출연자</strong><span>&emsp;<c:out value="-"/></span></li>
+							</c:otherwise>	
+						</c:choose>
+						<c:choose>
+							<c:when test="${data[0].even_program != null and data[0].even_program != ''}">
+								<li><strong>프로그램</strong><span>&emsp;<c:out value="${data[0].even_program}"/></span></li>
+							</c:when>
+							<c:otherwise>
+								<li><strong>프로그램</strong><span>&emsp;<c:out value="-"/></span></li>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${data[0].even_etc_desc != null and data[0].even_etc_desc != ''}">		
+								<li><strong>기타</strong><span>&emsp;<c:out value="${data[0].even_etc_desc}"/></span></li>
+							</c:when>
+							<c:otherwise>
+								<li><strong>기타</strong><span>&emsp;<c:out value="-"/></span></li>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${data[0].even_use_trgt != null and data[0].even_use_trgt != ''}">		
+								<li><strong>이용대상</strong><span>&emsp;<c:out value="${data[0].even_use_trgt}"/></span></li>
+							</c:when>
+							<c:otherwise>
+								<li><strong>이용대상</strong><span>&emsp;<c:out value="-"/></span></li>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${data[0].even_use_fee != null and data[0].even_use_fee != ''}">		
+								<li><strong>이용료</strong><span>&emsp;<c:out value="${data[0].even_use_fee}"/></span></li>
+							</c:when>
+							<c:otherwise>
+								<li><strong>이용료</strong><span>&emsp;<c:out value="-"/></span></li>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${data[0].even_place != null and data[0].even_place != ''}">		
+								<li><strong>장소</strong><span>&emsp;<c:out value="${data[0].even_place}"/></span></li>
+							</c:when>
+							<c:otherwise>
+								<li><strong>장소</strong><span>&emsp;<c:out value="-"/></span></li>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${data[0].even_date != null and data[0].even_date != ''}">		
+								<li><strong>날짜</strong><span>&emsp;<c:out value="${data[0].even_date}"/></span></li>
+							</c:when>
+							<c:otherwise>
+								<li><strong>날짜</strong><span>&emsp;<c:out value="-"/></span></li>
+							</c:otherwise>
+						</c:choose>
+								
+							
+					</ul>
+				</div>
+			</div>	
+		</div>
+	</div>
+	
+	<div class="btn_wrap">
+		<button type="button" class="even_btn" onclick="location.href='/front/event'">목록</button>
+	</div>
+	<form id="infoForm" action="/board/modify" method="get">
+		<input type="hidden" id="even_code" name="even_code" value='<c:out value="${data[0].even_code}"/>'>
+	</form>
+</div>
 <jsp:include page="../frontcommon/front_footer.jsp"/>
 <jsp:include page="../frontcommon/front_footer_common.jsp"/>
 </body>

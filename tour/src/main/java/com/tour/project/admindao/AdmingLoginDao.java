@@ -24,10 +24,4 @@ public class AdmingLoginDao {
 		Map<String, Object> result = sqltemplate.selectOne("tour.adminInfo",id);
 		return result;
 	}
-	
-	public int daminDel(String id) throws Exception{
-		int result = sqltemplate.update("tour.adminDel",id);
-		
-		return result;		
-	}
 }

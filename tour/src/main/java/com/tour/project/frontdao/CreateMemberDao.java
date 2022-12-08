@@ -19,5 +19,4 @@ public class CreateMemberDao {
 	public int overlap(String id) {
 		return sqltemplate.selectOne("member.overlap", id);
 	}
-	
 }

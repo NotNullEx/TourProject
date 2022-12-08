@@ -39,10 +39,4 @@ public class LoginServiceImpl implements LoginService{
 		}
 		return result;
 	}
-
-	@Override
-	public int amindDel(String id) throws Exception {
-		int result = dao.daminDel(id);
-		return result;
-	}
 }

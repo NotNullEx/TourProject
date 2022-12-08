@@ -24,4 +24,10 @@ public class MemberLoginDao {
 		MemberVO result = sqltemplate.selectOne("member.select_detail",id);
 		return result;
 	}
+	
+	public int memDel(String id) throws Exception{
+		int result = sqltemplate.update("member.memDel",id);
+		
+		return result;		
+	}
 }

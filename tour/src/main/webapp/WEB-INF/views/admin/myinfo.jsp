@@ -111,8 +111,6 @@
 							</div>
 							<button type="button" id="signIn"
 								class="w-100 btn btn-primary mb-2" onclick="tour_update()">수정</button>
-							<button type="button" id="signOut"
-								class="w-100 btn btn-primary mb-2" onclick="tour_outmember()">탈퇴</button>
 						</form>
 					</div>
 				</div>

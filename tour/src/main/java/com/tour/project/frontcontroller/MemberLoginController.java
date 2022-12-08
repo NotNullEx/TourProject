@@ -60,12 +60,10 @@ public class MemberLoginController {
 	public void logOut(Locale locale, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.getSession().invalidate();
-			response.sendRedirect("/front/login");
+			response.sendRedirect("/");
 		} catch (Exception ex) {
 			log.error(UtilClass.exceptionToString((Exception) ex));
-			// TODO: handle exception
 		}
-
 	}
 
 }

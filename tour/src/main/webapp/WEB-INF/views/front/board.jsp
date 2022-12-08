@@ -14,6 +14,18 @@
 		margin-right: 2%;
 	}
 </style>
+<script type="text/javascript">
+	function boadReg(){
+		var email = $('#email').val();
+		
+		if(email == null || email == ''){
+			alert("로그인이 필요합니다.");
+			return false;
+		}else{
+			location.href='/front/createBoard';
+		}
+	}
+</script>
 
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
@@ -25,6 +37,8 @@
                         <h1 class="fw-bolder">게시판</h1>
                     </div>
                     <input type="hidden" value="${seq}">
+                    <input type="hidden" id="email" value="${mem_email}">
+                    <button type="button" id="addNoti" class="btn btn-primary" onclick="boadReg()">게시판 등록</button>
                     <table class="table">
 							<thead>
 								<tr>
@@ -46,7 +60,6 @@
 								<c:set var = "num" value = "${num - 1 }" />
 								</c:forEach>
 							</tbody>
-							<button type="button" id="addNoti" class="btn btn-primary" onclick="location.href='/front/createBoard'">게시판 등록</button>
 						</table>
 						<ul class="pagination justify-content-center">
 							<c:if test="${pageMaker.prev }">
