@@ -67,11 +67,46 @@ a:hover {
 	table-layout: fixed;
 }
 </style>
+<script type="text/javascript">
+	function eventDataInsert(code) {
+		if(code != null) {
+			alert("이미 데이터가 존재합니다.")
+		}else {
+			$.ajax({
+				url : "/admin/data/eventDataInsert",
+				success : function(data) {
+					console.log(data);
+					if(data != null || data == ' ') {
+						alert("이벤트 api 등록이 완료되었습니다."); 
+					}else {
+						alert("이벤트 api 등록에 실패했습니다.");
+					}
+				}
+			});
+		}
+	}
+	
+	function resetEvent() {
+		if(confirm("정말 event를 삭제하시겠습니까??")) {
+			$.ajax({
+				url : "/admin/data/deleteEvent",
+				success : function(data) {
+					console.log(data);
+					if(data > 0) {
+						alert("event DB 삭제가 완료되었습니다."); 
+					}else {
+						alert("event DB 삭제에 실패했습니다.");
+					}
+				}
+			});
+		}
+	}
+</script>
 <body class="d-flex flex-column h-100">
 	<main class="flex-shrink-0">
 		<jsp:include page="../admincommon/admin_header.jsp" />
 		<section class="py-5">
-			<h2 class="fw-bolder fs-5 mb-4">여러가지 재밌는 이벤트들을 놓치지 마세요!</h2>
+			
 			<section class="py-5">
                 <div class="container px-5 my-5">
                     <div class="row gx-5 justify-content-center">
@@ -82,7 +117,15 @@ a:hover {
                             </div>
                         </div>
                     </div>
+                    
+	                    
+                    
+                   
                     <div class="row gx-5">
+                    	<div style="float: right; margin-bottom: 10px; margin-right: 5px;">
+                    		<button type="button" id="addRes" style="float: right; margin-left: 5px;" class="btn btn-primary" onclick="eventDataInsert(${eventData[0].even_code})">Event API 데이터 추가</button>
+							<button type="button" id="addRes" style="float: right;" class="btn btn-primary" onclick="location.href='/admin/addEvent'">Event 데이터 추가</button>
+                    	</div>
                          <c:forEach var="data" items="${data}">
 	                    	<div class="col-lg-4 mb-5">
 	                            <div class="card h-100 shadow border-0">

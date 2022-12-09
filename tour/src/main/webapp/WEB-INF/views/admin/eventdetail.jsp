@@ -18,15 +18,14 @@
 				data : {
 					"code" : code
 				},
-				url : "/admin/deleteOneEvent",
+				url : "/admin/data/deleteOneEvent",
 				async : false,
 				success : function(data) {
-					console.log(data);
 					if(data > 0) {
 						alert("삭제가 완료되었습니다.");
 						window.location.assign("/admin/event"); 
 					}else {
-						alert("삭제에 실패했습니다.");
+						alert("로그인 해주세요.");
 					}
 				}
 			});
@@ -43,7 +42,7 @@
 	
 	<div class="input_wrap_num">
 		<label>이벤트 번호</label>
-		<li><input name="evne_code" readonly="readonly" value='<c:out value="${data[0].even_code}"/>' ></li>
+		<input name="evne_code" readonly="readonly" value='<c:out value="${data[0].even_code}"/>' >
 	</div>
 	
 	<div class="input_wrap">
@@ -130,7 +129,7 @@
 	
 	<div class="btn_wrap">
 		<button type="button" class="even_btn" onclick="location.href='/admin/event'">목록</button>
-		<button type="button" class="even_btn" onclick="location.href='/admin/eventReviseAll?even_code=${data[0].even_code}'">수정</button>
+		<button type="button" class="even_btn" onclick="location.href='/admin/data/eventReviseAll?even_code=${data[0].even_code}'">수정</button>
 		<button type="button" class="even_btn" onclick="deleteOne(${data[0].even_code})">삭제</button>
 	</div>
 	<form id="infoForm" action="/board/modify" method="get">

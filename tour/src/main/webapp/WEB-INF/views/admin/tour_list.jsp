@@ -25,7 +25,7 @@
 	}
 	function go_modify(tour_seq){
 		var t_seq = tour_seq;
-		window.location.assign("/admin/dataUpdate?tour_seq="+t_seq);
+		window.location.assign("/admin/data/dataUpdate?tour_seq="+t_seq);
 	}
 	function go_delete(tour_seq){
 		var t_seq = tour_seq;
@@ -33,7 +33,7 @@
 			return false;
 		}else{
 			$.ajax({
-				url : "/admin/dataDelete?tour_seq=" + tour_seq,
+				url : "/admin/data/dataDelete?tour_seq=" + tour_seq,
     			success:function(data){
     				alert("정상적으로 삭제되었습니다.");
     				window.location.assign("/admin/tourList"); 
@@ -46,7 +46,7 @@
 	}
 	function data_insert(){
 		$.ajax({
-			url : "/admin/dataInsert",
+			url : "/admin/data/dataInsert",
 			success:function(data){
 				alert("정상적으로 등록되었습니다.");
 				window.location.assign("/admin/tourList"); 
@@ -58,7 +58,7 @@
 		
 	}
 	function go_img(seq,tour_post_sj){
-		window.location.assign("/admin/addImage?tour_seq="+seq +"&tour_post_sj="+tour_post_sj);
+		window.location.assign("/admin/data/addImage?tour_seq="+seq +"&tour_post_sj="+tour_post_sj);
 	}
 	
 	function downloadExcelData() {
@@ -108,7 +108,7 @@
 		<div style="float: right; margin-bottom: 5px; margin-right: 5px;">
 				<button type = "button" id = "downloadExel" onclick="javascript:downloadExcelData(); return false;" class="btn btn-primary">엑셀 다운로드</button>
 				<c:if test="${not empty sessionScope.ADMIN_ID}">
-					<button type="button" id="addRes" class="btn btn-primary" onclick="location.href='/admin/adminDataInsert'">관광지 추가</button>
+					<button type="button" id="addRes" class="btn btn-primary" onclick="location.href='/admin/data/adminDataInsert'">관광지 추가</button>
 					<button type="button" id="addRes" class="btn btn-primary" onclick="data_insert()">api 관광지 추가</button>
 				</c:if>
 		</div>

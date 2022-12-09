@@ -23,10 +23,10 @@
 						if(data != null){
 							alert(tour_name + "이(가) 즐겨찾기 되었습니다.");
 						}else{
-							alert("즐겨찾기 실패");
+							alert("로그인해주세요.");
 						}
 					}, error: function(data){
-						alert("즐겨찾기 실패");
+						alert("로그인해주세요.");
 					}
 			});
 		}else {
