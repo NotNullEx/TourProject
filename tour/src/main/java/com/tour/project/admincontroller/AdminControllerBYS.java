@@ -96,11 +96,6 @@ public class AdminControllerBYS {
 		return mav;
 	}
 
-	@RequestMapping(value = { "/admin/board" })
-	public ModelAndView board(HttpServletRequest request) {
-		return new ModelAndView("/admin/board");
-	}
-
 	@RequestMapping(value = { "/admin/addrestaurant" })
 	public String addrestaurant(HttpServletRequest request, Model model) throws Exception {
 		List<GunameVO> area = gunameService.gunameList();
