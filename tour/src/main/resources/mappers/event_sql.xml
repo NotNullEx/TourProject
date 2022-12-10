@@ -105,5 +105,15 @@
 			AND DATE_FORMAT(even_end_date ,'%Y-%m-%d') >= CURDATE()
 		]]>
 	</select>
-	
+	<select id="getEventlistAll" resultType="EventVO">
+		SELECT even_code,
+			even_codename,
+			even_guname,
+			even_title,
+			even_date,
+			even_place,
+			even_use_trgt,
+			even_org_link
+		FROM event;
+	</select>
 </mapper>

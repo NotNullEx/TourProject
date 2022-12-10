@@ -76,5 +76,11 @@ public class AdminEventServiceImpl implements AdminEventService {
 	public int getOngoingEventCount() throws Exception {
 		return eventDao.getOngoingEventCount();
 	}
+
+	@Override
+	public List<EventVO> getEventlist() throws Exception {
+		
+		return eventDao.getEventlist();
+	}
 	
 }

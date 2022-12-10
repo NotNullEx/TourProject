@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tour.project.adminservice.AdminEventService;
 import com.tour.project.adminservice.AdminTourDataService;
+import com.tour.project.adminvo.EventVO;
 import com.tour.project.adminvo.TourVO;
 import com.tour.project.common.UtilClass;
 
@@ -27,6 +29,9 @@ public class AdminExcelController {
 
 	@Autowired
 	private AdminTourDataService service;
+	
+	@Autowired
+	private AdminEventService adminEventService;
 	
 	@GetMapping(value = "/download/tourList")
 	@Transactional(readOnly = true)
@@ -80,7 +85,7 @@ public class AdminExcelController {
 				dataList.add(map);
 			}
 			
-			wb = UtilClass.excelSupportUtil(headers,keys, dataList);
+			wb = UtilClass.excelSupportUtil("관광지 정보",headers,keys, dataList);
 			
 			wb.write(response.getOutputStream());
 			
@@ -94,4 +99,59 @@ public class AdminExcelController {
 		}
 	}
 	
+	@GetMapping(value = "/download/eventList")
+	@Transactional(readOnly = true)
+	public void downloadEventExcelList(HttpServletResponse response) throws Exception {
+		Workbook wb = null;
+		try {
+			response.setCharacterEncoding("UTF-8");
+			List<EventVO> list = adminEventService.getEventlist();
+
+			String[] headers = {
+					"이벤트 시퀀스",
+					"이벤트 종류",
+					"이벤트 구이름",
+					"이벤트 명",
+					"이벤트 기간",
+					"이벤트 장소",
+					"이벤트 타겟",
+					"이벤트 홈페이지"
+			};
+			
+			String[] keys = {
+					"even_code",
+					"even_codename",
+					"even_guname",
+					"even_title",
+					"even_date",
+					"even_place",
+					"even_use_trgt",
+					"even_org_link"
+			};
+			
+			// 엑셀 다운로드
+			response.setContentType("ms-vnd/excel");
+			response.setHeader("Content-Disposition", "attachment; filename="+ "eventList.xlsx");
+			
+			ObjectMapper mapper = new ObjectMapper();
+			List<LinkedHashMap<String, Object>> dataList = new ArrayList<LinkedHashMap<String,Object>>();
+			for (EventVO event : list) {
+				LinkedHashMap map = mapper.convertValue(event, LinkedHashMap.class);
+				
+				dataList.add(map);
+			}
+			
+			wb = UtilClass.excelSupportUtil("이벤트 정보",headers,keys, dataList);
+			
+			wb.write(response.getOutputStream());
+			
+			wb.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (wb != null) {
+				wb.close();
+			}
+		}
+	}
 }

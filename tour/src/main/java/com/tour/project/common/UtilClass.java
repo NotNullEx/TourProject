@@ -109,11 +109,11 @@ public class UtilClass {
         }
     }
     
-    public static Workbook excelSupportUtil(String[] headers, String[] keys, List<LinkedHashMap<String, Object>> list) {
+    public static Workbook excelSupportUtil(String sheetName, String[] headers, String[] keys, List<LinkedHashMap<String, Object>> list) {
     	Workbook wb = null;
     	try {
 	    	wb = new XSSFWorkbook();
-	    	Sheet sheet = wb.createSheet("관광지 정보");
+	    	Sheet sheet = wb.createSheet(sheetName);
 	    	
 	    	Row row = null;
 	        Cell cell = null;

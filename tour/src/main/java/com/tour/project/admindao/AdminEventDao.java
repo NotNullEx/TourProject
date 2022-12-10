@@ -71,6 +71,11 @@ public class AdminEventDao {
 		return list;
 	}
 	
+	public List<EventVO> getEventlist() {
+		List<EventVO> list = sqltemplate.selectList("event.getEventlistAll");
+		return list;
+	}
+	
 	public int getOngoingEventCount() {
 		int cnt = sqltemplate.selectOne("event.getOngoingEventCount");
 		

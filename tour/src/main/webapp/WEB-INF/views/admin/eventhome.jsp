@@ -123,6 +123,7 @@ a:hover {
                    
                     <div class="row gx-5">
                     	<div style="float: right; margin-bottom: 10px; margin-right: 5px;">
+                    		<button type="button" id="addRes" style="float: right; margin-left: 5px;" class="btn btn-primary" onclick="location.href='/excel/download/eventList'">Event 엑셀 다운로드</button>
                     		<button type="button" id="addRes" style="float: right; margin-left: 5px;" class="btn btn-primary" onclick="eventDataInsert(${eventData[0].even_code})">Event API 데이터 추가</button>
 							<button type="button" id="addRes" style="float: right;" class="btn btn-primary" onclick="location.href='/admin/addEvent'">Event 데이터 추가</button>
                     	</div>
