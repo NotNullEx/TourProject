@@ -14,7 +14,12 @@ public class AdminIntreceptor implements HandlerInterceptor {
         
 		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
 		if (user_id == null || "".equals(user_id)) {
-			response.sendRedirect("/admin/login");
+			String ajaxCall = (String) request.getHeader("AJAX");
+			if ("true".equals(ajaxCall)) {
+				response.sendError(403); 
+			} else {
+				response.sendRedirect("/tour/admin/login");
+			}
 			return false;
 		}
 		return true;
@@ -22,9 +27,15 @@ public class AdminIntreceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		
 		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
 		if (user_id == null || "".equals(user_id)) {
-			response.sendRedirect("/admin/login");
+			String ajaxCall = (String) request.getHeader("AJAX");
+			if ("true".equals(ajaxCall)) {
+				response.sendError(403); 
+			} else {
+				response.sendRedirect("/tour/admin/login");
+			}
 		}
 	}
 	

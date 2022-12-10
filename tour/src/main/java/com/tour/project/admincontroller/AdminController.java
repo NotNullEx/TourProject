@@ -54,6 +54,7 @@ import com.tour.project.common.vo.PageCriteriaVO;
  * Handles requests for the application home page.
  */
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
 	@Autowired
@@ -81,7 +82,7 @@ public class AdminController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value = { "/admin/data/dataInsert" })
+	@RequestMapping(value = { "/data/dataInsert" })
 	public Object adminHome() throws Exception {
 		List<TourVO> lists = new ArrayList<TourVO>();
 		try {
@@ -167,7 +168,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping(value = { "/admin" })
+	@RequestMapping(value = { "" })
 	public ModelAndView dataInsert(PageCriteriaVO cri,HttpServletRequest request) throws Exception {
 		ModelAndView models = new ModelAndView("/admin/home");
 		List<NotificationVO> notiList = adminNotificationService.pagingNotiList(cri);
@@ -210,7 +211,7 @@ public class AdminController {
 		return models;
 	}
 	
-	@RequestMapping(value = { "/admin/tourDetail" })
+	@RequestMapping(value = { "/tourDetail" })
 	public ModelAndView tourDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView models = new ModelAndView("/admin/tourdetail");
 		String tour_seq = request.getParameter("tour_seq");
@@ -229,22 +230,18 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping(value = { "/admin/myPage" })
+	@RequestMapping(value = { "/myPage" })
 	public ModelAndView mypage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
 		int seq = (int)request.getSession().getAttribute("ADMIN_US_SEQ");
 		ModelAndView mav = new ModelAndView("/admin/mypage");
-		if(user_id == null || "".equals(user_id)) {
-			return new ModelAndView("/admin/admin_login");
-		}else {
-			mav.addObject("adminId", user_id);
-			mav.addObject("seq", seq);
-		}
+		mav.addObject("adminId", user_id);
+		mav.addObject("seq", seq);
 		
 		return mav;
 	}
 	
-	@RequestMapping(value = { "/admin/myInfo" })
+	@RequestMapping(value = { "/myInfo" })
 	public ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String adminId = (String) request.getSession().getAttribute("ADMIN_ID");
 		ModelAndView mav = new ModelAndView("/admin/myinfo");
@@ -263,7 +260,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value = { "/admin/myInfoUpdate" })
+	@RequestMapping(value = { "/myInfoUpdate" })
 	@ResponseBody
 	public Object myInfoUpdate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
@@ -285,7 +282,7 @@ public class AdminController {
 		return new Gson().toJson(result);
 	}
 	
-	@RequestMapping(value = { "/admin/myNotiInfo" })
+	@RequestMapping(value = { "/myNotiInfo" })
 	public ModelAndView myNotiInfo(HttpServletRequest request, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/mynotiinfo");
 		String adminId = (String) request.getSession().getAttribute("ADMIN_ID");
@@ -324,7 +321,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value = {"/admin/tourList"})
+	@RequestMapping(value = {"/tourList"})
 	public ModelAndView about(PageCriteriaVO cri, HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/tour_list");
 		
@@ -350,7 +347,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value = {"/admin/data/addImage"})
+	@RequestMapping(value = {"/data/addImage"})
 	public ModelAndView addImage(HttpServletRequest requset, HttpServletResponse resonse) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/addimage");
 		String seq = requset.getParameter("tour_seq");
@@ -361,7 +358,7 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = {"/admin/insUrl"})
+	@RequestMapping(value = {"/insUrl"})
 	public Object insUrl(HttpServletRequest requset, HttpServletResponse resonse) throws Exception {
 		String seq = requset.getParameter("tour_seq");
 		String url = requset.getParameter("url");
@@ -390,7 +387,7 @@ public class AdminController {
 		}
 	}
 	
-	@RequestMapping(value = {"/admin/adminDataInsert"})
+	@RequestMapping(value = {"/adminDataInsert"})
 	public ModelAndView adminDataInsert(Locale locale, Model model) {
 		ModelAndView mav = new ModelAndView("/admin/admin_data_insert");
 		
@@ -398,7 +395,7 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = {"/admin/insTourData"})
+	@RequestMapping(value = {"/insTourData"})
 	public Object insTourData(HashMap<String, Object> map, HttpServletRequest requset, HttpServletResponse resonse) throws Exception {
 		int result = 0;
 		String tour_post_sn = requset.getParameter("tour_post_sn");
@@ -435,7 +432,7 @@ public class AdminController {
 		}
 	}
 	
-	@RequestMapping(value = {"/admin/data/dataUpdate"})
+	@RequestMapping(value = {"/data/dataUpdate"})
 	public ModelAndView dataUpdate(HashMap<String, Object> map, HttpServletRequest requset, HttpServletResponse resonse) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/dataupdate");
 		String tour_seq = requset.getParameter("tour_seq");
@@ -468,7 +465,7 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = {"/admin/updateTourData"})
+	@RequestMapping(value = {"/updateTourData"})
 	public Object updateTourData(HashMap<String, Object> map, HttpServletRequest requset, HttpServletResponse resonse) throws Exception {
 		String tour_seq = requset.getParameter("tour_seq");
 		String tour_cmmn_fax = requset.getParameter("tour_cmmn_fax");
@@ -506,7 +503,7 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = {"/admin/data/dataDelete"})
+	@RequestMapping(value = {"/data/dataDelete"})
 	public Object dataDelete(HttpServletRequest requset, HttpServletResponse resonse) throws Exception {
 		String tour_seq = requset.getParameter("tour_seq");
 		
@@ -520,7 +517,7 @@ public class AdminController {
 		}
 	}
 	
-	@RequestMapping(value = { "/admin/restaurant" })
+	@RequestMapping(value = { "/restaurant" })
 	public ModelAndView restaurant(HttpServletRequest request, PageCriteriaVO cri) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/restauranthome");
 		int pagingList = 0; 
@@ -544,14 +541,14 @@ public class AdminController {
 		return mav;
 	}
 
-	@RequestMapping(value = { "/admin/addrestaurant" })
+	@RequestMapping(value = { "/addrestaurant" })
 	public String addrestaurant(HttpServletRequest request, Model model) throws Exception {
 		List<GunameVO> area = gunameService.gunameList();
 		model.addAttribute("area", area);
 		return "/admin/addrestaurant";
 	}
 
-	@RequestMapping(value = { "/admin/addRestaurantOK" })
+	@RequestMapping(value = { "/addRestaurantOK" })
 	public void addRestaurantOK(@RequestParam Map<String, Object> map, HttpServletResponse response) {
 		int isCreated = adminRestaurantService.create(map);
 		if (isCreated == 1) {
@@ -562,7 +559,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping(value = { "/admin/restaurantDetail" })
+	@RequestMapping(value = { "/restaurantDetail" })
 	public ModelAndView restaurantDetail(HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/restaurantdetail");
 		String search = request.getParameter("res_code");
@@ -572,7 +569,7 @@ public class AdminController {
 		return mav;
 	}
 
-	@RequestMapping(value = { "/admin/selectRestaurantBySection" })
+	@RequestMapping(value = { "/selectRestaurantBySection" })
 	public ModelAndView selectSection(HttpServletRequest request, PageCriteriaVO cri) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/restauranthome");
 		int pagingList = 0;
@@ -598,7 +595,7 @@ public class AdminController {
 		return mav;
 	}
 
-	@RequestMapping(value = { "/admin/reviseAll" })
+	@RequestMapping(value = { "/reviseAll" })
 	public ModelAndView reviseAll(@RequestParam String res_code) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/restaurant_revise");
 		List<RestaurantVO> lists = new ArrayList<RestaurantVO>();
@@ -610,7 +607,7 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = { "/admin/reviseAllOK" })
+	@RequestMapping(value = { "/reviseAllOK" })
 	public void reviseAllOK(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception {
 		int isRevised = adminRestaurantService.reviseAll(map);
 		if (isRevised == 1) {
@@ -622,7 +619,7 @@ public class AdminController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = { "/admin/deleteOneRestaurant" })
+	@RequestMapping(value = { "/deleteOneRestaurant" })
 	public Object deleteOneRestaurant(@RequestParam String code) throws Exception {
 		int result = 0;
 		result = adminRestaurantService.deleteOne(code);
@@ -630,7 +627,7 @@ public class AdminController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = { "/admin/data/eventDataInsert" })
+	@RequestMapping(value = { "/data/eventDataInsert" })
 	public Object eventDataInsert() throws Exception {
 		List<EventVO> lists = new ArrayList<EventVO>();
 		try {
@@ -725,7 +722,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping(value = { "/admin/event" })
+	@RequestMapping(value = { "/event" })
 	public ModelAndView event(HttpServletRequest request,PageCriteriaVO cri) throws Exception {
 
 		ModelAndView mav = new ModelAndView("/admin/eventhome");
@@ -753,17 +750,17 @@ public class AdminController {
 		return mav;
 	}
 
-	@RequestMapping(value = { "/admin/addEvent" })
+	@RequestMapping(value = { "/addEvent" })
 	public ModelAndView addEvent(HttpServletRequest request) {
 		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
 		if (user_id == null || "".equals(user_id)) {
-			return new ModelAndView("/admin/admin_login");
+			return new ModelAndView("/tour/admin/admin_login");
 		} else {
 			return new ModelAndView("/admin/addevent");
 		}
 	}
 
-	@RequestMapping(value = { "/admin/addEventOK" })
+	@RequestMapping(value = { "/addEventOK" })
 	public void addEventOK(@RequestParam Map<String, Object> map, HttpServletResponse response) {
 		int isCreated = adminEventService.create(map);
 		if (isCreated == 1) {
@@ -774,7 +771,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping(value = { "/admin/eventDetail" })
+	@RequestMapping(value = { "/eventDetail" })
 	public ModelAndView eventDetail(HttpServletRequest request) throws Exception {
 
 		ModelAndView mav = new ModelAndView("/admin/eventdetail");
@@ -786,7 +783,7 @@ public class AdminController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = { "/admin/data/deleteEvent" })
+	@RequestMapping(value = { "/data/deleteEvent" })
 	public Object deleteEvent() {
 		int result = 0;
 		// Gson을 활용한 경우
@@ -795,7 +792,7 @@ public class AdminController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = { "/admin/data/deleteOneEvent" })
+	@RequestMapping(value = { "/data/deleteOneEvent" })
 	public Object deleteOneEvent(HttpServletRequest request) throws Exception {
 		int result = 0;
 		String code = request.getParameter("code");
@@ -803,7 +800,7 @@ public class AdminController {
 		return new Gson().toJson(result);
 	}
 
-	@RequestMapping(value = { "/admin/data/eventReviseAll" })
+	@RequestMapping(value = { "/data/eventReviseAll" })
 	public ModelAndView eventReviseAll(HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/event_revise");
 		String code = request.getParameter("even_code");
@@ -813,7 +810,7 @@ public class AdminController {
 		return mav;
 	}
 
-	@RequestMapping(value = { "/admin/eventReviseAllOK" })
+	@RequestMapping(value = { "/eventReviseAllOK" })
 	public void eventReviseAllOK(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception {
 		int isRevised = adminEventService.reviseAll(map);
 		if (isRevised == 1) {
@@ -824,17 +821,17 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping(value = { "/admin/createNotification" })
+	@RequestMapping(value = { "/createNotification" })
 	public ModelAndView createNotification(HttpServletRequest request) throws Exception {
 		String user_id = (String) request.getSession().getAttribute("ADMIN_ID");
 		if (user_id == null || "".equals(user_id)) {
-			return new ModelAndView("/admin/admin_login");
+			return new ModelAndView("/tour/admin/admin_login");
 		} else {
 			return new ModelAndView("/admin/createnotification");
 		}
 	}
 
-	@RequestMapping(value = { "/admin/createNotificationOK" })
+	@RequestMapping(value = { "/createNotificationOK" })
 	public void createNotificationOK(@RequestParam Map<String, Object> map, HttpServletResponse response,
 			HttpServletRequest request) throws Exception {
 		try {
@@ -853,7 +850,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping(value = {"/admin/notificationDetail"})
+	@RequestMapping(value = {"/notificationDetail"})
 	public ModelAndView notificationDetail(HttpServletRequest request) throws Exception {
 		String noti_seq = request.getParameter("noti_seq");
 		NotificationVO noti = adminNotificationService.getNotiDetailList(noti_seq);
@@ -862,7 +859,7 @@ public class AdminController {
 		return mav;
 	}
 
-	@RequestMapping(value = {"/admin/notificationUpdate"})
+	@RequestMapping(value = {"/notificationUpdate"})
 	public ModelAndView notificationUpdate(HashMap<String, Object> map, HttpServletRequest request, HttpServletResponse resonse) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/notificationupdate");
 		String noti_seq = request.getParameter("noti_seq");
@@ -871,7 +868,7 @@ public class AdminController {
 		return mav;
 	}
 
-	@RequestMapping(value = { "/admin/notificationUpdateOK" })
+	@RequestMapping(value = { "/notificationUpdateOK" })
 	public void notificationUpdateOK(@RequestParam Map<String, Object> map, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		int admin_seq = (int) request.getSession().getAttribute("ADMIN_US_SEQ");
 		map.put("admin_seq", admin_seq);
@@ -885,10 +882,9 @@ public class AdminController {
 	}
 
 
-	@RequestMapping(value = {"/admin/setNotiHidden"})
+	@RequestMapping(value = {"/setNotiHidden"})
 	@ResponseBody
 	public SuccessResponse setNotiHidden(@RequestParam Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		return new SuccessResponse(response.SC_FORBIDDEN, "게시판 표시상태 수정 실패", null);
 		int noti_status = Integer.valueOf(request.getParameter("noti_status"));
 		int admin_seq = (int) request.getSession().getAttribute("ADMIN_US_SEQ");
 		map.put("noti_status", noti_status);
@@ -896,7 +892,6 @@ public class AdminController {
 		int isNotiHidden = adminNotificationService.setNotiHidden(map);
 		if(isNotiHidden == 1) {
 			System.out.println("success");
-			//'ResultSendToClient.onlyResultTo(response, isNotiHidden);
 			if (noti_status == 0) return new SuccessResponse(response.SC_OK, "게시판이 표시상태로 변경되었습니다.", null);
 			else return new SuccessResponse(response.SC_OK, "게시판이 비표시상태로 변경되었습니다.", null);
 		} else {

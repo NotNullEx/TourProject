@@ -23,7 +23,7 @@ function check_account() {
 	}
 	$.ajax({
 		type : "POST",
-		url : "/admin/loginOk",
+		url : "/tour/admin/loginOk",
 		data : {
 			"id" : id,
 			"password" : pw

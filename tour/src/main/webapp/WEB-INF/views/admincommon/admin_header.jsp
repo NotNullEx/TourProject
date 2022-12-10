@@ -13,11 +13,11 @@
                             <li class="nav-item"><a class="nav-link" href="/admin/event">행사</a></li>
                             <li class="nav-item"><a class="nav-link" href="/admin/restaurant">먹거리</a></li>
                             <c:if test="${empty sessionScope.ADMIN_ID}">
-					        	<li class="nav-item"><a class="nav-link" href="#" onclick="location='/admin/login'">로그인</a></li>
+					        	<li class="nav-item"><a class="nav-link" href="#" onclick="location='/tour/admin/login'">로그인</a></li>
 					       </c:if>
                             <c:if test="${not empty sessionScope.ADMIN_ID}">
                             	<li class="nav-item"><a class="nav-link" href="/admin/myPage">마이페이지</a></li>         
-					        	<li class="nav-item" id="signOut"><a class="nav-link" href="/admin/logOut" class="nav-link text-dark">로그아웃</a></li>
+					        	<li class="nav-item" id="signOut"><a class="nav-link" href="/tour/admin/logOut" class="nav-link text-dark">로그아웃</a></li>
 					       </c:if>
                         </ul>
                     </div>

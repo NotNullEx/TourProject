@@ -20,7 +20,7 @@ import com.tour.project.common.ResultSendToClient;
 import com.tour.project.common.UtilClass;
 
 @Controller
-
+@RequestMapping(value = "/tour")
 public class AdminLoginController {
 	private static final Logger log = LoggerFactory.getLogger(AdminLoginController.class);
 	
@@ -29,7 +29,7 @@ public class AdminLoginController {
 	
 	@RequestMapping(value = {"/admin/login"})
 	public ModelAndView create() {
-		return new ModelAndView("admin/admin_login");
+		return new ModelAndView("/admin/admin_login");
 	}
 	
 	@RequestMapping(value = {"/admin/loginOk"})
@@ -58,7 +58,7 @@ public class AdminLoginController {
 	public void logOut(Locale locale, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.getSession().invalidate();
-			response.sendRedirect("/admin/login");
+			response.sendRedirect("/tour/admin/login");
 		} catch (Exception ex) {
 			log.error(UtilClass.exceptionToString((Exception) ex));
 		}

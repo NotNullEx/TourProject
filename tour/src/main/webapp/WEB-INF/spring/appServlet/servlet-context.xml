@@ -26,7 +26,7 @@
 	
 	<interceptors>
            <interceptor>
-               <mapping path="/admin/data/**"/>
+               <mapping path="/admin/**"/>
                    <beans:bean id="commonInterceptor" class="com.tour.project.common.AdminIntreceptor"/>
         	</interceptor>
     </interceptors>

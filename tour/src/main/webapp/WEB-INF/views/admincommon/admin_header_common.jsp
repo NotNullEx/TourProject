@@ -9,4 +9,13 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/resources/css/styles.css" rel="stylesheet" />
         <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script type="text/javascript">
+			$(function () {
+				$.ajaxSetup({
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("AJAX", "true");
+					}
+				});
+			})
+		</script>
          
