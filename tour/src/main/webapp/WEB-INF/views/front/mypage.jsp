@@ -16,8 +16,8 @@
 			<!-- 본문 -->
 			<div id="page-content-wrapper">
 				<div class="container-fluid">
-					<h1>간단한 사이드바</h1>
-					<p>메뉴가 많아서 한 페이지를 넘으면 세로 스크롤바 생김</p>
+					<h1>My Page</h1>
+					<p>내 정보 페이지 입니다. 개인정보 유출에 주의해주세요.</p>
 				</div>
 			</div>
 		</div>
