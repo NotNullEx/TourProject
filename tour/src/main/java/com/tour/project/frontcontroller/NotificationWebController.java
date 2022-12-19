@@ -20,15 +20,15 @@ import com.tour.project.common.StringUtil;
 import com.tour.project.common.vo.PageCriteriaVO;
 
 @Controller
-@RequestMapping("/front/notice")
-public class NoticeWebController {
+@RequestMapping("/front/notification")
+public class NotificationWebController {
 
 	@Autowired
 	private AdminNotificationService adminNotificationService;
 	
 	@GetMapping("/list")
 	@Transactional(readOnly = true)
-	public String getNoticeList(HttpServletRequest request,Model model, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
+	public String getNotificationList(HttpServletRequest request,Model model, HttpServletResponse response,PageCriteriaVO cri) throws Exception {
 		
 		List<NotificationVO> notiList = adminNotificationService.pagingNotiList(cri);
 		PageMaker pageMaker = new PageMaker();
@@ -42,7 +42,7 @@ public class NoticeWebController {
 		model.addAttribute("totalCount", total);
 		model.addAttribute("pageMaker", pageMaker);
 		
-		return "/front/notice";
+		return "/front/notification";
 	}
 	
 	@GetMapping("/detail")
@@ -53,6 +53,6 @@ public class NoticeWebController {
 		
 		model.addAttribute("noti", noti);
 		
-		return "/front/notice_detail";
+		return "/front/notification_detail";
 	}
 }
